@@ -69,12 +69,6 @@ public class TitleScreen extends MetaScreen {
 		bgm.setLooping(true);
 		bgm.play();
 		
-				
-		//preferred_mode=prefs.getString("MODE");
-		//preferred_topic=prefs.getString("TOPIC");
-		
-		
-
 		
 		
 		
@@ -139,6 +133,8 @@ public class TitleScreen extends MetaScreen {
 		
 	    font.setColor(Color.BLACK);
 		
+	    batch.draw(PROBDEF_t, 20,380);
+	    
 	    batch.draw(TUTORIAL_t, TUTORIAL_r.x, TUTORIAL_r.y);
 		batch.draw(ARCADE_t, ARCADE_r.x, ARCADE_r.y);
 		batch.draw(EXPLORABLES_t, EXPLORABLES_r.x, EXPLORABLES_r.y);
@@ -157,7 +153,9 @@ public class TitleScreen extends MetaScreen {
 			batch.draw(TRIM_t, TUTORIAL_r.x, TUTORIAL_r.y);
 		}
 		
-		batch.draw(PROBDEF_t, 20,380);
+		
+		
+		batch.draw(poncho_t, -640, -960);
 		
 		batch.end();
 		

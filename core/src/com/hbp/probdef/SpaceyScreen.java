@@ -23,7 +23,7 @@ public class SpaceyScreen extends MetaScreen {
 	
 	final ProbDef game;
 	
-	private Music bgm;
+	public Music bgm;
 	
 	
 	public Texture starry_background_layer_one_t;
@@ -32,9 +32,9 @@ public class SpaceyScreen extends MetaScreen {
 	public Texture statusbar_t;
 
 	public Texture ship_t;
-	public Texture shield_t;
-	public Texture shield_normal_t;
-	public Texture shield_flicker_t;
+	public Texture shipshield_t;
+	public Texture shipshield_normal_t;
+	public Texture shipshield_flicker_t;
 	
 	public Rectangle shield_r;
 	
@@ -50,8 +50,11 @@ public class SpaceyScreen extends MetaScreen {
 	public int starspeed_one;
 	public int starspeed_two;
 	
+	public double TIMESPEED;
+	
 	boolean are_instructions_visible;
 	
+	public String current_status;
 	
 	private SpriteBatch batch;
 	
@@ -69,7 +72,8 @@ public class SpaceyScreen extends MetaScreen {
 		
 		batch= new SpriteBatch();
 		
-		font = new BitmapFont();
+		font = new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
+		font.setColor(Color.BLACK);
 		
 		total_time=0;
 		
@@ -77,29 +81,32 @@ public class SpaceyScreen extends MetaScreen {
 	    starry_background_layer_two_t=new Texture(Gdx.files.internal("BG2.png"));
 		
 	    ship_t=new Texture(Gdx.files.internal("fullship_GREEN.png"));
-	    shield_normal_t=new Texture(Gdx.files.internal("shield_GREEN.png"));
-	    shield_flicker_t=new Texture(Gdx.files.internal("shield_flicker.png"));
-	    shield_t=shield_normal_t;
+	    shipshield_normal_t=new Texture(Gdx.files.internal("shield_GREEN.png"));
+	    shipshield_flicker_t=new Texture(Gdx.files.internal("shield_flicker.png"));
+	    shipshield_t=shipshield_normal_t;
 	    
 	    statusbar_t=new Texture(Gdx.files.internal("statusbar.png"));
 	    
-		ship_posn=-420;
+		ship_posn=-390;
 		
-		starspeed_one=4;
-		starspeed_two=17;
+		starspeed_one=2;
+		starspeed_two=7;
 		
 		shield_r=new Rectangle();
 		shield_r.x=20;
 	    shield_r.y = ship_posn+420+75;
 	    shield_r.width = 280;
 	    shield_r.height = 3;
+	    
+	    TIMESPEED=1;
+	    current_status="waiting";
 	}
 	
 	public void spacey_render(float delta){
 		
 		meta_render();
 		
-		total_time+=delta;
+		total_time+=delta*TIMESPEED;
 		
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -120,7 +127,6 @@ public class SpaceyScreen extends MetaScreen {
 	      batch.draw(starry_background_layer_two_t, 0f, 1100-(float)((total_time*starspeed_two)%2200));
 	      batch.draw(starry_background_layer_two_t, 0f, 1100-(float)((total_time*starspeed_two+1100)%2200));
 	      batch.draw(ship_t, 0, ship_posn);
-	      batch.draw(shield_t, shield_r.x, shield_r.y);
 		
 		batch.end();
 	}
@@ -131,8 +137,8 @@ public class SpaceyScreen extends MetaScreen {
 		spacey_render(delta);
 		
 		batch.begin();
-		
-		batch.draw(statusbar_t, 0, 400);//This is obscene. HOW THE HELL
+		batch.setProjectionMatrix(camera.combined);
+		batch.draw(statusbar_t, 0, 400);
 		
 		batch.end();
 	}

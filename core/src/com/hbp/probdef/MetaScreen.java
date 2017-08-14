@@ -29,6 +29,8 @@ public class MetaScreen implements Screen {
 	
 	private ScreenViewport viewport;
 	
+	public Texture poncho_t;
+	
 	public MetaScreen(final ProbDef gam, boolean play_the_sound, boolean is_android_on) {
 		
 		ANDROID=is_android_on;
@@ -41,12 +43,12 @@ public class MetaScreen implements Screen {
 		if (play_the_sound){
 			hellosound.play();
 		}
-		
+		poncho_t = new Texture(Gdx.files.internal("blackbar_poncho.png"));
 	}
 	
 	public void meta_render() {
 		
-		if (!ANDROID){Gdx.graphics.setWindowedMode(320, 480);}
+		//if (!ANDROID){Gdx.graphics.setWindowedMode(320, 480);}
 		
 		camera.update();
 		
