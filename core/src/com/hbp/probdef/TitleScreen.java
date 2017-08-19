@@ -3,20 +3,16 @@ package com.hbp.probdef;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import com.badlogic.gdx.utils.viewport.*;
 import com.hbp.probdef.ProbDef;
 
 public class TitleScreen extends MetaScreen {
@@ -49,21 +45,14 @@ public class TitleScreen extends MetaScreen {
 	
 	private Sound hellosound;
 	
-	private boolean wastouched;
-	
-	private ScreenViewport viewport;
-	
 	private SpriteBatch batch;
 	
-	public TitleScreen(final ProbDef gam, boolean play_the_sound, boolean is_android_on) {
+	public TitleScreen(final ProbDef gam, boolean play_the_sound) {
 		
-		super(gam, play_the_sound, is_android_on);
+		super(gam, play_the_sound);
 		
 		System.out.print(camera);
 		
-		ANDROID=is_android_on;
-		
-		wastouched=false;
 		
 		bgm=Gdx.audio.newMusic(Gdx.files.internal("Menu.mp3"));
 		bgm.setLooping(true);
@@ -165,12 +154,11 @@ public class TitleScreen extends MetaScreen {
 		if (Gdx.input.justTouched()) {
 				
 				if (EXPLORABLES_r.contains(tp_x,tp_y)){
-					//game.setScreen(new CampaignSelectScreen(game, ANDROID));
-					//dispose();
+					
 				}
 				
 				if (TUTORIAL_r.contains(tp_x,tp_y)){
-					game.setScreen(new TutorialScreen(game, true, ANDROID));
+					game.setScreen(new TutorialScreen(game, true));
 		            dispose();
 				}
 				

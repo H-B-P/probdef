@@ -1,22 +1,25 @@
 package com.hbp.probdef;
 
-
+/*
+ * ~SUMMARY~
+ * 
+ * The final frontier!
+ * 
+ * This is the foundation of every level which involves actual gameplay.
+ * 
+ * It sets up the looping backgrounds, the ship, the shield, and miscellaneous time-based variables.
+ */
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import com.badlogic.gdx.utils.viewport.*;
 import com.hbp.probdef.ProbDef;
 
 public class SpaceyScreen extends MetaScreen {
@@ -58,9 +61,9 @@ public class SpaceyScreen extends MetaScreen {
 	
 	private SpriteBatch batch;
 	
-	public SpaceyScreen(final ProbDef gam, boolean play_the_sound, boolean is_android_on) {
+	public SpaceyScreen(final ProbDef gam, boolean play_the_sound) {
 		
-		super(gam, play_the_sound, is_android_on);
+		super(gam, play_the_sound);
 		
 		System.out.print(camera);
 		
@@ -98,37 +101,44 @@ public class SpaceyScreen extends MetaScreen {
 	    shield_r.width = 280;
 	    shield_r.height = 3;
 	    
-	    TIMESPEED=1;
-	    current_status="waiting";
+	    TIMESPEED=1; //Set time to pass at one second per second.
+	    //(i.e. the game isn't paused, slowed, in fast-forward etc.)
+	    
+	    current_status="waiting";//By default, we're not shooting or targeting, we're just watching the stars go by.
+	    //(I promise this isn't some kind of philosophical statement)
 	}
 	
 	public void spacey_render(float delta){
 		
-		meta_render();
+		meta_render(); //Call MetaScreen's rendering function before anything.
 		
-		total_time+=delta*TIMESPEED;
+		total_time+=delta*TIMESPEED; //Increment time. This is time in-game, not time for the player.
 		
-		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClearColor(0f, 0f, 0f, 0f); //Make the background at the base of everything black.
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //I have no idea what this line does but it seems important.
 		
-		Vector3 scr_vec= new Vector3(Gdx.input.getX(), Gdx.input.getY(),0);
-		Vector3 irl_vec=camera.unproject(scr_vec);
-		tp_x=irl_vec.x;
-		tp_y=irl_vec.y;
+		Vector3 scr_vec= new Vector3(Gdx.input.getX(), Gdx.input.getY(),0); //Get the position of the player's touch.
+		Vector3 irl_vec=camera.unproject(scr_vec); // 'Unproject' the position (scale, translate, etc) to get the mouse position in the game world.
+		tp_x=irl_vec.x; //extract the x component of mouse position (in pixels)
+		tp_y=irl_vec.y; //extract the y component of mouse position (in pixels)
 		
 		batch.begin();
 		
 		batch.setProjectionMatrix(camera.combined);
 		
 		
+	      draw_spacey_background(); //draws starry backgrounds which loop at different speeds to give the illusion of parallax.
 	      
-	      batch.draw(starry_background_layer_one_t, 0f, 800-(float)((total_time*starspeed_one)%1600));
+	      batch.draw(ship_t, 0, ship_posn); //draw the ship!
+	      
+		batch.end();
+	}
+	
+	public void draw_spacey_background(){
+		batch.draw(starry_background_layer_one_t, 0f, 800-(float)((total_time*starspeed_one)%1600));
 	      batch.draw(starry_background_layer_one_t, 0f, 800-(float)((total_time*starspeed_one+800)%1600));
 	      batch.draw(starry_background_layer_two_t, 0f, 1100-(float)((total_time*starspeed_two)%2200));
 	      batch.draw(starry_background_layer_two_t, 0f, 1100-(float)((total_time*starspeed_two+1100)%2200));
-	      batch.draw(ship_t, 0, ship_posn);
-		
-		batch.end();
 	}
 	
 	@Override
@@ -171,7 +181,11 @@ public class SpaceyScreen extends MetaScreen {
 		starry_background_layer_one_t.dispose();
 		starry_background_layer_two_t.dispose();
 		statusbar_t.dispose();
+		
 		ship_t.dispose();
+		shipshield_t.dispose();
+		shipshield_normal_t.dispose();
+		shipshield_flicker_t.dispose();
 		
 		batch.dispose();
 	}

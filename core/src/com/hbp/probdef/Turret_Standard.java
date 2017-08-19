@@ -1,7 +1,6 @@
 package com.hbp.probdef;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Turret_Standard extends Turret {
@@ -18,7 +17,7 @@ public class Turret_Standard extends Turret {
 		   overlay_t=new Texture (Gdx.files.internal("turrets/turret_"+ident+"_emptytop.png"));
 		   
 		   target_t=new Texture (Gdx.files.internal("turrets/target_"+ident+".png"));
-		   
+		   		   
 		   if (ident.equals("circle")){
 			   
 			   capture_percent=50;
@@ -51,10 +50,23 @@ public class Turret_Standard extends Turret {
 		   }
 		   current_t=normal_t;
 		   
-		   System.out.println("wut");
+		   handle_lines();
+		   
+	   }
+	   
+	   
+	   private void handle_lines(){
+		   
+		   lines_no=4;
+		   
+		   line_one="-"+ident.toUpperCase()+"-";
+		   line_two="FAIL: "+(int)fail_percent+"%";
+		   line_three="DESTROY: "+(int)destroy_percent+"%";
+		   line_four="CAPTURE: "+(int)capture_percent+"%";
 	   }
 	   
 	   @Override
+	   
 	   
 	   public String determine_output(){
 		   double roll=Math.random()*100;

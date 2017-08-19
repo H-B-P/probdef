@@ -1,37 +1,30 @@
 package com.hbp.probdef;
 
-import com.badlogic.gdx.ApplicationAdapter;
+/*
+ * ~SUMMARY~
+ * 
+ * This is the actual game.
+ * It's pretty empty: all the fun happens in the screens, which we hand off to as soon as possible.
+ * 
+ */
+
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
 public class ProbDef extends Game {
-
-  	SpriteBatch batch;
-	BitmapFont font;
 	
-	boolean is_android_on;
 	
 	public void create() {
 		
-		is_android_on=false;
-		batch = new SpriteBatch();
-		// Use LibGDX's default Arial font.
-		font = new BitmapFont();
-		this.setScreen(new TitleScreen(this, false, is_android_on));
+		this.setScreen(new TitleScreen(this, false)); //Hand off to title screen.
+		
 	}
 
 	public void render() {
-		super.render(); // important!
+		super.render(); // I deleted this once and I deeply regretted it.
 	}
 
 	public void dispose() {
-		batch.dispose();
-		font.dispose();
 	}
 
 }

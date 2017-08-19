@@ -21,6 +21,15 @@ public class Turret {
 	   
 	   String ident;
 	   
+	   String line_one;
+	   String line_two;
+	   String line_three;
+	   String line_four;
+	   
+	   int lines_no;
+	   
+	   int turret_no;
+	   
 	   boolean does_it_work;
 	   boolean targeted;
 	   
@@ -33,6 +42,13 @@ public class Turret {
 		   
 		   does_it_work=true;
 		   targeted=false;
+		   
+		   line_one="You shouldn't";
+		   line_two="be seeing this.";
+		   line_three="(like, at all)";
+		   line_four="";
+		   
+		   lines_no=3;
 	   }
 	   
 	   String determine_output(){
