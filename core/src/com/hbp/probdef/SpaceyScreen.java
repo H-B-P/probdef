@@ -47,9 +47,6 @@ public class SpaceyScreen extends MetaScreen {
 	public int seconds;
 	public int ship_posn;
 	
-	public float tp_x;
-	public float tp_y;
-	
 	public int starspeed_one;
 	public int starspeed_two;
 	
@@ -115,12 +112,12 @@ public class SpaceyScreen extends MetaScreen {
 		total_time+=delta*TIMESPEED; //Increment time. This is time in-game, not time for the player.
 		
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f); //Make the background at the base of everything black.
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //I have no idea what this line does but it seems important.
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //Prevent objects from sticking around between frames.
 		
-		Vector3 scr_vec= new Vector3(Gdx.input.getX(), Gdx.input.getY(),0); //Get the position of the player's touch.
-		Vector3 irl_vec=camera.unproject(scr_vec); // 'Unproject' the position (scale, translate, etc) to get the mouse position in the game world.
-		tp_x=irl_vec.x; //extract the x component of mouse position (in pixels)
-		tp_y=irl_vec.y; //extract the y component of mouse position (in pixels)
+		//Vector3 scr_vec= new Vector3(Gdx.input.getX(), Gdx.input.getY(),0); //Get the position of the player's touch.
+		//Vector3 irl_vec=camera.unproject(scr_vec); // 'Unproject' the position (scale, translate, etc) to get the mouse position in the game world.
+		//tp_x=irl_vec.x; //extract the x component of mouse position (in pixels)
+		//tp_y=irl_vec.y; //extract the y component of mouse position (in pixels)
 		
 		batch.begin();
 		
@@ -175,6 +172,8 @@ public class SpaceyScreen extends MetaScreen {
 	}
 	
 	public void spacey_dispose(){
+		
+		meta_dispose();
 		bgm.stop();
 		bgm.dispose();
 		

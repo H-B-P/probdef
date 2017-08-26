@@ -14,6 +14,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.audio.Sound;
 
 import com.hbp.probdef.ProbDef;
@@ -28,6 +29,9 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	
 	private Sound hellosound;
 	
+	public float tp_x; //These two lines between them give the True Position of the mouse on the screen.
+	public float tp_y; //This is as opposed to the position in whatever grid we're using in a level.
+						//(Measured in (unscaled) pixels from the bottom left corner of the screen)
 	
 	public Texture poncho_t;
 	
@@ -41,6 +45,8 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 		game=gam;
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 320, 480);
+		
+		
 		
 		hellosound=Gdx.audio.newSound(Gdx.files.internal("js_sfx/341250__jeremysykes__select01.wav"));
 		if (play_the_sound){
@@ -59,6 +65,11 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 		//Comment out the above line if you want to try stretching the screen and confirming this would work on Android.
 		
 		camera.update();
+		
+		Vector3 scr_vec= new Vector3(Gdx.input.getX(), Gdx.input.getY(),0); //Get the position of the player's touch.
+		Vector3 irl_vec=camera.unproject(scr_vec); // 'Unproject' the position (scale, translate, etc) to get the mouse position in the game world.
+		tp_x=irl_vec.x; //extract the x component of mouse position (in pixels)
+		tp_y=irl_vec.y; //extract the y component of mouse position (in pixels)
 		
 		
 	}

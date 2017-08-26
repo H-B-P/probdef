@@ -21,8 +21,8 @@ public class TitleScreen extends MetaScreen {
 	
 	private Music bgm;
 	
-	private Rectangle EXPLORABLES_r;
-	private Texture EXPLORABLES_t;
+	private Rectangle LIBRARY_r;
+	private Texture LIBRARY_t;
 	
 	private Rectangle TUTORIAL_r;
 	private Texture TUTORIAL_t;
@@ -36,10 +36,6 @@ public class TitleScreen extends MetaScreen {
 
 	
 	private BitmapFont font;
-
-	
-	private float tp_x;
-	private float tp_y;
 	
 	boolean are_instructions_visible;
 	
@@ -62,12 +58,12 @@ public class TitleScreen extends MetaScreen {
 		
 		
 		
-		EXPLORABLES_r = new Rectangle();
-		EXPLORABLES_r.x=60;
-		EXPLORABLES_r.y=170;
-		EXPLORABLES_r.height=60;
-		EXPLORABLES_r.width=200;
-		EXPLORABLES_t = new Texture(Gdx.files.internal("abutton_long_explorables.png"));
+		LIBRARY_r = new Rectangle();
+		LIBRARY_r.x=60;
+		LIBRARY_r.y=170;
+		LIBRARY_r.height=60;
+		LIBRARY_r.width=200;
+		LIBRARY_t = new Texture(Gdx.files.internal("abutton_long_library.png"));
 		
 		ARCADE_r = new Rectangle();
 		ARCADE_r.x=60;
@@ -109,10 +105,10 @@ public class TitleScreen extends MetaScreen {
 		Gdx.gl.glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		Vector3 scr_vec= new Vector3(Gdx.input.getX(), Gdx.input.getY(),0);
-		Vector3 irl_vec=camera.unproject(scr_vec);
-		tp_x=irl_vec.x;
-		tp_y=irl_vec.y;
+		//Vector3 scr_vec= new Vector3(Gdx.input.getX(), Gdx.input.getY(),0);
+		//Vector3 irl_vec=camera.unproject(scr_vec);
+		//tp_x=irl_vec.x;
+		//tp_y=irl_vec.y;
 		
 		batch.begin();
 		
@@ -126,12 +122,12 @@ public class TitleScreen extends MetaScreen {
 	    
 	    batch.draw(TUTORIAL_t, TUTORIAL_r.x, TUTORIAL_r.y);
 		batch.draw(ARCADE_t, ARCADE_r.x, ARCADE_r.y);
-		batch.draw(EXPLORABLES_t, EXPLORABLES_r.x, EXPLORABLES_r.y);
+		batch.draw(LIBRARY_t, LIBRARY_r.x, LIBRARY_r.y);
 		
 		
 		
-		if (EXPLORABLES_r.contains(tp_x,tp_y)){
-			batch.draw(TRIM_t, EXPLORABLES_r.x, EXPLORABLES_r.y);
+		if (LIBRARY_r.contains(tp_x,tp_y)){
+			batch.draw(TRIM_t, LIBRARY_r.x, LIBRARY_r.y);
 		}
 		
 		if (ARCADE_r.contains(tp_x,tp_y)){
@@ -148,13 +144,11 @@ public class TitleScreen extends MetaScreen {
 		
 		batch.end();
 		
-		//tp_x=Gdx.input.getX();
-		//tp_y=Gdx.input.getY();
-		
 		if (Gdx.input.justTouched()) {
 				
-				if (EXPLORABLES_r.contains(tp_x,tp_y)){
-					
+				if (LIBRARY_r.contains(tp_x,tp_y)){
+					game.setScreen(new GenericSelectScreen(game, true));
+		            dispose();
 				}
 				
 				if (TUTORIAL_r.contains(tp_x,tp_y)){
@@ -191,11 +185,11 @@ public class TitleScreen extends MetaScreen {
 		bgm.dispose();
 		
 		TUTORIAL_t.dispose();
-		EXPLORABLES_t.dispose();
+		LIBRARY_t.dispose();
 		ARCADE_t.dispose();
 		PROBDEF_t.dispose();
 
 		TRIM_t.dispose();
-
+		batch.dispose();
 	}
 }
