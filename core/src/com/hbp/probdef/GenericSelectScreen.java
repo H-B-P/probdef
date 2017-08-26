@@ -28,7 +28,7 @@ public class GenericSelectScreen extends MetaScreen {
 	private Texture banner_example_two_t;
 	private Texture banner_example_three_t;
 	
-	private Texture banner_t;
+	Texture banner_t;
 	
 	
 	
@@ -37,36 +37,36 @@ public class GenericSelectScreen extends MetaScreen {
 	
 	
 	
-	private Rectangle one_r;
-	private Texture one_t;
+	Rectangle one_r;
+	Texture one_t;
 	
-	private Rectangle two_r;
-	private Texture two_t;
+	Rectangle two_r;
+	Texture two_t;
 	
-	private Rectangle three_r;
-	private Texture three_t;
+	Rectangle three_r;
+	Texture three_t;
 	
-	private Rectangle four_r;
-	private Texture four_t;
+	Rectangle four_r;
+	Texture four_t;
 	
-	private Rectangle five_r;
-	private Texture five_t;
+	Rectangle five_r;
+	Texture five_t;
 	
-	private Rectangle six_r;
-	private Texture six_t;
+	Rectangle six_r;
+	Texture six_t;
 	
 	
 	
-	private String TOPIC;
-	private String first_topic;
-	private String last_topic;
+	String TOPIC;
+	String first_topic;
+	String last_topic;
 	
 	private boolean is_it_first;
 	private boolean is_it_last;
 	
 	private Rectangle banner_r;
 	
-	private Preferences prefs;
+	Preferences prefs;
 	
 	private BitmapFont font;
 	
@@ -74,11 +74,11 @@ public class GenericSelectScreen extends MetaScreen {
 	private Texture prv_trim_t;
 	private Texture nxt_trim_t;
 	
-	private int NUMBER_OF_LEVELS;
+	int NUMBER_OF_LEVELS;
 	
-	private Texture blank_t;
+	Texture blank_t;
 	
-	private Sound arrowsound;
+	public Sound arrowsound;
 	
 	private SpriteBatch batch;
 	
@@ -91,19 +91,19 @@ public class GenericSelectScreen extends MetaScreen {
 		if (!prefs.contains("example_topic")){
 			prefs.putString("example_topic", "example_1");
 		}
+		TOPIC=prefs.getString("example_topic");
+		
 		
 		is_it_first=false;
 		is_it_last=false;
 		
-		TOPIC=prefs.getString("example_topic");
+		
 		first_topic="example_1";
 		last_topic="example_3";
 		bgm=Gdx.audio.newMusic(Gdx.files.internal("LevelSelect.mp3"));
 		bgm.setLooping(true);
 		   bgm.play();
 		   
-		NUMBER_OF_LEVELS=3;
-		
 		dull_trim_t=new Texture(Gdx.files.internal("abutton_trim_boring.png"));
 		
 		prv_trim_t=new Texture(Gdx.files.internal("pobutton_left_trim.png"));
@@ -155,16 +155,18 @@ public class GenericSelectScreen extends MetaScreen {
 		
 		game = gam;
 		
-		set_up_level_button_positions(NUMBER_OF_LEVELS);
+		
 		
 		font = new BitmapFont();
 		
 		arrowsound=Gdx.audio.newSound(Gdx.files.internal("js_sfx/344510__jeremysykes__select03.wav"));		
 		
 		adjustToTopic();
+		check_first_last();
+		set_up_level_button_positions(NUMBER_OF_LEVELS);
 	}
 	
-	private void set_up_level_button_positions(int how_many){
+	void set_up_level_button_positions(int how_many){
 		if (how_many==1){
 			
 			one_r = new Rectangle();
@@ -237,7 +239,7 @@ public class GenericSelectScreen extends MetaScreen {
 		}
 	}
 	
-	private void load_in_banner_textures(){
+	public void load_in_banner_textures(){
 		banner_example_one_t=new Texture(Gdx.files.internal("banner_example_1.png"));
 		banner_example_two_t=new Texture(Gdx.files.internal("banner_example_2.png"));
 		banner_example_three_t=new Texture(Gdx.files.internal("banner_example_3.png"));
@@ -247,18 +249,7 @@ public class GenericSelectScreen extends MetaScreen {
 		
 	}
 	
-	public void adjustToTopic(){
-		
-		prefs.putString("example", TOPIC);
-		if(TOPIC.equals("example_1")){
-			banner_t=banner_example_one_t;
-		}
-		if(TOPIC.equals("example_2")){
-			banner_t=banner_example_two_t;
-		}
-		if(TOPIC.equals("example_3")){
-			banner_t=banner_example_three_t;
-		}
+	public void check_first_last(){
 		if(TOPIC.equals(first_topic)){
 			is_it_first=true;
 		}
@@ -271,10 +262,27 @@ public class GenericSelectScreen extends MetaScreen {
 		else{
 			is_it_last=false;
 		}
+	}
+	
+	public void adjustToTopic(){
+		
+		prefs.putString("example", TOPIC);
+		if(TOPIC.equals("example_1")){
+			banner_t=banner_example_one_t;
+			NUMBER_OF_LEVELS=5;
+		}
+		if(TOPIC.equals("example_2")){
+			banner_t=banner_example_two_t;
+			NUMBER_OF_LEVELS=3;
+		}
+		if(TOPIC.equals("example_3")){
+			banner_t=banner_example_three_t;
+			NUMBER_OF_LEVELS=6;
+		}
 		
 	}
 	
-	private void draw_level_buttons(){
+	public void draw_level_buttons(){
 		if (NUMBER_OF_LEVELS>=1){batch.draw(one_t, one_r.x, one_r.y);}
 		if (NUMBER_OF_LEVELS>=2){batch.draw(two_t, two_r.x, two_r.y);}
 		if (NUMBER_OF_LEVELS>=3){batch.draw(three_t, three_r.x, three_r.y);}
@@ -339,7 +347,7 @@ public class GenericSelectScreen extends MetaScreen {
 		}
 	}
 	
-	private void go_forward(){
+	void go_forward(){
 		
 		arrowsound.play();
 		if (TOPIC.equals("example_1")){
@@ -352,7 +360,7 @@ public class GenericSelectScreen extends MetaScreen {
 		}
 	}
 	
-	private void go_back(){
+	void go_back(){
 		
 		arrowsound.play();
 		if (TOPIC.equals("example_2")){
@@ -374,9 +382,7 @@ public class GenericSelectScreen extends MetaScreen {
 		}
 	}
 	
-	@Override
-	public void render(float delta) {
-		
+	public void generic_render(){
 		Gdx.gl.glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
@@ -397,17 +403,27 @@ public class GenericSelectScreen extends MetaScreen {
 		if (Gdx.input.justTouched()){
 			if (nxt_r.contains(tp_x, tp_y) && !is_it_last){
 				go_forward();
-
 				adjustToTopic();
+				check_first_last();
+				set_up_level_button_positions(NUMBER_OF_LEVELS);
+
 			}
 			if (prv_r.contains(tp_x, tp_y) && !is_it_first){
 				go_back();
-
 				adjustToTopic();
+				check_first_last();
+				set_up_level_button_positions(NUMBER_OF_LEVELS);
+
 			}
 		}
 		
 		check_for_exits();
+	}
+	
+	@Override
+	public void render(float delta) {
+		
+		generic_render();
 		
 	}
 

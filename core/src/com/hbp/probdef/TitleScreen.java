@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.hbp.probdef.ProbDef;
@@ -94,17 +93,11 @@ public class TitleScreen extends MetaScreen {
 
 	@Override
 	public void render(float delta) {
-		//Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 		
 		meta_render();
 		
 		Gdx.gl.glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		//Vector3 scr_vec= new Vector3(Gdx.input.getX(), Gdx.input.getY(),0);
-		//Vector3 irl_vec=camera.unproject(scr_vec);
-		//tp_x=irl_vec.x;
-		//tp_y=irl_vec.y;
 		
 		batch.begin();
 		
@@ -143,7 +136,7 @@ public class TitleScreen extends MetaScreen {
 		if (Gdx.input.justTouched()) {
 				
 				if (LIBRARY_r.contains(tp_x,tp_y)){
-					game.setScreen(new GenericSelectScreen(game, true));
+					game.setScreen(new LibrarySelectScreen(game, true));
 		            dispose();
 				}
 				
