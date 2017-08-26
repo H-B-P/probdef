@@ -90,10 +90,6 @@ public class TitleScreen extends MetaScreen {
 		font = new BitmapFont();
 		
 		
-		hellosound=Gdx.audio.newSound(Gdx.files.internal("js_sfx/341250__jeremysykes__select01.wav"));
-		if (play_the_sound){
-			hellosound.play();
-		}
 	}
 
 	@Override

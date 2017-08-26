@@ -3,14 +3,10 @@ package com.hbp.probdef;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -80,21 +76,8 @@ public class GenericSelectScreen extends MetaScreen {
 	
 	private int NUMBER_OF_LEVELS;
 	
-	private Rectangle selector_r;
-	private Texture selector_t;
-	
-	private Texture mode_background_t;
-	
 	private Texture blank_t;
 	
-	private Texture abutton_corner_t;
-	private Texture abutton_corner_trim_t;
-	
-	//private Texture difficulty_arrow_t;
-	
-	private boolean ENDLESS;
-	
-	private Sound hellosound;
 	private Sound arrowsound;
 	
 	private SpriteBatch batch;
@@ -169,8 +152,6 @@ public class GenericSelectScreen extends MetaScreen {
 		
 		
 		batch=new SpriteBatch();
-
-		mode_background_t = new Texture(Gdx.files.internal("blank_block.png"));
 		
 		game = gam;
 		
@@ -178,9 +159,7 @@ public class GenericSelectScreen extends MetaScreen {
 		
 		font = new BitmapFont();
 		
-		arrowsound=Gdx.audio.newSound(Gdx.files.internal("js_sfx/344510__jeremysykes__select03.wav"));
-		hellosound=Gdx.audio.newSound(Gdx.files.internal("js_sfx/344508__jeremysykes__select04.wav"));
-		
+		arrowsound=Gdx.audio.newSound(Gdx.files.internal("js_sfx/344510__jeremysykes__select03.wav"));		
 		
 		adjustToTopic();
 	}
@@ -270,7 +249,6 @@ public class GenericSelectScreen extends MetaScreen {
 	
 	public void adjustToTopic(){
 		
-		hellosound.play();
 		prefs.putString("example", TOPIC);
 		if(TOPIC.equals("example_1")){
 			banner_t=banner_example_one_t;
@@ -293,7 +271,6 @@ public class GenericSelectScreen extends MetaScreen {
 		else{
 			is_it_last=false;
 		}
-		//prefs.putString("TOPIC", TOPIC);
 		
 	}
 	
@@ -363,6 +340,8 @@ public class GenericSelectScreen extends MetaScreen {
 	}
 	
 	private void go_forward(){
+		
+		arrowsound.play();
 		if (TOPIC.equals("example_1")){
 			TOPIC="example_2";
 			
@@ -374,6 +353,8 @@ public class GenericSelectScreen extends MetaScreen {
 	}
 	
 	private void go_back(){
+		
+		arrowsound.play();
 		if (TOPIC.equals("example_2")){
 			TOPIC="example_1";
 			
@@ -414,12 +395,12 @@ public class GenericSelectScreen extends MetaScreen {
 		batch.end();
 		
 		if (Gdx.input.justTouched()){
-			if (nxt_r.contains(tp_x, tp_y)){
+			if (nxt_r.contains(tp_x, tp_y) && !is_it_last){
 				go_forward();
 
 				adjustToTopic();
 			}
-			if (prv_r.contains(tp_x, tp_y)){
+			if (prv_r.contains(tp_x, tp_y) && !is_it_first){
 				go_back();
 
 				adjustToTopic();
