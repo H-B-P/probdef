@@ -5,21 +5,12 @@ package com.hbp.probdef;
 import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.*;
 import com.hbp.probdef.Kaboom;
 import com.hbp.probdef.Mine;
 import com.hbp.probdef.Turret;
@@ -43,7 +34,8 @@ public class TutorialScreen extends SpaceyScreen {
    
    private Array<Mine> mines;
    private Array<Kaboom> explosions;
-   private Array<Turret> turrets;
+   public Array<Turret> turrets;
+   public Array<Turret_Standard> turrets_standard;
    public Array<Dot> dots;
    
    private Texture destroy_dot_t;
@@ -71,6 +63,8 @@ public class TutorialScreen extends SpaceyScreen {
    private int captured;
    private int destroyed;
    private int shields;
+   private int surviving;
+   private int score;
    
    private Texture textbox_one_t;
    
@@ -86,6 +80,8 @@ public class TutorialScreen extends SpaceyScreen {
 	private Rectangle screen_proper;
 	
 	private boolean infuriatingly_specific_bool;
+	
+	private BitmapFont grayfont;
 	
 	public TutorialScreen(final ProbDef gam, boolean play_the_sound) {
 		
@@ -111,6 +107,7 @@ public class TutorialScreen extends SpaceyScreen {
 	      mines = new Array<Mine>();
 	      explosions = new Array<Kaboom>();
 	      turrets= new Array<Turret>();
+	      turrets_standard= new Array<Turret_Standard>();
 	      dots = new Array<Dot>();
 	      
 	      
@@ -139,6 +136,9 @@ public class TutorialScreen extends SpaceyScreen {
 	      textbox_one_t=new Texture(Gdx.files.internal("textbox_1.png"));
 	      
 	      turret_setup();
+	      
+	      grayfont=new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
+			grayfont.setColor(new Color(0.8f, 0.8f, 0.8f, 1.0f));
 	      
 	      infuriatingly_specific_bool=false; //so infuriating
 	}
@@ -383,6 +383,12 @@ public class TutorialScreen extends SpaceyScreen {
 		   turret_two=new Turret_Standard("square");
 		   turret_three=new Turret_Standard("pentagon");
 		   turret_four=new Turret_Standard("hexagon");
+		   
+		   turrets_standard.add((Turret_Standard) turret_one);
+		   turrets_standard.add((Turret_Standard) turret_two);
+		   turrets_standard.add((Turret_Standard) turret_three);
+		   turrets_standard.add((Turret_Standard) turret_four);
+		   
 	   }
 	   
 	   private void level_specific_events(){
@@ -650,6 +656,25 @@ public class TutorialScreen extends SpaceyScreen {
 		   end_time-=decrement;
 	   }
 	
+	   
+	   void autocalc_and_display(){
+		   for (Mine mine:mines){
+			   float survival=1.0f;
+			   for (Turret_Standard turret_standard:turrets_standard){
+				   if (turret_standard.targeted){
+					   if (turret_standard.target_mine.equals(mine)){
+						   survival=survival*turret_standard.fail_percent/100.0f;
+					   }
+				   }
+			   }
+			   grayfont.draw(batch, present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 80, 1, true);
+		   }
+	   }
+	   
+	   String present_float(float flo){
+		   return String.format("%.2f", flo);
+	   }
+	   
 	@Override
 	public void render(float delta) {
 		
@@ -682,6 +707,10 @@ public class TutorialScreen extends SpaceyScreen {
 		batch.setProjectionMatrix(camera.combined);
 		
 		draw_iterable_objects();
+		
+		if (current_status.equals("targeting")){
+			autocalc_and_display();
+		}
 		
 	    batch.draw(shipshield_t, shield_r.x, shield_r.y);
 	    
