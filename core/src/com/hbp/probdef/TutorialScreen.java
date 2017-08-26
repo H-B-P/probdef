@@ -63,7 +63,7 @@ public class TutorialScreen extends SpaceyScreen {
    private int captured;
    private int destroyed;
    private int shields;
-   private int surviving;
+   private int minecount;
    private int score;
    
    private Texture textbox_one_t;
@@ -129,6 +129,9 @@ public class TutorialScreen extends SpaceyScreen {
 	      
 	      captured=0;
 	      destroyed=0;
+	      
+	      minecount=20;
+	      shields=99;
 	      
 	      the_text="";
 	      show_the_text=false;
@@ -238,8 +241,10 @@ public class TutorialScreen extends SpaceyScreen {
 		      }
 		      
 		      if (!torrit){
+		    	font.draw(batch, "MINES: "+minecount, 90, 472, 140, 1, true);
 				font.draw(batch, "CAPTURED: "+captured, 90, 455, 140, 1, true);
 				font.draw(batch, "DESTROYED: "+ destroyed, 90, 437, 140, 1, true);
+				font.draw(batch, "SHIELDS: "+shields, 90, 420, 140, 1, true);
 		      }
 				
 		      if (current_status.equals("targeting") && currently_active_turret_no==5){
@@ -307,12 +312,10 @@ public class TutorialScreen extends SpaceyScreen {
 			     Mine mine = iter_mines.next();
 				if(mine.rect.overlaps(shield_r)) {
 			     	spawnExplosion(mine.rect.x,mine.rect.y);
-			        //iters.remove();
 			         	iter_mines.remove();
-			         	//deadyet=true;
+			         	minecount-=1;
+			         	shields-=1;
 			         	shipshield_t=shipshield_flicker_t;
-			            //lives-=1;
-			            //hitship_sound.play();
 			          }
 			}
 	   }
@@ -332,6 +335,7 @@ public class TutorialScreen extends SpaceyScreen {
 				   if ((mine.rect.x+mine.rect.width+20)<0 || (mine.rect.x-20)>320){
 					   mines.removeValue(mine, true);
 					   captured+=1;
+					   minecount-=1;
 				   }
 			   }
 		   }
@@ -348,6 +352,7 @@ public class TutorialScreen extends SpaceyScreen {
 				    	 dot.target_mine.actually_there=false;
 					     	spawnExplosion(dot.target_mine.rect.x,dot.target_mine.rect.y);
 					     	destroyed+=1;
+					     	minecount-=1;
 			    	 }
 			    	 if (dot.type.equals("capture") && !dot.target_mine.captureproof){
 				    	 dot.target_mine.being_detained=true;
@@ -393,13 +398,12 @@ public class TutorialScreen extends SpaceyScreen {
 	   
 	   private void level_specific_events(){
 		   if (seconds==2){
-				spawnMine(-2, 20);
-				spawnMine(2, 20);
+				spawnMine(-1, 15);
+				spawnMine(1, 15);
 				
 			}
 			if (seconds==12){
-				spawnMine(-2,65);
-				spawnMine(0,65);
+				spawnMine(-3,65);
 				spawnMine(3,65);
 			}
 			if (seconds==22){
@@ -407,22 +411,28 @@ public class TutorialScreen extends SpaceyScreen {
 				spawnMine(2,65);
 				spawnMine(-2,65);
 			}
-			if (seconds==24){
+			if (seconds==30){
 				spawnMine(0,100);
 				spawnMine(2,65);
 				spawnMine(-2,50);
 			}
-			if (seconds==28){
+			if (seconds==36){
 				spawnMine(2,65);
+				spawnMine(0,65);
 				spawnMine(-3, 50);
 			}
-			if (seconds==30){
+			if (seconds==40){
 				spawnMine(-3,50);
 				spawnMine(-1, 50);
 				spawnMine(1,50);
 				spawnMine(3, 50);
 			}
-			if (seconds>40){
+			if (seconds==46){
+				spawnMine(-3,100);
+				spawnMine(-1, 100);
+				spawnMine(2,100);
+			}
+			if (minecount==0){
 				game.setScreen(new TitleScreen(game, true));
   			  dispose();
 			}
@@ -481,6 +491,10 @@ public class TutorialScreen extends SpaceyScreen {
 				   }
 			   }
 			   if (total_time>16 && total_time<20){
+				   show_the_text=true;
+				   the_text="The percentages below a mine show the chance they'll survive the volley.";
+			   }
+			   if (total_time>28 && total_time<32){
 				   show_the_text=true;
 				   the_text="Mines won't always have the same speed, so prioritise.";
 			   }
