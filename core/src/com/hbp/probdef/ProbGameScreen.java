@@ -17,7 +17,7 @@ import com.hbp.probdef.Turret;
 
 import com.hbp.probdef.ProbDef;
 
-public class TutorialScreen extends SpaceyScreen {
+public class ProbGameScreen extends SpaceyScreen {
 	
 	final ProbDef game;
 	
@@ -83,7 +83,7 @@ public class TutorialScreen extends SpaceyScreen {
 	
 	private BitmapFont grayfont;
 	
-	public TutorialScreen(final ProbDef gam, boolean play_the_sound) {
+	public ProbGameScreen(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		game=gam;
@@ -490,7 +490,7 @@ public class TutorialScreen extends SpaceyScreen {
 					   the_text="If you change your mind before firing, click on the relevant turret to re-target it.";
 				   }
 			   }
-			   if (total_time>16 && total_time<20){
+			   if (total_time>18 && total_time<22){
 				   show_the_text=true;
 				   the_text="The percentages below a mine show the chance they'll survive the volley.";
 			   }
@@ -517,7 +517,7 @@ public class TutorialScreen extends SpaceyScreen {
 	   
 	   private Mine pick_a_mine(){
 		   for(Mine mine: mines) {
-			   if (mine.rect.contains(tp_x, tp_y)){
+			   if (mine.rect.contains(tp_x, tp_y) && tp_y<440){
 				   return mine;
 			   }
 		   }
@@ -689,96 +689,100 @@ public class TutorialScreen extends SpaceyScreen {
 		   return String.format("%.2f", flo);
 	   }
 	   
+	   public void probgame_render(float delta){
+		   effective_delta=(float) (delta*TIMESPEED); //If time is running slow, the delta to feed into all calculations will be lower.
+			
+			status_effects();
+			
+			move_iterable_objects(effective_delta); //Update position of dots and mines.
+			
+			time_out_explosions(); //Eventually things finish exploding.
+			
+			
+			
+			
+			
+			if (current_status.equals("firing")){
+				do_firing_things();
+			}
+			
+			if (current_status.equals("targeting")){
+				do_targeting_things();
+			}
+			
+			
+			spacey_render(delta); //Do the generic rendering defined in SpaceyScreen.
+			
+			
+			batch.begin();
+			
+			batch.setProjectionMatrix(camera.combined);
+			
+			draw_iterable_objects();
+			
+			if (current_status.equals("targeting")){
+				autocalc_and_display();
+			}
+			
+		    batch.draw(shipshield_t, shield_r.x, shield_r.y);
+		    
+		    if (current_status.equals("targeting") && currently_active_turret_no<5 && currently_active_turret_no>0){
+		    	batch.draw(currently_active_turret.target_t,tp_x-30,tp_y-30);
+		    }
+		    
+		    draw_targeting_symbols();
+			
+			draw_the_statusbar(); //Draw the bar at the top of the screen, and everything on it.
+		    
+			if (show_the_text){
+				draw_textbox_one(the_text);
+			}
+
+			
+			batch.draw(poncho_t, -640, -960); //Draw a massive object over everything to frame the game screen.
+			
+			batch.end();
+			
+			
+			check_for_dot_mine_collisions();
+			
+			check_for_shipshield_mine_collisions();
+			
+			
+			kill_lost_dots(); // Remove dots which are no longer onscreen from the 'dots' array.
+			
+			collect_captured(); // Remove mines which are no longer onscreen from the 'mines' array.
+			
+			detarget_the_dead(); //Make turrets not target destroyed or captured mines.
+			
+			
+			handle_seconds(); //Execute the events which happen at the beginning of a second.
+			
+			
+			level_specific_timeline();
+			
+				if (current_status.equals("firing") && total_time>end_time){
+					current_status="waiting";
+				}
+			
+			
+			
+			
+			
+			shipshield_t=shipshield_normal_t; // If the shield is flickering, we want it to flicker for only one frame; we're resetting it.
+			
+			if(Gdx.input.justTouched()){
+				if (menu_button_r.contains(tp_x, tp_y)){
+		    			  game.setScreen(new TitleScreen(game, true));
+		    			  dispose();
+				}
+			}
+	   }
 	@Override
 	public void render(float delta) {
 		
-		effective_delta=(float) (delta*TIMESPEED); //If time is running slow, the delta to feed into all calculations will be lower.
+		probgame_render(delta);
 		
-		status_effects();
-		
-		move_iterable_objects(effective_delta); //Update position of dots and mines.
-		
-		time_out_explosions(); //Eventually things finish exploding.
-		
-		
-		
-		
-		
-		if (current_status.equals("firing")){
-			do_firing_things();
-		}
-		
-		if (current_status.equals("targeting")){
-			do_targeting_things();
-		}
-		
-		
-		spacey_render(delta); //Do the generic rendering defined in SpaceyScreen.
-		
-		
-		batch.begin();
-		
-		batch.setProjectionMatrix(camera.combined);
-		
-		draw_iterable_objects();
-		
-		if (current_status.equals("targeting")){
-			autocalc_and_display();
-		}
-		
-	    batch.draw(shipshield_t, shield_r.x, shield_r.y);
-	    
-	    if (current_status.equals("targeting") && currently_active_turret_no<5 && currently_active_turret_no>0){
-	    	batch.draw(currently_active_turret.target_t,tp_x-30,tp_y-30);
-	    }
-	    
-	    draw_targeting_symbols();
-		
-		draw_the_statusbar(); //Draw the bar at the top of the screen, and everything on it.
-	    
-		if (show_the_text){
-			draw_textbox_one(the_text);
-		}
-
-		
-		batch.draw(poncho_t, -640, -960); //Draw a massive poncho over everything to frame the game screen.
-		
-		batch.end();
-		
-		
-		check_for_dot_mine_collisions();
-		
-		check_for_shipshield_mine_collisions();
-		
-		
-		kill_lost_dots(); // Remove dots which are no longer onscreen from the 'dots' array.
-		
-		collect_captured(); // Remove mines which are no longer onscreen from the 'mines' array.
-		
-		detarget_the_dead(); //Make turrets not target destroyed or captured mines.
-		
-		
-		handle_seconds(); //Execute the events which happen at the beginning of a second.
-		
-		
-		level_specific_timeline();
-		
-			if (current_status.equals("firing") && total_time>end_time){
-				current_status="waiting";
-			}
-		
-		
-		
-		
-		
-		shipshield_t=shipshield_normal_t; // If the shield is flickering, we want it to flicker for only one frame; we're resetting it.
-		
-		if(Gdx.input.justTouched()){
-			if (menu_button_r.contains(tp_x, tp_y)){
-	    			  game.setScreen(new TitleScreen(game, true));
-	    			  dispose();
-			}
-		}
 	}
 
 	@Override
@@ -796,11 +800,16 @@ public class TutorialScreen extends SpaceyScreen {
 	@Override
 	public void resume() {
 	}
-
+	
+	public void probgame_dispose(){
+		spacey_dispose();
+		bgm.stop();
+		bgm.dispose();
+	}
+	
 	@Override
 	public void dispose() {
-		spacey_dispose();
-		//bgm.stop();
-		//bgm.dispose();
+		probgame_dispose();
+		
 	}
 }

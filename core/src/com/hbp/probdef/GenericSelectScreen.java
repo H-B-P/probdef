@@ -1,6 +1,10 @@
 package com.hbp.probdef;
 
-
+/*~SUMMARY~
+ * 
+ * This screen acts as a base for menus: library, levels, etc.
+ * 
+ */
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
