@@ -9,6 +9,7 @@ public class LibrarySelectScreen extends GenericSelectScreen {
 	   
 	private Texture banner_prob_t;
 	private Texture banner_bayes_t;
+	private Texture combined_t;
 	
 	   public LibrarySelectScreen(final ProbDef gam, boolean play_the_sound){
 			super(gam, play_the_sound);
@@ -19,6 +20,7 @@ public class LibrarySelectScreen extends GenericSelectScreen {
 			if (prefs.contains("probdef_library_topic")){
 				prefs.putString("probdef_library_topic", "Probability");
 			}
+			
 			TOPIC=prefs.getString("probdef_library_topic");
 			
 			System.out.println("topic is somehow "+TOPIC);
@@ -38,6 +40,12 @@ public class LibrarySelectScreen extends GenericSelectScreen {
 	   
 	   @Override
 	   
+	   public void load_in_button_textures(){
+		   combined_t=new Texture(Gdx.files.internal("abutton_combined.png"));
+	   }
+	   
+	   @Override
+	   
 	   
 	   public void adjustToTopic(){
 			
@@ -45,6 +53,7 @@ public class LibrarySelectScreen extends GenericSelectScreen {
 			if(TOPIC.equals("Probability")){
 				NUMBER_OF_LEVELS=5;
 				banner_t=banner_prob_t;
+				one_t=combined_t;
 			}
 			if(TOPIC.equals("Bayes")){
 				NUMBER_OF_LEVELS=4;
@@ -76,5 +85,20 @@ public class LibrarySelectScreen extends GenericSelectScreen {
 	   @Override
 	   public void render(float delta){
 		   generic_render();
+		   if (Gdx.input.justTouched()){
+			   if (one_r.contains(tp_x,tp_y)){
+				   game.setScreen(new GenericBookScreen(game, true));
+				dispose();
+			   }
+		   }
 	   }
+	   
+		@Override
+		public void dispose() {
+
+			generic_select_dispose();
+			
+			
+		}
+	   
 }

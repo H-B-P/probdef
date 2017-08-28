@@ -64,9 +64,7 @@ public class SpaceyScreen extends MetaScreen {
 		
 		System.out.print(camera);
 		
-		bgm=Gdx.audio.newMusic(Gdx.files.internal("Chillectro.mp3"));
-		bgm.setLooping(true);
-		bgm.play();
+		
 		
 		game = gam;
 		
@@ -113,11 +111,6 @@ public class SpaceyScreen extends MetaScreen {
 		
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f); //Make the background at the base of everything black.
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //Prevent objects from sticking around between frames.
-		
-		//Vector3 scr_vec= new Vector3(Gdx.input.getX(), Gdx.input.getY(),0); //Get the position of the player's touch.
-		//Vector3 irl_vec=camera.unproject(scr_vec); // 'Unproject' the position (scale, translate, etc) to get the mouse position in the game world.
-		//tp_x=irl_vec.x; //extract the x component of mouse position (in pixels)
-		//tp_y=irl_vec.y; //extract the y component of mouse position (in pixels)
 		
 		batch.begin();
 		

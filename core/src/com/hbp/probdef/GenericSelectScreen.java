@@ -36,8 +36,8 @@ public class GenericSelectScreen extends MetaScreen {
 	
 	
 	
-	private Rectangle menu_r;
-	private Texture menu_t;
+	Rectangle menu_r;
+	Texture menu_t;
 	
 	
 	
@@ -243,13 +243,13 @@ public class GenericSelectScreen extends MetaScreen {
 		}
 	}
 	
-	public void load_in_banner_textures(){
+	void load_in_banner_textures(){
 		banner_example_one_t=new Texture(Gdx.files.internal("banner_example_1.png"));
 		banner_example_two_t=new Texture(Gdx.files.internal("banner_example_2.png"));
 		banner_example_three_t=new Texture(Gdx.files.internal("banner_example_3.png"));
 	}
 	
-	private void load_in_button_textures(){
+	void load_in_button_textures(){
 		
 	}
 	
@@ -446,9 +446,8 @@ public class GenericSelectScreen extends MetaScreen {
 	@Override
 	public void resume() {
 	}
-
-	@Override
-	public void dispose() {
+	
+	void generic_select_dispose(){
 		
 		meta_dispose();
 		
@@ -458,7 +457,12 @@ public class GenericSelectScreen extends MetaScreen {
 		nxt_t.dispose();
 		
 		prv_t.dispose();
-		
+	}
+	
+	@Override
+	public void dispose() {
+
+		generic_select_dispose();
 		
 		
 	}

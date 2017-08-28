@@ -1,6 +1,9 @@
 package com.hbp.probdef;
 
-
+/*~SUMMARY~
+ * 
+ * This is the root of gameplay that's based on standard turrets (i.e. not Bayes). Unmodified, it doubles as the tutorial.
+ */
 
 import java.util.Iterator;
 
@@ -14,6 +17,8 @@ import com.badlogic.gdx.utils.Array;
 import com.hbp.probdef.Kaboom;
 import com.hbp.probdef.Mine;
 import com.hbp.probdef.Turret;
+import com.badlogic.gdx.audio.Sound;
+
 
 import com.hbp.probdef.ProbDef;
 
@@ -30,10 +35,10 @@ public class ProbGameScreen extends SpaceyScreen {
    private Texture orange_button_trim_t;
    
    
-   private Texture mine_t;
+   Texture mine_t;
    
-   private Array<Mine> mines;
-   private Array<Kaboom> explosions;
+   public Array<Mine> mines;
+   public Array<Kaboom> explosions;
    public Array<Turret> turrets;
    public Array<Turret_Standard> turrets_standard;
    public Array<Dot> dots;
@@ -45,16 +50,16 @@ public class ProbGameScreen extends SpaceyScreen {
 
    private Texture explosion_t;
    
-   private Turret turret_one;
-   private Turret turret_two;
-   private Turret turret_three;
-   private Turret turret_four;
+   Turret turret_one;
+   Turret turret_two;
+   Turret turret_three;
+   Turret turret_four;
    
-   private Turret currently_active_turret;
+   Turret currently_active_turret;
    
-   private int currently_active_turret_no;
+   int currently_active_turret_no;
    
-   private float effective_delta;
+   float effective_delta;
 	
    private Texture pause_t;
    
@@ -68,10 +73,10 @@ public class ProbGameScreen extends SpaceyScreen {
    
    private Texture textbox_one_t;
    
-   private String the_text;
-   private boolean show_the_text;
+   String the_text;
+   boolean show_the_text;
    
-   private boolean suppress_freezes;
+   boolean suppress_freezes;
    
    private float end_time;
    
@@ -82,6 +87,11 @@ public class ProbGameScreen extends SpaceyScreen {
 	private boolean infuriatingly_specific_bool;
 	
 	private BitmapFont grayfont;
+	
+	Sound minesplode;
+	Sound hitshield;
+	Sound capture;
+	Sound fire;
 	
 	public ProbGameScreen(final ProbDef gam, boolean play_the_sound) {
 		
@@ -103,14 +113,17 @@ public class ProbGameScreen extends SpaceyScreen {
 
 		      mine_t=new Texture(Gdx.files.internal("mine.png"));
 
+	      minesplode=Gdx.audio.newSound(Gdx.files.internal("other_sfx/186945__readeonly__cannon-boom5.wav"));
+	      hitshield=Gdx.audio.newSound(Gdx.files.internal("other_sfx/268553_cydon_bang_001.mp3"));
+	      capture=Gdx.audio.newSound(Gdx.files.internal("js_sfx/344519__jeremysykes__pick02.wav"));
+	      fire=Gdx.audio.newSound(Gdx.files.internal("js_sfx/344524__jeremysykes__gunshot02.wav"));
+	      
 	      
 	      mines = new Array<Mine>();
 	      explosions = new Array<Kaboom>();
 	      turrets= new Array<Turret>();
 	      turrets_standard= new Array<Turret_Standard>();
 	      dots = new Array<Dot>();
-	      
-	      
 	      
 	      
 	      
@@ -140,12 +153,162 @@ public class ProbGameScreen extends SpaceyScreen {
 	      
 	      turret_setup();
 	      
+	      level_specific_music_setup();
+	      
 	      grayfont=new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
 			grayfont.setColor(new Color(0.8f, 0.8f, 0.8f, 1.0f));
 	      
 	      infuriatingly_specific_bool=false; //so infuriating
+	      
 	}
 	
+	//---Level-specific functions---
+	
+	//--Level-specific_setup--
+	
+	void level_specific_music_setup(){
+		bgm=Gdx.audio.newMusic(Gdx.files.internal("MCS_Dampen.mp3"));
+		bgm.setLooping(true);
+		bgm.play();
+	}
+	
+	void level_specific_turret_setup(){
+		   turret_one=new Turret_Standard("triangle");
+		   turret_two=new Turret_Standard("square");
+		   turret_three=new Turret_Standard("pentagon");
+		   turret_four=new Turret_Standard("hexagon");
+		   
+		   turrets_standard.add((Turret_Standard) turret_one);
+		   turrets_standard.add((Turret_Standard) turret_two);
+		   turrets_standard.add((Turret_Standard) turret_three);
+		   turrets_standard.add((Turret_Standard) turret_four);
+		   
+	   }
+	   
+	//--What actually happens in the level?--
+	
+	   void level_specific_events(){
+		   if (seconds==2){
+				spawnMine(-1, 15);
+				spawnMine(1, 15);
+				
+			}
+			if (seconds==12){
+				spawnMine(-3,65);
+				spawnMine(3,65);
+			}
+			if (seconds==22){
+				spawnMine(0,65);
+				spawnMine(2,65);
+				spawnMine(-2,65);
+			}
+			if (seconds==30){
+				spawnMine(0,100);
+				spawnMine(2,65);
+				spawnMine(-2,50);
+			}
+			if (seconds==36){
+				spawnMine(2,65);
+				spawnMine(0,65);
+				spawnMine(-3, 50);
+			}
+			if (seconds==40){
+				spawnMine(-3,50);
+				spawnMine(-1, 50);
+				spawnMine(1,50);
+				spawnMine(3, 50);
+			}
+			if (seconds==46){
+				spawnMine(-3,100);
+				spawnMine(-1, 100);
+				spawnMine(2,100);
+			}
+			if (minecount==0){
+				game.setScreen(new TitleScreen(game, true));
+  			  dispose();
+			}
+	   }
+	   
+	   void level_specific_timeline(){
+		   show_the_text=false;
+		   suppress_freezes=false;
+		   if (total_time>1 && total_time<5){
+			   suppress_freezes=true;
+			   show_the_text=true;
+				the_text="Mines come towards your ship. We want to stop them before they hit.";
+		   }
+			if (total_time>5 && total_time<9){
+				suppress_freezes=true;
+				show_the_text=true;
+				the_text="Every two seconds, time freezes, and you can target mines.";
+			}
+			
+			   if (total_time>9 && total_time<11.5){
+				   suppress_freezes=true;
+				   show_the_text=true;
+				   the_text="Click on a mine while time is frozen to target it.";
+			   }
+			   if (total_time>11.5 && total_time<12.5){
+				   show_the_text=true;
+				   if(TIMESPEED==0){
+					   if (currently_active_turret_no==0){
+						   the_text="Click on a mine while time is frozen to target it.";
+					   }
+					   else if (currently_active_turret_no==1){
+						   the_text="Triangle Turrets fail 30% of the time, capture 30% of the time, and destroy 40% of the time.";
+					   }
+					   else if (currently_active_turret_no==2){
+						   the_text="Square Turrets fail 20% of the time, capture 20% of the time, and destroy 60% of the time.";
+					   }
+					   else if (currently_active_turret_no==3){
+						   the_text="Pentagon Turrets fail 10% of the time, capture 10% of the time, and destroy 80% of the time.";
+					   }
+					   else if (currently_active_turret_no==4){
+						   the_text="Hexagon Turrets will always successfully destroy a mine, and never fail or capture.";
+					   }
+					   else if (currently_active_turret_no==5){
+						   the_text="Once you're done targeting, click the fire button (at the top of the screen) to launch a volley.";
+					   }
+				   }
+			   }
+			   if (total_time>14 && total_time<15 && TIMESPEED==0){
+				   show_the_text=true;
+				   if (currently_active_turret_no<5 && !infuriatingly_specific_bool){
+					   the_text="You can remind yourself of the probabilities at any time by hovering your mouse over a turret.";
+				   }
+				   else{
+					   infuriatingly_specific_bool=true;
+					   the_text="If you change your mind before firing, click on the relevant turret to re-target it.";
+				   }
+			   }
+			   if (total_time>18 && total_time<22){
+				   show_the_text=true;
+				   the_text="The percentage below a mine shows the probability it will survive the volley.";
+			   }
+			   if (total_time>28 && total_time<32){
+				   show_the_text=true;
+				   the_text="Mines won't always have the same speed, so prioritise.";
+			   }
+	   }
+	
+	   //--Autocalc--
+	   
+	   void autocalc_and_display(){
+		   for (Mine mine:mines){
+			   float survival=1.0f;
+			   for (Turret_Standard turret_standard:turrets_standard){
+				   if (turret_standard.targeted){
+					   if (turret_standard.target_mine.equals(mine)){
+						   survival=survival*turret_standard.fail_percent/100.0f;
+					   }
+				   }
+			   }
+			   grayfont.draw(batch, present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 80, 1, true);
+		   }
+	   }
+	   
+	   //---General Setup---
+	   
 	private void turret_setup(){
 		level_specific_turret_setup();
 	      
@@ -175,7 +338,9 @@ public class ProbGameScreen extends SpaceyScreen {
 	      currently_active_turret_no=0;
 	}
 	
-	   private void spawnMine(int xposn, float m_speed) {
+	//---Spawning functions---
+	
+	   void spawnMine(int xposn, float m_speed) {
 		      Mine mine = new Mine();
 		      mine.rect = new Rectangle();
 		      double xposn_II = (xposn*40.0+160.0)-20.0;
@@ -191,7 +356,7 @@ public class ProbGameScreen extends SpaceyScreen {
 		      
 	   }
 	   
-	   private void spawnExplosion(float X, float Y){
+	   void spawnExplosion(float X, float Y){
 		   Kaboom boom = new Kaboom();
 		   boom.rect= new Rectangle();
 		   boom.birthtime=total_time;
@@ -200,16 +365,9 @@ public class ProbGameScreen extends SpaceyScreen {
 		   explosions.add(boom);
 	   }
 	   
-	   private void kill_lost_dots(){
-		   Iterator<Dot> iter_dots = dots.iterator();
-			while(iter_dots.hasNext()) {
-				Dot dot = iter_dots.next();
-			     if (!dot.rect.overlaps(screen_proper)){
-			    	 iter_dots.remove();
-			     }
-
-			}
-	   }
+	   //---Drawing functions---
+	   
+	   
 	   
 	   private void draw_the_statusbar(){
 		   batch.draw(statusbar_t, 0, 400);
@@ -294,6 +452,22 @@ public class ProbGameScreen extends SpaceyScreen {
 		   font.draw(batch, text, 30, 170, 260,1, true);
 	   }
 	   
+	   private void draw_targeting_symbols(){
+		   if (turret_one.targeted){
+			   batch.draw(turret_one.target_t, turret_one.target_mine.rect.x-25, turret_one.target_mine.rect.y+5);
+		   }
+		   if (turret_two.targeted){
+			   batch.draw(turret_two.target_t, turret_two.target_mine.rect.x+5, turret_two.target_mine.rect.y+5);
+		   }
+		   if (turret_three.targeted){
+			   batch.draw(turret_three.target_t, turret_three.target_mine.rect.x-25, turret_three.target_mine.rect.y-25);
+		   }
+		   if (turret_four.targeted){
+			   batch.draw(turret_four.target_t, turret_four.target_mine.rect.x+5, turret_four.target_mine.rect.y-25);
+		   }
+	   }
+	   
+	   //---Generally useful functions---
 	   
 	   private void move_iterable_objects(float delta){
 		   for (Mine mine:mines){
@@ -315,8 +489,21 @@ public class ProbGameScreen extends SpaceyScreen {
 			         	iter_mines.remove();
 			         	minecount-=1;
 			         	shields-=1;
+			         	hitshield.play(0.4f);
+			         	minesplode.play();
 			         	shipshield_t=shipshield_flicker_t;
 			          }
+			}
+	   }
+	   
+	   private void kill_lost_dots(){
+		   Iterator<Dot> iter_dots = dots.iterator();
+			while(iter_dots.hasNext()) {
+				Dot dot = iter_dots.next();
+			     if (!dot.rect.overlaps(screen_proper)){
+			    	 iter_dots.remove();
+			     }
+
 			}
 	   }
 	   
@@ -334,6 +521,7 @@ public class ProbGameScreen extends SpaceyScreen {
 			   if (mine.being_detained){
 				   if ((mine.rect.x+mine.rect.width+20)<0 || (mine.rect.x-20)>320){
 					   mines.removeValue(mine, true);
+					   
 					   captured+=1;
 					   minecount-=1;
 				   }
@@ -353,10 +541,12 @@ public class ProbGameScreen extends SpaceyScreen {
 					     	spawnExplosion(dot.target_mine.rect.x,dot.target_mine.rect.y);
 					     	destroyed+=1;
 					     	minecount-=1;
+					     	minesplode.play();
 			    	 }
 			    	 if (dot.type.equals("capture") && !dot.target_mine.captureproof){
 				    	 dot.target_mine.being_detained=true;
 				    	 exit_stage_whatever(dot.target_mine);
+				    	 capture.play();
 			    	 }
 			    	 iter_dots.remove();
 			     }
@@ -383,124 +573,9 @@ public class ProbGameScreen extends SpaceyScreen {
 		   }
 	   }
 	   
-	   private void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("triangle");
-		   turret_two=new Turret_Standard("square");
-		   turret_three=new Turret_Standard("pentagon");
-		   turret_four=new Turret_Standard("hexagon");
-		   
-		   turrets_standard.add((Turret_Standard) turret_one);
-		   turrets_standard.add((Turret_Standard) turret_two);
-		   turrets_standard.add((Turret_Standard) turret_three);
-		   turrets_standard.add((Turret_Standard) turret_four);
-		   
-	   }
+
 	   
-	   private void level_specific_events(){
-		   if (seconds==2){
-				spawnMine(-1, 15);
-				spawnMine(1, 15);
-				
-			}
-			if (seconds==12){
-				spawnMine(-3,65);
-				spawnMine(3,65);
-			}
-			if (seconds==22){
-				spawnMine(0,65);
-				spawnMine(2,65);
-				spawnMine(-2,65);
-			}
-			if (seconds==30){
-				spawnMine(0,100);
-				spawnMine(2,65);
-				spawnMine(-2,50);
-			}
-			if (seconds==36){
-				spawnMine(2,65);
-				spawnMine(0,65);
-				spawnMine(-3, 50);
-			}
-			if (seconds==40){
-				spawnMine(-3,50);
-				spawnMine(-1, 50);
-				spawnMine(1,50);
-				spawnMine(3, 50);
-			}
-			if (seconds==46){
-				spawnMine(-3,100);
-				spawnMine(-1, 100);
-				spawnMine(2,100);
-			}
-			if (minecount==0){
-				game.setScreen(new TitleScreen(game, true));
-  			  dispose();
-			}
-	   }
-	   
-	   private void level_specific_timeline(){
-		   show_the_text=false;
-		   suppress_freezes=false;
-		   if (total_time>1 && total_time<5){
-			   suppress_freezes=true;
-			   show_the_text=true;
-				the_text="Mines come towards your ship. We want to stop them before they hit.";
-		   }
-			if (total_time>5 && total_time<9){
-				suppress_freezes=true;
-				show_the_text=true;
-				the_text="Every two seconds, time freezes, and you can target mines.";
-			}
-			
-			   if (total_time>9 && total_time<11.5){
-				   suppress_freezes=true;
-				   show_the_text=true;
-				   the_text="Click on a mine while time is frozen to target it.";
-			   }
-			   if (total_time>11.5 && total_time<12.5){
-				   show_the_text=true;
-				   if(TIMESPEED==0){
-					   if (currently_active_turret_no==0){
-						   the_text="Click on a mine while time is frozen to target it.";
-					   }
-					   else if (currently_active_turret_no==1){
-						   the_text="Triangle Turrets fail 30% of the time, capture 30% of the time, and destroy 40% of the time.";
-					   }
-					   else if (currently_active_turret_no==2){
-						   the_text="Square Turrets fail 20% of the time, capture 20% of the time, and destroy 60% of the time.";
-					   }
-					   else if (currently_active_turret_no==3){
-						   the_text="Pentagon Turrets fail 10% of the time, capture 10% of the time, and destroy 80% of the time.";
-					   }
-					   else if (currently_active_turret_no==4){
-						   the_text="Hexagon Turrets will always successfully destroy a mine, and never fail or capture.";
-					   }
-					   else if (currently_active_turret_no==5){
-						   the_text="Once you're done targeting, click the fire button (at the top of the screen) to launch a volley.";
-					   }
-				   }
-			   }
-			   if (total_time>14 && total_time<15 && TIMESPEED==0){
-				   show_the_text=true;
-				   if (currently_active_turret_no<5 && !infuriatingly_specific_bool){
-					   the_text="You can remind yourself of the probabilities at any time by hovering your mouse over a turret.";
-				   }
-				   else{
-					   infuriatingly_specific_bool=true;
-					   the_text="If you change your mind before firing, click on the relevant turret to re-target it.";
-				   }
-			   }
-			   if (total_time>18 && total_time<22){
-				   show_the_text=true;
-				   the_text="The percentages below a mine show the chance they'll survive the volley.";
-			   }
-			   if (total_time>28 && total_time<32){
-				   show_the_text=true;
-				   the_text="Mines won't always have the same speed, so prioritise.";
-			   }
-	   }
-	   
-	   private void handle_seconds(){
+	   void handle_seconds(){
 		   if (seconds<Math.floor(total_time)){
 				seconds+=1;
 				if (seconds%2==0 && mines.size>0 && !suppress_freezes){
@@ -524,7 +599,7 @@ public class ProbGameScreen extends SpaceyScreen {
 		return null;
 	   }
 	   
-	   private void number_to_turret(){
+	   void number_to_turret(){
 		   if (currently_active_turret_no==1){
 			   currently_active_turret=turret_one;
 		   }
@@ -563,6 +638,7 @@ public class ProbGameScreen extends SpaceyScreen {
 					   if (turret.targeted && turret.firing_time<total_time){
 						   Dot dot=new Dot(turret.rect, turret.target_mine, 3000, turret.determine_output());
 						   dots.add(dot);
+						   fire.play(0.3f);
 						   turret.targeted=false;
 					   }
 					   
@@ -640,21 +716,6 @@ public class ProbGameScreen extends SpaceyScreen {
 			}
 	   }
 	   
-	   private void draw_targeting_symbols(){
-		   if (turret_one.targeted){
-			   batch.draw(turret_one.target_t, turret_one.target_mine.rect.x-25, turret_one.target_mine.rect.y+5);
-		   }
-		   if (turret_two.targeted){
-			   batch.draw(turret_two.target_t, turret_two.target_mine.rect.x+5, turret_two.target_mine.rect.y+5);
-		   }
-		   if (turret_three.targeted){
-			   batch.draw(turret_three.target_t, turret_three.target_mine.rect.x-25, turret_three.target_mine.rect.y-25);
-		   }
-		   if (turret_four.targeted){
-			   batch.draw(turret_four.target_t, turret_four.target_mine.rect.x+5, turret_four.target_mine.rect.y-25);
-		   }
-	   }
-	   
 	   private void detarget_the_dead(){
 		   float decrement=0;
 		   for (Turret turret:turrets){
@@ -669,24 +730,18 @@ public class ProbGameScreen extends SpaceyScreen {
 		   }
 		   end_time-=decrement;
 	   }
-	
 	   
-	   void autocalc_and_display(){
-		   for (Mine mine:mines){
-			   float survival=1.0f;
-			   for (Turret_Standard turret_standard:turrets_standard){
-				   if (turret_standard.targeted){
-					   if (turret_standard.target_mine.equals(mine)){
-						   survival=survival*turret_standard.fail_percent/100.0f;
-					   }
-				   }
-			   }
-			   grayfont.draw(batch, present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 80, 1, true);
+	   
+	   private String present_float(float flo){//All the normal methods won't export to html so I have to reinvent things.
+		   int a=Math.round(flo*100);
+		   int b=a%100;
+		   int c=(a-b)/100;
+		   if (b<10){
+			   return c+"."+b+"0";
 		   }
-	   }
-	   
-	   String present_float(float flo){
-		   return String.format("%.2f", flo);
+		   else{
+			   return c+"."+b;
+		   }
 	   }
 	   
 	   public void probgame_render(float delta){
@@ -769,7 +824,7 @@ public class ProbGameScreen extends SpaceyScreen {
 			
 			
 			
-			shipshield_t=shipshield_normal_t; // If the shield is flickering, we want it to flicker for only one frame; we're resetting it.
+			shipshield_t=shipshield_normal_t; // If the shield is flickering, we want it to flicker for only one frame; we reset it here.
 			
 			if(Gdx.input.justTouched()){
 				if (menu_button_r.contains(tp_x, tp_y)){
