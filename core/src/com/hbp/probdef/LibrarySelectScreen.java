@@ -87,7 +87,7 @@ public class LibrarySelectScreen extends GenericSelectScreen {
 		   generic_render();
 		   if (Gdx.input.justTouched()){
 			   if (one_r.contains(tp_x,tp_y)){
-				   game.setScreen(new GenericBookScreen(game, true));
+				   game.setScreen(new BookScreen_Combine(game, true));
 				dispose();
 			   }
 		   }

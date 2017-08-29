@@ -14,6 +14,8 @@ public class Turret_Standard extends Turret {
 		   selected_t=new Texture (Gdx.files.internal("turrets/turret_"+ident+"_"+"selected.png"));
 		   firing_t=new Texture (Gdx.files.internal("turrets/turret_"+ident+"_"+"firing.png"));
 		   
+		   dead_t=new Texture (Gdx.files.internal("turrets/turret_"+ident+"_"+"silhouette.png"));
+		   
 		   overlay_t=new Texture (Gdx.files.internal("turrets/turret_"+ident+"_emptytop.png"));
 		   
 		   target_t=new Texture (Gdx.files.internal("turrets/target_"+ident+".png"));

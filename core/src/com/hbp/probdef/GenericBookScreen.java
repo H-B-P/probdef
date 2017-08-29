@@ -81,8 +81,7 @@ public class GenericBookScreen extends ProbGameScreen {
 		arrowsound=Gdx.audio.newSound(Gdx.files.internal("js_sfx/344510__jeremysykes__select03.wav"));
 	}
 	
-	@Override
-	public void render(float delta) {
+	void generic_book_render(float delta){
 		probgame_render(delta);
 		
 		page_time+=effective_delta;
@@ -97,13 +96,18 @@ public class GenericBookScreen extends ProbGameScreen {
 		}
 		if (page<maxpages){
 			batch.draw(nxt_t, nxt_r.x, nxt_r.y);
-			if (time_to_move_on){
+			if (time_to_move_on && seconds%2==1){
 				batch.draw(nxt_trim_orange_t, nxt_r.x, nxt_r.y);
 			}
 			if (nxt_r.contains(tp_x,tp_y)){
 				batch.draw(nxt_trim_blue_t, nxt_r.x, nxt_r.y);
 			}
 		}
+		
+		if (page==maxpages && time_to_move_on && seconds%2==1){
+			batch.draw(orange_button_trim_t, menu_button_r.x, menu_button_r.y);
+		}
+		
 		batch.end();
 		
 		if (Gdx.input.justTouched()){
@@ -120,6 +124,19 @@ public class GenericBookScreen extends ProbGameScreen {
 		}
 	}
 	
+	@Override
+	public void render(float delta) {
+		generic_book_render(delta);
+	}
+	
+	
+	@Override
+	void level_specific_music_setup(){
+		bgm=Gdx.audio.newMusic(Gdx.files.internal("MCS_Detective.mp3"));
+		bgm.setLooping(true);
+		bgm.play();
+	}
+	
 	void new_page(){
 		page_time=0;
 		seconds=0;
@@ -133,6 +150,8 @@ public class GenericBookScreen extends ProbGameScreen {
 		explosions.clear();
 		
 		current_status="waiting";
+		
+		fiat_function();
 	}
 	
 	@Override

@@ -26,13 +26,14 @@ public class ProbGameScreen extends SpaceyScreen {
 	
 	final ProbDef game;
 	
-	private Rectangle menu_button_r;
-	private Texture menu_button_t;
-	private Rectangle fire_button_r;
+	Rectangle menu_button_r;
+	Texture menu_button_t;
+	Rectangle fire_button_r;
 
-	private Texture fire_button_t;
-	private Texture blue_button_trim_t;
-   private Texture orange_button_trim_t;
+	Texture fire_button_t;
+	Texture blue_button_trim_t;
+
+	Texture orange_button_trim_t;
    
    
    Texture mine_t;
@@ -65,11 +66,11 @@ public class ProbGameScreen extends SpaceyScreen {
    
    private Texture detaining_t;
    
-   private int captured;
-   private int destroyed;
-   private int shields;
-   private int minecount;
-   private int score;
+   int captured;
+   int destroyed;
+   int shields;
+   int minecount;
+   int score;
    
    private Texture textbox_one_t;
    
@@ -156,7 +157,7 @@ public class ProbGameScreen extends SpaceyScreen {
 	      level_specific_music_setup();
 	      
 	      grayfont=new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
-			grayfont.setColor(new Color(0.8f, 0.8f, 0.8f, 1.0f));
+			grayfont.setColor(new Color(0.5f, 0.5f, 0.5f, 1.0f));
 	      
 	      infuriatingly_specific_bool=false; //so infuriating
 	      
@@ -290,7 +291,13 @@ public class ProbGameScreen extends SpaceyScreen {
 				   the_text="Mines won't always have the same speed, so prioritise.";
 			   }
 	   }
-	
+	   
+	   void level_specific_HUD(){
+		   font.draw(batch, "MINES: "+minecount, 90, 472, 140, 1, true);
+			font.draw(batch, "CAPTURED: "+captured, 90, 455, 140, 1, true);
+			font.draw(batch, "DESTROYED: "+ destroyed, 90, 437, 140, 1, true);
+			font.draw(batch, "SHIELDS: "+shields, 90, 420, 140, 1, true);
+	   }
 	   //--Autocalc--
 	   
 	   void autocalc_and_display(){
@@ -399,10 +406,7 @@ public class ProbGameScreen extends SpaceyScreen {
 		      }
 		      
 		      if (!torrit){
-		    	font.draw(batch, "MINES: "+minecount, 90, 472, 140, 1, true);
-				font.draw(batch, "CAPTURED: "+captured, 90, 455, 140, 1, true);
-				font.draw(batch, "DESTROYED: "+ destroyed, 90, 437, 140, 1, true);
-				font.draw(batch, "SHIELDS: "+shields, 90, 420, 140, 1, true);
+		    	level_specific_HUD();
 		      }
 				
 		      if (current_status.equals("targeting") && currently_active_turret_no==5){
@@ -425,7 +429,12 @@ public class ProbGameScreen extends SpaceyScreen {
 		          batch.draw(explosion_t, boom.rect.x-20, boom.rect.y-20);
 		       }
 			for(Turret turret: turrets) {
-				batch.draw(turret.current_t, turret.rect.x, turret.rect.y);
+				if (turret.does_it_work){
+					batch.draw(turret.current_t, turret.rect.x, turret.rect.y);
+				}
+				else{
+					batch.draw(turret.dead_t, turret.rect.x, turret.rect.y);
+				}
 		       }
 			
 			
@@ -441,8 +450,10 @@ public class ProbGameScreen extends SpaceyScreen {
 			
 			if (current_status.equals("firing")){
 				for(Turret turret: turrets) {
-					batch.draw(turret.overlay_t, turret.rect.x, turret.rect.y);
+					if (turret.does_it_work){
+						batch.draw(turret.overlay_t, turret.rect.x, turret.rect.y);
 			       }
+				}
 			}
 			
 	   }
@@ -648,7 +659,7 @@ public class ProbGameScreen extends SpaceyScreen {
 				   turret.current_t=turret.firing_t;
 			   }
 			   else{
-				   turret.current_t=turret.normal_t;
+					turret.current_t=turret.normal_t;
 			   }
 		   }
 		   
@@ -680,7 +691,7 @@ public class ProbGameScreen extends SpaceyScreen {
 					   exitwhile=true;
 				   }
 				   else{
-					   if (!currently_active_turret.targeted){
+					   if (!currently_active_turret.targeted && currently_active_turret.does_it_work){
 						   exitwhile=true;
 					   }
 				   }
@@ -741,6 +752,12 @@ public class ProbGameScreen extends SpaceyScreen {
 		   }
 		   else{
 			   return c+"."+b;
+		   }
+	   }
+	   
+	   void fiat_function(){
+		   for (Turret turret:turrets){
+			   turret.does_it_work=true;
 		   }
 	   }
 	   
