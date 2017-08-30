@@ -61,7 +61,7 @@ public class Turret_Standard extends Turret {
 		   
 		   lines_no=4;
 		   
-		   line_one="-"+ident.toUpperCase()+"-";
+		   line_one="==="+ident.toUpperCase()+"===";
 		   line_two="FAIL: "+(int)fail_percent+"%";
 		   line_three="DESTROY: "+(int)destroy_percent+"%";
 		   line_four="CAPTURE: "+(int)capture_percent+"%";

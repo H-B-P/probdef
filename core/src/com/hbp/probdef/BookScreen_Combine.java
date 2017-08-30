@@ -1,15 +1,5 @@
 package com.hbp.probdef;
 
-
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.hbp.probdef.ProbDef;
@@ -101,13 +91,16 @@ public class BookScreen_Combine extends GenericBookScreen {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   time_to_move_on=false;
+		   greentext=false;
 		
 		if (page==1){
 			
 			turret_three.does_it_work=false;
 			turret_four.does_it_work=false;
 			
-			if (page_time>3.5 && page_time<4.5 && TIMESPEED==0){
+			
+			
+			if (seconds==4 && TIMESPEED==0){
 				show_the_text=true;
 				the_text="When no turret is targeted on a mine, the probability of it remaining is 100%.";
 				if (turret_one.targeted || turret_two.targeted){
@@ -118,7 +111,7 @@ public class BookScreen_Combine extends GenericBookScreen {
 				}
 			}
 			
-			if (page_time>5.5 && page_time<6.5 && TIMESPEED==0){
+			if (seconds==6 && TIMESPEED==0){
 				show_the_text=true;
 				the_text="The probability of two unrelated things both happening is the product of their probabilities.";
 				if (turret_one.targeted && turret_two.targeted){
@@ -127,7 +120,7 @@ public class BookScreen_Combine extends GenericBookScreen {
 			}
 			if (page_time>6 && TIMESPEED>0){
 				show_the_text=true;
-				the_text="Or, equivalently, 0.3*0.2: 0.06. Or, also equivalently, 3/10*2/10: 6/100.";
+				the_text="Or, equivalently, 0.3*0.2: 0.06.\nOr, also equivalently, 3/10*2/10: 6/100.";
 			}
 			if (page_time>8){
 				time_to_move_on=true;
@@ -145,10 +138,10 @@ public class BookScreen_Combine extends GenericBookScreen {
 					the_text="The probability of a mine remaining is the probability of all turrets missing.";
 				}
 				if (turret_one.targeted && turret_two.targeted){
-					the_text="20% of 30% is 6%";
+					the_text="20% of 30% is 6%,";
 				}
 				if (turret_one.targeted && turret_two.targeted && turret_three.targeted){
-					the_text="20% of 30% is 6%, and 20% of 6% is 1.2%.";
+					the_text="20% of 30% is 6%,\nand 20% of 6% is 1.2%.";
 				}
 			}
 			if (page_time>4 && TIMESPEED>0){
@@ -166,22 +159,26 @@ public class BookScreen_Combine extends GenericBookScreen {
 				show_the_text=true;
 				the_text="See if you can work out what will be shown when you target all four turrets.";
 			}
-			if (page_time>3.5 && page_time<4.5 && TIMESPEED==0){
+			if (seconds==4 && TIMESPEED==0){
 				show_the_text=true;
 				if (!gotcha){
-				the_text="(you may need a calculator and/or pen and paper for this)";
+					greentext=true;
+					the_text="you may need a calculator and/or pen and paper for this";
 				}
 				else{
-				the_text="(or you can just blatantly skip ahead that's fine too I guess)";
+					greentext=true;
+					the_text="or you can just blatantly skip ahead that's fine too I guess";
+				}
+				if (turret_one.targeted && turret_two.targeted && turret_three.targeted && turret_four.targeted){
+					greentext=false;
+					the_text="0.36%, also known as 0.0036, 36/10000, or 9/2500. Hopefully that lines up with your predictions.";
 				}
 				if (turret_one.targeted || turret_two.targeted || turret_three.targeted || turret_four.targeted){
 					if (trapfloat<1.5){
 						gotcha=true;
 					}
 				}
-				if (turret_one.targeted && turret_two.targeted && turret_three.targeted && turret_four.targeted){
-					the_text="0.36%, also known as 0.0036, 36/10000, or 9/2500. Hopefully that lines up with your predictions.";
-				}
+				
 			}
 			
 			if (page_time>6){

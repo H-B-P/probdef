@@ -74,6 +74,8 @@ public class ProbGameScreen extends SpaceyScreen {
    
    private Texture textbox_one_t;
    
+   private Texture textbox_two_t;
+   
    String the_text;
    boolean show_the_text;
    
@@ -87,12 +89,17 @@ public class ProbGameScreen extends SpaceyScreen {
 	
 	private boolean infuriatingly_specific_bool;
 	
-	private BitmapFont grayfont;
+	BitmapFont grayfont;
+	BitmapFont redfont;
+	BitmapFont bluefont;
+	BitmapFont greenfont;
 	
 	Sound minesplode;
 	Sound hitshield;
 	Sound capture;
 	Sound fire;
+	
+	boolean greentext;
 	
 	public ProbGameScreen(final ProbDef gam, boolean play_the_sound) {
 		
@@ -151,15 +158,24 @@ public class ProbGameScreen extends SpaceyScreen {
 	      show_the_text=false;
 	      suppress_freezes=false;
 	      textbox_one_t=new Texture(Gdx.files.internal("textbox_1.png"));
-	      
+	      textbox_two_t=new Texture(Gdx.files.internal("textbox_2.png"));
+
 	      turret_setup();
 	      
 	      level_specific_music_setup();
 	      
 	      grayfont=new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
-			grayfont.setColor(new Color(0.5f, 0.5f, 0.5f, 1.0f));
+			grayfont.setColor(new Color(0.6f, 0.6f, 0.6f, 1.0f));
+			redfont=new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
+			redfont.setColor(new Color(1.0f, 0.1f, 0.1f, 1.0f));
+			bluefont=new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
+			bluefont.setColor(new Color(0.1f, 0.1f, 1.0f, 1.0f));
+			greenfont=new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
+			greenfont.setColor(new Color(0.1f, 0.6f, 0.1f, 1.0f));
 	      
 	      infuriatingly_specific_bool=false; //so infuriating
+	      
+	      greentext=false;
 	      
 	}
 	
@@ -300,7 +316,7 @@ public class ProbGameScreen extends SpaceyScreen {
 	   }
 	   //--Autocalc--
 	   
-	   void autocalc_and_display(){
+	   void autocalc_and_display_survive(){
 		   for (Mine mine:mines){
 			   float survival=1.0f;
 			   for (Turret_Standard turret_standard:turrets_standard){
@@ -312,6 +328,42 @@ public class ProbGameScreen extends SpaceyScreen {
 			   }
 			   grayfont.draw(batch, present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 80, 1, true);
 		   }
+	   }
+	   
+	   void autocalc_and_display_capture(){
+		   for (Mine mine:mines){
+			   float survival=1.0f;
+			   float capture=0.0f;
+			   for (Turret_Standard turret_standard:turrets_standard){
+				   if (turret_standard.targeted){
+					   if (turret_standard.target_mine.equals(mine)){
+						   capture+=survival*turret_standard.capture_percent/100.0f;
+						   survival=survival*turret_standard.fail_percent/100.0f;
+					   }
+				   }
+			   }
+			   bluefont.draw(batch, present_float(capture*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 80, 1, true);
+		   }
+	   }
+	   
+	   void autocalc_and_display_destroy(){
+		   for (Mine mine:mines){
+			   float survival=1.0f;
+			   float destruction=0.0f;
+			   for (Turret_Standard turret_standard:turrets_standard){
+				   if (turret_standard.targeted){
+					   if (turret_standard.target_mine.equals(mine)){
+						   destruction+=survival*turret_standard.destroy_percent/100.0f;
+						   survival=survival*turret_standard.fail_percent/100.0f;
+					   }
+				   }
+			   }
+			   redfont.draw(batch, present_float(destruction*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 80, 1, true);
+		   }
+	   }
+	   
+	   void autocalc_and_display(){
+		   autocalc_and_display_survive();
 	   }
 	   
 	   //---General Setup---
@@ -458,9 +510,28 @@ public class ProbGameScreen extends SpaceyScreen {
 			
 	   }
 	   
-	   private void draw_textbox_one(String text){
+	   void draw_textbox(String text){
+		   draw_textbox_one(text);
+	   }
+	   
+	   void draw_textbox_one(String text){
 		   batch.draw(textbox_one_t, 20, 100);
-		   font.draw(batch, text, 30, 170, 260,1, true);
+		   if (greentext){
+			   greenfont.draw(batch, text, 30, 170, 260, 1, true);
+		   }
+		   else{
+			   font.draw(batch, text, 30, 170, 260, 1, true);
+		   }
+	   }
+	   
+	   void draw_textbox_two(String text){
+		   batch.draw(textbox_two_t, 20, 100);
+		   if (greentext){
+			   greenfont.draw(batch, text, 30, 190, 260, 1, true);
+		   }
+		   else{
+			   font.draw(batch, text, 30, 190, 260, 1, true);
+		   }
 	   }
 	   
 	   private void draw_targeting_symbols(){
@@ -807,7 +878,7 @@ public class ProbGameScreen extends SpaceyScreen {
 			draw_the_statusbar(); //Draw the bar at the top of the screen, and everything on it.
 		    
 			if (show_the_text){
-				draw_textbox_one(the_text);
+				draw_textbox(the_text);
 			}
 
 			

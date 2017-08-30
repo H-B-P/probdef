@@ -90,6 +90,10 @@ public class LibrarySelectScreen extends GenericSelectScreen {
 				   game.setScreen(new BookScreen_Combine(game, true));
 				dispose();
 			   }
+			   if (two_r.contains(tp_x,tp_y)){
+				   game.setScreen(new BookScreen_Tree(game, true));
+				dispose();
+			   }
 		   }
 	   }
 	   
