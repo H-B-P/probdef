@@ -85,13 +85,17 @@ public class LibrarySelectScreen extends GenericSelectScreen {
 	   @Override
 	   public void render(float delta){
 		   generic_render();
-		   if (Gdx.input.justTouched()){
+		   if (Gdx.input.justTouched()&& TOPIC.equals("Probability")){
 			   if (one_r.contains(tp_x,tp_y)){
 				   game.setScreen(new BookScreen_Combine(game, true));
 				dispose();
 			   }
 			   if (two_r.contains(tp_x,tp_y)){
 				   game.setScreen(new BookScreen_Tree(game, true));
+				dispose();
+			   }
+			   if (three_r.contains(tp_x,tp_y)){
+				   game.setScreen(new BookScreen_Pyramid(game, true));
 				dispose();
 			   }
 		   }

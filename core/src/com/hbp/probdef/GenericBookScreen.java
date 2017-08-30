@@ -147,6 +147,9 @@ public class GenericBookScreen extends ProbGameScreen {
 			turret.current_t=turret.normal_t;
 		}
 		mines.clear();
+		regularmines.clear();
+		shieldmines.clear();
+		
 		explosions.clear();
 		
 		current_status="waiting";

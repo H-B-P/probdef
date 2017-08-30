@@ -24,7 +24,7 @@ public class BookScreen_Tree extends GenericBookScreen {
 		
 		batch=new SpriteBatch();
 		
-		tree_percentage=new Texture(Gdx.files.internal("TREE_II.png"));
+		tree_percentage=new Texture(Gdx.files.internal("TREE_III.png"));
 	}
 
 	@Override
@@ -201,11 +201,16 @@ public class BookScreen_Tree extends GenericBookScreen {
 			turret_four.does_it_work=false;
 			show_the_text=true;
 			the_text="Use a probability tree to calculate the probability that this mine will be destroyed when targeted with three turrets.";
-			
+			if (page_time>6){
+				time_to_move_on=true;
+			}
 		}
 		if (page==4){
 			show_the_text=true;
 			the_text="Extend the tree and use it to find the probability this mine will be captured when all four turrets are targeted.";
+			if (page_time>6){
+				time_to_move_on=true;
+			}
 		}
 	}
 

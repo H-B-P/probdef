@@ -37,8 +37,15 @@ public class ProbGameScreen extends SpaceyScreen {
    
    
    Texture mine_t;
+   Texture shieldmine_t;
+   Texture mine_shield_one_t;
+   Texture mine_shield_two_t;
+   Texture mine_shield_three_t;
+   Texture mine_shield_four_t;
    
    public Array<Mine> mines;
+   public Array<Mine> regularmines;
+   public Array<ShieldMine> shieldmines;
    public Array<Kaboom> explosions;
    public Array<Turret> turrets;
    public Array<Turret_Standard> turrets_standard;
@@ -120,6 +127,12 @@ public class ProbGameScreen extends SpaceyScreen {
 		   explosion_t = new Texture(Gdx.files.internal("explosion.png"));
 
 		      mine_t=new Texture(Gdx.files.internal("mine.png"));
+		      shieldmine_t=new Texture(Gdx.files.internal("mine_shield.png"));
+		      
+		      mine_shield_one_t= new Texture(Gdx.files.internal("shield_layer_one.png"));
+		      mine_shield_two_t= new Texture(Gdx.files.internal("shield_layer_two.png"));
+		      mine_shield_three_t= new Texture(Gdx.files.internal("shield_layer_three.png"));
+		      mine_shield_four_t= new Texture(Gdx.files.internal("shield_layer_four.png"));;
 
 	      minesplode=Gdx.audio.newSound(Gdx.files.internal("other_sfx/186945__readeonly__cannon-boom5.wav"));
 	      hitshield=Gdx.audio.newSound(Gdx.files.internal("other_sfx/268553_cydon_bang_001.mp3"));
@@ -128,6 +141,8 @@ public class ProbGameScreen extends SpaceyScreen {
 	      
 	      
 	      mines = new Array<Mine>();
+	      regularmines = new Array<Mine>();
+	      shieldmines = new Array<ShieldMine>();
 	      explosions = new Array<Kaboom>();
 	      turrets= new Array<Turret>();
 	      turrets_standard= new Array<Turret_Standard>();
@@ -152,7 +167,7 @@ public class ProbGameScreen extends SpaceyScreen {
 	      destroyed=0;
 	      
 	      minecount=20;
-	      shields=99;
+	      shields=100;
 	      
 	      the_text="";
 	      show_the_text=false;
@@ -176,6 +191,8 @@ public class ProbGameScreen extends SpaceyScreen {
 	      infuriatingly_specific_bool=false; //so infuriating
 	      
 	      greentext=false;
+	      
+	      
 	      
 	}
 	
@@ -317,16 +334,62 @@ public class ProbGameScreen extends SpaceyScreen {
 	   //--Autocalc--
 	   
 	   void autocalc_and_display_survive(){
-		   for (Mine mine:mines){
+		   for (Mine regularmine:regularmines){
 			   float survival=1.0f;
 			   for (Turret_Standard turret_standard:turrets_standard){
 				   if (turret_standard.targeted){
-					   if (turret_standard.target_mine.equals(mine)){
+					   if (turret_standard.target_mine.equals(regularmine)){
 						   survival=survival*turret_standard.fail_percent/100.0f;
 					   }
 				   }
 			   }
-			   grayfont.draw(batch, present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 80, 1, true);
+			   grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", regularmine.rect.x-20, regularmine.rect.y-20, 81, 1, true);
+		   }
+		   for (ShieldMine shieldmine:shieldmines){
+			   float four=0f;
+			   float three=0f;
+			   float two=0f;
+			   float one=0f;
+			   float zero=0f;
+			   float destroy=0f;
+			   float capture=0f;
+			   
+			   if (shieldmine.shields_rn==4){
+				   four=1f;
+			   }
+			   if (shieldmine.shields_rn==3){
+				   three=1f;
+			   }
+			   if (shieldmine.shields_rn==2){
+				   two=1f;
+			   }
+			   if (shieldmine.shields_rn==1){
+				   one=1f;
+			   }
+			   if (shieldmine.shields_rn==0){
+				   zero=1f;
+			   }
+			   
+			   for (Turret_Standard turret_standard:turrets_standard){
+				   if (turret_standard.targeted){
+					   if (turret_standard.target_mine.equals(shieldmine)){
+						   destroy= destroy + zero*turret_standard.destroy_percent/100.0f;
+						   capture= destroy + zero*turret_standard.destroy_percent/100.0f;
+						   
+						   zero= zero*turret_standard.fail_percent/100.0f + one*(1f-turret_standard.fail_percent/100.0f);
+						   one= one*turret_standard.fail_percent/100.0f + two*(1f-turret_standard.fail_percent/100.0f);
+						   two= two*turret_standard.fail_percent/100.0f + three*(1f-turret_standard.fail_percent/100.0f);
+						   three=three*turret_standard.fail_percent/100.0f + four*(1f-turret_standard.fail_percent/100.0f);
+						   four=four*turret_standard.fail_percent/100.0f;
+						   
+					   }
+				   }
+			   }
+			   
+			   float survival=zero+one+two+three+four;
+			   
+			   grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", shieldmine.rect.x-20, shieldmine.rect.y-20, 81, 1, true);
+			   
 		   }
 	   }
 	   
@@ -400,19 +463,17 @@ public class ProbGameScreen extends SpaceyScreen {
 	//---Spawning functions---
 	
 	   void spawnMine(int xposn, float m_speed) {
-		      Mine mine = new Mine();
-		      mine.rect = new Rectangle();
-		      double xposn_II = (xposn*40.0+160.0)-20.0;
-		      mine.rect.x = (float) xposn_II;
-		      mine.rect.y = 440;
-		      mine.rect.width = 40;
-		      mine.rect.height = 40;
-		      
-		      mine.vert_speed = m_speed;
-		      
-		      
-		      mines.add(mine);
-		      
+		   
+		   Mine mine = new Mine(xposn, m_speed);
+		   regularmines.add(mine);
+		   mines.add(mine);
+		         
+	   }
+	   
+	   void spawnShieldMine(int xposn, float m_speed, int shields) {
+		   ShieldMine shieldmine= new ShieldMine(xposn, m_speed, shields);
+		   mines.add(shieldmine);
+		   shieldmines.add(shieldmine);
 	   }
 	   
 	   void spawnExplosion(float X, float Y){
@@ -471,12 +532,30 @@ public class ProbGameScreen extends SpaceyScreen {
 	   }
 	   
 	   private void draw_iterable_objects(){
-		   for(Mine mine: mines) {
+		   for(Mine mine: regularmines) {
 		          batch.draw(mine_t, mine.rect.x-20, mine.rect.y-20);
 		          if (mine.being_detained){
 		        	  batch.draw(detaining_t, mine.rect.x-20, mine.rect.y-20);
 		          }
 		       }
+		   for (ShieldMine shieldmine:shieldmines){
+			   batch.draw(shieldmine_t, shieldmine.rect.x-20, shieldmine.rect.y-20);
+		          if (shieldmine.being_detained){
+		        	  batch.draw(detaining_t, shieldmine.rect.x-20, shieldmine.rect.y-20);
+		          }
+		          if (shieldmine.shields_rn>=1){
+		        	  batch.draw(mine_shield_one_t, shieldmine.shield_one.x, shieldmine.shield_one.y);
+		          }
+		          if (shieldmine.shields_rn>=2){
+		        	  batch.draw(mine_shield_two_t, shieldmine.shield_two.x, shieldmine.shield_two.y);
+		          }
+		          if (shieldmine.shields_rn>=3){
+		        	  batch.draw(mine_shield_three_t, shieldmine.shield_three.x, shieldmine.shield_three.y);
+		          }
+		          if (shieldmine.shields_rn>=4){
+		        	  batch.draw(mine_shield_four_t, shieldmine.shield_four.x, shieldmine.shield_four.y);
+		          }
+		   }
 			for(Kaboom boom: explosions) {
 		          batch.draw(explosion_t, boom.rect.x-20, boom.rect.y-20);
 		       }
@@ -560,21 +639,29 @@ public class ProbGameScreen extends SpaceyScreen {
 		          dot.rect.x+=dot.horz_vel*delta;
 		          dot.rect.y+=dot.vert_vel*delta;
 		       }
+		   for (ShieldMine shieldmine:shieldmines){
+			   shieldmine.shield_one.x=shieldmine.rect.x-5;
+			   shieldmine.shield_one.y=shieldmine.rect.y-5;
+			   shieldmine.shield_two.x=shieldmine.rect.x-10;
+			   shieldmine.shield_two.y=shieldmine.rect.y-10;
+			   shieldmine.shield_three.x=shieldmine.rect.x-15;
+			   shieldmine.shield_three.y=shieldmine.rect.y-15;
+			   shieldmine.shield_four.x=shieldmine.rect.x-20;
+			   shieldmine.shield_four.y=shieldmine.rect.y-20;
+		   }
 	   }
 	   
 	   private void check_for_shipshield_mine_collisions(){
-		   Iterator<Mine> iter_mines = mines.iterator();
-			while(iter_mines.hasNext()) {
-			     Mine mine = iter_mines.next();
+		   for (Mine mine: mines){
 				if(mine.rect.overlaps(shield_r)) {
 			     	spawnExplosion(mine.rect.x,mine.rect.y);
-			         	iter_mines.remove();
-			         	minecount-=1;
-			         	shields-=1;
-			         	hitshield.play(0.4f);
-			         	minesplode.play();
-			         	shipshield_t=shipshield_flicker_t;
-			          }
+			        minecount-=1;
+			        shields-=1;
+			        hitshield.play(0.4f);
+			        minesplode.play();
+			        shipshield_t=shipshield_flicker_t;
+			        unlist_this_mine(mine);
+			     }
 			}
 	   }
 	   
@@ -601,38 +688,65 @@ public class ProbGameScreen extends SpaceyScreen {
 	   private void collect_captured(){
 		   for (Mine mine: mines){
 			   if (mine.being_detained){
-				   if ((mine.rect.x+mine.rect.width+20)<0 || (mine.rect.x-20)>320){
-					   mines.removeValue(mine, true);
-					   
+				   if ((mine.rect.x+mine.rect.width+20)<0 || (mine.rect.x-20)>320){					   
 					   captured+=1;
 					   minecount-=1;
+					   unlist_this_mine(mine);
 				   }
 			   }
 		   }
 	   }
 	   
 	   private void check_for_dot_mine_collisions(){
-		   Iterator<Dot> iter_dots = dots.iterator();
-			while(iter_dots.hasNext()) {
-			     Dot dot = iter_dots.next();
-			     if (dot.rect.overlaps(dot.target_mine.rect)){
-			    	 
-			    	 if (dot.type.equals("destroy") && !dot.target_mine.destroyproof){
-				    	 mines.removeValue(dot.target_mine, true);
-				    	 dot.target_mine.actually_there=false;
-					     	spawnExplosion(dot.target_mine.rect.x,dot.target_mine.rect.y);
-					     	destroyed+=1;
-					     	minecount-=1;
-					     	minesplode.play();
-			    	 }
-			    	 if (dot.type.equals("capture") && !dot.target_mine.captureproof){
-				    	 dot.target_mine.being_detained=true;
-				    	 exit_stage_whatever(dot.target_mine);
-				    	 capture.play();
-			    	 }
-			    	 iter_dots.remove();
-			     }
-			}
+		   for (Dot dot:dots){
+			   if (dot.rect.overlaps(dot.target_mine.rect)){
+				    	 
+				   if (dot.type.equals("destroy") && !dot.target_mine.destroyproof){
+					    	 dot.target_mine.actually_there=false;
+						     	spawnExplosion(dot.target_mine.rect.x,dot.target_mine.rect.y);
+						     	destroyed+=1;
+						     	minecount-=1;
+						     	minesplode.play();
+						     	
+						     	unlist_this_mine(dot.target_mine);
+						     	
+				    	 }
+				    	 if (dot.type.equals("capture") && !dot.target_mine.captureproof){
+					    	 dot.target_mine.being_detained=true;
+					    	 exit_stage_whatever(dot.target_mine);
+					    	 capture.play();
+				    	 }
+				    	 dots.removeValue(dot, true);
+				     }
+			   }
+	   }
+	   
+	   private void check_for_dot_mineshield_collisions(){
+		   for (Dot dot:dots){
+			   if (dot.target_mine.minetype.equals("shield")){
+				   if (dot.type.equals("destroy")||dot.type.equals("capture")){
+					   
+					   ShieldMine S=(ShieldMine)dot.target_mine;
+					   
+					   if (S.shields_rn==4 && S.shield_four.overlaps(dot.rect)){
+						   S.shields_rn-=1;
+						   dots.removeValue(dot, true);
+					   }
+					   else if (S.shields_rn==3 && S.shield_three.overlaps(dot.rect)){
+						   S.shields_rn-=1;
+						   dots.removeValue(dot, true);
+					   }
+					   else if (S.shields_rn==2 && S.shield_two.overlaps(dot.rect)){
+						   S.shields_rn-=1;
+						   dots.removeValue(dot, true);
+					   }
+						else if (S.shields_rn==1 && S.shield_one.overlaps(dot.rect)){
+							S.shields_rn-=1;
+							dots.removeValue(dot, true);
+						}
+				   }
+			   }
+		   }
 	   }
 	   
 	   private void time_out_explosions(){
@@ -832,9 +946,23 @@ public class ProbGameScreen extends SpaceyScreen {
 		   }
 	   }
 	   
+	   void unlist_this_mine(Mine mine){
+		   mines.removeValue(mine,true);
+		   if (regularmines.contains(mine, true)){
+			   regularmines.removeValue(mine, true);
+		   }
+		   if (mine.minetype.equals("shield")){
+			   if (shieldmines.contains((ShieldMine)mine, true)){
+				   shieldmines.removeValue((ShieldMine)mine, true);
+			   }
+		   }
+	   }
+	   
 	   public void probgame_render(float delta){
 		   effective_delta=(float) (delta*TIMESPEED); //If time is running slow, the delta to feed into all calculations will be lower.
 			
+		   level_specific_timeline();
+		   
 			status_effects();
 			
 			move_iterable_objects(effective_delta); //Update position of dots and mines.
@@ -886,6 +1014,7 @@ public class ProbGameScreen extends SpaceyScreen {
 			
 			batch.end();
 			
+			check_for_dot_mineshield_collisions();
 			
 			check_for_dot_mine_collisions();
 			
@@ -902,7 +1031,7 @@ public class ProbGameScreen extends SpaceyScreen {
 			handle_seconds(); //Execute the events which happen at the beginning of a second.
 			
 			
-			level_specific_timeline();
+			
 			
 				if (current_status.equals("firing") && total_time>end_time){
 					current_status="waiting";
