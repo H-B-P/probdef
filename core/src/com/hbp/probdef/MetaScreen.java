@@ -12,12 +12,14 @@ package com.hbp.probdef;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.audio.Sound;
 
 import com.hbp.probdef.ProbDef;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class MetaScreen implements Screen { //Regarding implementing vs extending, I want all screens to be playable for debugging and education purposes.
 	//In other words, if you want to see what MetaScreen or SpaceyScreen do, you can just load them up and see them in action.
@@ -35,6 +37,9 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	
 	public Texture poncho_t;
 	
+	public BitmapFont blackfont;
+	public BitmapFont greenfont;
+	
 	public MetaScreen(final ProbDef gam, boolean play_the_sound) {
 		
 		ANDROID=false;// If this is true, we're running on an Android device. If not, it's a PC or HTML thing.
@@ -46,7 +51,10 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 320, 480);
 		
-		
+		blackfont=new BitmapFont(Gdx.files.internal("regular_font/russo.fnt"));
+		blackfont.setColor(new Color(0f, 0f, 0f, 1.0f));
+		greenfont=new BitmapFont(Gdx.files.internal("regular_font/russo.fnt"));
+		greenfont.setColor(new Color(0.1f, 0.6f, 0.1f, 1.0f));
 		
 		hellosound=Gdx.audio.newSound(Gdx.files.internal("js_sfx/341250__jeremysykes__select01.wav"));
 		if (play_the_sound){

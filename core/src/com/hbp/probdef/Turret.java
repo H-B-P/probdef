@@ -33,6 +33,8 @@ public class Turret {
 	   boolean does_it_work;
 	   boolean targeted;
 	   
+	   String turret_type;
+	   
 	   public Turret(String id){
 		   ident=id;
 		   
@@ -49,6 +51,8 @@ public class Turret {
 		   line_four="";
 		   
 		   lines_no=3;
+		   
+		   turret_type="unknown";
 	   }
 	   
 	   String determine_output(){

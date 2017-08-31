@@ -5,14 +5,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
-public class BookScreen_Pyramid extends GenericBookScreen {
+public class BookScreen_Pascal extends GenericBookScreen {
 	
 	final ProbDef game;
 	
 	private SpriteBatch batch;
 	
 	
-	public BookScreen_Pyramid(final ProbDef gam, boolean play_the_sound) {
+	public BookScreen_Pascal(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		
@@ -33,10 +33,10 @@ public class BookScreen_Pyramid extends GenericBookScreen {
 	@Override
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("triangle");
-		   turret_two=new Turret_Standard("pentagon");
+		   turret_one=new Turret_Standard("square");
+		   turret_two=new Turret_Standard("square");
 		   turret_three=new Turret_Standard("square");
-		   turret_four=new Turret_Standard("circle");
+		   turret_four=new Turret_Standard("square",3);
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);

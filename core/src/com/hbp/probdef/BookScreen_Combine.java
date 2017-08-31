@@ -163,11 +163,11 @@ public class BookScreen_Combine extends GenericBookScreen {
 				show_the_text=true;
 				if (!gotcha){
 					greentext=true;
-					the_text="you may need a calculator and/or pen and paper for this";
+					the_text="(you may need a calculator and/or pen and paper for this)";
 				}
 				else{
 					greentext=true;
-					the_text="or you can just blatantly skip ahead that's fine too I guess";
+					the_text="(or you can just blatantly skip ahead that's fine too I guess)";
 				}
 				if (turret_one.targeted && turret_two.targeted && turret_three.targeted && turret_four.targeted){
 					greentext=false;

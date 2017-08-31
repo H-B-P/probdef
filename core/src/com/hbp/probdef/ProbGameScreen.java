@@ -54,7 +54,11 @@ public class ProbGameScreen extends SpaceyScreen {
    private Texture destroy_dot_t;
    private Texture capture_dot_t;
 
-   
+   private Texture scratch_two;
+   private Texture scratch_three;
+   private Texture scratch_four;
+   private Texture scratch_five;
+
 
    private Texture explosion_t;
    
@@ -96,10 +100,10 @@ public class ProbGameScreen extends SpaceyScreen {
 	
 	private boolean infuriatingly_specific_bool;
 	
-	BitmapFont grayfont;
-	BitmapFont redfont;
-	BitmapFont bluefont;
-	BitmapFont greenfont;
+	BitmapFont acalc_grayfont;
+	BitmapFont acalc_redfont;
+	BitmapFont acalc_bluefont;
+	BitmapFont acalc_greenfont;
 	
 	Sound minesplode;
 	Sound hitshield;
@@ -150,6 +154,12 @@ public class ProbGameScreen extends SpaceyScreen {
 	      
 	      
 	      
+	      scratch_two= new Texture(Gdx.files.internal("turrets/chickenscratch_2.png"));
+	      scratch_three= new Texture(Gdx.files.internal("turrets/chickenscratch_3.png"));
+	      scratch_four= new Texture(Gdx.files.internal("turrets/chickenscratch_4.png"));
+	      scratch_five= new Texture(Gdx.files.internal("turrets/chickenscratch_5.png"));
+	      
+	      
 	      pause_t=new Texture(Gdx.files.internal("pause_symbol.png"));
 	      
 	      destroy_dot_t=new Texture(Gdx.files.internal("shot_destroy.png"));
@@ -179,14 +189,14 @@ public class ProbGameScreen extends SpaceyScreen {
 	      
 	      level_specific_music_setup();
 	      
-	      grayfont=new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
-			grayfont.setColor(new Color(0.6f, 0.6f, 0.6f, 1.0f));
-			redfont=new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
-			redfont.setColor(new Color(1.0f, 0.1f, 0.1f, 1.0f));
-			bluefont=new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
-			bluefont.setColor(new Color(0.1f, 0.1f, 1.0f, 1.0f));
-			greenfont=new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
-			greenfont.setColor(new Color(0.1f, 0.6f, 0.1f, 1.0f));
+	      acalc_grayfont=new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
+			acalc_grayfont.setColor(new Color(0.6f, 0.6f, 0.6f, 1.0f));
+			acalc_redfont=new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
+			acalc_redfont.setColor(new Color(1.0f, 0.1f, 0.1f, 1.0f));
+			acalc_bluefont=new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
+			acalc_bluefont.setColor(new Color(0.1f, 0.1f, 1.0f, 1.0f));
+			acalc_greenfont=new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
+			acalc_greenfont.setColor(new Color(0.1f, 0.6f, 0.1f, 1.0f));
 	      
 	      infuriatingly_specific_bool=false; //so infuriating
 	      
@@ -239,18 +249,18 @@ public class ProbGameScreen extends SpaceyScreen {
 			if (seconds==30){
 				spawnMine(0,100);
 				spawnMine(2,65);
-				spawnMine(-2,50);
+				spawnMine(-2,45);
 			}
 			if (seconds==36){
 				spawnMine(2,65);
 				spawnMine(0,65);
-				spawnMine(-3, 50);
+				spawnMine(-3, 45);
 			}
 			if (seconds==40){
-				spawnMine(-3,50);
-				spawnMine(-1, 50);
-				spawnMine(1,50);
-				spawnMine(3, 50);
+				spawnMine(-3,45);
+				spawnMine(-1, 45);
+				spawnMine(1,45);
+				spawnMine(3, 45);
 			}
 			if (seconds==46){
 				spawnMine(-3,100);
@@ -339,11 +349,13 @@ public class ProbGameScreen extends SpaceyScreen {
 			   for (Turret_Standard turret_standard:turrets_standard){
 				   if (turret_standard.targeted){
 					   if (turret_standard.target_mine.equals(regularmine)){
-						   survival=survival*turret_standard.fail_percent/100.0f;
+						   for (int i=0; i<turret_standard.turret_level;i++){
+							   survival=survival*turret_standard.fail_percent/100.0f;
+						   }
 					   }
 				   }
 			   }
-			   grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", regularmine.rect.x-20, regularmine.rect.y-20, 81, 1, true);
+			   acalc_grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", regularmine.rect.x-20, regularmine.rect.y-20, 81, 1, true);
 		   }
 		   for (ShieldMine shieldmine:shieldmines){
 			   float four=0f;
@@ -373,22 +385,23 @@ public class ProbGameScreen extends SpaceyScreen {
 			   for (Turret_Standard turret_standard:turrets_standard){
 				   if (turret_standard.targeted){
 					   if (turret_standard.target_mine.equals(shieldmine)){
-						   destroy= destroy + zero*turret_standard.destroy_percent/100.0f;
-						   capture= destroy + zero*turret_standard.destroy_percent/100.0f;
-						   
-						   zero= zero*turret_standard.fail_percent/100.0f + one*(1f-turret_standard.fail_percent/100.0f);
-						   one= one*turret_standard.fail_percent/100.0f + two*(1f-turret_standard.fail_percent/100.0f);
-						   two= two*turret_standard.fail_percent/100.0f + three*(1f-turret_standard.fail_percent/100.0f);
-						   three=three*turret_standard.fail_percent/100.0f + four*(1f-turret_standard.fail_percent/100.0f);
-						   four=four*turret_standard.fail_percent/100.0f;
-						   
+						   for (int i=0; i<turret_standard.turret_level;i++){
+							   destroy= destroy + zero*turret_standard.destroy_percent/100.0f;
+							   capture= destroy + zero*turret_standard.destroy_percent/100.0f;
+							   
+							   zero= zero*turret_standard.fail_percent/100.0f + one*(1f-turret_standard.fail_percent/100.0f);
+							   one= one*turret_standard.fail_percent/100.0f + two*(1f-turret_standard.fail_percent/100.0f);
+							   two= two*turret_standard.fail_percent/100.0f + three*(1f-turret_standard.fail_percent/100.0f);
+							   three=three*turret_standard.fail_percent/100.0f + four*(1f-turret_standard.fail_percent/100.0f);
+							   four=four*turret_standard.fail_percent/100.0f;
+						   }
 					   }
 				   }
 			   }
 			   
 			   float survival=zero+one+two+three+four;
 			   
-			   grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", shieldmine.rect.x-20, shieldmine.rect.y-20, 81, 1, true);
+			   acalc_grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", shieldmine.rect.x-20, shieldmine.rect.y-20, 81, 1, true);
 			   
 		   }
 	   }
@@ -405,7 +418,7 @@ public class ProbGameScreen extends SpaceyScreen {
 					   }
 				   }
 			   }
-			   bluefont.draw(batch, present_float(capture*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 80, 1, true);
+			   acalc_bluefont.draw(batch, present_float(capture*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 80, 1, true);
 		   }
 	   }
 	   
@@ -421,7 +434,7 @@ public class ProbGameScreen extends SpaceyScreen {
 					   }
 				   }
 			   }
-			   redfont.draw(batch, present_float(destruction*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 80, 1, true);
+			   acalc_redfont.draw(batch, present_float(destruction*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 80, 1, true);
 		   }
 	   }
 	   
@@ -559,12 +572,12 @@ public class ProbGameScreen extends SpaceyScreen {
 			for(Kaboom boom: explosions) {
 		          batch.draw(explosion_t, boom.rect.x-20, boom.rect.y-20);
 		       }
-			for(Turret turret: turrets) {
-				if (turret.does_it_work){
-					batch.draw(turret.current_t, turret.rect.x, turret.rect.y);
+			for(Turret_Standard turret_standard: turrets_standard) {
+				if (turret_standard.does_it_work){
+					batch.draw(turret_standard.current_t, turret_standard.rect.x, turret_standard.rect.y);
 				}
 				else{
-					batch.draw(turret.dead_t, turret.rect.x, turret.rect.y);
+					batch.draw(turret_standard.dead_t, turret_standard.rect.x, turret_standard.rect.y);
 				}
 		       }
 			
@@ -583,7 +596,23 @@ public class ProbGameScreen extends SpaceyScreen {
 				for(Turret turret: turrets) {
 					if (turret.does_it_work){
 						batch.draw(turret.overlay_t, turret.rect.x, turret.rect.y);
+						
 			       }
+				}
+
+			}
+			for (Turret_Standard turret_standard: turrets_standard){
+				if (turret_standard.turret_level==2){
+					batch.draw(scratch_two, turret_standard.rect.x+10, turret_standard.rect.y+15);
+				}
+				if (turret_standard.turret_level==3){
+					batch.draw(scratch_three, turret_standard.rect.x+10, turret_standard.rect.y+15);
+				}
+				if (turret_standard.turret_level==4){
+					batch.draw(scratch_four, turret_standard.rect.x+10, turret_standard.rect.y+15);
+				}
+				if (turret_standard.turret_level==5){
+					batch.draw(scratch_five, turret_standard.rect.x+10, turret_standard.rect.y+15);
 				}
 			}
 			
@@ -596,20 +625,24 @@ public class ProbGameScreen extends SpaceyScreen {
 	   void draw_textbox_one(String text){
 		   batch.draw(textbox_one_t, 20, 100);
 		   if (greentext){
-			   greenfont.draw(batch, text, 30, 170, 260, 1, true);
+			   //acalc_greenfont.draw(batch, text, 30, 170, 260, 1, true);
+			   greenfont.draw(batch, text, 30, 173, 260, 1, true);
 		   }
 		   else{
-			   font.draw(batch, text, 30, 170, 260, 1, true);
+			   //font.draw(batch, text, 30, 170, 260, 1, true);
+			   blackfont.draw(batch, text, 30, 173, 260, 1, true);
 		   }
 	   }
 	   
 	   void draw_textbox_two(String text){
 		   batch.draw(textbox_two_t, 20, 100);
 		   if (greentext){
-			   greenfont.draw(batch, text, 30, 190, 260, 1, true);
+			   //acalc_greenfont.draw(batch, text, 30, 190, 260, 1, true);
+			   greenfont.draw(batch, text, 30, 191, 260, 1, true);
 		   }
 		   else{
-			   font.draw(batch, text, 30, 190, 260, 1, true);
+			   //font.draw(batch, text, 30, 190, 260, 1, true);
+			   blackfont.draw(batch, text, 30, 191, 260, 1, true);
 		   }
 	   }
 	   
@@ -699,7 +732,7 @@ public class ProbGameScreen extends SpaceyScreen {
 	   
 	   private void check_for_dot_mine_collisions(){
 		   for (Dot dot:dots){
-			   if (dot.rect.overlaps(dot.target_mine.rect)){
+			   if (dot.rect.overlaps(dot.target_mine.rect) && dot.target_mine.actually_there){
 				    	 
 				   if (dot.type.equals("destroy") && !dot.target_mine.destroyproof){
 					    	 dot.target_mine.actually_there=false;
@@ -713,6 +746,7 @@ public class ProbGameScreen extends SpaceyScreen {
 				    	 }
 				    	 if (dot.type.equals("capture") && !dot.target_mine.captureproof){
 					    	 dot.target_mine.being_detained=true;
+					    	 dot.target_mine.actually_there=false;
 					    	 exit_stage_whatever(dot.target_mine);
 					    	 capture.play();
 				    	 }
@@ -760,16 +794,21 @@ public class ProbGameScreen extends SpaceyScreen {
 	   private void status_effects(){
 		   if (current_status.equals("waiting")){
 			   TIMESPEED=1;
+			   for (Turret_Standard turret_standard: turrets_standard){
+				   turret_standard.shotsmade=0;
+			   }
 		   }
 		   if (current_status.equals("firing")){
 			   TIMESPEED=0.1;
+			   
 		   }
 		   if (current_status.equals("targeting")){
 			   TIMESPEED=0;
+			   for (Turret_Standard turret_standard: turrets_standard){
+				   turret_standard.shotsmade=0;
+			   }
 		   }
 	   }
-	   
-
 	   
 	   void handle_seconds(){
 		   if (seconds<Math.floor(total_time)){
@@ -831,16 +870,28 @@ public class ProbGameScreen extends SpaceyScreen {
 		   for(Turret turret: turrets) {
 			   if (turret.target_mine!=null){
 				   if (!turret.target_mine.being_detained && turret.target_mine.actually_there){
-					   if (turret.targeted && turret.firing_time<total_time){
-						   Dot dot=new Dot(turret.rect, turret.target_mine, 3000, turret.determine_output());
-						   dots.add(dot);
-						   fire.play(0.3f);
-						   turret.targeted=false;
+					   if (turret.turret_type.equals("standard")){
+						   Turret_Standard T=(Turret_Standard)turret;
+						   if (T.targeted && (T.firing_time+0.01f*T.shotsmade)<total_time){
+							   if (T.shotsmade==0){fire.play(0.3f);}
+							   T.shotsmade+=1;
+							   Dot dot=new Dot(turret.rect, turret.target_mine, 3000, turret.determine_output());
+							   dots.add(dot);
+						   }
+						   
+						   if (T.shotsmade>=T.turret_level){
+							   T.targeted=false;
+						   }
+						   
 					   }
 					   
+					   
+				   }
+				   else{
+					   turret.targeted=false;
 				   }
 			   }
-			   if (turret.firing_time<total_time && (turret.firing_time+0.04)>total_time){
+			   if (turret.firing_time<total_time && (turret.firing_time+0.1f)>total_time){
 				   turret.current_t=turret.firing_t;
 			   }
 			   else{

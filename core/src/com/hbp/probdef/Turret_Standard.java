@@ -8,8 +8,18 @@ public class Turret_Standard extends Turret {
 	float destroy_percent;
 	float fail_percent;
 	
+	int turret_level;
+	int shotsmade;
+	
 	   public Turret_Standard(String id){
 		   super(id);
+		   
+		   turret_type="standard";
+		   
+		   shotsmade=0;
+		   
+		   turret_level=1;
+		   
 		   normal_t=new Texture (Gdx.files.internal("turrets/turret_"+ident+".png"));
 		   selected_t=new Texture (Gdx.files.internal("turrets/turret_"+ident+"_"+"selected.png"));
 		   firing_t=new Texture (Gdx.files.internal("turrets/turret_"+ident+"_"+"firing.png"));
@@ -56,12 +66,21 @@ public class Turret_Standard extends Turret {
 		   
 	   }
 	   
+	   public Turret_Standard(String id, int level){
+		   this(id);
+		   turret_level=level;
+		   if (turret_level>1){
+			   selected_t=new Texture (Gdx.files.internal("turrets/turret_"+ident+"_"+"selected_multi.png"));
+			   target_t=new Texture (Gdx.files.internal("turrets/target_"+ident+"_multi.png"));
+		   }
+}
+	   
 	   
 	   private void handle_lines(){
 		   
 		   lines_no=4;
 		   
-		   line_one="==="+ident.toUpperCase()+"===";
+		   line_one="=="+ident.toUpperCase()+"==";
 		   line_two="FAIL: "+(int)fail_percent+"%";
 		   line_three="DESTROY: "+(int)destroy_percent+"%";
 		   line_four="CAPTURE: "+(int)capture_percent+"%";

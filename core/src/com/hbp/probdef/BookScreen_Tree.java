@@ -33,7 +33,7 @@ public class BookScreen_Tree extends GenericBookScreen {
 		
 		if (page==2){
 			batch.begin();
-			batch.draw(tree_percentage, 60, 210);
+			batch.draw(tree_percentage, 60, 190);
 			batch.end();
 		}
 	}
@@ -91,10 +91,7 @@ public class BookScreen_Tree extends GenericBookScreen {
 		if (page==1 && seconds<7 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted){
 			draw_textbox_two(text);
 		}
-		else if (page==1 && seconds>7 && TIMESPEED==0){
-			draw_textbox_two(text);
-		}
-		else if (page==2 || page==3 || page==4){
+		else if (page==3){
 			draw_textbox_two(text);
 		}
 		else{
@@ -166,13 +163,13 @@ public class BookScreen_Tree extends GenericBookScreen {
 			}
 			if (seconds==8 && TIMESPEED==0){
 				show_the_text=true;
-				the_text="Since we have the other outcomes, we have a new way to find survival:\ntake 33% and 64% from 100%, get 3%.";
+				the_text="Since we have the other outcomes, we have a new way to find survival:\n100% - (64% + 33%) = 3%.";
 				
 			}
 			if (page_time>8 && TIMESPEED>0){
 				show_the_text=true;
 				greentext=true;
-				the_text="a mine either remains, is destroyed, or is captured, so the probabilities can't not add to 100%";
+				the_text="(a mine either remains, is destroyed, or is captured, so the probabilities can't not add to 100%)";
 			}
 			if (page_time>10){
 				time_to_move_on=true;
@@ -199,15 +196,19 @@ public class BookScreen_Tree extends GenericBookScreen {
 		
 		if (page==3){
 			turret_four.does_it_work=false;
-			show_the_text=true;
-			the_text="Use a probability tree to calculate the probability that this mine will be destroyed when targeted with three turrets.";
+			if (page_time<4||(seconds==4 && TIMESPEED==0 && turret_one.targeted==false)){
+				show_the_text=true;
+				the_text="Before targeting, use a probability tree to calculate the probability that this mine will be destroyed when targeted with three turrets.";
+			}
 			if (page_time>6){
 				time_to_move_on=true;
 			}
 		}
 		if (page==4){
-			show_the_text=true;
-			the_text="Extend the tree and use it to find the probability this mine will be captured when all four turrets are targeted.";
+			if (page_time<4||(seconds==4 && TIMESPEED==0 && turret_one.targeted==false)){
+				show_the_text=true;
+				the_text="Extend the tree and use it to find the probability this mine will be captured when all four turrets are targeted.";
+			}
 			if (page_time>6){
 				time_to_move_on=true;
 			}

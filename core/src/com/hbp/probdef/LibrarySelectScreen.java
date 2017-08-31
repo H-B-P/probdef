@@ -98,6 +98,10 @@ public class LibrarySelectScreen extends GenericSelectScreen {
 				   game.setScreen(new BookScreen_Pyramid(game, true));
 				dispose();
 			   }
+			   if (four_r.contains(tp_x,tp_y)){
+				   game.setScreen(new BookScreen_Pascal(game, true));
+				dispose();
+			   }
 		   }
 	   }
 	   
