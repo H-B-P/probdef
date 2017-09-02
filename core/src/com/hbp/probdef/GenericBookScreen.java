@@ -149,6 +149,8 @@ public class GenericBookScreen extends ProbGameScreen {
 		mines.clear();
 		regularmines.clear();
 		shieldmines.clear();
+		holomines.clear();
+		titaniummines.clear();
 		
 		explosions.clear();
 		
@@ -204,6 +206,9 @@ public class GenericBookScreen extends ProbGameScreen {
 		if (page==2){
 			if (seconds==4){
 				spawnExplosion(200,200);
+			}
+			if (seconds==7){
+				time_to_move_on=true;
 			}
 		}
 	}

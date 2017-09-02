@@ -51,13 +51,14 @@ public class LibrarySelectScreen extends GenericSelectScreen {
 			
 			prefs.putString("probdef_library_topic", TOPIC);
 			if(TOPIC.equals("Probability")){
-				NUMBER_OF_LEVELS=6;
+				NUMBER_OF_LEVELS=5;
 				banner_t=banner_prob_t;
 				one_t=combined_t;
 			}
 			if(TOPIC.equals("Bayes")){
 				NUMBER_OF_LEVELS=4;
 				banner_t=banner_bayes_t;
+				one_t=blank_t;
 			}
 			
 		}

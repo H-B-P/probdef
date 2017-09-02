@@ -72,6 +72,9 @@ public class BookScreen_Pascal extends GenericBookScreen {
 			}
 		}
 		if (page==2){
+			if (seconds==2){
+				spawnShieldMine(1,65, 2);
+			}
 			if (seconds==10){
 				spawnMine(0,95);
 			}
@@ -107,7 +110,7 @@ public class BookScreen_Pascal extends GenericBookScreen {
 		if (page==1){
 			if (page_time<3){
 				show_the_text=true;
-				the_text="Multishot turrets fire several dots per volley. They're good for handling shielded mines.";
+				the_text="Multishot turrets fire several shots per volley. They're good for handling shielded mines.";
 			}
 			if (seconds==8 && TIMESPEED==0){
 				show_the_text=true;
@@ -126,15 +129,15 @@ public class BookScreen_Pascal extends GenericBookScreen {
 			turret_three.does_it_work=false;
 			turret_four.does_it_work=false;
 			
-			if (page_time<4){
+			if (seconds==4 && TIMESPEED==0){
 				show_the_text=true;
 				the_text="When every turret targeted on a mine is of the same type, you get to take some shortcuts.";
 			}
-			if (page_time>4 && page_time<8){
+			if (seconds==4 && TIMESPEED==0 && turret_one.targeted){
 				show_the_text=true;
 				the_text="This is because the chance of an outcome with a given number of shots is the same no matter how you get there.";
 			}
-			if (page_time>8 && page_time<12){
+			if (seconds==4 && turret_one.targeted && turret_two.targeted){
 				show_the_text=true;
 				the_text="HHHF has the same probability as HHFH, HFHH, and FHHH. 0.8*0.8*0.8*0.2 = 0.2*0.8*0.8*0.8.";
 			}
