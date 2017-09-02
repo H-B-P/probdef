@@ -5,16 +5,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
-public class BookScreen_Tree extends GenericBookScreen {
+public class BookScreen_HypothesisTests extends GenericBookScreen {
 	
 	final ProbDef game;
 	
 	private SpriteBatch batch;
-
-	private Texture tree_percentage;
 	
 	
-	public BookScreen_Tree(final ProbDef gam, boolean play_the_sound) {
+	public BookScreen_HypothesisTests(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		
@@ -24,27 +22,20 @@ public class BookScreen_Tree extends GenericBookScreen {
 		
 		batch=new SpriteBatch();
 		
-		tree_percentage=new Texture(Gdx.files.internal("TREE_III.png"));
 	}
 
 	@Override
 	public void render(float delta) {
 		generic_book_render(delta);
-		
-		if (page==2){
-			batch.begin();
-			batch.draw(tree_percentage, 60, 190);
-			batch.end();
-		}
 	}
 	
 	@Override
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("triangle");
-		   turret_two=new Turret_Standard("pentagon");
+		   turret_one=new Turret_Standard("square");
+		   turret_two=new Turret_Standard("square");
 		   turret_three=new Turret_Standard("square");
-		   turret_four=new Turret_Standard("circle");
+		   turret_four=new Turret_Standard("square");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -135,7 +126,7 @@ public class BookScreen_Tree extends GenericBookScreen {
 			turret_three.does_it_work=false;
 			turret_four.does_it_work=false;
 			
-			if (page_time<3){
+			if (page_time<3.5){
 				show_the_text=true;
 				the_text="If you care whether a mine gets captured or destroyed, reasoning gets more complicated.";
 			}

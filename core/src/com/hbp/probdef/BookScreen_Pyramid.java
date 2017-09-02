@@ -107,7 +107,7 @@ public class BookScreen_Pyramid extends GenericBookScreen {
 		   greentext=false;
 		
 		if (page==1){
-			if (page_time<3.5){
+			if (page_time<3){
 				show_the_text=true;
 				the_text="Some mines have shields. Each shield can absorb one shot before disappearing.";
 			}
@@ -181,7 +181,7 @@ public class BookScreen_Pyramid extends GenericBookScreen {
 			}
 			if (seconds==4 && TIMESPEED==0){
 				show_the_text=true;
-				the_text="If F is a fail and H is a hit, the outcomes where this mine survives are FFF, HFF, FHF, and FFH.";
+				the_text="If F is a fail and H is a hit, the outcomes where this mine remains are FFF, HFF, FHF, and FFH.";
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_one.targeted){
 				show_the_text=true;
@@ -193,7 +193,7 @@ public class BookScreen_Pyramid extends GenericBookScreen {
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted && turret_three.targeted){
 				show_the_text=true;
-				the_text="Add all those up and you get 0.098, or 9.8% chance of survival.";
+				the_text="Add all those up and you get 0.098, or 9.8% chance of remaining.";
 			}
 			if (page_time>6){
 				time_to_move_on=true;

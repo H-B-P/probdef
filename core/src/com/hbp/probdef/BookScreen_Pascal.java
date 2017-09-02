@@ -18,7 +18,7 @@ public class BookScreen_Pascal extends GenericBookScreen {
 		
 		game = gam;
 		
-		maxpages=6;
+		maxpages=4;
 		
 		batch=new SpriteBatch();
 		
@@ -33,10 +33,10 @@ public class BookScreen_Pascal extends GenericBookScreen {
 	@Override
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("square");
+		   turret_one=new Turret_Standard("square",3);
 		   turret_two=new Turret_Standard("square");
 		   turret_three=new Turret_Standard("square");
-		   turret_four=new Turret_Standard("square",3);
+		   turret_four=new Turret_Standard("square");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -50,45 +50,43 @@ public class BookScreen_Pascal extends GenericBookScreen {
 	void level_specific_events(){
 		if (page==1){
 			if (seconds==2){
-				spawnShieldMine(-2,65,1);
-				spawnShieldMine(0,65,2);
+				spawnShieldMine(0,65,4);
 			}
 			if (seconds==6){
-				spawnShieldMine(0, 95, 1);
+				spawnShieldMine(1, 95, 1);
+				spawnShieldMine(-1, 95, 1);
 			}
 			if (seconds==8){
-				spawnShieldMine(-1, 95, 1);
-				spawnShieldMine(1, 65, 2);
+				spawnMine(-2, 95);
+				spawnMine(1, 95);
+			}
+			if (seconds==10){
+				spawnMine(-2, 95);
+				spawnMine(0, 95);
+				spawnMine(2, 95);
 			}
 			if (seconds==12){
-				spawnShieldMine(-2, 45, 1);
-				spawnShieldMine(0, 45, 2);
-				spawnShieldMine(2, 45, 3);
+				spawnShieldMine(-2, 65, 2);
+				spawnShieldMine(0, 65, 2);
+				spawnShieldMine(2, 65, 2);
 			}
 		}
 		if (page==2){
-			if (seconds==2){
+			if (seconds==10){
+				spawnMine(0,95);
+			}
+			if (seconds==12){
 				spawnShieldMine(0,95,1);
 			}
 		}
 		if (page==3){
 			if (seconds==2){
-				spawnShieldMine(0,95,2);
+				spawnShieldMine(0,95,1);
 			}
 		}
 		if (page==4){
 			if (seconds==2){
 				spawnShieldMine(0,95,1);
-			}
-		}
-		if (page==5){
-			if (seconds==2){
-				spawnShieldMine(0,95,1);
-			}
-		}
-		if (page==6){
-			if (seconds==2){
-				spawnShieldMine(0,95,2);
 			}
 		}
 	}
@@ -107,15 +105,19 @@ public class BookScreen_Pascal extends GenericBookScreen {
 		   greentext=false;
 		
 		if (page==1){
-			if (page_time<3.5){
+			if (page_time<3){
 				show_the_text=true;
-				the_text="Some mines have shields. Each shield can absorb one shot before disappearing.";
+				the_text="Multishot turrets fire several dots per volley. They're good for handling shielded mines.";
 			}
-			if (seconds==4 && TIMESPEED==0){
+			if (seconds==8 && TIMESPEED==0){
 				show_the_text=true;
-				the_text="To destroy or capture them, all their shields must be dropped.";
+				the_text="The string of shots fired by a multishot turret are all independent.";
 			}
-			if (page_time>20){
+			if (seconds==8 && TIMESPEED==0 && turret_one.targeted){
+				show_the_text=true;
+				the_text="This means a 3-shot square turret is equivalent to three 1-shot square turrets targeting the same mine.";
+			}
+			if (page_time>18){
 				time_to_move_on=true;
 			}
 		}
@@ -123,23 +125,44 @@ public class BookScreen_Pascal extends GenericBookScreen {
 		if (page==2){
 			turret_three.does_it_work=false;
 			turret_four.does_it_work=false;
+			
 			if (page_time<4){
 				show_the_text=true;
-				the_text="Say you target a mine with one shield, using two turrets. What happens?";
+				the_text="When every turret targeted on a mine is of the same type, you get to take some shortcuts.";
 			}
-			if (seconds==4 && TIMESPEED==0){
+			if (page_time>4 && page_time<8){
 				show_the_text=true;
-				the_text="There are four outcomes, ignoring the destroy/capture distinction: fail-fail, hit-fail, fail-hit, and hit-hit.";
+				the_text="This is because the chance of an outcome with a given number of shots is the same no matter how you get there.";
 			}
-			if (seconds==4 && TIMESPEED==0 && turret_one.targeted){
+			if (page_time>8 && page_time<12){
 				show_the_text=true;
-				the_text="The only outcome which removes it is both shots hitting. So the mine's surival chance is 100% minus that.";
+				the_text="HHHF has the same probability as HHFH, HFHH, and FHHH. 0.8*0.8*0.8*0.2 = 0.2*0.8*0.8*0.8.";
 			}
-			if (seconds==4 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted){
+			if (seconds==12 && TIMESPEED==0){
 				show_the_text=true;
-				the_text="90% of 70% is 63%, so the mine has a 100%-63%, or 37%, chance of remaining.";
+				the_text="The probability of remaining for a mine with no shield is the probability of every shot failing.";
 			}
-			if (page_time>6){
+			if (seconds==12 && TIMESPEED==0 && turret_one.targeted){
+				show_the_text=true;
+				the_text="So FFFF: 0.2*0.2*0.2*0.2";
+			}
+			if (seconds==12 && TIMESPEED==0 && turret_one.targeted&& turret_two.targeted){
+				show_the_text=true;
+				the_text="So FFFF: 0.2*0.2*0.2*0.2\nThis is 0.0016, or 0.16%.";
+			}
+			if (seconds==14 && TIMESPEED==0){
+				show_the_text=true;
+				the_text="The probability of remaining for a mine with one shield is that plus the probability of only one shot failing.";
+			}
+			if (seconds==14 && TIMESPEED==0 && turret_one.targeted){
+				show_the_text=true;
+				the_text="So FFFF + HFFF + FHFF + FFHF + FFFH. But the last four probabilities will be the same!";
+			}
+			if (seconds==14 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted){
+				show_the_text=true;
+				the_text="So FFFF + 4 x HFFF: 0.2*0.2*0.2*0.2 + 4*0.8*0.2*0.2*0.2. \nThis gives 2.72%";
+			}
+			if (page_time>16){
 				time_to_move_on=true;
 			}
 			
@@ -147,80 +170,28 @@ public class BookScreen_Pascal extends GenericBookScreen {
 		
 		if (page==3){
 			turret_four.does_it_work=false;
-			if (page_time<4){
-				show_the_text=true;
-				the_text="Say you target a mine with two shields, using three turrets.";
-			}
 			if (seconds==4 && TIMESPEED==0){
 				show_the_text=true;
-				the_text="We could draw out a whole tree, but the only outcome you care about is the one where all three fire.";
+				the_text="Predict what the autocalc will say when five shots are targeted at a mine with one shield.";
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_one.targeted){
 				show_the_text=true;
-				the_text="So 80% of 90% of 70% . . .";
-			}
-			if (seconds==4 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted && turret_three.targeted){
-				show_the_text=true;
-				the_text="So 80% of 90% of 70% . . .\nthat's a 50.4% chance of the mine being destroyed, or a 49.6% chance it remains.";
-			}
-			if (seconds==4 && TIMESPEED>0 && TIMESPEED<1){
-				show_the_text=true;
 				greentext=true;
-				the_text="(do you feel lucky, punk?)";
+				the_text="(note that the autocalc only displays to two decimal places)";
 			}
-			
 			if (page_time>6){
 				time_to_move_on=true;
 			}
 		}
 		if (page==4){
-			turret_four.does_it_work=false;
-			if (page_time<4){
-				show_the_text=true;
-				the_text="Say you target a mine with one shield, using three turrets. Now we need to look at individual outcomes.";
-			}
 			if (seconds==4 && TIMESPEED==0){
 				show_the_text=true;
-				the_text="If F is a fail and H is a hit, the outcomes where this mine survives are FFF, HFF, FHF, and FFH.";
+				the_text="Predict what the autocalc will say when six shots are targeted at a mine with one shield.";
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_one.targeted){
 				show_the_text=true;
-				the_text="So it's possible to calculate the odds of each of those outcomes and sum them to get the chance it remains.";
-			}
-			if (seconds==4 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted){
-				show_the_text=true;
-				the_text="FFF = 0.3*0.1*0.2 = 0.006\nHFF = 0.7*0.1*0.2 = 0.014\nFHF = 0.3*0.9*0.2 = 0.054\nFFH = 0.3*0.1*0.8 = 0.024";
-			}
-			if (seconds==4 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted && turret_three.targeted){
-				show_the_text=true;
-				the_text="Add all those up and you get 0.098, or 9.8% chance of survival.";
-			}
-			if (page_time>6){
-				time_to_move_on=true;
-			}
-		}
-		if (page==5){
-			if (seconds<4 || (seconds==4 && TIMESPEED==0)){
-				show_the_text=true;
-				the_text="Try using this reasoning to predict what the autocalc will say when we target all four turrets on this mine.";
-			}
-			if (seconds==4 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted && turret_three.targeted && turret_four.targeted){
-				show_the_text=true;
-				the_text="Does that line up with your prediction? If so, well done.";
-			}
-			if (page_time>6){
-				time_to_move_on=true;
-			}
-		}
-		if (page==6){
-			if (seconds<4){
-				show_the_text=true;
-				the_text="If you want a challenge, predict what the autocalc will say when we target all four turrets on THIS mine.";
-			}
-			if (seconds==4 && TIMESPEED==0){
-				show_the_text=true;
 				greentext=true;
-				the_text="(or just skip ahead, this is even more optional than most things in life are)";
+				the_text="(don't stop noting that the autocalc only displays to two decimal places)";
 			}
 			if (page_time>6){
 				time_to_move_on=true;

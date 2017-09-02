@@ -51,7 +51,7 @@ public class LibrarySelectScreen extends GenericSelectScreen {
 			
 			prefs.putString("probdef_library_topic", TOPIC);
 			if(TOPIC.equals("Probability")){
-				NUMBER_OF_LEVELS=5;
+				NUMBER_OF_LEVELS=6;
 				banner_t=banner_prob_t;
 				one_t=combined_t;
 			}
@@ -100,6 +100,10 @@ public class LibrarySelectScreen extends GenericSelectScreen {
 			   }
 			   if (four_r.contains(tp_x,tp_y)){
 				   game.setScreen(new BookScreen_Pascal(game, true));
+				dispose();
+			   }
+			   if (five_r.contains(tp_x,tp_y)){
+				   game.setScreen(new BookScreen_HypothesisTests(game, true));
 				dispose();
 			   }
 		   }
