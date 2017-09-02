@@ -9,16 +9,12 @@ public class ShieldMine extends Mine {
 	Rectangle shield_three;
 	Rectangle shield_four;
 	
-	int shields_max;
-	int shields_rn;
-	
 	public ShieldMine(int xposn, float m_speed, int shields){
 		   
 		   super(xposn, m_speed);
 		   
 		   minetype="shield";
 		   
-		   shields_max=shields;
 		   shields_rn=shields;
 		   
 		   shield_one=new Rectangle();

@@ -18,7 +18,7 @@ public class BookScreen_HypothesisTests extends GenericBookScreen {
 		
 		game = gam;
 		
-		maxpages=4;
+		maxpages=2;
 		
 		batch=new SpriteBatch();
 		
@@ -48,28 +48,44 @@ public class BookScreen_HypothesisTests extends GenericBookScreen {
 	
 	void level_specific_events(){
 		if (page==1){
-			if (seconds==2){
-				spawnMine(0,95);
-			}
 			if (seconds==4){
-				spawnMine(0,95);
+				spawnHoloMine(0,200);
 			}
 			if (seconds==6){
-				spawnMine(0,95);
+				spawnHoloMine(0,35);
+			}
+			if (seconds==10){
+				spawnMine(-2,65);
+				spawnMine(2,65);
+			}
+			if (seconds==12){
+				spawnMine(-2,65);
+				spawnMine(2,65);
 			}
 		}
 		if (page==2){
-			
+			if (seconds==2){
+				spawnHoloProbablistic(-2,45,50);
+				spawnHoloProbablistic(0,45,50);
+				spawnHoloProbablistic(2,45,50);
+			}
+			if (seconds==4){
+				spawnHoloProbablistic(-1,45,50);
+				spawnHoloProbablistic(1,45,50);
+			}
+			if (seconds==6){
+				spawnHoloProbablistic(2,45,50);
+				spawnHoloProbablistic(-2,45,50);
+			}
+			if (seconds==8){
+				spawnHoloProbablistic(0,45,50);
+			}
 		}
 		if (page==3){
-			if (seconds==2){
-				spawnMine(0,95);
-			}
+			
 		}
 		if (page==4){
-			if (seconds==2){
-				spawnMine(0,95);
-			}
+			
 		}
 	}
 	@Override
@@ -78,11 +94,7 @@ public class BookScreen_HypothesisTests extends GenericBookScreen {
 	   }
 	@Override
 	void draw_textbox(String text){
-		   
-		if (page==1 && seconds<7 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted){
-			draw_textbox_two(text);
-		}
-		else if (page==3){
+		if (page==2){
 			draw_textbox_two(text);
 		}
 		else{
@@ -90,28 +102,6 @@ public class BookScreen_HypothesisTests extends GenericBookScreen {
 		}
 	   }
 	
-	
-	@Override
-	
-	void autocalc_and_display(){
-		if (page==1){
-			if (seconds==4){
-				autocalc_and_display_capture();
-			}
-			else if (seconds==6){
-				autocalc_and_display_destroy();
-			}
-			else{
-				autocalc_and_display_survive();
-			}
-		}
-		if (page==3){
-			autocalc_and_display_destroy();
-		}
-		if (page==4){
-			autocalc_and_display_capture();
-		}
-	}
 	
 	@Override
 	
@@ -123,86 +113,60 @@ public class BookScreen_HypothesisTests extends GenericBookScreen {
 		
 		if (page==1){
 			
-			turret_three.does_it_work=false;
-			turret_four.does_it_work=false;
-			
-			if (page_time<3.5){
+			if (page_time<4){
 				show_the_text=true;
-				the_text="If you care whether a mine gets captured or destroyed, reasoning gets more complicated.";
+				the_text="Holo mines look ordinary, but vanish harmlessly when they touch the ship's shield.";
 			}
-			if (seconds==4 && TIMESPEED==0){
+			if ((page_time>6 && page_time<8) || (seconds==8 && TIMESPEED==0)){
 				show_the_text=true;
-				the_text="Let's say we want to know the odds of this mine being captured.";
-				if (turret_one.targeted){
-					the_text="The probability that the triangle captures it is 30%.";
-				}
-				if (turret_one.targeted && turret_two.targeted){
-					the_text="The probability that it survives the triangle but the pentagon captures it is 10% of 30%, or 3%.\nSo, 33% total.";
-				}
+				the_text="They don't exist, so turrets won't successfully fire on them. Every shot you try fails.";
 				
 			}
-			if (seconds==6 && TIMESPEED==0){
+			if (seconds==8 && (turret_one.targeted || turret_two.targeted || turret_three.targeted || turret_four.targeted)){
 				show_the_text=true;
-				the_text="Let's say we want to know the odds of this mine being destroyed.";
-				if (turret_one.targeted){
-					the_text="The probability that the triangle destroys it is 40%.";
-				}
-				if (turret_one.targeted && turret_two.targeted){
-					the_text="The probability that it survives the triangle but the pentagon destroys it is 80% of 30%, or 24%.\n40% + 24% = 64% total.";
-				}
+				the_text="The autocalculator assumes every mine is real and calculates odds based on that.";
+			}
+			if ((seconds==12 && TIMESPEED==0)){
+				show_the_text=true;
+				the_text="Eventually, a holo mine will defy enough odds that you can assume it's fake, and focus on real threats.";
 				
 			}
-			if (seconds==8 && TIMESPEED==0){
-				show_the_text=true;
-				the_text="Since we have the other outcomes, we have a new way to find survival:\n100% - (64% + 33%) = 3%.";
-				
-			}
-			if (page_time>8 && TIMESPEED>0){
+			if (page_time>18){
 				show_the_text=true;
 				greentext=true;
-				the_text="(a mine either remains, is destroyed, or is captured, so the probabilities can't not add to 100%)";
+				the_text="(fyi from here on out all holos are generated randomly, so memorising which mines are fake won't work)";
 			}
-			if (page_time>10){
+			if (page_time>20){
 				time_to_move_on=true;
 			}
 		}
 		
 		if (page==2){
-			
-			turret_four.does_it_work=false;
-			turret_three.does_it_work=false;
-			show_the_text=true;
-			the_text="This reasoning can be shown in a probability tree.\nBranches represent things which can happen each shot.";
-			if (page_time>4){
-				the_text="The number at the root is 100%, since the probability that SOMETHING happens is 100%.";
-			}
-			if (page_time>8){
-				the_text="Each branch multiplies the probability above by the probability along it to get the probability below it.";
-			}
-			if (page_time>10){
-				time_to_move_on=true;
-			}
-			
-		}
-		
-		if (page==3){
-			turret_four.does_it_work=false;
-			if (page_time<4||(seconds==4 && TIMESPEED==0 && turret_one.targeted==false)){
+			if (seconds==4 && TIMESPEED==0){
 				show_the_text=true;
-				the_text="Before targeting, use a probability tree to calculate the probability that this mine will be destroyed when targeted with three turrets.";
+				the_text="There's a way to do this rigorously. Pick a mine and concentrate some turrets on it.";
 			}
-			if (page_time>6){
-				time_to_move_on=true;
-			}
-		}
-		if (page==4){
-			if (page_time<4||(seconds==4 && TIMESPEED==0 && turret_one.targeted==false)){
+			if (seconds==4 && TIMESPEED==0 && turret_one.targeted){
 				show_the_text=true;
-				the_text="Extend the tree and use it to find the probability this mine will be captured when all four turrets are targeted.";
+				the_text="Your null hypothesis, H0, is that it's a real mine. Your alternative hypothesis, HA, is that it's a holo.";
 			}
-			if (page_time>6){
+			if (seconds==4 && TIMESPEED==0 && turret_two.targeted){
+				show_the_text=true;
+				the_text="If the autocalc gives it less than a p% chance of remaining, but it remains, you reject the null and assume it's fake.";
+			}
+			if (seconds==4 && TIMESPEED==0 && turret_three.targeted){
+				show_the_text=true;
+				the_text="The standard p-value is 5%. You may want to use a different one depending on how common holos are and how careful you're being.";
+			}
+			if (seconds==4 && TIMESPEED==0 && turret_four.targeted){
+				show_the_text=true;
+				greentext=true;
+				the_text="(you ready to do some Scientific Investigation and Test some Hypotheses? here we go)";
+			}
+			if (page_time>16){
 				time_to_move_on=true;
 			}
+			
 		}
 	}
 

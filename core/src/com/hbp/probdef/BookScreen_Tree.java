@@ -102,23 +102,23 @@ public class BookScreen_Tree extends GenericBookScreen {
 	
 	@Override
 	
-	void autocalc_and_display(){
+	void autocalc_and_display_dummy(){
 		if (page==1){
 			if (seconds==4){
-				autocalc_and_display_capture();
+				autocalc_and_display("capture");
 			}
 			else if (seconds==6){
-				autocalc_and_display_destroy();
+				autocalc_and_display("destroy");
 			}
 			else{
-				autocalc_and_display_survive();
+				autocalc_and_display("survive");
 			}
 		}
 		if (page==3){
-			autocalc_and_display_destroy();
+			autocalc_and_display("destroy");
 		}
 		if (page==4){
-			autocalc_and_display_capture();
+			autocalc_and_display("destroy");
 		}
 	}
 	

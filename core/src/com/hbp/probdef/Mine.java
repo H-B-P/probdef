@@ -5,16 +5,18 @@ import com.badlogic.gdx.math.Rectangle;
 public class Mine {
 	   Rectangle rect;
 	   
-	   String minetype;
+	   String minetype; //Currently supports "shield", "regular", and "titanium".
 	   float vert_speed;
 	   float horz_vel;
-	   boolean captureproof;
-	   boolean destroyproof;
-	   boolean shootproof;
+	   
+	   int shields_rn;
+	   
+	   boolean captureproof; //If a captureshot hits it, will it be captured?
+	   boolean destroyproof; //If a destroyshot hits it, will it be destroyed?
+	   boolean shootproof; //If a turret targets it, will it be able to fire?
 	   
 	   boolean being_detained;
-	   
-	   boolean actually_there;
+	   boolean actually_there; //Is the mine currently being dragged offstage, or otherwise incapable of interacting with things?
 	   
 	   public Mine(int xposn, float m_speed){
 		   
@@ -28,6 +30,8 @@ public class Mine {
 		   
 		   actually_there=true;
 		   
+		   shields_rn=0;
+		   
 		   minetype="regular";
 		   
 		      rect = new Rectangle();
@@ -38,5 +42,6 @@ public class Mine {
 		      rect.height = 41;
 		      
 		      vert_speed = m_speed;
+		      
 	   }
 }
