@@ -232,6 +232,13 @@ public class GenericBookScreen extends ProbGameScreen {
 		}
 	}
 	
+	@Override
+	
+	void return_to_menu(){
+		   game.setScreen(new LibrarySelectScreen(game, true));
+			  dispose();
+	   }
+	
 	void generic_book_dispose(){
 		probgame_dispose();
 	}

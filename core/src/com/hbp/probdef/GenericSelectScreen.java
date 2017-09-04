@@ -7,6 +7,7 @@ package com.hbp.probdef;
  */
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -43,27 +44,39 @@ public class GenericSelectScreen extends MetaScreen {
 	
 	Rectangle one_r;
 	Texture one_t;
+	String one_s;
+	boolean one_double_liner;
 	
 	Rectangle two_r;
 	Texture two_t;
+	String two_s;
+	boolean two_double_liner;
 	
 	Rectangle three_r;
 	Texture three_t;
+	String three_s;
+	boolean three_double_liner;
 	
 	Rectangle four_r;
 	Texture four_t;
+	String four_s;
+	boolean four_double_liner;
 	
 	Rectangle five_r;
 	Texture five_t;
+	String five_s;
+	boolean five_double_liner;
 	
 	Rectangle six_r;
 	Texture six_t;
-	
+	String six_s;
+	boolean six_double_liner;
 	
 	
 	String TOPIC;
 	String first_topic;
 	String last_topic;
+	
 	
 	private boolean is_it_first;
 	private boolean is_it_last;
@@ -72,7 +85,7 @@ public class GenericSelectScreen extends MetaScreen {
 	
 	Preferences prefs;
 	
-	private BitmapFont font;
+	private BitmapFont book_title_font;
 	
 	private Texture dull_trim_t;
 	private Texture prv_trim_t;
@@ -122,6 +135,20 @@ public class GenericSelectScreen extends MetaScreen {
 		five_t=blank_t;
 		six_t=blank_t;
 		
+		one_double_liner=false;
+		two_double_liner=false;
+		three_double_liner=false;
+		four_double_liner=false;
+		five_double_liner=false;
+		six_double_liner=false;
+		
+		one_s="Expected";
+		two_s="Combined";
+		three_s="Expect";
+		four_s="TREES";
+		five_s="Trees";
+		six_s="trees";
+		
 		nxt_r = new Rectangle();
 		nxt_r.x=240;
 		nxt_r.y=310;
@@ -161,7 +188,9 @@ public class GenericSelectScreen extends MetaScreen {
 		
 		
 		
-		font = new BitmapFont();
+		book_title_font = new BitmapFont(Gdx.files.internal("regular_font/gravity_20_book.fnt"));
+		book_title_font.setColor(Color.BLACK);
+		
 		
 		arrowsound=Gdx.audio.newSound(Gdx.files.internal("js_sfx/344510__jeremysykes__select03.wav"));		
 		
@@ -296,6 +325,57 @@ public class GenericSelectScreen extends MetaScreen {
 
 	}
 	
+	public void draw_level_titles(){
+		if (NUMBER_OF_LEVELS>=1){
+			if (one_double_liner){
+				book_title_font.draw(batch, one_s, one_r.x+10, one_r.y+38+12, 120, 1, true);
+			}
+			else{
+				book_title_font.draw(batch, one_s, one_r.x+10, one_r.y+38, 120, 1, true);
+			}
+		}
+		if (NUMBER_OF_LEVELS>=2){
+			if (two_double_liner){
+				book_title_font.draw(batch, two_s, two_r.x+10, two_r.y+38+12, 120, 1, true);
+			}
+			else{
+				book_title_font.draw(batch, two_s, two_r.x+10, two_r.y+38, 120, 1, true);
+			}
+		}
+		if (NUMBER_OF_LEVELS>=3){
+			if (three_double_liner){
+				book_title_font.draw(batch, three_s, three_r.x+10, three_r.y+38+12, 120, 1, true);
+			}
+			else{
+				book_title_font.draw(batch, three_s, three_r.x+10, three_r.y+38, 120, 1, true);
+			}
+		}
+		if (NUMBER_OF_LEVELS>=4){
+			if (four_double_liner){
+				book_title_font.draw(batch, four_s, four_r.x+10, four_r.y+38+12, 120, 1, true);
+			}
+			else{
+				book_title_font.draw(batch, four_s, four_r.x+10, four_r.y+38, 120, 1, true);
+			}
+		}
+		if (NUMBER_OF_LEVELS>=5){
+			if (five_double_liner){
+				book_title_font.draw(batch, five_s, five_r.x+10, five_r.y+38+12, 120, 1, true);
+			}
+			else{
+				book_title_font.draw(batch, five_s, five_r.x+10, five_r.y+38, 120, 1, true);
+			}
+		}
+		if (NUMBER_OF_LEVELS>=6){
+			if (six_double_liner){
+				book_title_font.draw(batch, six_s, six_r.x+10, six_r.y+38+12, 120, 1, true);
+			}
+			else{
+				book_title_font.draw(batch, six_s, six_r.x+10, six_r.y+38, 120, 1, true);
+			}
+		}
+	}
+	
 	private void draw_banner_and_arrows(){
 		batch.draw(banner_t, banner_r.x, banner_r.y);
 		if (!is_it_first){
@@ -398,6 +478,7 @@ public class GenericSelectScreen extends MetaScreen {
 		
 		batch.setProjectionMatrix(camera.combined);
 		draw_level_buttons();
+		draw_level_titles();
 		draw_banner_and_arrows();
 		batch.draw(menu_t, menu_r.x, menu_r.y);
 		draw_trims();

@@ -1053,6 +1053,11 @@ public class ProbGameScreen extends SpaceyScreen {
 		   }
 	   }
 	   
+	   void return_to_menu(){
+		   game.setScreen(new TitleScreen(game, true));
+			  dispose();
+	   }
+	   
 	   public void probgame_render(float delta){
 		   effective_delta=(float) (delta*TIMESPEED); //If time is running slow, the delta to feed into all calculations will be lower.
 			
@@ -1146,8 +1151,7 @@ public class ProbGameScreen extends SpaceyScreen {
 			
 			if(Gdx.input.justTouched()){
 				if (menu_button_r.contains(tp_x, tp_y)){
-		    			  game.setScreen(new TitleScreen(game, true));
-		    			  dispose();
+					return_to_menu();
 				}
 			}
 	   }
