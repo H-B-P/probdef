@@ -5,14 +5,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
-public class BookScreen_Pyramid extends GenericBookScreen {
+public class BookScreen_MoreTrees extends GenericBookScreen {
 	
 	final ProbDef game;
 	
 	private SpriteBatch batch;
 	
 	
-	public BookScreen_Pyramid(final ProbDef gam, boolean play_the_sound) {
+	public BookScreen_MoreTrees(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		
@@ -67,17 +67,17 @@ public class BookScreen_Pyramid extends GenericBookScreen {
 			}
 		}
 		if (page==2){
-			if (seconds==2){
+			if (seconds==4){
 				spawnShieldMine(0,95,1);
 			}
 		}
 		if (page==3){
-			if (seconds==2){
+			if (seconds==4){
 				spawnShieldMine(0,95,2);
 			}
 		}
 		if (page==4){
-			if (seconds==2){
+			if (seconds==6){
 				spawnShieldMine(0,95,1);
 			}
 		}
@@ -115,6 +115,11 @@ public class BookScreen_Pyramid extends GenericBookScreen {
 				show_the_text=true;
 				the_text="To destroy or capture them, all their shields must be dropped.";
 			}
+			if (seconds==8 && TIMESPEED==0){
+				greentext=true;
+				show_the_text=true;
+				the_text="(fyi survival stays 100% after you target your first turret because no one turret can stop a shielded mine alone)";
+			}
 			if (page_time>20){
 				time_to_move_on=true;
 			}
@@ -123,23 +128,23 @@ public class BookScreen_Pyramid extends GenericBookScreen {
 		if (page==2){
 			turret_three.does_it_work=false;
 			turret_four.does_it_work=false;
-			if (page_time<4){
+			if (page_time<5){
 				show_the_text=true;
 				the_text="Say you target a mine with one shield, using two turrets. What happens?";
 			}
-			if (seconds==4 && TIMESPEED==0){
+			if (seconds==6 && TIMESPEED==0){
 				show_the_text=true;
 				the_text="There are four outcomes, ignoring the destroy/capture distinction: fail-fail, hit-fail, fail-hit, and hit-hit.";
 			}
-			if (seconds==4 && TIMESPEED==0 && turret_one.targeted){
+			if (seconds==6 && TIMESPEED==0 && turret_one.targeted){
 				show_the_text=true;
 				the_text="The only outcome which removes it is both shots hitting. So the mine's surival chance is 100% minus that.";
 			}
-			if (seconds==4 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted){
+			if (seconds==6 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted){
 				show_the_text=true;
 				the_text="90% of 70% is 63%, so the mine has a 100%-63%, or 37%, chance of remaining.";
 			}
-			if (page_time>6){
+			if (page_time>8){
 				time_to_move_on=true;
 			}
 			
@@ -147,55 +152,59 @@ public class BookScreen_Pyramid extends GenericBookScreen {
 		
 		if (page==3){
 			turret_four.does_it_work=false;
-			if (page_time<4){
+			if (page_time<5){
 				show_the_text=true;
 				the_text="Say you target a mine with two shields, using three turrets.";
 			}
-			if (seconds==4 && TIMESPEED==0){
+			if (seconds==6 && TIMESPEED==0){
 				show_the_text=true;
 				the_text="We could draw out a whole tree, but the only outcome you care about is the one where all three fire.";
 			}
-			if (seconds==4 && TIMESPEED==0 && turret_one.targeted){
+			if (seconds==6 && TIMESPEED==0 && turret_one.targeted){
 				show_the_text=true;
 				the_text="So 80% of 90% of 70% . . .";
 			}
-			if (seconds==4 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted && turret_three.targeted){
+			if (seconds==6 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted){
 				show_the_text=true;
-				the_text="So 80% of 90% of 70% . . .\nthat's a 50.4% chance of the mine being destroyed, or a 49.6% chance it remains.";
+				the_text="So 80% of 90% of 70% . . .\nthat's a 50.4% chance of the mine being removed,";
 			}
-			if (seconds==4 && TIMESPEED>0 && TIMESPEED<1){
+			if (seconds==6 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted && turret_three.targeted){
+				show_the_text=true;
+				the_text="So 80% of 90% of 70% . . .\nthat's a 50.4% chance of the mine being removed,\n or a 49.6% chance it remains.";
+			}
+			if (seconds==6 && TIMESPEED>0 && TIMESPEED<1){
 				show_the_text=true;
 				greentext=true;
 				the_text="(do you feel lucky, punk?)";
 			}
 			
-			if (page_time>6){
+			if (page_time>8){
 				time_to_move_on=true;
 			}
 		}
 		if (page==4){
 			turret_four.does_it_work=false;
-			if (page_time<4){
+			if (page_time<7){
 				show_the_text=true;
 				the_text="Say you target a mine with one shield, using three turrets. Now we need to look at individual outcomes.";
 			}
-			if (seconds==4 && TIMESPEED==0){
+			if (seconds==8 && TIMESPEED==0){
 				show_the_text=true;
 				the_text="If F is a fail and H is a hit, the outcomes where this mine remains are FFF, HFF, FHF, and FFH.";
 			}
-			if (seconds==4 && TIMESPEED==0 && turret_one.targeted){
+			if (seconds==8 && TIMESPEED==0 && turret_one.targeted){
 				show_the_text=true;
 				the_text="So it's possible to calculate the odds of each of those outcomes and sum them to get the chance it remains.";
 			}
-			if (seconds==4 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted){
+			if (seconds==8 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted){
 				show_the_text=true;
 				the_text="FFF = 0.3*0.1*0.2 = 0.006\nHFF = 0.7*0.1*0.2 = 0.014\nFHF = 0.3*0.9*0.2 = 0.054\nFFH = 0.3*0.1*0.8 = 0.024";
 			}
-			if (seconds==4 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted && turret_three.targeted){
+			if (seconds==8 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted && turret_three.targeted){
 				show_the_text=true;
 				the_text="Add all those up and you get 0.098, or 9.8% chance of remaining.";
 			}
-			if (page_time>6){
+			if (page_time>10){
 				time_to_move_on=true;
 			}
 		}

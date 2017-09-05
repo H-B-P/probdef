@@ -134,7 +134,7 @@ public class BookScreen_HypothesisTests extends GenericBookScreen {
 			if (page_time>18){
 				show_the_text=true;
 				greentext=true;
-				the_text="(fyi from here on out all holos are generated randomly, so memorising which mines are fake won't work)";
+				the_text="(from here on out all holos are generated randomly, so memorising which mines are fake won't work)";
 			}
 			if (page_time>20){
 				time_to_move_on=true;

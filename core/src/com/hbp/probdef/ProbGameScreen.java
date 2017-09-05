@@ -563,7 +563,7 @@ public class ProbGameScreen extends SpaceyScreen {
 		          }
 		       }
 		   for (ShieldMine shieldmine:shieldmines){
-			   batch.draw(shieldmine_t, shieldmine.rect.x-20, shieldmine.rect.y-20);
+			   batch.draw(mine_t, shieldmine.rect.x-20, shieldmine.rect.y-20);
 		          if (shieldmine.being_detained){
 		        	  batch.draw(detaining_t, shieldmine.rect.x-20, shieldmine.rect.y-20);
 		          }

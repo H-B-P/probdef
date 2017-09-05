@@ -5,14 +5,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
-public class BookScreen_Pascal extends GenericBookScreen {
+public class BookScreen_Shortcut extends GenericBookScreen {
 	
 	final ProbDef game;
 	
 	private SpriteBatch batch;
 	
 	
-	public BookScreen_Pascal(final ProbDef gam, boolean play_the_sound) {
+	public BookScreen_Shortcut(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		
@@ -139,7 +139,7 @@ public class BookScreen_Pascal extends GenericBookScreen {
 			}
 			if (seconds==4 && turret_one.targeted && turret_two.targeted){
 				show_the_text=true;
-				the_text="HHHF has the same probability as HHFH, HFHH, and FHHH. 0.8*0.8*0.8*0.2 = 0.2*0.8*0.8*0.8.";
+				the_text="HHHF has the same probability as HHFH, HFHH, and FHHH. 0.8 x 0.8 x 0.8 x 0.2 =\n0.2 x 0.8 x 0.8 x 0.8.";
 			}
 			if (seconds==12 && TIMESPEED==0){
 				show_the_text=true;
@@ -147,11 +147,11 @@ public class BookScreen_Pascal extends GenericBookScreen {
 			}
 			if (seconds==12 && TIMESPEED==0 && turret_one.targeted){
 				show_the_text=true;
-				the_text="So FFFF: 0.2*0.2*0.2*0.2";
+				the_text="So FFFF: 0.2 x 0.2 x 0.2 x 0.2.";
 			}
 			if (seconds==12 && TIMESPEED==0 && turret_one.targeted&& turret_two.targeted){
 				show_the_text=true;
-				the_text="So FFFF: 0.2*0.2*0.2*0.2\nThis is 0.0016, or 0.16%.";
+				the_text="So FFFF: 0.2 x 0.2 x 0.2 x 0.2.\nThis is 0.0016, or 0.16%.";
 			}
 			if (seconds==14 && TIMESPEED==0){
 				show_the_text=true;
@@ -163,7 +163,7 @@ public class BookScreen_Pascal extends GenericBookScreen {
 			}
 			if (seconds==14 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted){
 				show_the_text=true;
-				the_text="So FFFF + 4 x HFFF: 0.2*0.2*0.2*0.2 + 4*0.8*0.2*0.2*0.2. \nThis gives 2.72%";
+				the_text="So FFFF + 4 x HFFF:\n0.2 x 0.2 x 0.2 x 0.2 +\n4 x (0.8 x 0.2 x 0.2 x 0.2)\nThis gives 2.72%";
 			}
 			if (page_time>16){
 				time_to_move_on=true;

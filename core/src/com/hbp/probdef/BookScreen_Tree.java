@@ -44,7 +44,7 @@ public class BookScreen_Tree extends GenericBookScreen {
 		   turret_one=new Turret_Standard("triangle");
 		   turret_two=new Turret_Standard("pentagon");
 		   turret_three=new Turret_Standard("square");
-		   turret_four=new Turret_Standard("circle");
+		   turret_four=new Turret_Standard("hexagon");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -118,7 +118,7 @@ public class BookScreen_Tree extends GenericBookScreen {
 			autocalc_and_display("destroy");
 		}
 		if (page==4){
-			autocalc_and_display("destroy");
+			autocalc_and_display("capture");
 		}
 	}
 	

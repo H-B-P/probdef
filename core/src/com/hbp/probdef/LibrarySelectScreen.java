@@ -81,7 +81,7 @@ public class LibrarySelectScreen extends GenericSelectScreen {
 				banner_t=banner_prob_t;
 				one_s="More Trees";
 				one_double_liner=false;
-				two_s="Shortcuts";
+				two_s="A Shortcut";
 				two_double_liner=false;
 				three_s="Pascal's Triangle";
 				three_double_liner=true;
@@ -139,12 +139,12 @@ public class LibrarySelectScreen extends GenericSelectScreen {
 		   }
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Pascal")){
 			   if (one_r.contains(tp_x,tp_y)){
-				   game.setScreen(new BookScreen_Pascal(game, true));
+				   game.setScreen(new BookScreen_MoreTrees(game, true));
 				   dispose();
 			   }
 			   if (two_r.contains(tp_x,tp_y)){
-				   game.setScreen(new BookScreen_Pyramid(game, true));
-				dispose();
+				   game.setScreen(new BookScreen_Shortcut(game, true));
+				   dispose();
 			   }
 			   if (three_r.contains(tp_x,tp_y)){
 				   
