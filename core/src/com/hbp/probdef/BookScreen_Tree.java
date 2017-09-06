@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 public class BookScreen_Tree extends GenericBookScreen {
 	
 	final ProbDef game;
@@ -12,7 +13,22 @@ public class BookScreen_Tree extends GenericBookScreen {
 	private SpriteBatch batch;
 
 	private Texture tree_percentage;
+	private Texture tree_decimal;
+	private Texture tree_fraction;
 	
+	private Texture lb_percentage_t;
+	private Texture lb_fraction_t;
+	private Texture lb_decimal_t;
+	
+	private Texture lb_trim_blue_t;
+	private Texture lb_trim_orange_t;
+	
+	private Rectangle lb_percentage_r;
+	private Rectangle lb_fraction_r;
+	private Rectangle lb_decimal_r;
+	
+	private String which_tree;
+
 	
 	public BookScreen_Tree(final ProbDef gam, boolean play_the_sound) {
 		
@@ -20,20 +36,75 @@ public class BookScreen_Tree extends GenericBookScreen {
 		
 		game = gam;
 		
-		maxpages=4;
+		maxpages=6;
 		
 		batch=new SpriteBatch();
 		
-		tree_percentage=new Texture(Gdx.files.internal("TREE_III.png"));
+		tree_percentage=new Texture(Gdx.files.internal("TREE_CENT.png"));
+		tree_decimal=new Texture(Gdx.files.internal("TREE_DECI.png"));
+		tree_fraction=new Texture(Gdx.files.internal("TREE_FRAC.png"));
+		
+		lb_percentage_t=new Texture(Gdx.files.internal("little_button_cent.png"));
+		lb_decimal_t=new Texture(Gdx.files.internal("little_button_deci.png"));
+		lb_fraction_t=new Texture(Gdx.files.internal("little_button_frac.png"));
+		
+		lb_percentage_r=new Rectangle(20, 355, 80,40);
+		lb_fraction_r=new Rectangle(120, 355, 80,40);
+		lb_decimal_r=new Rectangle(220, 355, 80,40);
+		
+		
+		lb_trim_blue_t=new Texture(Gdx.files.internal("little_button_blue_trim.png"));
+		lb_trim_orange_t=new Texture(Gdx.files.internal("little_button_orange_trim.png"));
+		
+		
+		which_tree="percentage";
 	}
 
 	@Override
 	public void render(float delta) {
 		generic_book_render(delta);
 		
-		if (page==2){
+		if (page==2 || page==3 || page==4){
 			batch.begin();
-			batch.draw(tree_percentage, 60, 190);
+			
+			batch.draw(lb_percentage_t, lb_percentage_r.x, lb_percentage_r.y);
+			batch.draw(lb_decimal_t, lb_decimal_r.x, lb_decimal_r.y);
+			batch.draw(lb_fraction_t, lb_fraction_r.x, lb_fraction_r.y);
+			
+			if (which_tree.equals("percentage")){
+				batch.draw(tree_percentage, 60, 190);
+				batch.draw(lb_trim_orange_t, lb_percentage_r.x, lb_percentage_r.y);
+			}
+			if (which_tree.equals("decimal")){
+				batch.draw(tree_decimal, 60, 190);
+				batch.draw(lb_trim_orange_t, lb_decimal_r.x, lb_decimal_r.y);
+			}
+			if (which_tree.equals("fraction")){
+				batch.draw(tree_fraction, 60, 190);
+				batch.draw(lb_trim_orange_t, lb_fraction_r.x, lb_fraction_r.y);
+			}
+			
+			if (lb_percentage_r.contains(tp_x, tp_y)){
+				batch.draw(lb_trim_blue_t, lb_percentage_r.x, lb_percentage_r.y);
+				if (Gdx.input.justTouched()){
+					which_tree="percentage";
+				}
+			}
+			if (lb_decimal_r.contains(tp_x, tp_y)){
+				batch.draw(lb_trim_blue_t, lb_decimal_r.x, lb_decimal_r.y);
+				if (Gdx.input.justTouched()){
+					which_tree="decimal";
+				}
+			}
+			if (lb_fraction_r.contains(tp_x, tp_y)){
+				batch.draw(lb_trim_blue_t, lb_fraction_r.x, lb_fraction_r.y);
+				if (Gdx.input.justTouched()){
+					which_tree="fraction";
+				}
+			}
+			
+			
+			
 			batch.end();
 		}
 	}
@@ -44,7 +115,7 @@ public class BookScreen_Tree extends GenericBookScreen {
 		   turret_one=new Turret_Standard("triangle");
 		   turret_two=new Turret_Standard("pentagon");
 		   turret_three=new Turret_Standard("square");
-		   turret_four=new Turret_Standard("hexagon");
+		   turret_four=new Turret_Standard("circle");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -67,15 +138,12 @@ public class BookScreen_Tree extends GenericBookScreen {
 				spawnMine(0,95);
 			}
 		}
-		if (page==2){
-			
-		}
-		if (page==3){
+		if (page==5){
 			if (seconds==2){
 				spawnMine(0,95);
 			}
 		}
-		if (page==4){
+		if (page==6){
 			if (seconds==2){
 				spawnMine(0,95);
 			}
@@ -91,7 +159,7 @@ public class BookScreen_Tree extends GenericBookScreen {
 		if (page==1 && seconds<7 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted){
 			draw_textbox_two(text);
 		}
-		else if (page==3){
+		else if (page==5){
 			draw_textbox_two(text);
 		}
 		else{
@@ -114,10 +182,10 @@ public class BookScreen_Tree extends GenericBookScreen {
 				autocalc_and_display("survive");
 			}
 		}
-		if (page==3){
+		if (page==5){
 			autocalc_and_display("destroy");
 		}
-		if (page==4){
+		if (page==6){
 			autocalc_and_display("capture");
 		}
 	}
@@ -182,19 +250,36 @@ public class BookScreen_Tree extends GenericBookScreen {
 			turret_three.does_it_work=false;
 			show_the_text=true;
 			the_text="This reasoning can be shown in a probability tree.\nBranches represent things which can happen each shot.";
-			if (page_time>4){
-				the_text="The number at the root is 100%, since the probability that SOMETHING happens is 100%.";
-			}
-			if (page_time>8){
-				the_text="Each branch multiplies the probability above by the probability along it to get the probability below it.";
-			}
-			if (page_time>10){
+			if (page_time>2){
 				time_to_move_on=true;
 			}
 			
 		}
 		
 		if (page==3){
+					
+				turret_four.does_it_work=false;
+				turret_three.does_it_work=false;
+				show_the_text=true;
+				the_text="The number at the root is 100%, since the probability that SOMETHING happens is 100%.";
+				if (page_time>2){
+					time_to_move_on=true;
+				}
+			}
+		
+		if (page==4){
+			
+			turret_four.does_it_work=false;
+			turret_three.does_it_work=false;
+			show_the_text=true;
+			the_text="Each branch multiplies the probability above by the probability along it to get the probability below it.";
+			if (page_time>2){
+				time_to_move_on=true;
+			}
+			
+		}
+		
+		if (page==5){
 			turret_four.does_it_work=false;
 			if (page_time<4||(seconds==4 && TIMESPEED==0 && turret_one.targeted==false)){
 				show_the_text=true;
@@ -204,7 +289,7 @@ public class BookScreen_Tree extends GenericBookScreen {
 				time_to_move_on=true;
 			}
 		}
-		if (page==4){
+		if (page==6){
 			if (page_time<4||(seconds==4 && TIMESPEED==0 && turret_one.targeted==false)){
 				show_the_text=true;
 				the_text="Extend the tree and use it to find the probability this mine will be captured when all four turrets are targeted.";

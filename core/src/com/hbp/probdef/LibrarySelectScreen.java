@@ -36,6 +36,7 @@ public class LibrarySelectScreen extends GenericSelectScreen {
 	   public void load_in_banner_textures(){
 		   banner_prob_t=new Texture(Gdx.files.internal("banner_probability.png"));
 		   banner_bayes_t=new Texture(Gdx.files.internal("banner_bayes.png"));
+		   banner_pascal_t=new Texture(Gdx.files.internal("banner_pascal.png"));
 	   }
 	   
 	   @Override
@@ -78,9 +79,9 @@ public class LibrarySelectScreen extends GenericSelectScreen {
 			}
 			if(TOPIC.equals("Pascal")){
 				NUMBER_OF_LEVELS=3;
-				banner_t=banner_prob_t;
-				one_s="More Trees";
-				one_double_liner=false;
+				banner_t=banner_pascal_t;
+				one_s="Listing Outcomes";
+				one_double_liner=true;
 				two_s="A Shortcut";
 				two_double_liner=false;
 				three_s="Pascal's Triangle";

@@ -31,6 +31,17 @@ public class BookScreen_MoreTrees extends GenericBookScreen {
 	}
 	
 	@Override
+	void draw_textbox(String text){
+		   
+		if (page==1 && seconds==8){
+			draw_textbox_two(text);
+		}
+		else{
+			draw_textbox_one(text);
+		}
+	   }
+	
+	@Override
 	
 	void level_specific_turret_setup(){
 		   turret_one=new Turret_Standard("triangle");
@@ -118,7 +129,7 @@ public class BookScreen_MoreTrees extends GenericBookScreen {
 			if (seconds==8 && TIMESPEED==0){
 				greentext=true;
 				show_the_text=true;
-				the_text="(fyi survival stays 100% after you target your first turret because no one turret can stop a shielded mine alone)";
+				the_text="(btw survival stays 100% after targeting your first turret because no single attack can remove a shielded mine)";
 			}
 			if (page_time>20){
 				time_to_move_on=true;
