@@ -48,9 +48,9 @@ public class BookScreen_Tree extends GenericBookScreen {
 		lb_decimal_t=new Texture(Gdx.files.internal("little_button_deci.png"));
 		lb_fraction_t=new Texture(Gdx.files.internal("little_button_frac.png"));
 		
-		lb_percentage_r=new Rectangle(20, 355, 80,40);
-		lb_fraction_r=new Rectangle(120, 355, 80,40);
-		lb_decimal_r=new Rectangle(220, 355, 80,40);
+		lb_percentage_r=new Rectangle(5, 355, 100,40);
+		lb_fraction_r=new Rectangle(110, 355, 100,40);
+		lb_decimal_r=new Rectangle(215, 355, 100,40);
 		
 		
 		lb_trim_blue_t=new Texture(Gdx.files.internal("little_button_blue_trim.png"));

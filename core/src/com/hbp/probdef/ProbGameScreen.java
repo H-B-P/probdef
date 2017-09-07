@@ -8,6 +8,7 @@ package com.hbp.probdef;
 import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
@@ -56,6 +57,8 @@ public class ProbGameScreen extends SpaceyScreen {
    
    public Array<Dot> dots;
    
+   Iterator<Mine> mine_iterator;
+   
    private Texture destroy_dot_t;
    private Texture capture_dot_t;
 
@@ -63,7 +66,10 @@ public class ProbGameScreen extends SpaceyScreen {
    private Texture scratch_three;
    private Texture scratch_four;
    private Texture scratch_five;
-
+   
+   private Mine the_selected_mine;
+   
+   private Texture mine_trim_t;
 
    private Texture explosion_t;
    
@@ -181,7 +187,7 @@ public class ProbGameScreen extends SpaceyScreen {
 	      screen_proper=new Rectangle();
 	      screen_proper.x=0;
 	      screen_proper.y=0;
-	      screen_proper.height=480;
+	      screen_proper.height=400;
 	      screen_proper.width=320;
 	      
 	      captured=0;
@@ -213,7 +219,7 @@ public class ProbGameScreen extends SpaceyScreen {
 	      
 	      greentext=false;
 	      
-	      
+	      mine_trim_t=new Texture(Gdx.files.internal("mine_trim.png"));
 	      
 	}
 	
@@ -635,6 +641,12 @@ public class ProbGameScreen extends SpaceyScreen {
 			
 	   }
 	   
+	   void draw_mine_trim(){
+		   if (the_selected_mine!=null && currently_active_turret_no<5){
+			   batch.draw(mine_trim_t, the_selected_mine.rect.x-20, the_selected_mine.rect.y-20);
+		   }
+	   }
+	   
 	   void draw_textbox(String text){
 		   draw_textbox_one(text);
 	   }
@@ -954,34 +966,14 @@ public class ProbGameScreen extends SpaceyScreen {
 					   currently_active_turret.current_t=currently_active_turret.normal_t;
 			   }
 			   
-			   boolean exitwhile=false;
-			   
-			   while (!exitwhile){
-				   if (currently_active_turret_no>4){
-					   exitwhile=true;
-				   }
-				   else{
-					   if (!currently_active_turret.targeted && currently_active_turret.does_it_work){
-						   exitwhile=true;
-					   }
-				   }
-				   if (!exitwhile){
-					   currently_active_turret_no+=1;
-					   number_to_turret();
-				   }
-			   }
+			   skip_through_turrets();
 		   }
 		   
 		   
 		   if (Gdx.input.justTouched()){
 				if (fire_button_r.contains(tp_x, tp_y)){
 					if (current_status.equals("targeting")){
-						current_status="firing";
-						set_up_firing_times();
-						turret_one.current_t=turret_one.normal_t;
-						   turret_two.current_t=turret_two.normal_t;
-						   turret_three.current_t=turret_three.normal_t;
-						   turret_four.current_t=turret_four.normal_t;
+						hand_over_to_firing();
 					}
 				}
 				for (Turret turret:turrets){
@@ -995,6 +987,128 @@ public class ProbGameScreen extends SpaceyScreen {
 					}
 				}
 			}
+		   
+	   }
+	   
+	   private void skip_through_turrets(){
+		   boolean exitwhile=false;
+		   
+		   while (!exitwhile){
+			   if (currently_active_turret_no>4){
+				   exitwhile=true;
+			   }
+			   else{
+				   if (!currently_active_turret.targeted && currently_active_turret.does_it_work){
+					   exitwhile=true;
+				   }
+			   }
+			   if (!exitwhile){
+				   currently_active_turret_no+=1;
+				   number_to_turret();
+			   }
+		   }
+	   }
+	   
+	   private void check_for_keypresses(){
+		   
+		   //handle the final firing.
+		   if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
+			   if(currently_active_turret_no>4){
+				   hand_over_to_firing();
+			   }
+			   else{
+				   if (the_selected_mine!=null){
+					   currently_active_turret.targeted=true;
+					   currently_active_turret.target_mine=the_selected_mine;
+					   currently_active_turret.current_t=currently_active_turret.normal_t;
+					   skip_through_turrets();
+					   
+				   }
+			   }
+		   }
+		   //pick turrets using ASDF or 1234.
+		   if (Gdx.input.isKeyJustPressed(Keys.NUM_1) || Gdx.input.isKeyJustPressed(Keys.A)){
+			   if (currently_active_turret_no<5){
+				   currently_active_turret.current_t=currently_active_turret.normal_t;
+			   }
+			   currently_active_turret_no=1;
+			   turret_one.targeted=false;
+			   turret_one.target_mine=null;
+			   number_to_turret();
+		   }
+		   if (Gdx.input.isKeyJustPressed(Keys.NUM_2) || Gdx.input.isKeyJustPressed(Keys.S)){
+			   if (currently_active_turret_no<5){
+				   currently_active_turret.current_t=currently_active_turret.normal_t;
+			   }
+			   currently_active_turret_no=2;
+			   turret_two.targeted=false;
+			   turret_two.target_mine=null;
+			   number_to_turret();
+		   }
+		   if (Gdx.input.isKeyJustPressed(Keys.NUM_3) || Gdx.input.isKeyJustPressed(Keys.D)){
+			   if (currently_active_turret_no<5){
+				   currently_active_turret.current_t=currently_active_turret.normal_t;
+			   }
+			   currently_active_turret_no=3;
+			   turret_three.targeted=false;
+			   turret_three.target_mine=null;
+			   number_to_turret();
+		   }
+		   if (Gdx.input.isKeyJustPressed(Keys.NUM_4) || Gdx.input.isKeyJustPressed(Keys.F)){
+			   if (currently_active_turret_no<5){
+				   currently_active_turret.current_t=currently_active_turret.normal_t;
+			   }
+			   currently_active_turret_no=4;
+			   turret_four.targeted=false;
+			   turret_four.target_mine=null;
+			   number_to_turret();
+		   }
+		   //Arrow keys to select
+		   if (Gdx.input.isKeyJustPressed(Keys.RIGHT)){
+			   cycle_mines_forward();
+		   }
+		   if (Gdx.input.isKeyJustPressed(Keys.LEFT)){
+			   cycle_mines_back();
+		   }
+	   }
+	   
+	   private void cycle_mines_forward(){
+		   if (the_selected_mine==null){
+			   the_selected_mine=mines.first();
+		   }
+		   else{
+			   int q=mines.indexOf(the_selected_mine, true);
+			   int j=(q+1)%mines.size;
+			   the_selected_mine=mines.get(j);
+			   if (!screen_proper.overlaps(the_selected_mine.rect)){
+				   cycle_mines_forward();
+			   }
+		   }
+	   }
+	   
+	   private void cycle_mines_back(){
+		   if (the_selected_mine==null){
+			   the_selected_mine=mines.peek();
+		   }
+		   else{
+			   int q=mines.indexOf(the_selected_mine, true);
+			   int j=(q+mines.size-1)%mines.size;
+			   the_selected_mine=mines.get(j);
+			   if (!screen_proper.overlaps(the_selected_mine.rect)){
+				   cycle_mines_back();
+			   }
+		   }
+	   }
+	   
+	   
+	   private void hand_over_to_firing(){
+		   current_status="firing";
+			set_up_firing_times();
+			turret_one.current_t=turret_one.normal_t;
+			turret_two.current_t=turret_two.normal_t;
+			turret_three.current_t=turret_three.normal_t;
+			turret_four.current_t=turret_four.normal_t;
+			the_selected_mine=null;
 	   }
 	   
 	   private void detarget_the_dead(){
@@ -1087,6 +1201,7 @@ public class ProbGameScreen extends SpaceyScreen {
 			
 			if (current_status.equals("targeting")){
 				autocalc_and_display_dummy();
+				draw_mine_trim();
 			}
 			
 		    batch.draw(shipshield_t, shield_r.x, shield_r.y);
@@ -1115,6 +1230,7 @@ public class ProbGameScreen extends SpaceyScreen {
 			}
 			
 			if (current_status.equals("targeting")){
+				check_for_keypresses();
 				do_targeting_things();
 			}
 			
