@@ -2,7 +2,9 @@ package com.hbp.probdef;
 
 /*~SUMMARY~
  * 
- * This screen acts as a base for menus: library, levels, etc.
+ * This screen acts as a base for menus: library, arcade, etc.
+ * 
+ * You can load in textures for the banners and buttons, or just write the titles on.
  * 
  */
 
@@ -29,12 +31,18 @@ public class GenericSelectScreen extends MetaScreen {
 	private Rectangle prv_r;
 	private Texture prv_t;
 	
+	
+	
+
+	private Rectangle banner_r;	
+	Texture banner_t;
+	String banner_s;
+	
+	Texture banner_blank_t;
+	
 	private Texture banner_example_one_t;
 	private Texture banner_example_two_t;
 	private Texture banner_example_three_t;
-	
-	Texture banner_t;
-	
 	
 	
 	Rectangle menu_r;
@@ -81,11 +89,10 @@ public class GenericSelectScreen extends MetaScreen {
 	private boolean is_it_first;
 	private boolean is_it_last;
 	
-	private Rectangle banner_r;
 	
 	Preferences prefs;
 	
-	private BitmapFont book_title_font;
+	BitmapFont buttony_font;
 	
 	private Texture dull_trim_t;
 	private Texture prv_trim_t;
@@ -93,7 +100,7 @@ public class GenericSelectScreen extends MetaScreen {
 	
 	int NUMBER_OF_LEVELS;
 	
-	Texture blank_t;
+	Texture button_blank_t;
 	
 	public Sound arrowsound;
 	
@@ -126,14 +133,14 @@ public class GenericSelectScreen extends MetaScreen {
 		prv_trim_t=new Texture(Gdx.files.internal("pobutton_left_trim.png"));
 		nxt_trim_t=new Texture(Gdx.files.internal("pobutton_right_trim.png"));
 		
-		blank_t=new Texture(Gdx.files.internal("abutton_blank.png"));
+		button_blank_t=new Texture(Gdx.files.internal("abutton_blank.png"));
 		
-		one_t=blank_t;
-		two_t=blank_t;
-		three_t=blank_t;
-		four_t=blank_t;
-		five_t=blank_t;
-		six_t=blank_t;
+		one_t=button_blank_t;
+		two_t=button_blank_t;
+		three_t=button_blank_t;
+		four_t=button_blank_t;
+		five_t=button_blank_t;
+		six_t=button_blank_t;
 		
 		one_double_liner=false;
 		two_double_liner=false;
@@ -179,17 +186,18 @@ public class GenericSelectScreen extends MetaScreen {
 		banner_r.y=310;
 		banner_r.height=60;
 		banner_r.width=140;
-		banner_t= new Texture(Gdx.files.internal("banner_blank.png"));
+		banner_blank_t= new Texture(Gdx.files.internal("banner_blank.png"));
 		
+		banner_t=banner_blank_t;
 		
 		batch=new SpriteBatch();
 		
 		game = gam;
 		
+		banner_s="";
 		
-		
-		book_title_font = new BitmapFont(Gdx.files.internal("regular_font/gravity_20_book.fnt"));
-		book_title_font.setColor(Color.BLACK);
+		buttony_font = new BitmapFont(Gdx.files.internal("regular_font/gravity_20_book.fnt"));
+		buttony_font.setColor(Color.BLACK);
 		
 		
 		arrowsound=Gdx.audio.newSound(Gdx.files.internal("js_sfx/344510__jeremysykes__select03.wav"));		
@@ -325,53 +333,57 @@ public class GenericSelectScreen extends MetaScreen {
 
 	}
 	
+	public void draw_banner_text(){
+		buttony_font.draw(batch, banner_s, banner_r.x+10, banner_r.y+38, 120, 1, true);
+	}
+	
 	public void draw_level_titles(){
 		if (NUMBER_OF_LEVELS>=1){
 			if (one_double_liner){
-				book_title_font.draw(batch, one_s, one_r.x+10, one_r.y+38+12, 120, 1, true);
+				buttony_font.draw(batch, one_s, one_r.x+10, one_r.y+38+12, 120, 1, true);
 			}
 			else{
-				book_title_font.draw(batch, one_s, one_r.x+10, one_r.y+38, 120, 1, true);
+				buttony_font.draw(batch, one_s, one_r.x+10, one_r.y+38, 120, 1, true);
 			}
 		}
 		if (NUMBER_OF_LEVELS>=2){
 			if (two_double_liner){
-				book_title_font.draw(batch, two_s, two_r.x+10, two_r.y+38+12, 120, 1, true);
+				buttony_font.draw(batch, two_s, two_r.x+10, two_r.y+38+12, 120, 1, true);
 			}
 			else{
-				book_title_font.draw(batch, two_s, two_r.x+10, two_r.y+38, 120, 1, true);
+				buttony_font.draw(batch, two_s, two_r.x+10, two_r.y+38, 120, 1, true);
 			}
 		}
 		if (NUMBER_OF_LEVELS>=3){
 			if (three_double_liner){
-				book_title_font.draw(batch, three_s, three_r.x+10, three_r.y+38+12, 120, 1, true);
+				buttony_font.draw(batch, three_s, three_r.x+10, three_r.y+38+12, 120, 1, true);
 			}
 			else{
-				book_title_font.draw(batch, three_s, three_r.x+10, three_r.y+38, 120, 1, true);
+				buttony_font.draw(batch, three_s, three_r.x+10, three_r.y+38, 120, 1, true);
 			}
 		}
 		if (NUMBER_OF_LEVELS>=4){
 			if (four_double_liner){
-				book_title_font.draw(batch, four_s, four_r.x+10, four_r.y+38+12, 120, 1, true);
+				buttony_font.draw(batch, four_s, four_r.x+10, four_r.y+38+12, 120, 1, true);
 			}
 			else{
-				book_title_font.draw(batch, four_s, four_r.x+10, four_r.y+38, 120, 1, true);
+				buttony_font.draw(batch, four_s, four_r.x+10, four_r.y+38, 120, 1, true);
 			}
 		}
 		if (NUMBER_OF_LEVELS>=5){
 			if (five_double_liner){
-				book_title_font.draw(batch, five_s, five_r.x+10, five_r.y+38+12, 120, 1, true);
+				buttony_font.draw(batch, five_s, five_r.x+10, five_r.y+38+12, 120, 1, true);
 			}
 			else{
-				book_title_font.draw(batch, five_s, five_r.x+10, five_r.y+38, 120, 1, true);
+				buttony_font.draw(batch, five_s, five_r.x+10, five_r.y+38, 120, 1, true);
 			}
 		}
 		if (NUMBER_OF_LEVELS>=6){
 			if (six_double_liner){
-				book_title_font.draw(batch, six_s, six_r.x+10, six_r.y+38+12, 120, 1, true);
+				buttony_font.draw(batch, six_s, six_r.x+10, six_r.y+38+12, 120, 1, true);
 			}
 			else{
-				book_title_font.draw(batch, six_s, six_r.x+10, six_r.y+38, 120, 1, true);
+				buttony_font.draw(batch, six_s, six_r.x+10, six_r.y+38, 120, 1, true);
 			}
 		}
 	}
@@ -480,6 +492,7 @@ public class GenericSelectScreen extends MetaScreen {
 		draw_level_buttons();
 		draw_level_titles();
 		draw_banner_and_arrows();
+		draw_banner_text();
 		batch.draw(menu_t, menu_r.x, menu_r.y);
 		draw_trims();
 		

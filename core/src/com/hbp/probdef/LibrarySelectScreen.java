@@ -2,6 +2,7 @@ package com.hbp.probdef;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 
 
 
@@ -53,7 +54,8 @@ public class LibrarySelectScreen extends GenericSelectScreen {
 			prefs.putString("probdef_library_topic", TOPIC);
 			if(TOPIC.equals("Probability")){
 				NUMBER_OF_LEVELS=3;
-				banner_t=banner_prob_t;
+				banner_t=banner_blank_t;
+				banner_s="Probability";
 				one_s="Combining Events";
 				one_double_liner=true;
 				two_s="Probability Trees";
@@ -66,7 +68,8 @@ public class LibrarySelectScreen extends GenericSelectScreen {
 			}
 			if(TOPIC.equals("Bayes")){
 				NUMBER_OF_LEVELS=3;
-				banner_t=banner_bayes_t;
+				banner_t=banner_blank_t;
+				banner_s="Bayes";
 				one_s="Expected Value";
 				one_double_liner=true;
 				two_s="Eliminate & Normalise";
@@ -79,7 +82,8 @@ public class LibrarySelectScreen extends GenericSelectScreen {
 			}
 			if(TOPIC.equals("Pascal")){
 				NUMBER_OF_LEVELS=3;
-				banner_t=banner_pascal_t;
+				banner_t=banner_blank_t;
+				banner_s="Pascal";
 				one_s="Listing Outcomes";
 				one_double_liner=true;
 				two_s="A Shortcut";
@@ -118,6 +122,31 @@ public class LibrarySelectScreen extends GenericSelectScreen {
 				TOPIC="Bayes";
 			}
 		}
+	   
+	   @Override
+	   
+	   void set_up_level_button_positions(int how_many){
+		   if (how_many==3){
+				
+			   one_r = new Rectangle();
+				one_r.x=90;
+				one_r.y=230;
+				one_r.height=60;
+				one_r.width=140;
+			   
+				two_r = new Rectangle();
+				two_r.x=90;
+				two_r.y=140;
+				two_r.height=60;
+				two_r.width=140;
+				
+				three_r = new Rectangle();
+				three_r.x=90;
+				three_r.y=50;
+				three_r.height=60;
+				three_r.width=140;
+			}
+	   }
 	   
 	   @Override
 	   public void render(float delta){

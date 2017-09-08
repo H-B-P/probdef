@@ -53,8 +53,8 @@ public class BookScreen_Shortcut extends GenericBookScreen {
 				spawnShieldMine(0,65,4);
 			}
 			if (seconds==6){
-				spawnShieldMine(1, 95, 1);
 				spawnShieldMine(-1, 95, 1);
+				spawnShieldMine(1, 95, 1);
 			}
 			if (seconds==8){
 				spawnMine(-2, 95);

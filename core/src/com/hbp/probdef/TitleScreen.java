@@ -146,7 +146,8 @@ public class TitleScreen extends MetaScreen {
 				}
 				
 				if (ARCADE_r.contains(tp_x,tp_y)){
-		            
+					game.setScreen(new ArcadeSelectScreen(game, true));
+		            dispose();
 				}
 		}
 		

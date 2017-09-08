@@ -80,7 +80,8 @@ public class ProbGameScreen extends SpaceyScreen {
    
    Turret currently_active_turret;
    
-   int currently_active_turret_no;
+   int currently_active_turret_no; //this is one hell of an overburdened variable and needs refactoring.
+   //When 0, means no turret has targeted or had the chance to. When 5, means all turrets have had a chance to target.
    
    float effective_delta;
 	
@@ -105,7 +106,7 @@ public class ProbGameScreen extends SpaceyScreen {
    
    private float end_time;
    
-	private SpriteBatch batch;
+	SpriteBatch batch;
 	
 	private Rectangle screen_proper;
 	
@@ -259,19 +260,20 @@ public class ProbGameScreen extends SpaceyScreen {
 				spawnMine(3,65);
 			}
 			if (seconds==22){
+				spawnMine(-2,65);
 				spawnMine(0,65);
 				spawnMine(2,65);
-				spawnMine(-2,65);
 			}
 			if (seconds==30){
+				spawnMine(-2,45);
 				spawnMine(0,100);
 				spawnMine(2,65);
-				spawnMine(-2,45);
+				
 			}
 			if (seconds==36){
-				spawnMine(2,65);
-				spawnMine(0,65);
 				spawnMine(-3, 45);
+				spawnMine(0,65);
+				spawnMine(2,65);
 			}
 			if (seconds==40){
 				spawnMine(-3,45);
@@ -390,24 +392,26 @@ public class ProbGameScreen extends SpaceyScreen {
 			   
 			   for (Turret_Standard turret_standard:turrets_standard){
 				   if (turret_standard.targeted){
-					   if (turret_standard.target_mine.equals(mine)){
-						   for (int i=0; i<turret_standard.turret_level;i++){
-							   destroy_extra=0;
-							   capture_extra=0;
-							   if (!mine.destroyproof){
-								   destroy_extra=zero*turret_standard.destroy_percent/100.0f;
-								   destroy= destroy + destroy_extra;
+					   if (turret_standard.target_mine!=null){
+						   if (turret_standard.target_mine.equals(mine)){
+							   for (int i=0; i<turret_standard.turret_level;i++){
+								   destroy_extra=0;
+								   capture_extra=0;
+								   if (!mine.destroyproof){
+									   destroy_extra=zero*turret_standard.destroy_percent/100.0f;
+									   destroy= destroy + destroy_extra;
+								   }
+									   
+								   if (!mine.captureproof){
+									   capture_extra=zero*turret_standard.capture_percent/100.0f;
+									   capture= capture + capture_extra;
+								   }
+								   zero= (zero-destroy_extra-capture_extra) + one*(1f-turret_standard.fail_percent/100.0f);
+								   one= one*turret_standard.fail_percent/100.0f + two*(1f-turret_standard.fail_percent/100.0f);
+								   two= two*turret_standard.fail_percent/100.0f + three*(1f-turret_standard.fail_percent/100.0f);
+								   three=three*turret_standard.fail_percent/100.0f + four*(1f-turret_standard.fail_percent/100.0f);
+								   four=four*turret_standard.fail_percent/100.0f;
 							   }
-								   
-							   if (!mine.captureproof){
-								   capture_extra=zero*turret_standard.capture_percent/100.0f;
-								   capture= capture + capture_extra;
-							   }
-							   zero= (zero-destroy_extra-capture_extra) + one*(1f-turret_standard.fail_percent/100.0f);
-							   one= one*turret_standard.fail_percent/100.0f + two*(1f-turret_standard.fail_percent/100.0f);
-							   two= two*turret_standard.fail_percent/100.0f + three*(1f-turret_standard.fail_percent/100.0f);
-							   three=three*turret_standard.fail_percent/100.0f + four*(1f-turret_standard.fail_percent/100.0f);
-							   four=four*turret_standard.fail_percent/100.0f;
 						   }
 					   }
 				   }
@@ -654,11 +658,9 @@ public class ProbGameScreen extends SpaceyScreen {
 	   void draw_textbox_one(String text){
 		   batch.draw(textbox_one_t, 20, 100);
 		   if (greentext){
-			   //acalc_greenfont.draw(batch, text, 30, 170, 260, 1, true);
 			   greenfont.draw(batch, text, 30, 173, 260, 1, true);
 		   }
 		   else{
-			   //font.draw(batch, text, 30, 170, 260, 1, true);
 			   blackfont.draw(batch, text, 30, 173, 260, 1, true);
 		   }
 	   }
@@ -666,26 +668,24 @@ public class ProbGameScreen extends SpaceyScreen {
 	   void draw_textbox_two(String text){
 		   batch.draw(textbox_two_t, 20, 100);
 		   if (greentext){
-			   //acalc_greenfont.draw(batch, text, 30, 190, 260, 1, true);
 			   greenfont.draw(batch, text, 30, 191, 260, 1, true);
 		   }
 		   else{
-			   //font.draw(batch, text, 30, 190, 260, 1, true);
 			   blackfont.draw(batch, text, 30, 191, 260, 1, true);
 		   }
 	   }
 	   
 	   private void draw_targeting_symbols(){
-		   if (turret_one.targeted){
+		   if (turret_one.targeted && turret_one.target_mine!=null){
 			   batch.draw(turret_one.target_t, turret_one.target_mine.rect.x-25, turret_one.target_mine.rect.y+5);
 		   }
-		   if (turret_two.targeted){
+		   if (turret_two.targeted && turret_two.target_mine!=null){
 			   batch.draw(turret_two.target_t, turret_two.target_mine.rect.x+5, turret_two.target_mine.rect.y+5);
 		   }
-		   if (turret_three.targeted){
+		   if (turret_three.targeted&& turret_three.target_mine!=null){
 			   batch.draw(turret_three.target_t, turret_three.target_mine.rect.x-25, turret_three.target_mine.rect.y-25);
 		   }
-		   if (turret_four.targeted){
+		   if (turret_four.targeted && turret_four.target_mine!=null){
 			   batch.draw(turret_four.target_t, turret_four.target_mine.rect.x+5, turret_four.target_mine.rect.y-25);
 		   }
 	   }
@@ -818,6 +818,10 @@ public class ProbGameScreen extends SpaceyScreen {
 		   }
 	   }
 	   
+	   void calculate_score(){
+		   score=0;
+	   }
+	   
 	   private void time_out_explosions(){
 		   Iterator<Kaboom> iterk = explosions.iterator();
 		   while(iterk.hasNext()) {
@@ -909,7 +913,209 @@ public class ProbGameScreen extends SpaceyScreen {
 		   
 		   end_time=q+0.2f;
 	   }
-
+	   
+	   private void skip_through_turrets(){
+		   boolean exitwhile=false;
+		   
+		   while (!exitwhile){
+			   if (currently_active_turret_no>4){
+				   exitwhile=true;
+			   }
+			   else{
+				   if (!currently_active_turret.targeted && currently_active_turret.does_it_work){
+					   exitwhile=true;
+				   }
+			   }
+			   if (!exitwhile){
+				   currently_active_turret_no+=1;
+				   number_to_turret();
+			   }
+		   }
+	   }	   
+	   
+	   private void hand_over_to_firing(){
+		   current_status="firing";
+			set_up_firing_times();
+			turret_one.current_t=turret_one.normal_t;
+			turret_two.current_t=turret_two.normal_t;
+			turret_three.current_t=turret_three.normal_t;
+			turret_four.current_t=turret_four.normal_t;
+			the_selected_mine=null;
+	   }
+	   
+	   private void detarget_the_dead(){
+		   float decrement=0;
+		   for (Turret turret:turrets){
+			   turret.firing_time-=decrement;
+			   if (turret.targeted==true){
+				   if (turret.target_mine!=null){
+					   if (!turret.target_mine.actually_there || turret.target_mine.being_detained){
+						   turret.targeted=false;
+						   turret.firing_time=-1;
+						   decrement+=0.15;
+					   }
+				   }
+			   }
+		   }
+		   end_time-=decrement;
+	   }
+	   
+	   
+	   private String present_float(float flo){//All the normal methods won't export to html so I have to reinvent the wheel here.
+		   int a=Math.round(flo*100);
+		   int b=a%100;
+		   int c=(a-b)/100;
+		   if (b<10){
+			   return c+"."+b+"0";
+		   }
+		   else{
+			   return c+"."+b;
+		   }
+	   }
+	   
+	   void fiat_function(){
+		   for (Turret turret:turrets){
+			   turret.does_it_work=true;
+		   }
+	   }
+	   
+	   void unlist_this_mine(Mine mine){
+		   mines.removeValue(mine,true);
+		   if (regularmines.contains(mine, true)){
+			   regularmines.removeValue(mine, true);
+		   }
+		   if (mine.minetype.equals("shield")){
+			   if (shieldmines.contains((ShieldMine)mine, true)){
+				   shieldmines.removeValue((ShieldMine)mine, true);
+			   }
+		   }
+		   if (mine.minetype.equals("holo")){
+			   if (holomines.contains((HoloMine)mine, true)){
+				   holomines.removeValue((HoloMine)mine, true);
+			   }
+		   }
+		   if (mine.minetype.equals("titanium")){
+			   if (titaniummines.contains((TitaniumMine)mine, true)){
+				   titaniummines.removeValue((TitaniumMine)mine, true);
+			   }
+		   }
+	   }
+	   
+	   void return_to_menu(){
+		   game.setScreen(new TitleScreen(game, true));
+			  dispose();
+	   }
+	   
+	   //--Function for hotkeys--
+	   
+	   private void check_for_keypresses(){
+		   
+		   //handle the final firing.
+		   if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
+			   if(currently_active_turret_no>4){
+				   hand_over_to_firing();
+			   }
+			   else{
+				   
+				   if (the_selected_mine!=null){
+					   currently_active_turret.targeted=true;
+					   currently_active_turret.target_mine=the_selected_mine;
+				   }
+				   currently_active_turret.current_t=currently_active_turret.normal_t;
+				   currently_active_turret_no+=1;
+				   number_to_turret();
+				   skip_through_turrets();
+			   }
+		   }
+		   //pick turrets using ASDF or 1234.
+		   if (Gdx.input.isKeyJustPressed(Keys.NUM_1) || Gdx.input.isKeyJustPressed(Keys.A)){
+			   if (currently_active_turret_no<5){
+				   currently_active_turret.current_t=currently_active_turret.normal_t;
+			   }
+			   currently_active_turret_no=1;
+			   turret_one.targeted=false;
+			   turret_one.target_mine=null;
+			   number_to_turret();
+		   }
+		   if (Gdx.input.isKeyJustPressed(Keys.NUM_2) || Gdx.input.isKeyJustPressed(Keys.S)){
+			   if (currently_active_turret_no<5){
+				   currently_active_turret.current_t=currently_active_turret.normal_t;
+			   }
+			   currently_active_turret_no=2;
+			   turret_two.targeted=false;
+			   turret_two.target_mine=null;
+			   number_to_turret();
+		   }
+		   if (Gdx.input.isKeyJustPressed(Keys.NUM_3) || Gdx.input.isKeyJustPressed(Keys.D)){
+			   if (currently_active_turret_no<5){
+				   currently_active_turret.current_t=currently_active_turret.normal_t;
+			   }
+			   currently_active_turret_no=3;
+			   turret_three.targeted=false;
+			   turret_three.target_mine=null;
+			   number_to_turret();
+		   }
+		   if (Gdx.input.isKeyJustPressed(Keys.NUM_4) || Gdx.input.isKeyJustPressed(Keys.F)){
+			   if (currently_active_turret_no<5){
+				   currently_active_turret.current_t=currently_active_turret.normal_t;
+			   }
+			   currently_active_turret_no=4;
+			   turret_four.targeted=false;
+			   turret_four.target_mine=null;
+			   number_to_turret();
+		   }
+		   //Arrow keys to select
+		   if (Gdx.input.isKeyJustPressed(Keys.RIGHT)){
+			   cycle_mines_forward();
+		   }
+		   if (Gdx.input.isKeyJustPressed(Keys.LEFT)){
+			   cycle_mines_back();
+		   }
+	   }
+	   
+	   private void cycle_mines_forward(){
+		   if (the_selected_mine==null){
+			   the_selected_mine=mines.first();
+			   if (!screen_proper.overlaps(the_selected_mine.rect)){
+				   cycle_mines_forward();
+			   }
+		   }
+		   else if (the_selected_mine==mines.peek()){
+			   the_selected_mine=null;
+		   }
+		   else{
+			   int q=mines.indexOf(the_selected_mine, true);
+			   int j=(q+1)%mines.size;
+			   the_selected_mine=mines.get(j);
+			   if (!screen_proper.overlaps(the_selected_mine.rect)){
+				   cycle_mines_forward();
+			   }
+		   }
+	   }
+	   
+	   private void cycle_mines_back(){
+		   if (the_selected_mine==null){
+			   the_selected_mine=mines.peek();
+			   if (!screen_proper.overlaps(the_selected_mine.rect)){
+				   cycle_mines_back();
+			   }
+		   }
+		   else if (the_selected_mine==mines.first()){
+			   the_selected_mine=null;
+		   }
+		   else{
+			   int q=mines.indexOf(the_selected_mine, true);
+			   int j=(q+mines.size-1)%mines.size;
+			   the_selected_mine=mines.get(j);
+			   if (!screen_proper.overlaps(the_selected_mine.rect)){
+				   cycle_mines_back();
+			   }
+		   }
+	   }
+	   
+	   
+	   //--Do things depending on the current game status--
+	   
 	   private void do_firing_things(){
 		   for(Turret turret: turrets) {
 			   if (turret.target_mine!=null){
@@ -990,208 +1196,22 @@ public class ProbGameScreen extends SpaceyScreen {
 		   
 	   }
 	   
-	   private void skip_through_turrets(){
-		   boolean exitwhile=false;
-		   
-		   while (!exitwhile){
-			   if (currently_active_turret_no>4){
-				   exitwhile=true;
-			   }
-			   else{
-				   if (!currently_active_turret.targeted && currently_active_turret.does_it_work){
-					   exitwhile=true;
-				   }
-			   }
-			   if (!exitwhile){
-				   currently_active_turret_no+=1;
-				   number_to_turret();
-			   }
-		   }
-	   }
 	   
-	   private void check_for_keypresses(){
-		   
-		   //handle the final firing.
-		   if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
-			   if(currently_active_turret_no>4){
-				   hand_over_to_firing();
-			   }
-			   else{
-				   if (the_selected_mine!=null){
-					   currently_active_turret.targeted=true;
-					   currently_active_turret.target_mine=the_selected_mine;
-					   currently_active_turret.current_t=currently_active_turret.normal_t;
-					   skip_through_turrets();
-					   
-				   }
-			   }
-		   }
-		   //pick turrets using ASDF or 1234.
-		   if (Gdx.input.isKeyJustPressed(Keys.NUM_1) || Gdx.input.isKeyJustPressed(Keys.A)){
-			   if (currently_active_turret_no<5){
-				   currently_active_turret.current_t=currently_active_turret.normal_t;
-			   }
-			   currently_active_turret_no=1;
-			   turret_one.targeted=false;
-			   turret_one.target_mine=null;
-			   number_to_turret();
-		   }
-		   if (Gdx.input.isKeyJustPressed(Keys.NUM_2) || Gdx.input.isKeyJustPressed(Keys.S)){
-			   if (currently_active_turret_no<5){
-				   currently_active_turret.current_t=currently_active_turret.normal_t;
-			   }
-			   currently_active_turret_no=2;
-			   turret_two.targeted=false;
-			   turret_two.target_mine=null;
-			   number_to_turret();
-		   }
-		   if (Gdx.input.isKeyJustPressed(Keys.NUM_3) || Gdx.input.isKeyJustPressed(Keys.D)){
-			   if (currently_active_turret_no<5){
-				   currently_active_turret.current_t=currently_active_turret.normal_t;
-			   }
-			   currently_active_turret_no=3;
-			   turret_three.targeted=false;
-			   turret_three.target_mine=null;
-			   number_to_turret();
-		   }
-		   if (Gdx.input.isKeyJustPressed(Keys.NUM_4) || Gdx.input.isKeyJustPressed(Keys.F)){
-			   if (currently_active_turret_no<5){
-				   currently_active_turret.current_t=currently_active_turret.normal_t;
-			   }
-			   currently_active_turret_no=4;
-			   turret_four.targeted=false;
-			   turret_four.target_mine=null;
-			   number_to_turret();
-		   }
-		   //Arrow keys to select
-		   if (Gdx.input.isKeyJustPressed(Keys.RIGHT)){
-			   cycle_mines_forward();
-		   }
-		   if (Gdx.input.isKeyJustPressed(Keys.LEFT)){
-			   cycle_mines_back();
-		   }
-	   }
-	   
-	   private void cycle_mines_forward(){
-		   if (the_selected_mine==null){
-			   the_selected_mine=mines.first();
-		   }
-		   else{
-			   int q=mines.indexOf(the_selected_mine, true);
-			   int j=(q+1)%mines.size;
-			   the_selected_mine=mines.get(j);
-			   if (!screen_proper.overlaps(the_selected_mine.rect)){
-				   cycle_mines_forward();
-			   }
-		   }
-	   }
-	   
-	   private void cycle_mines_back(){
-		   if (the_selected_mine==null){
-			   the_selected_mine=mines.peek();
-		   }
-		   else{
-			   int q=mines.indexOf(the_selected_mine, true);
-			   int j=(q+mines.size-1)%mines.size;
-			   the_selected_mine=mines.get(j);
-			   if (!screen_proper.overlaps(the_selected_mine.rect)){
-				   cycle_mines_back();
-			   }
-		   }
-	   }
-	   
-	   
-	   private void hand_over_to_firing(){
-		   current_status="firing";
-			set_up_firing_times();
-			turret_one.current_t=turret_one.normal_t;
-			turret_two.current_t=turret_two.normal_t;
-			turret_three.current_t=turret_three.normal_t;
-			turret_four.current_t=turret_four.normal_t;
-			the_selected_mine=null;
-	   }
-	   
-	   private void detarget_the_dead(){
-		   float decrement=0;
-		   for (Turret turret:turrets){
-			   turret.firing_time-=decrement;
-			   if (turret.targeted==true){
-				   if (!turret.target_mine.actually_there || turret.target_mine.being_detained){
-					   turret.targeted=false;
-					   turret.firing_time=-1;
-					   decrement+=0.15;
-				   }
-			   }
-		   }
-		   end_time-=decrement;
-	   }
-	   
-	   
-	   private String present_float(float flo){//All the normal methods won't export to html so I have to reinvent things.
-		   int a=Math.round(flo*100);
-		   int b=a%100;
-		   int c=(a-b)/100;
-		   if (b<10){
-			   return c+"."+b+"0";
-		   }
-		   else{
-			   return c+"."+b;
-		   }
-	   }
-	   
-	   void fiat_function(){
-		   for (Turret turret:turrets){
-			   turret.does_it_work=true;
-		   }
-	   }
-	   
-	   void unlist_this_mine(Mine mine){
-		   mines.removeValue(mine,true);
-		   if (regularmines.contains(mine, true)){
-			   regularmines.removeValue(mine, true);
-		   }
-		   if (mine.minetype.equals("shield")){
-			   if (shieldmines.contains((ShieldMine)mine, true)){
-				   shieldmines.removeValue((ShieldMine)mine, true);
-			   }
-		   }
-		   if (mine.minetype.equals("holo")){
-			   if (holomines.contains((HoloMine)mine, true)){
-				   holomines.removeValue((HoloMine)mine, true);
-			   }
-		   }
-		   if (mine.minetype.equals("titanium")){
-			   if (titaniummines.contains((TitaniumMine)mine, true)){
-				   titaniummines.removeValue((TitaniumMine)mine, true);
-			   }
-		   }
-	   }
-	   
-	   void return_to_menu(){
-		   game.setScreen(new TitleScreen(game, true));
-			  dispose();
-	   }
 	   
 	   public void probgame_render(float delta){
 		   effective_delta=(float) (delta*TIMESPEED); //If time is running slow, the delta to feed into all calculations will be lower.
 			
-		   level_specific_timeline();
+		   level_specific_timeline(); //Do things which are done in a given level.
 		   
-			status_effects();
+			status_effects(); //Change environmental variables based on whether we're firing, waiting, etc.
 			
 			move_iterable_objects(effective_delta); //Update position of dots and mines.
 			
 			time_out_explosions(); //Eventually things finish exploding.
 			
-			
-			
-			
-			
-			
-			
-			
 			spacey_render(delta); //Do the generic rendering defined in SpaceyScreen.
 			
+			calculate_score(); //compute score from shields and captures and whatever else we're using today.
 			
 			batch.begin();
 			
@@ -1210,7 +1230,7 @@ public class ProbGameScreen extends SpaceyScreen {
 		    	batch.draw(currently_active_turret.target_t,tp_x-30,tp_y-30);
 		    }
 		    
-		    draw_targeting_symbols();
+		    draw_targeting_symbols(); //You know, the oddly-shaped crosshair things? Draw them.
 			
 			draw_the_statusbar(); //Draw the bar at the top of the screen, and everything on it.
 		    

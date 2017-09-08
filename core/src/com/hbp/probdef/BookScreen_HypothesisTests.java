@@ -74,8 +74,8 @@ public class BookScreen_HypothesisTests extends GenericBookScreen {
 				spawnHoloProbablistic(1,45,50);
 			}
 			if (seconds==6){
-				spawnHoloProbablistic(2,45,50);
 				spawnHoloProbablistic(-2,45,50);
+				spawnHoloProbablistic(2,45,50);
 			}
 			if (seconds==8){
 				spawnHoloProbablistic(0,45,50);
