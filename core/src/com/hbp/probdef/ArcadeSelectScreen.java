@@ -14,7 +14,7 @@ public class ArcadeSelectScreen extends GenericSelectScreen {
 	   public ArcadeSelectScreen(final ProbDef gam, boolean play_the_sound){
 			super(gam, play_the_sound);
 			first_topic="Basic";
-			last_topic="Deduction";
+			last_topic="Holos";
 			
 			
 			if (prefs.contains("probdef_library_topic")){
@@ -52,7 +52,7 @@ public class ArcadeSelectScreen extends GenericSelectScreen {
 	   @Override
 	   
 	   void set_up_level_button_positions(int how_many){
-		   if (how_many==5){
+		   if (how_many==5|| how_many==3){
 				
 			   one_r = new Rectangle();
 				one_r.x=90;
@@ -72,6 +72,8 @@ public class ArcadeSelectScreen extends GenericSelectScreen {
 				three_r.height=60;
 				three_r.width=140;
 				
+		   }
+		   if (how_many==5){
 				four_r = new Rectangle();
 				four_r.x=10;
 				four_r.y=50;
@@ -131,7 +133,7 @@ public class ArcadeSelectScreen extends GenericSelectScreen {
 			
 			prefs.putString("probdef_library_topic", TOPIC);
 			if(TOPIC.equals("Basic")){
-				NUMBER_OF_LEVELS=5;
+				NUMBER_OF_LEVELS=3;
 				banner_t=banner_blank_t;
 				banner_s="Basic";
 				one_s="Intro";
@@ -142,18 +144,18 @@ public class ArcadeSelectScreen extends GenericSelectScreen {
 				three_double_liner=false;
 				four_s="Capture";
 				four_double_liner=false;
-				five_s="Fragility";
+				five_s="Survive";
 				five_double_liner=false;
 			}
 			if(TOPIC.equals("Holos")){
-				NUMBER_OF_LEVELS=5;
+				NUMBER_OF_LEVELS=3;
 				banner_t=banner_blank_t;
 				banner_s="Holos";
 				one_s="Intro";
 				one_double_liner=false;
-				two_s="Majority Holo";
+				two_s="Minority Holo";
 				two_double_liner=true;
-				three_s="Minority Holo";
+				three_s="Majority Holo";
 				three_double_liner=true;
 				four_s="Witchfinder";
 				four_double_liner=false;
@@ -223,7 +225,19 @@ public class ArcadeSelectScreen extends GenericSelectScreen {
 				   dispose();
 			   }
 		   }
-		   if (Gdx.input.justTouched()&& TOPIC.equals("Bayes")){
+		   if (Gdx.input.justTouched()&& TOPIC.equals("Holos")){
+			   if (one_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Holos_Intro(game, true));
+				   dispose();
+			   }
+			   if (two_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Holos_Minority(game, true));
+				   dispose();
+			   }
+			   if (three_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Holos_Majority(game, true));
+				   dispose();
+			   }
 		   }
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Pascal")){
 			   if (one_r.contains(tp_x,tp_y)){

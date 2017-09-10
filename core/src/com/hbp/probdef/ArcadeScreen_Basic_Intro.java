@@ -95,7 +95,7 @@ public class ArcadeScreen_Basic_Intro extends ProbGameScreen {
 			
 		}
 		
-		//Different alternating pattern: 16 mines
+		//Different alternating pattern: 12 mines
 		
 		if (seconds==34){
 			spawnMine(-3,65);
@@ -105,7 +105,6 @@ public class ArcadeScreen_Basic_Intro extends ProbGameScreen {
 		}
 		
 		if (seconds==36){
-			spawnMine(-3,65);
 			spawnMine(-1,45);
 			spawnMine(1,45);
 		}
@@ -119,12 +118,11 @@ public class ArcadeScreen_Basic_Intro extends ProbGameScreen {
 		}
 		
 		if (seconds==40){
-			spawnMine(-3,65);
 			spawnMine(-1,45);
 			spawnMine(1,45);
 		}
 		
-		//One last trio, to make a nice round 40
+		//One last fiver, to make a nice round 40
 		
 		if (seconds==46){
 			spawnMine(-2,95);
@@ -133,9 +131,13 @@ public class ArcadeScreen_Basic_Intro extends ProbGameScreen {
 		if (seconds==48){
 			spawnMine(0,65);
 		}
+		if (seconds==50){
+			spawnMine(-2,95);
+			spawnMine(2,95);
+		}
 		
 		if (minecount==0){
-			game.setScreen(new TitleScreen(game, true));
+			game.setScreen(new ArcadeSelectScreen(game, true));
 			  dispose();
 		}
 	}
@@ -143,7 +145,7 @@ public class ArcadeScreen_Basic_Intro extends ProbGameScreen {
 	void level_specific_HUD(){
 		font.draw(batch, "MINES: "+minecount, 90, 472, 140, 1, true);
 		font.draw(batch, "CAPTURED: "+captured, 90, 455, 140, 1, true);
-		font.draw(batch, "SHIELDS: "+ shields, 90, 437, 140, 1, true);
+		font.draw(batch, "DESTROYED: "+ destroyed, 90, 437, 140, 1, true);
 		font.draw(batch, "SCORE: "+score, 90, 420, 140, 1, true);   
 	   }
 	
@@ -153,15 +155,11 @@ public class ArcadeScreen_Basic_Intro extends ProbGameScreen {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   greentext=false;
-		   if (seconds<4){
+		   if (seconds<7){
 			   show_the_text=true;
-			   the_text="Your score starts at ten. For every mine you capture, it increases by one point.";
+			   the_text="Your score starts at ten. If you capture a mine, you gain one point. If a mine hits, you lose two points.";
 		   }
-		   if (seconds>=4 && seconds<8){
-			   show_the_text=true;
-			   the_text="When you get hit by a mine, you lose two points.\nAlso, if you run out of shields, you fail the level.";
-		   }
-		   if (seconds>=8 && seconds<12){
+		   if (seconds>=7 && seconds<12){
 			   show_the_text=true;
 			   the_text="Try to end the level with the highest score you can.";
 		   }
@@ -172,6 +170,7 @@ public class ArcadeScreen_Basic_Intro extends ProbGameScreen {
 	@Override
 	void calculate_score(){
 		score=captured+shields*2;
+		score=Math.max(score, 0);
 	}
 
 	@Override

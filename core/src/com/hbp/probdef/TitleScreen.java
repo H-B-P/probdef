@@ -59,14 +59,14 @@ public class TitleScreen extends MetaScreen {
 		
 		LIBRARY_r = new Rectangle();
 		LIBRARY_r.x=60;
-		LIBRARY_r.y=170;
+		LIBRARY_r.y=70;
 		LIBRARY_r.height=60;
 		LIBRARY_r.width=200;
 		LIBRARY_t = new Texture(Gdx.files.internal("abutton_long_library.png"));
 		
 		ARCADE_r = new Rectangle();
 		ARCADE_r.x=60;
-		ARCADE_r.y=70;
+		ARCADE_r.y=170;
 		ARCADE_r.height=60;
 		ARCADE_r.width=200;
 		ARCADE_t = new Texture(Gdx.files.internal("abutton_long_arcade.png"));

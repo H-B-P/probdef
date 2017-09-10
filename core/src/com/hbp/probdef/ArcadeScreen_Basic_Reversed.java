@@ -114,7 +114,7 @@ public class ArcadeScreen_Basic_Reversed extends ProbGameScreen {
 		}
 		
 		if (minecount==0){
-			game.setScreen(new TitleScreen(game, true));
+			game.setScreen(new ArcadeSelectScreen(game, true));
 			  dispose();
 		}
 		
@@ -124,7 +124,7 @@ public class ArcadeScreen_Basic_Reversed extends ProbGameScreen {
 	void level_specific_HUD(){
 		font.draw(batch, "MINES: "+minecount, 90, 472, 140, 1, true);
 		font.draw(batch, "CAPTURED: "+captured, 90, 455, 140, 1, true);
-		font.draw(batch, "SHIELDS: "+ shields, 90, 437, 140, 1, true);
+		font.draw(batch, "DESTROYED: "+destroyed, 90, 437, 140, 1, true);
 		font.draw(batch, "SCORE: "+score, 90, 420, 140, 1, true);   
 	   }
 	

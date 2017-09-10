@@ -716,9 +716,9 @@ public class ProbGameScreen extends SpaceyScreen {
 	   private void check_for_shipshield_mine_collisions(){
 		   for (Mine mine: mines){
 				if(mine.rect.overlaps(shield_r)) {
+					minecount-=1;
 					if (!mine.shootproof){
 				     	spawnExplosion(mine.rect.x,mine.rect.y);
-				        minecount-=1;
 				        shields-=1;
 				        minehitshield.play(0.4f);
 				        minesplode.play();
