@@ -188,9 +188,9 @@ public class SelectScreen_Arcade extends SelectScreen {
 			
 			arrowsound.play();
 			if (TOPIC.equals("Basic")){
-				TOPIC="Holos";
+				TOPIC="Decoys";
 			}
-			else if (TOPIC.equals("Holos")){
+			else if (TOPIC.equals("Decoys")){
 				TOPIC="Deduction";
 			}
 		}
@@ -200,11 +200,11 @@ public class SelectScreen_Arcade extends SelectScreen {
 		public void go_back(){
 			
 			arrowsound.play();
-			if (TOPIC.equals("Holos")){
+			if (TOPIC.equals("Decoys")){
 				TOPIC="Basic";
 			}
 			else if (TOPIC.equals("Deduction")){
-				TOPIC="Holos";
+				TOPIC="Decoys";
 			}
 		}
 	   
@@ -225,7 +225,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 				   dispose();
 			   }
 		   }
-		   if (Gdx.input.justTouched()&& TOPIC.equals("Holos")){
+		   if (Gdx.input.justTouched()&& TOPIC.equals("Decoys")){
 			   if (one_r.contains(tp_x,tp_y)){
 				   game.setScreen(new ArcadeScreen_Decoy_Intro(game, true));
 				   dispose();
