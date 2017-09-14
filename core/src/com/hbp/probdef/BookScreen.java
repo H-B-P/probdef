@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.hbp.probdef.ProbDef;
 
-public class GenericBookScreen extends ProbGameScreen {
+public class BookScreen extends GameScreen_Prob {
 	
 	final ProbDef game;
 	
@@ -43,7 +43,7 @@ public class GenericBookScreen extends ProbGameScreen {
 	Sound arrowsound;
 	
 	
-	public GenericBookScreen(final ProbDef gam, boolean play_the_sound) {
+	public BookScreen(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		
@@ -149,7 +149,7 @@ public class GenericBookScreen extends ProbGameScreen {
 		mines.clear();
 		regularmines.clear();
 		shieldmines.clear();
-		holomines.clear();
+		decoymines.clear();
 		titaniummines.clear();
 		
 		explosions.clear();
@@ -235,7 +235,7 @@ public class GenericBookScreen extends ProbGameScreen {
 	@Override
 	
 	void return_to_menu(){
-		   game.setScreen(new LibrarySelectScreen(game, true));
+		   game.setScreen(new SelectScreen_Library(game, true));
 			  dispose();
 	   }
 	

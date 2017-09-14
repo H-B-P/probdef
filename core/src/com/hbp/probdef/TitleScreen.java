@@ -136,17 +136,17 @@ public class TitleScreen extends MetaScreen {
 		if (Gdx.input.justTouched()) {
 				
 				if (LIBRARY_r.contains(tp_x,tp_y)){
-					game.setScreen(new LibrarySelectScreen(game, true));
+					game.setScreen(new SelectScreen_Library(game, true));
 		            dispose();
 				}
 				
 				if (TUTORIAL_r.contains(tp_x,tp_y)){
-					game.setScreen(new ProbGameScreen(game, true));
+					game.setScreen(new GameScreen_Prob(game, true));
 		            dispose();
 				}
 				
 				if (ARCADE_r.contains(tp_x,tp_y)){
-					game.setScreen(new ArcadeSelectScreen(game, true));
+					game.setScreen(new SelectScreen_Arcade(game, true));
 		            dispose();
 				}
 		}

@@ -22,7 +22,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.hbp.probdef.ProbDef;
 
-public class SpaceyScreen extends MetaScreen {
+public class GameScreen extends MetaScreen {
 	
 	final ProbDef game;
 	
@@ -58,7 +58,7 @@ public class SpaceyScreen extends MetaScreen {
 	
 	private SpriteBatch batch;
 	
-	public SpaceyScreen(final ProbDef gam, boolean play_the_sound) {
+	public GameScreen(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		

@@ -2,9 +2,9 @@ package com.hbp.probdef;
 
 import com.badlogic.gdx.math.Rectangle;
 
-public class TitaniumMine extends Mine {
+public class Mine_Titanium extends Mine {
 	
-	public TitaniumMine(int xposn, float m_speed){
+	public Mine_Titanium(int xposn, float m_speed){
 		   
 		   super(xposn, m_speed);
 		   

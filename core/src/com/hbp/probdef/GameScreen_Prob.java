@@ -15,7 +15,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Array;
-import com.hbp.probdef.Kaboom;
+import com.hbp.probdef.RT_Kaboom;
 import com.hbp.probdef.Mine;
 import com.hbp.probdef.Turret;
 import com.badlogic.gdx.audio.Sound;
@@ -23,7 +23,7 @@ import com.badlogic.gdx.audio.Sound;
 
 import com.hbp.probdef.ProbDef;
 
-public class ProbGameScreen extends SpaceyScreen {
+public class GameScreen_Prob extends GameScreen {
 	
 	final ProbDef game;
 	
@@ -47,15 +47,15 @@ public class ProbGameScreen extends SpaceyScreen {
    
    public Array<Mine> mines;
    public Array<Mine> regularmines;
-   public Array<ShieldMine> shieldmines;
-   public Array<HoloMine> holomines;
-   public Array<TitaniumMine> titaniummines;
+   public Array<Mine_Shielded> shieldmines;
+   public Array<Mine_Decoy> decoymines;
+   public Array<Mine_Titanium> titaniummines;
    
-   public Array<Kaboom> explosions;
+   public Array<RT_Kaboom> explosions;
    public Array<Turret> turrets;
    public Array<Turret_Standard> turrets_standard;
    
-   public Array<Dot> dots;
+   public Array<RT_Dot> dots;
    
    Iterator<Mine> mine_iterator;
    
@@ -125,7 +125,7 @@ public class ProbGameScreen extends SpaceyScreen {
 	
 	boolean greentext;
 	
-	public ProbGameScreen(final ProbDef gam, boolean play_the_sound) {
+	public GameScreen_Prob(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		game=gam;
@@ -161,14 +161,14 @@ public class ProbGameScreen extends SpaceyScreen {
 	      
 	      mines = new Array<Mine>();
 	      regularmines = new Array<Mine>();
-	      shieldmines = new Array<ShieldMine>();
-	      titaniummines = new Array<TitaniumMine>();
-	      holomines= new Array<HoloMine>();
+	      shieldmines = new Array<Mine_Shielded>();
+	      titaniummines = new Array<Mine_Titanium>();
+	      decoymines= new Array<Mine_Decoy>();
 	      
-	      explosions = new Array<Kaboom>();
+	      explosions = new Array<RT_Kaboom>();
 	      turrets= new Array<Turret>();
 	      turrets_standard= new Array<Turret_Standard>();
-	      dots = new Array<Dot>();
+	      dots = new Array<RT_Dot>();
 	      
 	      
 	      
@@ -478,26 +478,26 @@ public class ProbGameScreen extends SpaceyScreen {
 	   }
 	   
 	   void spawnShieldMine(int xposn, float m_speed, int shields) {
-		   ShieldMine shieldmine= new ShieldMine(xposn, m_speed, shields);
+		   Mine_Shielded shieldmine= new Mine_Shielded(xposn, m_speed, shields);
 		   mines.add(shieldmine);
 		   shieldmines.add(shieldmine);
 	   }
 	   
-	   void spawnHoloMine(int xposn, float m_speed) {
-		   HoloMine holomine= new HoloMine(xposn, m_speed);
-		   mines.add(holomine);
-		   holomines.add(holomine);
+	   void spawnDecoyMine(int xposn, float m_speed) {
+		   Mine_Decoy decoymine= new Mine_Decoy(xposn, m_speed);
+		   mines.add(decoymine);
+		   decoymines.add(decoymine);
 	   }
 	   
 	   void spawnTitaniumMine(int xposn, float m_speed) {
-		   TitaniumMine titaniummine= new TitaniumMine(xposn, m_speed);
+		   Mine_Titanium titaniummine= new Mine_Titanium(xposn, m_speed);
 		   mines.add(titaniummine);
 		   titaniummines.add(titaniummine);
 	   }
 	   
-	   void spawnHoloProbablistic(int xposn, float m_speed, int percentage_chance_of_holo){
-		   if (Math.random()*100.0<percentage_chance_of_holo){
-			   spawnHoloMine(xposn, m_speed);
+	   void spawnDecoyProbablistic(int xposn, float m_speed, int percentage_chance_of_decoy){
+		   if (Math.random()*100.0<percentage_chance_of_decoy){
+			   spawnDecoyMine(xposn, m_speed);
 		   }
 		   else{
 			   spawnMine(xposn, m_speed);
@@ -505,7 +505,7 @@ public class ProbGameScreen extends SpaceyScreen {
 	   }
 	   
 	   void spawnExplosion(float X, float Y){
-		   Kaboom boom = new Kaboom();
+		   RT_Kaboom boom = new RT_Kaboom();
 		   boom.rect= new Rectangle();
 		   boom.birthtime=total_time;
 		   boom.rect.x= X;
@@ -566,13 +566,13 @@ public class ProbGameScreen extends SpaceyScreen {
 		        	  batch.draw(detaining_t, mine.rect.x-20, mine.rect.y-20);
 		          }
 		       }
-		   for(Mine mine: holomines) {
+		   for(Mine mine: decoymines) {
 		          batch.draw(mine_t, mine.rect.x-20, mine.rect.y-20);
 		          if (mine.being_detained){
 		        	  batch.draw(detaining_t, mine.rect.x-20, mine.rect.y-20);
 		          }
 		       }
-		   for (ShieldMine shieldmine:shieldmines){
+		   for (Mine_Shielded shieldmine:shieldmines){
 			   batch.draw(mine_t, shieldmine.rect.x-20, shieldmine.rect.y-20);
 		          if (shieldmine.being_detained){
 		        	  batch.draw(detaining_t, shieldmine.rect.x-20, shieldmine.rect.y-20);
@@ -596,7 +596,7 @@ public class ProbGameScreen extends SpaceyScreen {
 		        	  batch.draw(detaining_t, mine.rect.x-20, mine.rect.y-20);
 		          }
 		       }
-			for(Kaboom boom: explosions) {
+			for(RT_Kaboom boom: explosions) {
 		          batch.draw(explosion_t, boom.rect.x-20, boom.rect.y-20);
 		       }
 			for(Turret_Standard turret_standard: turrets_standard) {
@@ -609,7 +609,7 @@ public class ProbGameScreen extends SpaceyScreen {
 		       }
 			
 			
-			for(Dot dot: dots) {
+			for(RT_Dot dot: dots) {
 				if (dot.type.equals("destroy")){
 					batch.draw(destroy_dot_t, dot.rect.x, dot.rect.y);
 				}
@@ -697,11 +697,11 @@ public class ProbGameScreen extends SpaceyScreen {
 			   mine.rect.x += mine.horz_vel * delta;
 			     mine.rect.y -= mine.vert_speed * delta;
 		   }
-		   for(Dot dot: dots) {
+		   for(RT_Dot dot: dots) {
 		          dot.rect.x+=dot.horz_vel*delta;
 		          dot.rect.y+=dot.vert_vel*delta;
 		       }
-		   for (ShieldMine shieldmine:shieldmines){
+		   for (Mine_Shielded shieldmine:shieldmines){
 			   shieldmine.shield_one.x=shieldmine.rect.x-5;
 			   shieldmine.shield_one.y=shieldmine.rect.y-5;
 			   shieldmine.shield_two.x=shieldmine.rect.x-10;
@@ -730,9 +730,9 @@ public class ProbGameScreen extends SpaceyScreen {
 	   }
 	   
 	   private void kill_lost_dots(){
-		   Iterator<Dot> iter_dots = dots.iterator();
+		   Iterator<RT_Dot> iter_dots = dots.iterator();
 			while(iter_dots.hasNext()) {
-				Dot dot = iter_dots.next();
+				RT_Dot dot = iter_dots.next();
 			     if (!dot.rect.overlaps(screen_proper)){
 			    	 iter_dots.remove();
 			     }
@@ -762,7 +762,7 @@ public class ProbGameScreen extends SpaceyScreen {
 	   }
 	   
 	   private void check_for_dot_mine_collisions(){
-		   for (Dot dot:dots){
+		   for (RT_Dot dot:dots){
 			   if (dot.rect.overlaps(dot.target_mine.rect) && dot.target_mine.actually_there){
 				    	 
 				   if (dot.type.equals("destroy") && !dot.target_mine.destroyproof){
@@ -787,11 +787,11 @@ public class ProbGameScreen extends SpaceyScreen {
 	   }
 	   
 	   private void check_for_dot_mineshield_collisions(){
-		   for (Dot dot:dots){
+		   for (RT_Dot dot:dots){
 			   if (dot.target_mine.minetype.equals("shield")){
 				   if (dot.type.equals("destroy")||dot.type.equals("capture")){
 					   
-					   ShieldMine S=(ShieldMine)dot.target_mine;
+					   Mine_Shielded S=(Mine_Shielded)dot.target_mine;
 					   
 					   if (S.shields_rn==4 && S.shield_four.overlaps(dot.rect)){
 						   deshield.play(0.2f);
@@ -823,9 +823,9 @@ public class ProbGameScreen extends SpaceyScreen {
 	   }
 	   
 	   private void time_out_explosions(){
-		   Iterator<Kaboom> iterk = explosions.iterator();
+		   Iterator<RT_Kaboom> iterk = explosions.iterator();
 		   while(iterk.hasNext()) {
-		    	  Kaboom boom = iterk.next();
+		    	  RT_Kaboom boom = iterk.next();
 		    	  if(total_time - boom.birthtime > 0.25) iterk.remove();
 		      }
 	   }
@@ -985,18 +985,18 @@ public class ProbGameScreen extends SpaceyScreen {
 			   regularmines.removeValue(mine, true);
 		   }
 		   if (mine.minetype.equals("shield")){
-			   if (shieldmines.contains((ShieldMine)mine, true)){
-				   shieldmines.removeValue((ShieldMine)mine, true);
+			   if (shieldmines.contains((Mine_Shielded)mine, true)){
+				   shieldmines.removeValue((Mine_Shielded)mine, true);
 			   }
 		   }
-		   if (mine.minetype.equals("holo")){
-			   if (holomines.contains((HoloMine)mine, true)){
-				   holomines.removeValue((HoloMine)mine, true);
+		   if (mine.minetype.equals("decoy")){
+			   if (decoymines.contains((Mine_Decoy)mine, true)){
+				   decoymines.removeValue((Mine_Decoy)mine, true);
 			   }
 		   }
 		   if (mine.minetype.equals("titanium")){
-			   if (titaniummines.contains((TitaniumMine)mine, true)){
-				   titaniummines.removeValue((TitaniumMine)mine, true);
+			   if (titaniummines.contains((Mine_Titanium)mine, true)){
+				   titaniummines.removeValue((Mine_Titanium)mine, true);
 			   }
 		   }
 	   }
@@ -1126,7 +1126,7 @@ public class ProbGameScreen extends SpaceyScreen {
 							   if (T.shotsmade==0){fire.play(0.3f);}
 							   T.shotsmade+=1;
 							   if (!T.target_mine.shootproof){
-								   Dot dot=new Dot(turret.rect, turret.target_mine, 3000, turret.determine_output());
+								   RT_Dot dot=new RT_Dot(turret.rect, turret.target_mine, 3000, turret.determine_output());
 								   dots.add(dot);
 							   }
 						   }

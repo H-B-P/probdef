@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-public class ArcadeScreen_Basic_Circles extends ProbGameScreen {
+public class ArcadeScreen_Basic_Circles extends GameScreen_Prob {
 	
 	final ProbDef game;
 
@@ -31,8 +31,8 @@ public class ArcadeScreen_Basic_Circles extends ProbGameScreen {
 	void level_specific_turret_setup(){
 		   turret_one=new Turret_Standard("circle");
 		   turret_two=new Turret_Standard("circle");
-		   turret_three=new Turret_Standard("circle");
-		   turret_four=new Turret_Standard("hexagon");
+		   turret_three=new Turret_Standard("hexagon");
+		   turret_four=new Turret_Standard("circle");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -139,7 +139,7 @@ public class ArcadeScreen_Basic_Circles extends ProbGameScreen {
 		}
 		
 		if (minecount==0){
-			game.setScreen(new ArcadeSelectScreen(game, true));
+			game.setScreen(new SelectScreen_Arcade(game, true));
 			  dispose();
 		}
 		
@@ -147,8 +147,8 @@ public class ArcadeScreen_Basic_Circles extends ProbGameScreen {
 	}
 	@Override
 	void level_specific_HUD(){
-		font.draw(batch, "MINES: "+minecount, 90, 472, 140, 1, true);
-		font.draw(batch, "CAPTURED: "+captured, 90, 455, 140, 1, true);
+		font.draw(batch, "MINES: "+minecount, 90, 471, 140, 1, true);
+		font.draw(batch, "CAPTURED: "+captured, 90, 454, 140, 1, true);
 		font.draw(batch, "DESTROYED: "+ destroyed, 90, 437, 140, 1, true);
 		font.draw(batch, "SCORE: "+score, 90, 420, 140, 1, true);   
 	   }

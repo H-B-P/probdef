@@ -19,7 +19,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class GenericSelectScreen extends MetaScreen {
+public class SelectScreen extends MetaScreen {
     final ProbDef game;
 	
 	private Music bgm;
@@ -106,7 +106,7 @@ public class GenericSelectScreen extends MetaScreen {
 	
 	private SpriteBatch batch;
 	
-	public GenericSelectScreen(final ProbDef gam, boolean play_the_sound) {
+	public SelectScreen(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		

@@ -6,12 +6,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-public class ArcadeScreen_Holos_Intro extends ProbGameScreen {
+public class ArcadeScreen_Decoy_Intro extends GameScreen_Prob {
 	
 	final ProbDef game;
 
 	
-	public ArcadeScreen_Holos_Intro(final ProbDef gam, boolean play_the_sound) {
+	public ArcadeScreen_Decoy_Intro(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		
@@ -49,61 +49,61 @@ public class ArcadeScreen_Holos_Intro extends ProbGameScreen {
 		//The intro: 6 mines
 		
 		if (seconds==4){
-			spawnHoloMine(0,200);
+			spawnDecoyMine(0,200);
 		}
 		if (seconds==6){
-			spawnHoloMine(0,95);
+			spawnDecoyMine(0,95);
 		}
 		
 		//Massed I: 12 mines
 		
 		if (seconds==26 || seconds==28 || seconds==30 || seconds==32){
-			spawnHoloProbablistic(-2,45,40);
-			spawnHoloProbablistic(0,45,40);
-			spawnHoloProbablistic(2,45,40);
+			spawnDecoyProbablistic(-2,45,40);
+			spawnDecoyProbablistic(0,45,40);
+			spawnDecoyProbablistic(2,45,40);
 		}
 		
 		//Drizzle: 6 mines
 		
 		if (seconds==40){
-			spawnHoloProbablistic(1,65,40);
+			spawnDecoyProbablistic(1,65,40);
 		}
 		if (seconds==42){
-			spawnHoloProbablistic(-1,65,40);
-			spawnHoloProbablistic(2,65,40);
+			spawnDecoyProbablistic(-1,65,40);
+			spawnDecoyProbablistic(2,65,40);
 		}
 		if (seconds==44){
-			spawnHoloProbablistic(3,65,40);
+			spawnDecoyProbablistic(3,65,40);
 		}
 		if (seconds==46){
-			spawnHoloProbablistic(-1,65,40);
-			spawnHoloProbablistic(-3,95,40);
+			spawnDecoyProbablistic(-1,65,40);
+			spawnDecoyProbablistic(-3,95,40);
 		}
 		
 		//Slow-mo Tsunami:12 mines
 		
 		if (seconds==52|| seconds==56){
-			spawnHoloProbablistic(-3,45,40);
-			spawnHoloProbablistic(-1,45,40);
-			spawnHoloProbablistic(1,45,40);
-			spawnHoloProbablistic(3,45,40);
+			spawnDecoyProbablistic(-3,45,40);
+			spawnDecoyProbablistic(-1,45,40);
+			spawnDecoyProbablistic(1,45,40);
+			spawnDecoyProbablistic(3,45,40);
 		}
 		if (seconds==54|| seconds==58){
-			spawnHoloProbablistic(-1,45,40);
-			spawnHoloProbablistic(1,45,40);
+			spawnDecoyProbablistic(-1,45,40);
+			spawnDecoyProbablistic(1,45,40);
 		}
 		
 		//Faster-mo wall: 8 mines
 		
 		if (seconds==64 || seconds==68){
-			spawnHoloProbablistic(-3,95,40);
-			spawnHoloProbablistic(-1,65,40);
-			spawnHoloProbablistic(1,65,40);
-			spawnHoloProbablistic(3,45,40);
+			spawnDecoyProbablistic(-3,95,40);
+			spawnDecoyProbablistic(-1,65,40);
+			spawnDecoyProbablistic(1,65,40);
+			spawnDecoyProbablistic(3,45,40);
 		}
 		
 		if (minecount==0){
-			game.setScreen(new ArcadeSelectScreen(game, true));
+			game.setScreen(new SelectScreen_Arcade(game, true));
 			  dispose();
 		}
 		
@@ -125,7 +125,7 @@ public class ArcadeScreen_Holos_Intro extends ProbGameScreen {
 		   greentext=false;
 		   if (total_time<4){
 				show_the_text=true;
-				the_text="Holo mines look ordinary, but vanish harmlessly when they touch the ship's shield.";
+				the_text="Decoy mines look ordinary, but vanish harmlessly when they touch the ship's shield.";
 			}
 			if ((total_time>6 && total_time<8) || (seconds==8 && TIMESPEED==0)){
 				show_the_text=true;
@@ -138,13 +138,13 @@ public class ArcadeScreen_Holos_Intro extends ProbGameScreen {
 			}
 			if (total_time>12 && total_time<18){
 				show_the_text=true;
-				the_text="Eventually, a holo mine will defy enough odds that you can assume it's fake, and focus on real threats.";
+				the_text="Eventually, a decoy will defy enough odds that you can assume it's fake, and focus on real threats.";
 				
 			}
 			if (total_time>18 && total_time<24){
 				show_the_text=true;
 				greentext=true;
-				the_text="(from here on out all holos are generated randomly, so memorising which mines are fake won't work)";
+				the_text="(from here on out all decoys are generated randomly, so memorising which mines are fake won't work)";
 			}
 		   
 		   

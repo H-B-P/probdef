@@ -2,14 +2,14 @@ package com.hbp.probdef;
 
 import com.badlogic.gdx.math.Rectangle;
 
-public class ShieldMine extends Mine {
+public class Mine_Shielded extends Mine {
 	
 	Rectangle shield_one;
 	Rectangle shield_two;
 	Rectangle shield_three;
 	Rectangle shield_four;
 	
-	public ShieldMine(int xposn, float m_speed, int shields){
+	public Mine_Shielded(int xposn, float m_speed, int shields){
 		   
 		   super(xposn, m_speed);
 		   

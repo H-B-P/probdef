@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.hbp.probdef.ProbDef;
 
-public class BookScreen_Combine extends GenericBookScreen {
+public class BookScreen_Combine extends BookScreen {
 	
 	final ProbDef game;
 	

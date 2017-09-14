@@ -1,12 +1,12 @@
 package com.hbp.probdef;
 
-public class HoloMine extends Mine {
+public class Mine_Decoy extends Mine {
 	
-	public HoloMine(int xposn, float m_speed){
+	public Mine_Decoy(int xposn, float m_speed){
 		   
 		   super(xposn, m_speed);
 		   
-		   minetype="holo";
+		   minetype="decoy";
 		   
 		   shootproof=true;
 		   

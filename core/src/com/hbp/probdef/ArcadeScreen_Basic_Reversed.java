@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-public class ArcadeScreen_Basic_Reversed extends ProbGameScreen {
+public class ArcadeScreen_Basic_Reversed extends GameScreen_Prob {
 	
 	final ProbDef game;
 
@@ -114,7 +114,7 @@ public class ArcadeScreen_Basic_Reversed extends ProbGameScreen {
 		}
 		
 		if (minecount==0){
-			game.setScreen(new ArcadeSelectScreen(game, true));
+			game.setScreen(new SelectScreen_Arcade(game, true));
 			  dispose();
 		}
 		

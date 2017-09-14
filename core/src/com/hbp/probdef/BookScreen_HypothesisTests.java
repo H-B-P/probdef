@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
-public class BookScreen_HypothesisTests extends GenericBookScreen {
+public class BookScreen_HypothesisTests extends BookScreen {
 	
 	final ProbDef game;
 	
@@ -49,10 +49,10 @@ public class BookScreen_HypothesisTests extends GenericBookScreen {
 	void level_specific_events(){
 		if (page==1){
 			if (seconds==4){
-				spawnHoloMine(0,200);
+				spawnDecoyMine(0,200);
 			}
 			if (seconds==6){
-				spawnHoloMine(0,35);
+				spawnDecoyMine(0,35);
 			}
 			if (seconds==10){
 				spawnMine(-2,65);
@@ -65,20 +65,20 @@ public class BookScreen_HypothesisTests extends GenericBookScreen {
 		}
 		if (page==2){
 			if (seconds==2){
-				spawnHoloProbablistic(-2,45,50);
-				spawnHoloProbablistic(0,45,50);
-				spawnHoloProbablistic(2,45,50);
+				spawnDecoyProbablistic(-2,45,50);
+				spawnDecoyProbablistic(0,45,50);
+				spawnDecoyProbablistic(2,45,50);
 			}
 			if (seconds==4){
-				spawnHoloProbablistic(-1,45,50);
-				spawnHoloProbablistic(1,45,50);
+				spawnDecoyProbablistic(-1,45,50);
+				spawnDecoyProbablistic(1,45,50);
 			}
 			if (seconds==6){
-				spawnHoloProbablistic(-2,45,50);
-				spawnHoloProbablistic(2,45,50);
+				spawnDecoyProbablistic(-2,45,50);
+				spawnDecoyProbablistic(2,45,50);
 			}
 			if (seconds==8){
-				spawnHoloProbablistic(0,45,50);
+				spawnDecoyProbablistic(0,45,50);
 			}
 		}
 		if (page==3){
@@ -115,7 +115,7 @@ public class BookScreen_HypothesisTests extends GenericBookScreen {
 			
 			if (page_time<4){
 				show_the_text=true;
-				the_text="Holo mines look ordinary, but vanish harmlessly when they touch the ship's shield.";
+				the_text="Decoy mines look ordinary, but vanish harmlessly when they touch the ship's shield.";
 			}
 			if ((page_time>6 && page_time<8) || (seconds==8 && TIMESPEED==0)){
 				show_the_text=true;
@@ -128,13 +128,13 @@ public class BookScreen_HypothesisTests extends GenericBookScreen {
 			}
 			if ((seconds==12 && TIMESPEED==0)){
 				show_the_text=true;
-				the_text="Eventually, a holo mine will defy enough odds that you can assume it's fake, and focus on real threats.";
+				the_text="Eventually, a decoy will defy enough odds that you can assume it's fake, and focus on real threats.";
 				
 			}
 			if (page_time>18){
 				show_the_text=true;
 				greentext=true;
-				the_text="(from here on out all holos are generated randomly, so memorising which mines are fake won't work)";
+				the_text="(from here on out all decoys are generated randomly, so memorising which mines are fake won't work)";
 			}
 			if (page_time>20){
 				time_to_move_on=true;
@@ -148,7 +148,7 @@ public class BookScreen_HypothesisTests extends GenericBookScreen {
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_one.targeted){
 				show_the_text=true;
-				the_text="Your null hypothesis, H0, is that it's a real mine. Your alternative hypothesis, HA, is that it's a holo.";
+				the_text="Your null hypothesis, H0, is that it's a real mine. Your alternative hypothesis, HA, is that it's a decoy.";
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_two.targeted){
 				show_the_text=true;
@@ -156,7 +156,7 @@ public class BookScreen_HypothesisTests extends GenericBookScreen {
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_three.targeted){
 				show_the_text=true;
-				the_text="The standard p-value is 5%. You may want to use a different one depending on how common holos are and how careful you're being.";
+				the_text="The standard p-value is 5%. You may want to use a different one depending on how common decoys are and how careful you're being.";
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_four.targeted){
 				show_the_text=true;

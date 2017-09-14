@@ -6,12 +6,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-public class ArcadeScreen_Holos_Minority extends ProbGameScreen {
+public class ArcadeScreen_Decoy_Minority extends GameScreen_Prob {
 	
 	final ProbDef game;
-
 	
-	public ArcadeScreen_Holos_Minority(final ProbDef gam, boolean play_the_sound) {
+	private int decoyfreq;
+	
+	public ArcadeScreen_Decoy_Minority(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		
@@ -24,15 +25,16 @@ public class ArcadeScreen_Holos_Minority extends ProbGameScreen {
 	    shields=5;
 	    
 	    score=0;
+	    decoyfreq=20;
 	}
 	
 	@Override
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("triangle");
-		   turret_two=new Turret_Standard("square");
-		   turret_three=new Turret_Standard("square");
-		   turret_four=new Turret_Standard("square");
+		   turret_one=new Turret_Standard("circle");
+		   turret_two=new Turret_Standard("circle");
+		   turret_three=new Turret_Standard("pentagon");
+		   turret_four=new Turret_Standard("pentagon");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -47,35 +49,36 @@ public class ArcadeScreen_Holos_Minority extends ProbGameScreen {
 		
 		//nice starting phalanx: 12 mines
 		
-		if (seconds==10 || seconds==12 ||seconds==14 || seconds==16){
-			spawnHoloProbablistic(-2,45,15);
-			spawnHoloProbablistic(0,45,15);
-			spawnHoloProbablistic(2,45,15);
-		}
-		
-		//faster tower: 8 mines
-		
-		if (seconds==22 || seconds==24 ||seconds==26 || seconds==28){
-			spawnHoloProbablistic(-1,65,15);
-			spawnHoloProbablistic(1,65,15);
-		}
-		
-		//actually let's just redo this ad infi: 20 mines.
-		
-		if (seconds==36 || seconds==38 ||seconds==40 || seconds==42){
-			spawnHoloProbablistic(-2,45,15);
-			spawnHoloProbablistic(0,45,15);
-			spawnHoloProbablistic(2,45,15);
-		}
-		
-		if (seconds==48 || seconds==50 ||seconds==52 || seconds==54){
-			spawnHoloProbablistic(-1,65,15);
-			spawnHoloProbablistic(1,65,15);
-		}
+				if (seconds==10 || seconds==12 ||seconds==14 || seconds==16){
+					spawnDecoyProbablistic(-2,45,decoyfreq);
+					spawnDecoyProbablistic(0,45,decoyfreq);
+					spawnDecoyProbablistic(2,45,decoyfreq);
+				}
+				
+				//faster tower: 8 mines
+				
+				if (seconds==22 || seconds==24 || seconds==26 || seconds==28){
+					spawnDecoyProbablistic(-2,65,decoyfreq);
+					spawnDecoyProbablistic(2,65,decoyfreq);
+				}
+				
+				//actually let's just redo this ad infi: 20 mines.
+				
+				if (seconds==36 || seconds==38 ||seconds==40 || seconds==42){
+					spawnDecoyProbablistic(-2,45,decoyfreq);
+					spawnDecoyProbablistic(0,45,decoyfreq);
+					spawnDecoyProbablistic(2,45,decoyfreq);
+				}
+				
+				if (seconds==48 || seconds==50 || seconds==52 || seconds==54){
+					spawnDecoyProbablistic(-2,65,decoyfreq);
+					spawnDecoyProbablistic(2,65,decoyfreq);
+				}
+				
 		
 		
 		if (minecount==0){
-			game.setScreen(new ArcadeSelectScreen(game, true));
+			game.setScreen(new SelectScreen_Arcade(game, true));
 			  dispose();
 		}
 		
@@ -97,7 +100,7 @@ public class ArcadeScreen_Holos_Minority extends ProbGameScreen {
 		   greentext=false;
 		   if (total_time<4){
 				show_the_text=true;
-				the_text="In this level, holos are very rare.";
+				the_text="In this level, decoys are rare.";
 			}
 		   if (total_time>4 && total_time<10){
 				show_the_text=true;

@@ -8,13 +8,13 @@ import com.badlogic.gdx.math.Rectangle;
 
 
 
-public class ArcadeSelectScreen extends GenericSelectScreen {
+public class SelectScreen_Arcade extends SelectScreen {
 
 	
-	   public ArcadeSelectScreen(final ProbDef gam, boolean play_the_sound){
+	   public SelectScreen_Arcade(final ProbDef gam, boolean play_the_sound){
 			super(gam, play_the_sound);
 			first_topic="Basic";
-			last_topic="Holos";
+			last_topic="Decoys";
 			
 			
 			if (prefs.contains("probdef_library_topic")){
@@ -147,15 +147,15 @@ public class ArcadeSelectScreen extends GenericSelectScreen {
 				five_s="Survive";
 				five_double_liner=false;
 			}
-			if(TOPIC.equals("Holos")){
+			if(TOPIC.equals("Decoys")){
 				NUMBER_OF_LEVELS=3;
 				banner_t=banner_blank_t;
-				banner_s="Holos";
+				banner_s="Decoys";
 				one_s="Intro";
 				one_double_liner=false;
-				two_s="Minority Holo";
+				two_s="Minority Decoy";
 				two_double_liner=true;
-				three_s="Majority Holo";
+				three_s="Majority Decoy";
 				three_double_liner=true;
 				four_s="Witchfinder";
 				four_double_liner=false;
@@ -227,15 +227,15 @@ public class ArcadeSelectScreen extends GenericSelectScreen {
 		   }
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Holos")){
 			   if (one_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Holos_Intro(game, true));
+				   game.setScreen(new ArcadeScreen_Decoy_Intro(game, true));
 				   dispose();
 			   }
 			   if (two_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Holos_Minority(game, true));
+				   game.setScreen(new ArcadeScreen_Decoy_Minority(game, true));
 				   dispose();
 			   }
 			   if (three_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Holos_Majority(game, true));
+				   game.setScreen(new ArcadeScreen_Decoy_Majority(game, true));
 				   dispose();
 			   }
 		   }

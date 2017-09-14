@@ -2,13 +2,13 @@ package com.hbp.probdef;
 
 import com.badlogic.gdx.math.Rectangle;
 
-public class Dot {
+public class RT_Dot {
 	   Rectangle rect;
 	   String type;
 	   float vert_vel;
 	   float horz_vel;
 	   Mine target_mine;
-	   public Dot(Rectangle origin_r, Mine destination_m, float dotspeed, String typ){
+	   public RT_Dot(Rectangle origin_r, Mine destination_m, float dotspeed, String typ){
 		   
 		   type=typ;
 		   target_mine=destination_m;

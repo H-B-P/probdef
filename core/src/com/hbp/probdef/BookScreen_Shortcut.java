@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
-public class BookScreen_Shortcut extends GenericBookScreen {
+public class BookScreen_Shortcut extends BookScreen {
 	
 	final ProbDef game;
 	

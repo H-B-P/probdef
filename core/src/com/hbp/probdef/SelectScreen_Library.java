@@ -6,13 +6,13 @@ import com.badlogic.gdx.math.Rectangle;
 
 
 
-public class LibrarySelectScreen extends GenericSelectScreen {
+public class SelectScreen_Library extends SelectScreen {
 	   
 	private Texture banner_prob_t;
 	private Texture banner_bayes_t;
 	private Texture banner_pascal_t;
 	
-	   public LibrarySelectScreen(final ProbDef gam, boolean play_the_sound){
+	   public SelectScreen_Library(final ProbDef gam, boolean play_the_sound){
 			super(gam, play_the_sound);
 			first_topic="Probability";
 			last_topic="Pascal";
