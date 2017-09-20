@@ -224,6 +224,14 @@ public class SelectScreen_Arcade extends SelectScreen {
 				   game.setScreen(new ArcadeScreen_Basic_Reversed(game, true));
 				   dispose();
 			   }
+			   if (four_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Basic_Capture(game, true));
+				   dispose();
+			   }
+			   if (five_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Basic_Survive(game, true));
+				   dispose();
+			   }
 		   }
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Decoys")){
 			   if (one_r.contains(tp_x,tp_y)){

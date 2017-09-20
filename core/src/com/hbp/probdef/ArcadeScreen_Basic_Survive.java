@@ -6,12 +6,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-public class ArcadeScreen_Basic_Capture extends ArcadeScreen {
+public class ArcadeScreen_Basic_Survive extends ArcadeScreen {
 	
 	final ProbDef game;
 
 	
-	public ArcadeScreen_Basic_Capture(final ProbDef gam, boolean play_the_sound) {
+	public ArcadeScreen_Basic_Survive(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		
@@ -23,9 +23,9 @@ public class ArcadeScreen_Basic_Capture extends ArcadeScreen {
 	@Override
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("circle");
-		   turret_two=new Turret_Standard("square");
-		   turret_three=new Turret_Standard("square");
+		   turret_one=new Turret_Standard("triangle");
+		   turret_two=new Turret_Standard("hexagon");
+		   turret_three=new Turret_Standard("circle");
 		   turret_four=new Turret_Standard("circle");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
@@ -57,7 +57,7 @@ public class ArcadeScreen_Basic_Capture extends ArcadeScreen {
 		   greentext=false;
 		   if (seconds<7){
 			   show_the_text=true;
-			   the_text="In this level, mines hitting your ship won't lower your score. All that matters is how many you capture.";
+			   the_text="In this level, capturing mines won't raise your score. Just try to avoid collisions.";
 		   }
 		   if (seconds>=7 && seconds<12){
 			   show_the_text=true;
@@ -69,7 +69,7 @@ public class ArcadeScreen_Basic_Capture extends ArcadeScreen {
 	
 	@Override
 	void calculate_score(){
-		score=captured;
+		score=shields*2+10;
 		score=Math.max(score, 0);
 	}
 
