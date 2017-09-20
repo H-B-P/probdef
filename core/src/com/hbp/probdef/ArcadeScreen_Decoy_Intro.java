@@ -6,33 +6,31 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-public class ArcadeScreen_Decoy_Intro extends GameScreen_Prob {
+public class ArcadeScreen_Decoy_Intro extends ArcadeScreen {
 	
 	final ProbDef game;
-
 	
 	public ArcadeScreen_Decoy_Intro(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		
 		game = gam;
-		
-		captured=0;
-	    destroyed=0;
-	      
-	    minecount=40;
-	    shields=5;
+
 	    
-	    score=0;
+	    decoyfreq=40;
+	    
+	    ordinary_minetype="decoy";
+	    
+	    minecount=42;
 	}
 	
 	@Override
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("square");
+		   turret_one=new Turret_Standard("circle");
 		   turret_two=new Turret_Standard("square");
 		   turret_three=new Turret_Standard("square");
-		   turret_four=new Turret_Standard("square");
+		   turret_four=new Turret_Standard("pentagon");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -46,7 +44,7 @@ public class ArcadeScreen_Decoy_Intro extends GameScreen_Prob {
 	void level_specific_events(){
 		
 		
-		//The intro: 6 mines
+		//The intro
 		
 		if (seconds==4){
 			spawnDecoyMine(0,200);
@@ -54,53 +52,86 @@ public class ArcadeScreen_Decoy_Intro extends GameScreen_Prob {
 		if (seconds==6){
 			spawnDecoyMine(0,95);
 		}
+//		
+//		//Massed I: 12 mines
+//		
+//		if (seconds==26 || seconds==28 || seconds==30 || seconds==32){
+//			spawnDecoyProbablistic(-2,45,40);
+//			spawnDecoyProbablistic(0,45,40);
+//			spawnDecoyProbablistic(2,45,40);
+//		}
+//		
+//		//Drizzle: 6 mines
+//		
+//		if (seconds==40){
+//			spawnDecoyProbablistic(1,65,40);
+//		}
+//		if (seconds==42){
+//			spawnDecoyProbablistic(-1,65,40);
+//			spawnDecoyProbablistic(2,65,40);
+//		}
+//		if (seconds==44){
+//			spawnDecoyProbablistic(3,65,40);
+//		}
+//		if (seconds==46){
+//			spawnDecoyProbablistic(-1,65,40);
+//			spawnDecoyProbablistic(-3,95,40);
+//		}
+//		
+//		//Slow-mo Tsunami:12 mines
+//		
+//		if (seconds==52|| seconds==56){
+//			spawnDecoyProbablistic(-3,45,40);
+//			spawnDecoyProbablistic(-1,45,40);
+//			spawnDecoyProbablistic(1,45,40);
+//			spawnDecoyProbablistic(3,45,40);
+//		}
+//		if (seconds==54|| seconds==58){
+//			spawnDecoyProbablistic(-1,45,40);
+//			spawnDecoyProbablistic(1,45,40);
+//		}
+//		
+//		//Faster-mo wall: 8 mines
+//		
+//		if (seconds==64 || seconds==68){
+//			spawnDecoyProbablistic(-3,95,40);
+//			spawnDecoyProbablistic(-1,65,40);
+//			spawnDecoyProbablistic(1,65,40);
+//			spawnDecoyProbablistic(3,45,40);
+//		}
 		
-		//Massed I: 12 mines
 		
-		if (seconds==26 || seconds==28 || seconds==30 || seconds==32){
-			spawnDecoyProbablistic(-2,45,40);
-			spawnDecoyProbablistic(0,45,40);
-			spawnDecoyProbablistic(2,45,40);
-		}
 		
-		//Drizzle: 6 mines
+		//nice starting phalanx: 12 mines
 		
-		if (seconds==40){
-			spawnDecoyProbablistic(1,65,40);
-		}
-		if (seconds==42){
-			spawnDecoyProbablistic(-1,65,40);
-			spawnDecoyProbablistic(2,65,40);
-		}
-		if (seconds==44){
-			spawnDecoyProbablistic(3,65,40);
-		}
-		if (seconds==46){
-			spawnDecoyProbablistic(-1,65,40);
-			spawnDecoyProbablistic(-3,95,40);
-		}
+//				if (seconds==20 || seconds==22 ||seconds==24 || seconds==26){
+//					spawnDecoyProbablistic(-2,45,decoyfreq);
+//					spawnDecoyProbablistic(0,45,decoyfreq);
+//					spawnDecoyProbablistic(2,45,decoyfreq);
+//				}
+//				
+//				//faster tower: 8 mines
+//				
+//				if (seconds==32 || seconds==34 || seconds==36 || seconds==38){
+//					spawnDecoyProbablistic(-2,65,decoyfreq);
+//					spawnDecoyProbablistic(2,65,decoyfreq);
+//				}
+//				
+//				//actually let's just redo this ad infi: 20 mines.
+//				
+//				if (seconds==46 || seconds==48 ||seconds==50 || seconds==52){
+//					spawnDecoyProbablistic(-2,45,decoyfreq);
+//					spawnDecoyProbablistic(0,45,decoyfreq);
+//					spawnDecoyProbablistic(2,45,decoyfreq);
+//				}
+//				
+//				if (seconds==58 || seconds==60 || seconds==62 || seconds==64){
+//					spawnDecoyProbablistic(-2,65,decoyfreq);
+//					spawnDecoyProbablistic(2,65,decoyfreq);
+//				}
+//		
 		
-		//Slow-mo Tsunami:12 mines
-		
-		if (seconds==52|| seconds==56){
-			spawnDecoyProbablistic(-3,45,40);
-			spawnDecoyProbablistic(-1,45,40);
-			spawnDecoyProbablistic(1,45,40);
-			spawnDecoyProbablistic(3,45,40);
-		}
-		if (seconds==54|| seconds==58){
-			spawnDecoyProbablistic(-1,45,40);
-			spawnDecoyProbablistic(1,45,40);
-		}
-		
-		//Faster-mo wall: 8 mines
-		
-		if (seconds==64 || seconds==68){
-			spawnDecoyProbablistic(-3,95,40);
-			spawnDecoyProbablistic(-1,65,40);
-			spawnDecoyProbablistic(1,65,40);
-			spawnDecoyProbablistic(3,45,40);
-		}
+		decoy_set(20);
 		
 		if (minecount==0){
 			game.setScreen(new SelectScreen_Arcade(game, true));

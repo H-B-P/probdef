@@ -133,7 +133,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 			
 			prefs.putString("probdef_library_topic", TOPIC);
 			if(TOPIC.equals("Basic")){
-				NUMBER_OF_LEVELS=3;
+				NUMBER_OF_LEVELS=5;
 				banner_t=banner_blank_t;
 				banner_s="Basic";
 				one_s="Intro";

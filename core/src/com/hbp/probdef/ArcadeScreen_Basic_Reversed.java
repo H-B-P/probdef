@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-public class ArcadeScreen_Basic_Reversed extends GameScreen_Prob {
+public class ArcadeScreen_Basic_Reversed extends ArcadeScreen {
 	
 	final ProbDef game;
 
@@ -16,14 +16,8 @@ public class ArcadeScreen_Basic_Reversed extends GameScreen_Prob {
 		super(gam, play_the_sound);
 		
 		game = gam;
-		
-		captured=0;
-	    destroyed=0;
 	      
-	    minecount=30;
-	    shields=5;
-	    
-	    score=0;
+	    minecount=60;
 	}
 	
 	@Override
@@ -46,72 +40,74 @@ public class ArcadeScreen_Basic_Reversed extends GameScreen_Prob {
 	void level_specific_events(){
 		
 		
-		//Laboring points:4 mines
+//		//Laboring points:4 mines
+//		
+//		if (seconds==10){
+//			spawnMine(1,65);
+//		}
+//		if (seconds==12){
+//			spawnMine(3,95);
+//		}
+//		if (seconds==14){
+//			spawnMine(1,65);
+//		}
+//		if (seconds==16){
+//			spawnMine(3,95);
+//		}
+//		
+//		//Slow marathon I: 10 mines
+//		
+//		if (seconds==22 || seconds==26){
+//			spawnMine(-3,45);
+//			spawnMine(-1,45);
+//			spawnMine(1,45);
+//			spawnMine(3,45);
+//			
+//		}
+//		
+//		if (seconds==24 || seconds==28){
+//			spawnMine(0,45);
+//		}
+//		
+//		//Slow marathon II: 10 mines
+//		
+//		if (seconds==36){
+//			spawnMine(-3,45);
+//			spawnMine(-1,45);
+//			spawnMine(1,45);
+//			spawnMine(3,45);
+//		}
+//		if (seconds==38){
+//			spawnMine(-2,45);
+//			spawnMine(0,45);
+//			spawnMine(2,45);
+//		}
+//		if (seconds==40){
+//			spawnMine(-1,45);
+//			spawnMine(1,45);
+//		}
+//		if (seconds==42){
+//			spawnMine(0, 45);
+//		}
+//		
+//		//Intentionally awkward finale
+//		
+//		if (seconds==52){
+//			spawnMine(-3,65);
+//			spawnMine(3,65);
+//		}
+//		if (seconds==54){
+//			spawnMine(0,65);
+//		}
+//		if (seconds==56){
+//			spawnMine(-3,65);
+//			spawnMine(3,65);
+//		}
+//		if (seconds==58){
+//			spawnMine(0,65);
+//		}
 		
-		if (seconds==10){
-			spawnMine(1,65);
-		}
-		if (seconds==12){
-			spawnMine(3,95);
-		}
-		if (seconds==14){
-			spawnMine(1,65);
-		}
-		if (seconds==16){
-			spawnMine(3,95);
-		}
-		
-		//Slow marathon I: 10 mines
-		
-		if (seconds==22 || seconds==26){
-			spawnMine(-3,45);
-			spawnMine(-1,45);
-			spawnMine(1,45);
-			spawnMine(3,45);
-			
-		}
-		
-		if (seconds==24 || seconds==28){
-			spawnMine(0,45);
-		}
-		
-		//Slow marathon II: 10 mines
-		
-		if (seconds==36){
-			spawnMine(-3,45);
-			spawnMine(-1,45);
-			spawnMine(1,45);
-			spawnMine(3,45);
-		}
-		if (seconds==38){
-			spawnMine(-2,45);
-			spawnMine(0,45);
-			spawnMine(2,45);
-		}
-		if (seconds==40){
-			spawnMine(-1,45);
-			spawnMine(1,45);
-		}
-		if (seconds==42){
-			spawnMine(0, 45);
-		}
-		
-		//Intentionally awkward finale
-		
-		if (seconds==52){
-			spawnMine(-3,65);
-			spawnMine(3,65);
-		}
-		if (seconds==54){
-			spawnMine(0,65);
-		}
-		if (seconds==56){
-			spawnMine(-3,65);
-			spawnMine(3,65);
-		}
-		if (seconds==58){
-			spawnMine(0,65);
-		}
+		basic_set(10);
 		
 		if (minecount==0){
 			game.setScreen(new SelectScreen_Arcade(game, true));
@@ -136,7 +132,7 @@ public class ArcadeScreen_Basic_Reversed extends GameScreen_Prob {
 		   greentext=false;
 		   if (seconds>=0 && seconds<5){
 			   show_the_text=true;
-			   the_text="Someone arranged these turrets so they fire in exactly the wrong order.";
+			   the_text="Someone arranged these turrets so they fire in exactly the worst order.";
 		   }
 		   if (seconds>=5 && seconds<10){
 			   show_the_text=true;

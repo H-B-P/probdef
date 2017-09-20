@@ -33,9 +33,9 @@ public class ArcadeScreen_Decoy_Majority extends GameScreen_Prob {
 	
 	void level_specific_turret_setup(){
 		   turret_one=new Turret_Standard("circle");
-		   turret_two=new Turret_Standard("triangle");
-		   turret_three=new Turret_Standard("triangle");
-		   turret_four=new Turret_Standard("square");
+		   turret_two=new Turret_Standard("pentagon");
+		   turret_three=new Turret_Standard("circle");
+		   turret_four=new Turret_Standard("pentagon");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -102,7 +102,7 @@ public class ArcadeScreen_Decoy_Majority extends GameScreen_Prob {
 		   greentext=false;
 		   if (total_time<4){
 				show_the_text=true;
-				the_text="In this level, holos are very common.";
+				the_text="In this level, decoys are very common.";
 			}
 		   if (total_time>4 && total_time<10){
 				show_the_text=true;

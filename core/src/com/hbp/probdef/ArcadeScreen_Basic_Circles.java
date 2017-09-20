@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-public class ArcadeScreen_Basic_Circles extends GameScreen_Prob {
+public class ArcadeScreen_Basic_Circles extends ArcadeScreen {
 	
 	final ProbDef game;
 
@@ -16,14 +16,7 @@ public class ArcadeScreen_Basic_Circles extends GameScreen_Prob {
 		super(gam, play_the_sound);
 		
 		game = gam;
-		
-		captured=0;
-	    destroyed=0;
-	      
-	    minecount=40;
-	    shields=5;
-	    
-	    score=0;
+		minecount=60;
 	}
 	
 	@Override
@@ -46,97 +39,99 @@ public class ArcadeScreen_Basic_Circles extends GameScreen_Prob {
 	void level_specific_events(){
 		
 		
-		//Stacatto: 8 mines.
-		if (seconds==10){
-			spawnMine(-2,95);
-			spawnMine(0,65);
-		}
-		if (seconds==12){
-			spawnMine(0,65);
-			spawnMine(2,95);
-		}
-		if (seconds==14){
-			spawnMine(-2,95);
-			spawnMine(0,65);
-		}
-		if (seconds==16){
-			spawnMine(0,65);
-			spawnMine(2,95);
-			
-		}
+//		//Stacatto: 8 mines.
+//		if (seconds==10){
+//			spawnMine(-2,95);
+//			spawnMine(0,65);
+//		}
+//		if (seconds==12){
+//			spawnMine(0,65);
+//			spawnMine(2,95);
+//		}
+//		if (seconds==14){
+//			spawnMine(-2,95);
+//			spawnMine(0,65);
+//		}
+//		if (seconds==16){
+//			spawnMine(0,65);
+//			spawnMine(2,95);
+//			
+//		}
+//		
+//		//Slow, massed: 14 mines
+//		
+//		if (seconds==22 || seconds==26){
+//			spawnMine(-3,45);
+//			spawnMine(-1,45);
+//			spawnMine(1,45);
+//			spawnMine(3,45);
+//			
+//		}
+//		
+//		if (seconds==24 || seconds==28){
+//			spawnMine(-2,45);
+//			spawnMine(0,45);
+//			spawnMine(2,45);
+//		}
+//		
+//		//Stacattoesque: 8 mines
+//		
+//		if (seconds==36){
+//			spawnMine(-2,65);
+//			spawnMine(0,65);
+//			spawnMine(2,65);
+//		}
+//		if (seconds==38){
+//			spawnMine(0,65);
+//		}
+//		if (seconds==40){
+//			spawnMine(-3,65);
+//			spawnMine(3,65);
+//			
+//		}
+//		if (seconds==42){
+//			spawnMine(-1, 95);
+//			spawnMine(1, 95);
+//		}
+//		
+//		//Make the tactics obvious with some singles: 4 mines
+//		
+//		if (seconds==48){
+//			spawnMine(-1,65);
+//		}
+//		if (seconds==50){
+//			spawnMine(3,65);
+//		}
+//		if (seconds==52){
+//			spawnMine(-3,65);
+//		}
+//		if (seconds==54){
+//			spawnMine(1,65);
+//		}
+//		
+//		//Drive it home: 4 mines
+//		
+//		if (seconds==58){
+//			spawnMine(-1,65);
+//		}
+//		if (seconds==60){
+//			spawnMine(3,95);
+//		}
+//		if (seconds==62){
+//			spawnMine(-3,65);
+//		}
+//		if (seconds==64){
+//			spawnMine(1,95);
+//		}
+//		
+//		//Final choice: 2 mines
+//		
+//		if (seconds==70){
+//			spawnMine(-2,95);
+//			spawnMine(2,95);
+//		}
 		
-		//Slow, massed: 14 mines
-		
-		if (seconds==22 || seconds==26){
-			spawnMine(-3,45);
-			spawnMine(-1,45);
-			spawnMine(1,45);
-			spawnMine(3,45);
-			
-		}
-		
-		if (seconds==24 || seconds==28){
-			spawnMine(-2,45);
-			spawnMine(0,45);
-			spawnMine(2,45);
-		}
-		
-		//Stacattoesque: 8 mines
-		
-		if (seconds==36){
-			spawnMine(-2,65);
-			spawnMine(0,65);
-			spawnMine(2,65);
-		}
-		if (seconds==38){
-			spawnMine(0,65);
-		}
-		if (seconds==40){
-			spawnMine(-3,65);
-			spawnMine(3,65);
-			
-		}
-		if (seconds==42){
-			spawnMine(-1, 95);
-			spawnMine(1, 95);
-		}
-		
-		//Make the tactics obvious with some singles: 4 mines
-		
-		if (seconds==48){
-			spawnMine(-1,65);
-		}
-		if (seconds==50){
-			spawnMine(3,65);
-		}
-		if (seconds==52){
-			spawnMine(-3,65);
-		}
-		if (seconds==54){
-			spawnMine(1,65);
-		}
-		
-		//Drive it home: 4 mines
-		
-		if (seconds==58){
-			spawnMine(-1,65);
-		}
-		if (seconds==60){
-			spawnMine(3,95);
-		}
-		if (seconds==62){
-			spawnMine(-3,65);
-		}
-		if (seconds==64){
-			spawnMine(1,95);
-		}
-		
-		//Final choice: 2 mines
-		
-		if (seconds==70){
-			spawnMine(-2,95);
-			spawnMine(2,95);
-		}
+		basic_set(10);
 		
 		if (minecount==0){
 			game.setScreen(new SelectScreen_Arcade(game, true));
@@ -169,11 +164,6 @@ public class ArcadeScreen_Basic_Circles extends GameScreen_Prob {
 		   }
 		   
 		   
-	}
-	
-	@Override
-	void calculate_score(){
-		score=captured+shields*2;
 	}
 
 	@Override
