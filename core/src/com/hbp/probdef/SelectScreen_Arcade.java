@@ -148,7 +148,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 				five_double_liner=false;
 			}
 			if(TOPIC.equals("Decoys")){
-				NUMBER_OF_LEVELS=3;
+				NUMBER_OF_LEVELS=5;
 				banner_t=banner_blank_t;
 				banner_s="Decoys";
 				one_s="Intro";
@@ -157,7 +157,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 				two_double_liner=true;
 				three_s="Majority Decoy";
 				three_double_liner=true;
-				four_s="Witchfinder";
+				four_s="Witch Hunt";
 				four_double_liner=false;
 				five_s="Groups";
 				five_double_liner=false;
@@ -244,6 +244,14 @@ public class SelectScreen_Arcade extends SelectScreen {
 			   }
 			   if (three_r.contains(tp_x,tp_y)){
 				   game.setScreen(new ArcadeScreen_Decoy_Majority(game, true));
+				   dispose();
+			   }
+			   if (four_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Decoy_WitchHunt(game, true));
+				   dispose();
+			   }
+			   if (five_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Decoy_Groups(game, true));
 				   dispose();
 			   }
 		   }
