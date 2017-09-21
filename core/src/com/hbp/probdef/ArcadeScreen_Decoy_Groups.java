@@ -19,7 +19,7 @@ public class ArcadeScreen_Decoy_Groups extends GameScreen_Prob {
 		
 		game = gam;
 	      
-	    minecount=50;
+	    minecount=52;
 	    shields=5;
 	}
 	
@@ -27,9 +27,9 @@ public class ArcadeScreen_Decoy_Groups extends GameScreen_Prob {
 	
 	void level_specific_turret_setup(){
 		   turret_one=new Turret_Standard("triangle");
-		   turret_two=new Turret_Standard("triangle");
+		   turret_two=new Turret_Standard("square");
 		   turret_three=new Turret_Standard("square");
-		   turret_four=new Turret_Standard("square");
+		   turret_four=new Turret_Standard("pentagon");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -42,7 +42,7 @@ public class ArcadeScreen_Decoy_Groups extends GameScreen_Prob {
 	
 	void level_specific_events(){
 		
-				//Visually and mathematically obvious gentle intro.
+				//Visually and mathematically obvious gentle intro:10
 		
 				if (seconds==10 || seconds==14){ 
 					spawn_two_group(65);
@@ -52,34 +52,34 @@ public class ArcadeScreen_Decoy_Groups extends GameScreen_Prob {
 					spawn_three_group(65);
 				}
 				
-				//The above, plus plus.
+				//Gentle seige:14
 				
 				if (seconds==24 || seconds==28){ 
-					spawn_two_group(65);
+					spawn_four_group(45);
 				}
 				
 				if (seconds==26 || seconds==30){
-					spawn_four_group(65);
+					spawn_three_group(45);
 				}
 				
-				//seige
+				//tower II:12
 				
 				if (seconds==38 || seconds==42 ){
-					spawn_four_group(45);
+					spawn_two_group(65);
 				}
 				
 				if (seconds==40 || seconds==44 ){
+					spawn_four_group(65);
+				}
+				
+				//seige II
+				
+				if (seconds==52 || seconds==56 ){
 					spawn_four_group(45);
 				}
 				
-				//dull finale
-				
-				if (seconds==52 || seconds==56 ){
-					spawn_three_group(65);
-				}
-				
 				if (seconds==54 || seconds==58){
-					spawn_three_group(65);
+					spawn_four_group(45);
 				}
 		
 		if (minecount==0){

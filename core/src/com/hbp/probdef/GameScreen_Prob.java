@@ -295,70 +295,105 @@ public class GameScreen_Prob extends GameScreen {
 	   void level_specific_timeline(){
 		   show_the_text=false;
 		   suppress_freezes=false;
-		   if (total_time>1 && total_time<5){
+		   greentext=false;
+		   if (total_time>1 && total_time<11.5){
 			   suppress_freezes=true;
 			   show_the_text=true;
-				the_text="Mines come towards your ship. We want to stop them before they hit.";
-		   }
-			if (total_time>5 && total_time<9){
-				suppress_freezes=true;
-				show_the_text=true;
-				the_text="Every two seconds, time freezes, and you can target mines.";
+				the_text="Mines move towards your ship. Every two seconds, time freezes, and you get a chance to stop them.";
 			}
-			
-			   if (total_time>9 && total_time<11.5){
-				   suppress_freezes=true;
-				   show_the_text=true;
-				   the_text="Click on a mine while time is frozen to target it.";
-			   }
 			   if (total_time>11.5 && total_time<12.5){
 				   show_the_text=true;
 				   if(TIMESPEED==0){
-					   if (currently_active_turret_no==0){
+					   if (!turret_one.targeted){
 						   the_text="Click on a mine while time is frozen to target it.";
 					   }
-					   else if (currently_active_turret_no==1){
-						   the_text="Triangle Turrets fail 30% of the time, capture 30% of the time, and destroy 40% of the time.";
+					   else{
+						   the_text="Keep clicking on mines until every turret is targeted.";
 					   }
-					   else if (currently_active_turret_no==2){
-						   the_text="Square Turrets fail 20% of the time, capture 20% of the time, and destroy 60% of the time.";
+					   if (turret_one.targeted && turret_two.targeted){
+						   if (!turret_one.target_mine.equals(turret_two.target_mine)){
+							   greentext=true;
+							   the_text="(btw you can target a mine with more than one turret in case that wasn't obvious)";
+						   }
+						   else{
+							   greentext=true;
+							   the_text="(btw you probably shouldn't target all your turrets on the same mine)";
+						   }
 					   }
-					   else if (currently_active_turret_no==3){
-						   the_text="Pentagon Turrets fail 10% of the time, capture 10% of the time, and destroy 80% of the time.";
-					   }
-					   else if (currently_active_turret_no==4){
-						   the_text="Hexagon Turrets will always successfully destroy a mine, and never fail or capture.";
-					   }
-					   else if (currently_active_turret_no==5){
-						   the_text="Once you're done targeting, click the fire button (at the top of the screen) to launch a volley.";
+					   if (currently_active_turret_no==5){
+						   greentext=false;
+						   the_text="Once you're done targeting, click the fire button at the top of the screen to launch a volley.";
 					   }
 				   }
 			   }
 			   if (total_time>14 && total_time<15 && TIMESPEED==0){
 				   show_the_text=true;
-				   if (currently_active_turret_no<5 && !infuriatingly_specific_bool){
-					   the_text="You can remind yourself of the probabilities at any time by hovering your mouse over a turret.";
+				   if (currently_active_turret_no==1){
+					   the_text="Triangle Turrets fail 30% of the time, capture 30% of the time, and destroy 40% of the time.";
 				   }
-				   else{
-					   infuriatingly_specific_bool=true;
-					   the_text="If you change your mind before firing, click on the relevant turret to re-target it.";
+				   else if (currently_active_turret_no==2){
+					   the_text="Square Turrets fail 20% of the time, capture 20% of the time, and destroy 60% of the time.";
+				   }
+				   else if (currently_active_turret_no==3){
+					   the_text="Pentagon Turrets fail 10% of the time, capture 10% of the time, and destroy 80% of the time.";
+				   }
+				   else if (currently_active_turret_no==4){
+					   the_text="Hexagon Turrets will always successfully destroy a mine, and never fail or capture.";
+				   }
+				   else if (currently_active_turret_no==5){
+					   the_text="You can remind yourself of these probabilities at any time by hovering your mouse over a turret.";
 				   }
 			   }
-			   if (total_time>18 && total_time<22){
+			   if (total_time>23 && total_time<25 && TIMESPEED==0){
 				   show_the_text=true;
-				   the_text="The percentage below a mine shows the probability it will survive the volley.";
+				   the_text="The percentage below a mine shows the probability it will remain after the volley.";
+				   if (turret_one.targeted){
+					   the_text="Notice how this changes as you target turrets.";
+				   }
+				   if (turret_two.targeted){
+					   infuriatingly_specific_bool=true;
+				   }
+				   if (infuriatingly_specific_bool){
+					   the_text="If you change your mind before firing, you can click on the relevant turret to re-target it.";
+				   }
+				   if (currently_active_turret_no==5){
+					   greentext=true;
+					   the_text="(jsyk you don't have to target every turret every turn before firing but it's usually a good idea)";
+				   }
 			   }
-			   if (total_time>28 && total_time<32){
+			   if (total_time>28 && total_time<33){
 				   show_the_text=true;
 				   the_text="Mines won't always have the same speed, so prioritise.";
+			   }
+			   
+			   if (total_time>36 && total_time<39){
+				   if (TIMESPEED==0){
+					   show_the_text=true;
+					   if (!turret_two.targeted){
+						   the_text="If you prefer, you can use left/right arrow keys and the spacebar to select mines.";
+					   }
+					   else{
+						   greentext=true;
+						   the_text="(you can also use asdf or 1234 to select turrets if for some reason that seems like a good idea to you)";
+					   }
+					   if (currently_active_turret_no==5){
+						   greentext=false;
+						   the_text="Similarly: when you're done targeting, you can use the spacebar to fire.";
+					   }
+				   }
+				   
+				   
 			   }
 	   }
 	   
 	   void level_specific_HUD(){
-		   font.draw(batch, "MINES: "+minecount, 90, 472, 140, 1, true);
-			font.draw(batch, "CAPTURED: "+captured, 90, 455, 140, 1, true);
-			font.draw(batch, "DESTROYED: "+ destroyed, 90, 437, 140, 1, true);
-			font.draw(batch, "SHIELDS: "+shields, 90, 420, 140, 1, true);
+		   //font.draw(batch, "MINES: "+minecount, 90, 472, 140, 1, true);
+			//font.draw(batch, "CAPTURED: "+captured, 90, 455, 140, 1, true);
+			//font.draw(batch, "DESTROYED: "+ destroyed, 90, 437, 140, 1, true);
+			//font.draw(batch, "SHIELDS: "+shields, 90, 420, 140, 1, true);
+		   font.draw(batch, "MINES: "+minecount, 90, 464, 140, 1, true);
+		   font.draw(batch, "CAPTURED: "+captured, 90, 446, 140, 1, true);
+		   font.draw(batch, "DESTROYED: "+ destroyed, 90, 428, 140, 1, true);
 	   }
 	   //--Autocalc--
 	   

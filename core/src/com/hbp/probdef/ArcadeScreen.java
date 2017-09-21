@@ -75,8 +75,8 @@ public class ArcadeScreen extends GameScreen_Prob {
 			spawn_formation_mine(3,normal_ops-1);
 		}
 		if (seconds==(start_second+2) || seconds==(start_second+6)){
-			spawn_formation_mine(-3,normal_ops+1);
-			spawn_formation_mine(-1,normal_ops-1);
+			spawn_formation_mine(-3,normal_ops-1);
+			spawn_formation_mine(-1,normal_ops+1);
 		}
 	}
 	
