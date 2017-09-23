@@ -9,17 +9,12 @@ import com.badlogic.gdx.math.Rectangle;
 public class ArcadeScreen_Decoy_Majority extends ArcadeScreen {
 	
 	final ProbDef game;
-
-	private int decoyfreq;
 	
 	public ArcadeScreen_Decoy_Majority(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		
 		game = gam;
-		
-		captured=0;
-	    destroyed=0;
 	      
 	    minecount=40;
 	    shields=5;
@@ -52,7 +47,7 @@ public class ArcadeScreen_Decoy_Majority extends ArcadeScreen {
 	
 	void level_specific_events(){
 		
-		decoy_set(10);
+		decoy_set(6);
 		
 		
 		
@@ -71,11 +66,11 @@ public class ArcadeScreen_Decoy_Majority extends ArcadeScreen {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   greentext=false;
-		   if (total_time<10){
+		   if (total_time<6){
 				show_the_text=true;
 				the_text="In this level, decoys are very common.";
 			}
-		   if (total_time>10 && total_time<13){
+		   if (total_time>6 && total_time<9){
 				show_the_text=true;
 				the_text="This means you have more of them to deal with, but also means you can use lower standards of proof.";
 			}

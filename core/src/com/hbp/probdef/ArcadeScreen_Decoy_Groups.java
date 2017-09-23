@@ -11,8 +11,6 @@ public class ArcadeScreen_Decoy_Groups extends ArcadeScreen {
 	
 	final ProbDef game;
 	
-	private int decoyfreq;
-	
 	public ArcadeScreen_Decoy_Groups(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);

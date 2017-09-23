@@ -57,7 +57,7 @@ public class ArcadeScreen_Basic_Survive extends ArcadeScreen {
 		   greentext=false;
 		   if (seconds<10){
 			   show_the_text=true;
-			   the_text="In this level, capturing mines won't raise your score. Just avoid collisions.";
+			   the_text="In this level, capturing mines won't raise your score. Just avoid mines hitting the ship.";
 		   }
 		   if (seconds>=10 && seconds<13){
 			   show_the_text=true;
