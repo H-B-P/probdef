@@ -69,7 +69,7 @@ public class ArcadeScreen_Basic_Survive extends ArcadeScreen {
 	
 	@Override
 	void calculate_score(){
-		score=shields*2+10;
+		score=shields*4;
 		score=Math.max(score, 0);
 	}
 

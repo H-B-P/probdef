@@ -31,7 +31,7 @@ public class ArcadeScreen_Decoy_WitchHunt extends GameScreen_Prob {
 	@Override
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("triangle");
+		   turret_one=new Turret_Standard("square");
 		   turret_two=new Turret_Standard("square");
 		   turret_three=new Turret_Standard("square");
 		   turret_four=new Turret_Standard("hexagon");

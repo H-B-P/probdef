@@ -317,27 +317,25 @@ public class ArcadeScreen extends GameScreen_Prob {
 		four_wave(sec, 2);
 		
 		random_six_wave(sec+14, 2);
-		
-		random_eight_wave(sec+14*2, 2);
 
-		random_ten_wave(sec+14*3, 2);
+		random_ten_wave(sec+14*2, 2);
 		
-		random_weird_twelve_wave(sec+14*4, 2);
+		random_weird_twelve_wave(sec+14*3, 2);
 		
-		random_dull_twelve_wave(sec+14*5, 3);
+		random_dull_twelve_wave(sec+14*4, 2);
 		
-		random_eight_wave(sec+14*5+16,2);
+		sixteen_wave_boring(sec+14*5,3);
 	}
 	
 	void decoy_set(int sec){
 		
-		random_eight_wave(sec, 2);
+		eight_wave_alternating(sec, 2);
 
-		random_dull_twelve_wave(sec+14, 3);
+		twelve_wave_boring(sec+14, 3);
 		
-		random_eight_wave(sec+14+16, 2);
+		eight_wave_pair(sec+14+16, 2);
 		
-		random_dull_twelve_wave(sec+14+16+14,3);
+		twelve_wave_boxy(sec+14+16+14,3);
 	}
 	
 	@Override
@@ -350,7 +348,7 @@ public class ArcadeScreen extends GameScreen_Prob {
 	
 	@Override
 	void calculate_score(){
-		score=captured+shields*2;
+		score=captured+shields*4;
 		score=Math.max(score, 0);
 	}
 

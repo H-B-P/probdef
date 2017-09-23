@@ -154,7 +154,7 @@ public class ArcadeScreen_Basic_Intro extends ArcadeScreen {
 		   greentext=false;
 		   if (seconds<7){
 			   show_the_text=true;
-			   the_text="Your score starts at ten. If you capture a mine, you gain one point. If a mine hits, you lose two points.";
+			   the_text="Your score starts at twenty. If you capture a mine, you gain one point. If a mine hits, you lose four points.";
 		   }
 		   if (seconds>=7 && seconds<12){
 			   show_the_text=true;

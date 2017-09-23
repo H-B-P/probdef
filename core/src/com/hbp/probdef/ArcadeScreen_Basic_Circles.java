@@ -25,7 +25,7 @@ public class ArcadeScreen_Basic_Circles extends ArcadeScreen {
 		   turret_one=new Turret_Standard("circle");
 		   turret_two=new Turret_Standard("circle");
 		   turret_three=new Turret_Standard("hexagon");
-		   turret_four=new Turret_Standard("circle");
+		   turret_four=new Turret_Standard("hexagon");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -160,7 +160,7 @@ public class ArcadeScreen_Basic_Circles extends ArcadeScreen {
 		   }
 		   if (seconds>=5 && seconds<10){
 			   show_the_text=true;
-			   the_text="They work well alongside hexagon turrets, which never fail.";
+			   the_text="They work well alongside hexagon turrets,\n which never fail.";
 		   }
 		   
 		   
