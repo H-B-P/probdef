@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-public class ArcadeScreen_Decoy_Minority extends GameScreen_Prob {
+public class ArcadeScreen_Decoy_Minority extends ArcadeScreen {
 	
 	final ProbDef game;
 	
@@ -26,6 +26,9 @@ public class ArcadeScreen_Decoy_Minority extends GameScreen_Prob {
 	    
 	    score=0;
 	    decoyfreq=20;
+	    
+	    wave_number_total=4;
+	    ordinary_minetype="decoy";
 	}
 	
 	@Override
@@ -47,33 +50,7 @@ public class ArcadeScreen_Decoy_Minority extends GameScreen_Prob {
 	
 	void level_specific_events(){
 		
-		//nice starting phalanx: 12 mines
-		
-				if (seconds==10 || seconds==12 ||seconds==14 || seconds==16){
-					spawnDecoyProbablistic(-2,45,decoyfreq);
-					spawnDecoyProbablistic(0,45,decoyfreq);
-					spawnDecoyProbablistic(2,45,decoyfreq);
-				}
-				
-				//faster tower: 8 mines
-				
-				if (seconds==22 || seconds==24 || seconds==26 || seconds==28){
-					spawnDecoyProbablistic(-2,65,decoyfreq);
-					spawnDecoyProbablistic(2,65,decoyfreq);
-				}
-				
-				//actually let's just redo this ad infi: 20 mines.
-				
-				if (seconds==36 || seconds==38 ||seconds==40 || seconds==42){
-					spawnDecoyProbablistic(-2,45,decoyfreq);
-					spawnDecoyProbablistic(0,45,decoyfreq);
-					spawnDecoyProbablistic(2,45,decoyfreq);
-				}
-				
-				if (seconds==48 || seconds==50 || seconds==52 || seconds==54){
-					spawnDecoyProbablistic(-2,65,decoyfreq);
-					spawnDecoyProbablistic(2,65,decoyfreq);
-				}
+		decoy_set(10);
 				
 		
 		
@@ -84,13 +61,6 @@ public class ArcadeScreen_Decoy_Minority extends GameScreen_Prob {
 		
 		
 	}
-	@Override
-	void level_specific_HUD(){
-		font.draw(batch, "MINES: "+minecount, 90, 472, 140, 1, true);
-		font.draw(batch, "CAPTURED: "+captured, 90, 455, 140, 1, true);
-		font.draw(batch, "DESTROYED: "+destroyed, 90, 437, 140, 1, true);
-		font.draw(batch, "SCORE: "+score, 90, 420, 140, 1, true);   
-	   }
 	
 	@Override
 	
@@ -98,21 +68,16 @@ public class ArcadeScreen_Decoy_Minority extends GameScreen_Prob {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   greentext=false;
-		   if (total_time<4){
+		   if (total_time<10){
 				show_the_text=true;
 				the_text="In this level, decoys are rare.";
 			}
-		   if (total_time>4 && total_time<10){
+		   if (total_time>10 && total_time<13){
 				show_the_text=true;
 				the_text="This means you have fewer of them to deal with, but also means you must use higher standards of proof.";
 			}
 		   
 		   
-	}
-	
-	@Override
-	void calculate_score(){
-		score=captured+shields*2;
 	}
 
 	@Override

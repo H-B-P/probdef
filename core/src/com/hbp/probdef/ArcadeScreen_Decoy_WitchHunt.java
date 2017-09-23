@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-public class ArcadeScreen_Decoy_WitchHunt extends GameScreen_Prob {
+public class ArcadeScreen_Decoy_WitchHunt extends ArcadeScreen {
 	
 	final ProbDef game;
 	
@@ -26,6 +26,8 @@ public class ArcadeScreen_Decoy_WitchHunt extends GameScreen_Prob {
 	    
 	    score=0;
 	    decoyfreq=40;
+	    
+	    wave_number_total=4;
 	}
 	
 	@Override
@@ -49,45 +51,46 @@ public class ArcadeScreen_Decoy_WitchHunt extends GameScreen_Prob {
 		
 		//nice starting phalanx: 16 mines
 		
-				if (seconds==10 || seconds==12 ||seconds==14 || seconds==16){
-					spawnDecoyProbablistic(-3,45,decoyfreq);
-					spawnDecoyProbablistic(-1,45,decoyfreq);
-					spawnDecoyProbablistic(1,45,decoyfreq);
-					spawnDecoyProbablistic(3,45,decoyfreq);
-				}
-				
-				
-				
-				
-				if (seconds==24 || seconds==26 || seconds==28 || seconds==30){
-					spawnDecoyProbablistic(-2,65,decoyfreq);
-					spawnDecoyProbablistic(0,65,decoyfreq);
-					spawnDecoyProbablistic(2,65,decoyfreq);
-				}
-				
-				
-				
-				
-				if (seconds==38 || seconds==40 ||seconds==42 || seconds==44){
-					spawnDecoyProbablistic(-1,65,decoyfreq);
-					spawnDecoyProbablistic(1,95,decoyfreq);
-				}
-				
-				
-				
-				
-				if (seconds==50 || seconds==54 ){
-					spawnDecoyProbablistic(-3,45,decoyfreq);
-					spawnDecoyProbablistic(-1,65,decoyfreq);
-					spawnDecoyProbablistic(1,65,decoyfreq);
-					spawnDecoyProbablistic(3,45,decoyfreq);
-				}
-				
-				if (seconds==52 || seconds==56){
-					spawnDecoyProbablistic(-3,45,decoyfreq);
-					spawnDecoyProbablistic(0,65,decoyfreq);
-					spawnDecoyProbablistic(3,45,decoyfreq);
-				}
+		wave_number_update(9,1);
+		
+		if (seconds==10 || seconds==12 ||seconds==14 || seconds==16){
+			spawnDecoyProbablistic(-3,45,decoyfreq);
+			spawnDecoyProbablistic(-1,45,decoyfreq);
+			spawnDecoyProbablistic(1,45,decoyfreq);
+			spawnDecoyProbablistic(3,45,decoyfreq);
+		}
+		
+		wave_number_update(23,2);
+		
+		
+		if (seconds==24 || seconds==26 || seconds==28 || seconds==30){
+			spawnDecoyProbablistic(-2,65,decoyfreq);
+			spawnDecoyProbablistic(0,65,decoyfreq);
+			spawnDecoyProbablistic(2,65,decoyfreq);
+		}
+		
+		wave_number_update(37,3);
+		
+		if (seconds==38 || seconds==40 ||seconds==42 || seconds==44){
+			spawnDecoyProbablistic(-1,65,decoyfreq);
+			spawnDecoyProbablistic(1,95,decoyfreq);
+		}
+		
+		wave_number_update(49,4);
+		
+		
+		if (seconds==50 || seconds==54 ){
+			spawnDecoyProbablistic(-3,45,decoyfreq);
+			spawnDecoyProbablistic(-1,65,decoyfreq);
+			spawnDecoyProbablistic(1,65,decoyfreq);
+			spawnDecoyProbablistic(3,45,decoyfreq);
+		}
+		
+		if (seconds==52 || seconds==56){
+			spawnDecoyProbablistic(-3,45,decoyfreq);
+			spawnDecoyProbablistic(0,65,decoyfreq);
+			spawnDecoyProbablistic(3,45,decoyfreq);
+		}
 		
 		if (minecount==0){
 			game.setScreen(new SelectScreen_Arcade(game, true));
@@ -96,13 +99,6 @@ public class ArcadeScreen_Decoy_WitchHunt extends GameScreen_Prob {
 		
 		
 	}
-	@Override
-	void level_specific_HUD(){
-		font.draw(batch, "MINES: "+minecount, 90, 472, 140, 1, true);
-		font.draw(batch, "CAPTURED: "+captured, 90, 455, 140, 1, true);
-		font.draw(batch, "DESTROYED: "+destroyed, 90, 437, 140, 1, true);
-		font.draw(batch, "SCORE: "+score, 90, 420, 140, 1, true);   
-	   }
 	
 	@Override
 	
@@ -110,21 +106,16 @@ public class ArcadeScreen_Decoy_WitchHunt extends GameScreen_Prob {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   greentext=false;
-		   if (total_time<6){
+		   if (total_time<10){
 				show_the_text=true;
 				the_text="Having a perfect test, like a hexagon turret, makes scientific investigation much easier.";
 			}
-		   if (total_time>6 && total_time<12){
+		   if (total_time>10 && total_time<13){
 				show_the_text=true;
-				the_text="To compensate for this advantage, this level has far higher mine density. Good luck.";
+				the_text="To compensate for this advantage, this level has far higher mine density. Good luck!";
 			}
 		   
 		   
-	}
-	
-	@Override
-	void calculate_score(){
-		score=captured+shields*2;
 	}
 
 	@Override

@@ -17,6 +17,9 @@ public class ArcadeScreen extends GameScreen_Prob {
 	int ordinary_shields_no;
 	int whichwave;
 	
+	int wave_number;
+	int wave_number_total;
+	
 	public ArcadeScreen(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
@@ -32,6 +35,15 @@ public class ArcadeScreen extends GameScreen_Prob {
 	    decoyfreq=0;
 	    
 	    whichwave=0;
+	    
+	    wave_number=0;
+	    wave_number_total=6;
+	}
+	
+	void wave_number_update(int target_seconds, int target_wave_number){
+		if (seconds>=target_seconds && wave_number<target_wave_number){
+			wave_number=target_wave_number;
+		}
 	}
 	
 	void four_wave (int start_second, int normal_ops){
@@ -314,36 +326,60 @@ public class ArcadeScreen extends GameScreen_Prob {
 	}
 	
 	void basic_set(int sec){
+		
+		wave_number_update(sec-1,1);
+		
 		four_wave(sec, 2);
 		
+		wave_number_update(sec+14-1,2);
+		
 		random_six_wave(sec+14, 2);
+		
+		wave_number_update(sec+14*2-1,3);
 
 		random_ten_wave(sec+14*2, 2);
 		
+		wave_number_update(sec+14*3-1,4);
+		
 		random_weird_twelve_wave(sec+14*3, 2);
 		
+		wave_number_update(sec+14*4-1,5);
+		
 		random_dull_twelve_wave(sec+14*4, 2);
+		
+		wave_number_update(sec+14*5-1,6);
 		
 		sixteen_wave_boring(sec+14*5,3);
 	}
 	
 	void decoy_set(int sec){
 		
+		wave_number_update(sec-1,1);
+		
 		eight_wave_alternating(sec, 2);
+		
+		wave_number_update(sec+14-1,2);
 
 		twelve_wave_boring(sec+14, 3);
 		
+		wave_number_update(sec+14+16-1,3);
+		
 		eight_wave_pair(sec+14+16, 2);
+		
+		wave_number_update(sec+14+16+14-1,4);
 		
 		twelve_wave_boxy(sec+14+16+14,3);
 	}
 	
 	@Override
 	void level_specific_HUD(){
-		font.draw(batch, "MINES: "+minecount, 90, 472, 140, 1, true);
-		font.draw(batch, "CAPTURED: "+captured, 90, 455, 140, 1, true);
-		font.draw(batch, "DESTROYED: "+ destroyed, 90, 437, 140, 1, true);
-		font.draw(batch, "SCORE: "+score, 90, 420, 140, 1, true);   
+		//font.draw(batch, "MINES: "+minecount, 90, 472, 140, 1, true);
+		//font.draw(batch, "CAPTURED: "+captured, 90, 455, 140, 1, true);
+		//font.draw(batch, "DESTROYED: "+ destroyed, 90, 437, 140, 1, true);
+		//font.draw(batch, "SCORE: "+score, 90, 420, 140, 1, true);
+		
+		font.draw(batch, "WAVE: "+wave_number+"/"+wave_number_total, 90, 455, 140, 1, true);
+		font.draw(batch, "SCORE: "+ score, 90, 437, 140, 1, true);
 	   }
 	
 	@Override

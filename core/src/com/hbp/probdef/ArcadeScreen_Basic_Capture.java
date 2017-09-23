@@ -25,8 +25,8 @@ public class ArcadeScreen_Basic_Capture extends ArcadeScreen {
 	void level_specific_turret_setup(){
 		   turret_one=new Turret_Standard("circle");
 		   turret_two=new Turret_Standard("square");
-		   turret_three=new Turret_Standard("square");
-		   turret_four=new Turret_Standard("circle");
+		   turret_three=new Turret_Standard("circle");
+		   turret_four=new Turret_Standard("square");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -55,11 +55,11 @@ public class ArcadeScreen_Basic_Capture extends ArcadeScreen {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   greentext=false;
-		   if (seconds<7){
+		   if (seconds<10){
 			   show_the_text=true;
 			   the_text="In this level, mines hitting your ship won't lower your score. All that matters is how many you capture.";
 		   }
-		   if (seconds>=7 && seconds<12){
+		   if (seconds>=10 && seconds<13){
 			   show_the_text=true;
 			   the_text="Try to end the level with the highest score you can.";
 		   }

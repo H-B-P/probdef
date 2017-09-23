@@ -16,8 +16,7 @@ public class ArcadeScreen_Basic_Intro extends ArcadeScreen {
 		super(gam, play_the_sound);
 		
 		game = gam;
-	      
-	    //minecount=40;
+		
 	    minecount=60;
 	}
 	
@@ -40,105 +39,7 @@ public class ArcadeScreen_Basic_Intro extends ArcadeScreen {
 	
 	void level_specific_events(){
 		
-//		//Interesting intro: 11 mines.
-//		if (seconds==10){
-//			spawnMine(-3,45);
-//			spawnMine(-1,45);
-//			spawnMine(1,65);
-//			spawnMine(3,95);
-//		}
-//		if (seconds==12){
-//			spawnMine(1,65);
-//			spawnMine(3,65);
-//		}
-//		if (seconds==14){
-//			spawnMine(-3,65);
-//			spawnMine(-1,65);
-//		}
-//		
-//		if (seconds==16){
-//			spawnMine(-3,65);
-//			spawnMine(-1,65);
-//			spawnMine(3,95);
-//			
-//		}
-//
-//		//Alternating attacks: 12 mines
-//		
-//		if (seconds==22){
-//			spawnMine(-3,65);
-//			spawnMine(-1,65);
-//			spawnMine(2,95);
-//			
-//		}
-//		if (seconds==24){
-//			spawnMine(-3,65);
-//			spawnMine(-1,65);
-//			spawnMine(3,95);
-//			
-//		}
-//		if (seconds==26){
-//			spawnMine(-3,65);
-//			spawnMine(-1,65);
-//			spawnMine(2,95);
-//			
-//		}
-//		if (seconds==28){
-//			spawnMine(-3,65);
-//			spawnMine(-1,65);
-//			spawnMine(3,95);
-//			
-//		}
-//		
-//		//Different alternating pattern: 12 mines
-//		
-//		if (seconds==34){
-//			spawnMine(-3,65);
-//			spawnMine(-1,45);
-//			spawnMine(1,45);
-//			spawnMine(3,65);
-//		}
-//		
-//		if (seconds==36){
-//			spawnMine(-1,45);
-//			spawnMine(1,45);
-//		}
-//		
-//		if (seconds==38){
-//			spawnMine(-3,65);
-//			spawnMine(-1,45);
-//			spawnMine(1,45);
-//			spawnMine(3,65);
-//			
-//		}
-//		
-//		if (seconds==40){
-//			spawnMine(-1,45);
-//			spawnMine(1,45);
-//		}
-//		
-//		//One last fiver, to make a nice round 40
-//		
-//		if (seconds==46){
-//			spawnMine(-2,95);
-//			spawnMine(2,95);
-//		}
-//		if (seconds==48){
-//			spawnMine(0,65);
-//		}
-//		if (seconds==50){
-//			spawnMine(-2,95);
-//			spawnMine(2,95);
-//		}
-		
 		basic_set(10);
-		
-		
-		
-		
-
-
-
 		
 		if (minecount==0){
 			game.setScreen(new SelectScreen_Arcade(game, true));
@@ -152,11 +53,11 @@ public class ArcadeScreen_Basic_Intro extends ArcadeScreen {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   greentext=false;
-		   if (seconds<7){
+		   if (seconds<10){
 			   show_the_text=true;
 			   the_text="Your score starts at twenty. If you capture a mine, you gain one point. If a mine hits, you lose four points.";
 		   }
-		   if (seconds>=7 && seconds<12){
+		   if (seconds>=10 && seconds<13){
 			   show_the_text=true;
 			   the_text="Try to end the level with the highest score you can.";
 		   }

@@ -23,10 +23,10 @@ public class ArcadeScreen_Basic_Survive extends ArcadeScreen {
 	@Override
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("triangle");
-		   turret_two=new Turret_Standard("hexagon");
-		   turret_three=new Turret_Standard("circle");
-		   turret_four=new Turret_Standard("circle");
+		   turret_one=new Turret_Standard("hexagon");
+		   turret_two=new Turret_Standard("circle");
+		   turret_three=new Turret_Standard("triangle");
+		   turret_four=new Turret_Standard("pentagon");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -55,11 +55,11 @@ public class ArcadeScreen_Basic_Survive extends ArcadeScreen {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   greentext=false;
-		   if (seconds<7){
+		   if (seconds<10){
 			   show_the_text=true;
-			   the_text="In this level, capturing mines won't raise your score. Just try to avoid collisions.";
+			   the_text="In this level, capturing mines won't raise your score. Just avoid collisions.";
 		   }
-		   if (seconds>=7 && seconds<12){
+		   if (seconds>=10 && seconds<13){
 			   show_the_text=true;
 			   the_text="Try to end the level with the highest score you can.";
 		   }
@@ -69,7 +69,7 @@ public class ArcadeScreen_Basic_Survive extends ArcadeScreen {
 	
 	@Override
 	void calculate_score(){
-		score=shields*4;
+		score=shields*4+20;
 		score=Math.max(score, 0);
 	}
 
