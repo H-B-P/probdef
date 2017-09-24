@@ -1238,7 +1238,7 @@ public class GameScreen_Prob extends GameScreen {
 			
 		   level_specific_timeline(); //Do things which are done in a given level.
 		   
-			status_effects(); //Change environmental variables based on whether we're firing, waiting, etc.
+			status_effects(); //Change environmental variables (just timespeed rn) based on whether we're firing, waiting, etc.
 			
 			move_iterable_objects(effective_delta); //Update position of dots and mines.
 			
@@ -1246,7 +1246,7 @@ public class GameScreen_Prob extends GameScreen {
 			
 			spacey_render(delta); //Do the generic rendering defined in SpaceyScreen.
 			
-			calculate_score(); //compute score from shields and captures and whatever else we're using today.
+			calculate_score(); //compute score from shields and captures and whatever else we're using this level.
 			
 			batch.begin();
 			
@@ -1350,7 +1350,7 @@ public class GameScreen_Prob extends GameScreen {
 	}
 	
 	public void probgame_dispose(){
-		spacey_dispose();
+		gamey_dispose();
 		bgm.stop();
 		bgm.dispose();
 	}

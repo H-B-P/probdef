@@ -96,13 +96,6 @@ public class ArcadeScreen_Decoy_Groups extends ArcadeScreen {
 		
 		
 	}
-	@Override
-	void level_specific_HUD(){
-		font.draw(batch, "MINES: "+minecount, 90, 472, 140, 1, true);
-		font.draw(batch, "CAPTURED: "+captured, 90, 455, 140, 1, true);
-		font.draw(batch, "DESTROYED: "+destroyed, 90, 437, 140, 1, true);
-		font.draw(batch, "SCORE: "+score, 90, 420, 140, 1, true);   
-	   }
 	
 	
 	void spawn_two_group(int spd){

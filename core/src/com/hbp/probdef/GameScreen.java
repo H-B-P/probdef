@@ -3,8 +3,6 @@ package com.hbp.probdef;
 /*
  * ~SUMMARY~
  * 
- * The final frontier!
- * 
  * This is the foundation of every level which involves actual gameplay.
  * 
  * It sets up the looping backgrounds, the ship, the shield, and miscellaneous time-based variables.
@@ -161,10 +159,10 @@ public class GameScreen extends MetaScreen {
 
 	@Override
 	public void dispose() {
-		spacey_dispose();
+		gamey_dispose();
 	}
 	
-	public void spacey_dispose(){
+	public void gamey_dispose(){
 		
 		meta_dispose();
 		bgm.stop();

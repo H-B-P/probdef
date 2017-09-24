@@ -108,7 +108,7 @@ public class ArcadeScreen_Decoy_WitchHunt extends ArcadeScreen {
 		   greentext=false;
 		   if (total_time<10){
 				show_the_text=true;
-				the_text="Having a perfect test, like a hexagon turret, makes scientific investigation much easier.";
+				the_text="Having a perfect test,\nlike a hexagon turret,\nmakes scientific investigation much easier.";
 			}
 		   if (total_time>10 && total_time<13){
 				show_the_text=true;

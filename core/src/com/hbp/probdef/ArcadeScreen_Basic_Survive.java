@@ -23,10 +23,10 @@ public class ArcadeScreen_Basic_Survive extends ArcadeScreen {
 	@Override
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("hexagon");
-		   turret_two=new Turret_Standard("circle");
+		   turret_one=new Turret_Standard("pentagon");
+		   turret_two=new Turret_Standard("triangle");
 		   turret_three=new Turret_Standard("triangle");
-		   turret_four=new Turret_Standard("pentagon");
+		   turret_four=new Turret_Standard("triangle");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
