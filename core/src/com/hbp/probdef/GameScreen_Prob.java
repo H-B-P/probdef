@@ -46,10 +46,6 @@ public class GameScreen_Prob extends GameScreen {
    Texture titaniummine_t;
    
    public Array<Mine> mines;
-   public Array<Mine> regularmines;
-   public Array<Mine_Shielded> shieldmines;
-   public Array<Mine_Decoy> decoymines;
-   public Array<Mine_Titanium> titaniummines;
    
    public Array<RT_Kaboom> explosions;
    public Array<Turret> turrets;
@@ -84,8 +80,6 @@ public class GameScreen_Prob extends GameScreen {
    //When 0, means no turret has targeted or had the chance to. When 5, means all turrets have had a chance to target.
    
    float effective_delta;
-	
-   private Texture pause_t;
    
    private Texture detaining_t;
    
@@ -159,12 +153,7 @@ public class GameScreen_Prob extends GameScreen {
 	      fire=Gdx.audio.newSound(Gdx.files.internal("js_sfx/344524__jeremysykes__gunshot02.wav"));
 	      
 	      
-	      mines = new Array<Mine>();
-	      regularmines = new Array<Mine>();
-	      shieldmines = new Array<Mine_Shielded>();
-	      titaniummines = new Array<Mine_Titanium>();
-	      decoymines= new Array<Mine_Decoy>();
-	      
+	      mines = new Array<Mine>();	      
 	      explosions = new Array<RT_Kaboom>();
 	      turrets= new Array<Turret>();
 	      turrets_standard= new Array<Turret_Standard>();
@@ -177,8 +166,6 @@ public class GameScreen_Prob extends GameScreen {
 	      scratch_four= new Texture(Gdx.files.internal("turrets/chickenscratch_4.png"));
 	      scratch_five= new Texture(Gdx.files.internal("turrets/chickenscratch_5.png"));
 	      
-	      
-	      pause_t=new Texture(Gdx.files.internal("pause_symbol.png"));
 	      
 	      destroy_dot_t=new Texture(Gdx.files.internal("shot_destroy.png"));
 	      capture_dot_t=new Texture(Gdx.files.internal("shot_capture.png"));
@@ -409,19 +396,19 @@ public class GameScreen_Prob extends GameScreen {
 			   float capture=0f;
 			   float capture_extra=0f;
 			   
-			   if (mine.shields_rn==4){
+			   if (mine.shields==4){
 				   four=1f;
 			   }
-			   if (mine.shields_rn==3){
+			   if (mine.shields==3){
 				   three=1f;
 			   }
-			   if (mine.shields_rn==2){
+			   if (mine.shields==2){
 				   two=1f;
 			   }
-			   if (mine.shields_rn==1){
+			   if (mine.shields==1){
 				   one=1f;
 			   }
-			   if (mine.shields_rn==0){
+			   if (mine.shields==0){
 				   zero=1f;
 			   }
 			   
@@ -507,27 +494,23 @@ public class GameScreen_Prob extends GameScreen {
 	   void spawnMine(int xposn, float m_speed) {
 		   
 		   Mine mine = new Mine(xposn, m_speed);
-		   regularmines.add(mine);
 		   mines.add(mine);
 		         
 	   }
 	   
 	   void spawnShieldMine(int xposn, float m_speed, int shields) {
-		   Mine_Shielded shieldmine= new Mine_Shielded(xposn, m_speed, shields);
-		   mines.add(shieldmine);
-		   shieldmines.add(shieldmine);
+		   Mine mine= new Mine(xposn, m_speed, shields);
+		   mines.add(mine);
 	   }
 	   
 	   void spawnDecoyMine(int xposn, float m_speed) {
-		   Mine_Decoy decoymine= new Mine_Decoy(xposn, m_speed);
-		   mines.add(decoymine);
-		   decoymines.add(decoymine);
+		   Mine mine= new Mine(xposn, m_speed, "decoy");
+		   mines.add(mine);
 	   }
 	   
 	   void spawnTitaniumMine(int xposn, float m_speed) {
-		   Mine_Titanium titaniummine= new Mine_Titanium(xposn, m_speed);
-		   mines.add(titaniummine);
-		   titaniummines.add(titaniummine);
+		   Mine mine= new Mine(xposn, m_speed, "titanium");
+		   mines.add(mine);
 	   }
 	   
 	   void spawnDecoyProbablistic(int xposn, float m_speed, int percentage_chance_of_decoy){
@@ -595,42 +578,37 @@ public class GameScreen_Prob extends GameScreen {
 	   }
 	   
 	   private void draw_iterable_objects(){
-		   for(Mine mine: regularmines) {
-		          batch.draw(mine_t, mine.rect.x-20, mine.rect.y-20);
-		          if (mine.being_detained){
-		        	  batch.draw(detaining_t, mine.rect.x-20, mine.rect.y-20);
-		          }
+		   for(Mine mine: mines) {
+		       if (mine.minetype.contains("titanium")){
+		    	   batch.draw(titaniummine_t, mine.rect.x-20, mine.rect.y-20);
 		       }
-		   for(Mine mine: decoymines) {
-		          batch.draw(mine_t, mine.rect.x-20, mine.rect.y-20);
-		          if (mine.being_detained){
-		        	  batch.draw(detaining_t, mine.rect.x-20, mine.rect.y-20);
-		          }
+		       else{
+		    	   batch.draw(mine_t, mine.rect.x-20, mine.rect.y-20);
 		       }
-		   for (Mine_Shielded shieldmine:shieldmines){
-			   batch.draw(mine_t, shieldmine.rect.x-20, shieldmine.rect.y-20);
-		          if (shieldmine.being_detained){
-		        	  batch.draw(detaining_t, shieldmine.rect.x-20, shieldmine.rect.y-20);
-		          }
-		          if (shieldmine.shields_rn>=1){
-		        	  batch.draw(mine_shield_one_t, shieldmine.shield_one.x, shieldmine.shield_one.y);
-		          }
-		          if (shieldmine.shields_rn>=2){
-		        	  batch.draw(mine_shield_two_t, shieldmine.shield_two.x, shieldmine.shield_two.y);
-		          }
-		          if (shieldmine.shields_rn>=3){
-		        	  batch.draw(mine_shield_three_t, shieldmine.shield_three.x, shieldmine.shield_three.y);
-		          }
-		          if (shieldmine.shields_rn>=4){
-		        	  batch.draw(mine_shield_four_t, shieldmine.shield_four.x, shieldmine.shield_four.y);
-		          }
+			   
+	          
+	          if (mine.being_detained){
+	        	  batch.draw(detaining_t, mine.rect.x-20, mine.rect.y-20);
+	          }
+	          if (mine.shields>=1){
+	        	  batch.draw(mine_shield_one_t, mine.shield_one.x, mine.shield_one.y);
+	          }
+	          if (mine.shields>=2){
+	        	  batch.draw(mine_shield_two_t, mine.shield_two.x, mine.shield_two.y);
+	          }
+	          if (mine.shields>=3){
+	        	  batch.draw(mine_shield_three_t, mine.shield_three.x, mine.shield_three.y);
+	          }
+	          if (mine.shields>=4){
+	        	  batch.draw(mine_shield_four_t, mine.shield_four.x, mine.shield_four.y);
+	          }
+	          
+	          if (mine.being_detained){
+	        	  batch.draw(detaining_t, mine.rect.x-20, mine.rect.y-20);
+	          }
+		          
 		   }
-		   for(Mine mine: titaniummines) {
-		          batch.draw(titaniummine_t, mine.rect.x-20, mine.rect.y-20);
-		          if (mine.being_detained){
-		        	  batch.draw(detaining_t, mine.rect.x-20, mine.rect.y-20);
-		          }
-		       }
+		   
 			for(RT_Kaboom boom: explosions) {
 		          batch.draw(explosion_t, boom.rect.x-20, boom.rect.y-20);
 		       }
@@ -736,15 +714,15 @@ public class GameScreen_Prob extends GameScreen {
 		          dot.rect.x+=dot.horz_vel*delta;
 		          dot.rect.y+=dot.vert_vel*delta;
 		       }
-		   for (Mine_Shielded shieldmine:shieldmines){
-			   shieldmine.shield_one.x=shieldmine.rect.x-5;
-			   shieldmine.shield_one.y=shieldmine.rect.y-5;
-			   shieldmine.shield_two.x=shieldmine.rect.x-10;
-			   shieldmine.shield_two.y=shieldmine.rect.y-10;
-			   shieldmine.shield_three.x=shieldmine.rect.x-15;
-			   shieldmine.shield_three.y=shieldmine.rect.y-15;
-			   shieldmine.shield_four.x=shieldmine.rect.x-20;
-			   shieldmine.shield_four.y=shieldmine.rect.y-20;
+		   for (Mine mine: mines){
+			   mine.shield_one.x=mine.rect.x-5;
+			   mine.shield_one.y=mine.rect.y-5;
+			   mine.shield_two.x=mine.rect.x-10;
+			   mine.shield_two.y=mine.rect.y-10;
+			   mine.shield_three.x=mine.rect.x-15;
+			   mine.shield_three.y=mine.rect.y-15;
+			   mine.shield_four.x=mine.rect.x-20;
+			   mine.shield_four.y=mine.rect.y-20;
 		   }
 	   }
 	   
@@ -759,7 +737,7 @@ public class GameScreen_Prob extends GameScreen {
 				        minesplode.play();
 				        shipshield_t=shipshield_flicker_t;
 					}
-			        unlist_this_mine(mine);
+					mines.removeValue(mine,true);
 			     }
 			}
 	   }
@@ -790,7 +768,7 @@ public class GameScreen_Prob extends GameScreen {
 				   if ((mine.rect.x+mine.rect.width+20)<0 || (mine.rect.x-20)>320){					   
 					   captured+=1;
 					   minecount-=1;
-					   unlist_this_mine(mine);
+					   mines.removeValue(mine,true);
 				   }
 			   }
 		   }
@@ -807,7 +785,7 @@ public class GameScreen_Prob extends GameScreen {
 						     	minecount-=1;
 						     	minesplode.play();
 						     	
-						     	unlist_this_mine(dot.target_mine);
+						     	mines.removeValue(dot.target_mine,true);
 						     	
 				    	 }
 				    	 if (dot.type.equals("capture") && !dot.target_mine.captureproof){
@@ -823,32 +801,28 @@ public class GameScreen_Prob extends GameScreen {
 	   
 	   private void check_for_dot_mineshield_collisions(){
 		   for (RT_Dot dot:dots){
-			   if (dot.target_mine.minetype.equals("shield")){
-				   if (dot.type.equals("destroy")||dot.type.equals("capture")){
-					   
-					   Mine_Shielded S=(Mine_Shielded)dot.target_mine;
-					   
-					   if (S.shields_rn==4 && S.shield_four.overlaps(dot.rect)){
-						   deshield.play(0.2f);
-						   S.shields_rn-=1;
-						   dots.removeValue(dot, true);
-					   }
-					   else if (S.shields_rn==3 && S.shield_three.overlaps(dot.rect)){
-						   deshield.play(0.25f);
-						   S.shields_rn-=1;
-						   dots.removeValue(dot, true);
-					   }
-					   else if (S.shields_rn==2 && S.shield_two.overlaps(dot.rect)){
-						   deshield.play(0.3f);
-						   S.shields_rn-=1;
-						   dots.removeValue(dot, true);
-					   }
-						else if (S.shields_rn==1 && S.shield_one.overlaps(dot.rect)){
-							deshield.play(0.35f);
-							S.shields_rn-=1;
-							dots.removeValue(dot, true);
-						}
+			   if (dot.type.equals("destroy")||dot.type.equals("capture")){
+				   
+				   if (dot.target_mine.shields==4 && dot.target_mine.shield_four.overlaps(dot.rect)){
+					   deshield.play(0.2f);
+					   dot.target_mine.shields-=1;
+					   dots.removeValue(dot, true);
 				   }
+				   else if (dot.target_mine.shields==3 && dot.target_mine.shield_three.overlaps(dot.rect)){
+					   deshield.play(0.25f);
+					   dot.target_mine.shields-=1;
+					   dots.removeValue(dot, true);
+				   }
+				   else if (dot.target_mine.shields==2 && dot.target_mine.shield_two.overlaps(dot.rect)){
+					   deshield.play(0.3f);
+					   dot.target_mine.shields-=1;
+					   dots.removeValue(dot, true);
+				   }
+					else if (dot.target_mine.shields==1 && dot.target_mine.shield_one.overlaps(dot.rect)){
+						deshield.play(0.35f);
+						dot.target_mine.shields-=1;
+						dots.removeValue(dot, true);
+					}
 			   }
 		   }
 	   }
@@ -1013,28 +987,7 @@ public class GameScreen_Prob extends GameScreen {
 			   turret.does_it_work=true;
 		   }
 	   }
-	   
-	   void unlist_this_mine(Mine mine){
-		   mines.removeValue(mine,true);
-		   if (regularmines.contains(mine, true)){
-			   regularmines.removeValue(mine, true);
-		   }
-		   if (mine.minetype.equals("shield")){
-			   if (shieldmines.contains((Mine_Shielded)mine, true)){
-				   shieldmines.removeValue((Mine_Shielded)mine, true);
-			   }
-		   }
-		   if (mine.minetype.equals("decoy")){
-			   if (decoymines.contains((Mine_Decoy)mine, true)){
-				   decoymines.removeValue((Mine_Decoy)mine, true);
-			   }
-		   }
-		   if (mine.minetype.equals("titanium")){
-			   if (titaniummines.contains((Mine_Titanium)mine, true)){
-				   titaniummines.removeValue((Mine_Titanium)mine, true);
-			   }
-		   }
-	   }
+
 	   
 	   void return_to_menu(){
 		   game.setScreen(new TitleScreen(game, true));

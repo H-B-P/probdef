@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -37,8 +36,6 @@ public class TitleScreen extends MetaScreen {
 	private BitmapFont font;
 	
 	boolean are_instructions_visible;
-	
-	private Sound hellosound;
 	
 	private SpriteBatch batch;
 	

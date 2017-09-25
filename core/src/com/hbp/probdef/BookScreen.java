@@ -147,10 +147,6 @@ public class BookScreen extends GameScreen_Prob {
 			turret.current_t=turret.normal_t;
 		}
 		mines.clear();
-		regularmines.clear();
-		shieldmines.clear();
-		decoymines.clear();
-		titaniummines.clear();
 		
 		explosions.clear();
 		

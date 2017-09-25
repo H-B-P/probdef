@@ -5,11 +5,18 @@ import com.badlogic.gdx.math.Rectangle;
 public class Mine {
 	   Rectangle rect;
 	   
-	   String minetype; //Currently supports "shield", "regular", and "titanium".
+	   String minetype; //Currently supports "decoy", "regular", "titanium", and "decoytitanium".
+	   
 	   float vert_speed;
 	   float horz_vel;
 	   
-	   int shields_rn;
+	   Rectangle shield_one;
+		Rectangle shield_two;
+		Rectangle shield_three;
+		Rectangle shield_four;
+	   
+	   int shields; //How many shields does it have, at this moment?
+	   //There is no difference between a mine which lost all its shields and a mine which started with none.
 	   
 	   boolean captureproof; //If a captureshot hits it, will it be captured?
 	   boolean destroyproof; //If a destroyshot hits it, will it be destroyed?
@@ -17,10 +24,13 @@ public class Mine {
 	   
 	   boolean being_detained;
 	   boolean actually_there; //Is the mine currently being dragged offstage, or otherwise incapable of interacting with things?
+	   //NOT to be confused with the shootproofness of decoy mines.
+	   
 	   
 	   public Mine(int xposn, float m_speed){
 		   
 		   horz_vel=0;
+		   
 		   
 		   captureproof=false;
 		   destroyproof=false;
@@ -30,7 +40,7 @@ public class Mine {
 		   
 		   actually_there=true;
 		   
-		   shields_rn=0;
+		   shields=0;
 		   
 		   minetype="regular";
 		   
@@ -43,5 +53,55 @@ public class Mine {
 		      
 		      vert_speed = m_speed;
 		      
+
+			   set_up_shields();
+		      
+	   }
+	   
+	   public Mine(int xposn, float m_speed, String m_type){
+		   this(xposn, m_speed);
+		   minetype=m_type;
+		   if (minetype.contains("decoy")){
+			   shootproof=true;
+		   }
+		   if (minetype.contains("titanium")){
+			   destroyproof=true;
+		   }
+	   }
+	   
+	   public Mine(int xposn, float m_speed, int m_shields){
+		   this(xposn, m_speed);
+		   shields=m_shields;
+	   }
+	   
+	   public Mine(int xposn, float m_speed, String m_type, int m_shields){
+		   this(xposn,m_speed,m_type);
+		   shields=m_shields;
+	   }
+	   
+	   void set_up_shields(){
+		   shield_one=new Rectangle();
+		   shield_one.width=51;
+		   shield_one.height=51;
+		   shield_one.x=rect.x-5;
+		   shield_one.y=rect.y-5;
+		   
+		   shield_two=new Rectangle();
+		   shield_two.width=61;
+		   shield_two.height=61;
+		   shield_two.x=rect.x-10;
+		   shield_two.y=rect.y-10;
+		   
+		   shield_three=new Rectangle();
+		   shield_three.width=71;
+		   shield_three.height=71;
+		   shield_three.x=rect.x-15;
+		   shield_three.y=rect.y-15;
+		   
+		   shield_four=new Rectangle();
+		   shield_four.width=81;
+		   shield_four.height=81;
+		   shield_four.x=rect.x-20;
+		   shield_four.y=rect.y-20;
 	   }
 }
