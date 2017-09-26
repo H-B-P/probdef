@@ -39,7 +39,7 @@ public class ArcadeScreen_Basic_Intro extends ArcadeScreen {
 	
 	void level_specific_events(){
 		
-		basic_set(10);
+		basic_set(2);
 		
 		if (minecount==0){
 			game.setScreen(new SelectScreen_Arcade(game, true));
@@ -53,13 +53,15 @@ public class ArcadeScreen_Basic_Intro extends ArcadeScreen {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   greentext=false;
-		   if (seconds<10){
+		   if (turret_one.targeted||turret_two.targeted||turret_three.targeted||turret_four.targeted){
+			   infuriatingly_specific_bool=true;
+		   }
+		   if (seconds<5){
 			   show_the_text=true;
 			   the_text="Your score starts at twenty. If you capture a mine, you gain one point. If a mine hits, you lose four points.";
-		   }
-		   if (seconds>=10 && seconds<13){
-			   show_the_text=true;
-			   the_text="Try to end the level with the highest score you can.";
+			   if (infuriatingly_specific_bool){
+				   the_text="Try to end the level with the highest score you can.";
+			   }
 		   }
 		   
 		   

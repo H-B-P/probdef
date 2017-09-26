@@ -39,7 +39,7 @@ public class ArcadeScreen_Basic_Reversed extends ArcadeScreen {
 	
 	void level_specific_events(){
 	
-		basic_set(10);
+		basic_set(2);
 		
 		if (minecount==0){
 			game.setScreen(new SelectScreen_Arcade(game, true));
@@ -54,11 +54,14 @@ public class ArcadeScreen_Basic_Reversed extends ArcadeScreen {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   greentext=false;
-		   if (seconds>=0 && seconds<10){
+		   if (turret_one.targeted||turret_two.targeted||turret_three.targeted||turret_four.targeted){
+			   infuriatingly_specific_bool=true;
+		   }
+		   if (seconds<5){
 			   show_the_text=true;
 			   the_text="Someone arranged these turrets so they fire in exactly the worst order.";
 		   }
-		   if (seconds>=10 && seconds<13){
+		   if (seconds<5 && infuriatingly_specific_bool){
 			   show_the_text=true;
 			   greentext=true;
 			   the_text="(whoever did that must be really careless and/or inconsiderate smh)";

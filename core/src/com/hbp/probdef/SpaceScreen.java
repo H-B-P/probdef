@@ -1,0 +1,181 @@
+package com.hbp.probdef;
+
+/*
+ * ~SUMMARY~
+ * 
+ * This is the foundation of every level which involves actual gameplay.
+ * 
+ * It sets up the looping backgrounds, the ship, the shield, and miscellaneous time-based variables.
+ */
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import com.hbp.probdef.ProbDef;
+
+public class SpaceScreen extends MetaScreen {
+	
+	final ProbDef game;
+	
+	public Music bgm;
+	
+	
+	public Texture starry_background_layer_one_t;
+	public Texture starry_background_layer_two_t;
+	
+	public Texture statusbar_t;
+
+	public Texture ship_t;
+	public Texture shipshield_t;
+	public Texture shipshield_normal_t;
+	public Texture shipshield_flicker_t;
+	
+	public Rectangle shield_r;
+	
+	public BitmapFont font;
+	
+	public float total_time;
+	public int seconds;
+	public int ship_posn;
+	
+	public int starspeed_one;
+	public int starspeed_two;
+	
+	public double TIMESPEED;
+	
+	boolean are_instructions_visible;
+	
+	public String current_status;
+	
+	private SpriteBatch batch;
+	
+	public SpaceScreen(final ProbDef gam, boolean play_the_sound) {
+		
+		super(gam, play_the_sound);
+		
+		System.out.print(camera);
+		
+		
+		
+		game = gam;
+		
+		batch= new SpriteBatch();
+		
+		font = new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
+		font.setColor(Color.BLACK);
+		
+		total_time=0;
+		
+		starry_background_layer_one_t=new Texture(Gdx.files.internal("BG1.png"));
+	    starry_background_layer_two_t=new Texture(Gdx.files.internal("BG2.png"));
+		
+	    ship_t=new Texture(Gdx.files.internal("fullship_GREEN.png"));
+	    shipshield_normal_t=new Texture(Gdx.files.internal("shield_GREEN.png"));
+	    shipshield_flicker_t=new Texture(Gdx.files.internal("shield_flicker.png"));
+	    shipshield_t=shipshield_normal_t;
+	    
+	    statusbar_t=new Texture(Gdx.files.internal("statusbar.png"));
+	    
+		ship_posn=-390;
+		
+		starspeed_one=2;
+		starspeed_two=7;
+		
+		shield_r=new Rectangle();
+		shield_r.x=20;
+	    shield_r.y = ship_posn+420+75;
+	    shield_r.width = 280;
+	    shield_r.height = 3;
+	    
+	    TIMESPEED=1; //Set time to pass at one second per second.
+	    //(i.e. the game isn't paused, slowed, in fast-forward etc.)
+	    
+	    current_status="waiting";//By default, we're not shooting or targeting, we're just watching the stars go by.
+	    //(I promise this isn't some kind of philosophical statement)
+	}
+	
+	public void spacey_render(float delta){
+		
+		meta_render(); //Call MetaScreen's rendering function before anything.
+		
+		total_time+=delta*TIMESPEED; //Increment time. This is time in-game, not time for the player.
+		
+		Gdx.gl.glClearColor(0f, 0f, 0f, 0f); //Make the background at the base of everything black.
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //Prevent objects from sticking around between frames.
+		
+		batch.begin();
+		
+		batch.setProjectionMatrix(camera.combined);
+		
+		
+	      draw_spacey_background(); //draws starry backgrounds which loop at different speeds to give the illusion of parallax.
+	      
+	      batch.draw(ship_t, 0, ship_posn); //draw the ship!
+	      
+		batch.end();
+	}
+	
+	public void draw_spacey_background(){
+		batch.draw(starry_background_layer_one_t, 0f, 800-(float)((total_time*starspeed_one)%1600));
+	      batch.draw(starry_background_layer_one_t, 0f, 800-(float)((total_time*starspeed_one+800)%1600));
+	      batch.draw(starry_background_layer_two_t, 0f, 1100-(float)((total_time*starspeed_two)%2200));
+	      batch.draw(starry_background_layer_two_t, 0f, 1100-(float)((total_time*starspeed_two+1100)%2200));
+	}
+	
+	@Override
+	public void render(float delta) {
+		//Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+		spacey_render(delta);
+		
+		batch.begin();
+		batch.setProjectionMatrix(camera.combined);
+		batch.draw(statusbar_t, 0, 400);
+		
+		batch.end();
+	}
+
+	@Override
+	public void show() {
+	}
+
+	@Override
+	public void hide() {
+	}
+
+	@Override
+	public void pause() {
+	}
+
+	@Override
+	public void resume() {
+	}
+
+	@Override
+	public void dispose() {
+		gamey_dispose();
+	}
+	
+	public void gamey_dispose(){
+		
+		meta_dispose();
+		bgm.stop();
+		bgm.dispose();
+		
+		starry_background_layer_one_t.dispose();
+		starry_background_layer_two_t.dispose();
+		statusbar_t.dispose();
+		
+		ship_t.dispose();
+		shipshield_t.dispose();
+		shipshield_normal_t.dispose();
+		shipshield_flicker_t.dispose();
+		
+		batch.dispose();
+	}
+}

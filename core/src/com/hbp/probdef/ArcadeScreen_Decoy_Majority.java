@@ -47,7 +47,7 @@ public class ArcadeScreen_Decoy_Majority extends ArcadeScreen {
 	
 	void level_specific_events(){
 		
-		decoy_set(6);
+		decoy_set(4);
 		
 		
 		
@@ -66,11 +66,14 @@ public class ArcadeScreen_Decoy_Majority extends ArcadeScreen {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   greentext=false;
-		   if (total_time<6){
+		   if (turret_one.targeted||turret_two.targeted||turret_three.targeted||turret_four.targeted){
+			   infuriatingly_specific_bool=true;
+		   }
+		   if (total_time<5){
 				show_the_text=true;
 				the_text="In this level, decoys are very common.";
 			}
-		   if (total_time>6 && total_time<9){
+		   if (total_time<5 && infuriatingly_specific_bool){
 				show_the_text=true;
 				the_text="This means you have more of them to deal with, but also means you can use lower standards of proof.";
 			}

@@ -35,7 +35,7 @@ public class ArcadeScreen_Basic_Capture extends ArcadeScreen {
 	
 	void level_specific_events(){
 		
-		basic_set(10);
+		basic_set(2);
 		
 		
 		
@@ -51,16 +51,10 @@ public class ArcadeScreen_Basic_Capture extends ArcadeScreen {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   greentext=false;
-		   if (seconds<10){
+		   if (seconds<5){
 			   show_the_text=true;
 			   the_text="In this level, mines hitting your ship won't lower your score. All that matters is how many you capture.";
 		   }
-		   if (seconds>=10 && seconds<13){
-			   show_the_text=true;
-			   the_text="Try to end the level with the highest score you can.";
-		   }
-		   
-		   
 	}
 	
 	@Override

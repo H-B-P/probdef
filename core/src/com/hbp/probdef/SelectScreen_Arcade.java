@@ -14,7 +14,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 	   public SelectScreen_Arcade(final ProbDef gam, boolean play_the_sound){
 			super(gam, play_the_sound);
 			first_topic="Basic";
-			last_topic="Decoys";
+			last_topic="Titanium";
 			
 			
 			if (prefs.contains("probdef_library_topic")){
@@ -163,21 +163,49 @@ public class SelectScreen_Arcade extends SelectScreen {
 				five_double_liner=false;
 			}
 			if(TOPIC.equals("Deduction")){
-				NUMBER_OF_LEVELS=6;
+				NUMBER_OF_LEVELS=5;
 				banner_t=banner_blank_t;
 				banner_s="Deduction";
-				one_s="Intro I";
+				one_s="";
 				one_double_liner=false;
-				two_s="Intro II";
+				two_s="";
 				two_double_liner=false;
-				three_s="Possibility";
+				three_s="";
 				three_double_liner=false;
-				four_s="Plausibility";
+				four_s="";
 				four_double_liner=false;
-				five_s="Scarcity";
+				five_s="";
 				five_double_liner=false;
-				six_s="Certainty";
-				six_double_liner=false;
+			}
+			if(TOPIC.equals("Induction")){
+				NUMBER_OF_LEVELS=5;
+				banner_t=banner_blank_t;
+				banner_s="Induction";
+				one_s="";
+				one_double_liner=false;
+				two_s="";
+				two_double_liner=false;
+				three_s="";
+				three_double_liner=false;
+				four_s="";
+				four_double_liner=false;
+				five_s="";
+				five_double_liner=false;
+			}
+			if(TOPIC.equals("Titanium")){
+				NUMBER_OF_LEVELS=5;
+				banner_t=banner_blank_t;
+				banner_s="Titanium";
+				one_s="Intro";
+				one_double_liner=false;
+				two_s="Barbell";
+				two_double_liner=false;
+				three_s="Spread";
+				three_double_liner=false;
+				four_s="Titanium, Decoys";
+				four_double_liner=true;
+				five_s="Titanium Decoys";
+				five_double_liner=true;
 			}
 			
 		}
@@ -193,6 +221,12 @@ public class SelectScreen_Arcade extends SelectScreen {
 			else if (TOPIC.equals("Decoys")){
 				TOPIC="Deduction";
 			}
+			else if (TOPIC.equals("Deduction")){
+				TOPIC="Induction";
+			}
+			else if (TOPIC.equals("Induction")){
+				TOPIC="Titanium";
+			}
 		}
 		
 	   @Override
@@ -205,6 +239,12 @@ public class SelectScreen_Arcade extends SelectScreen {
 			}
 			else if (TOPIC.equals("Deduction")){
 				TOPIC="Decoys";
+			}
+			else if (TOPIC.equals("Induction")){
+				TOPIC="Deduction";
+			}
+			else if (TOPIC.equals("Titanium")){
+				TOPIC="Induction";
 			}
 		}
 	   
@@ -255,8 +295,10 @@ public class SelectScreen_Arcade extends SelectScreen {
 				   dispose();
 			   }
 		   }
-		   if (Gdx.input.justTouched()&& TOPIC.equals("Pascal")){
+		   if (Gdx.input.justTouched()&& TOPIC.equals("Deduction")){
 			   if (one_r.contains(tp_x,tp_y)){
+				   game.setScreen(new GameScreen_Bayes(game, true));
+				   dispose();
 			   }
 			   if (two_r.contains(tp_x,tp_y)){
 			   }

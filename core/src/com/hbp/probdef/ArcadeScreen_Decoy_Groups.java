@@ -43,49 +43,49 @@ public class ArcadeScreen_Decoy_Groups extends ArcadeScreen {
 		
 		//Visually and mathematically obvious gentle towery intro:10
 		
-		wave_number_update(9,1);
+		wave_number_update(1,1);
 		
-		if (seconds==10 || seconds==14){ 
+		if (seconds==2 || seconds==6){ 
 			spawn_two_group(65);
 		}
 		
-		if (seconds==12 || seconds==16){
+		if (seconds==4 || seconds==8){
 			spawn_three_group(65);
 		}
 		
 		//Gentle seige:14
 		
-		wave_number_update(23,2);
+		wave_number_update(15,2);
 		
-		if (seconds==24 || seconds==28){ 
+		if (seconds==16 || seconds==20){ 
 			spawn_four_group(45);
 		}
 		
-		if (seconds==26 || seconds==30){
+		if (seconds==18 || seconds==22){
 			spawn_three_group(45);
 		}
 		
 		//tower II:12
 		
-		wave_number_update(37,3);
+		wave_number_update(29,3);
 		
-		if (seconds==38 || seconds==42 ){
+		if (seconds==30 || seconds==34 ){
 			spawn_two_group(65);
 		}
 		
-		if (seconds==40 || seconds==44 ){
+		if (seconds==32 || seconds==36 ){
 			spawn_four_group(65);
 		}
 		
 		//seige II
 		
-		wave_number_update(51,4);
+		wave_number_update(43,4);
 		
-		if (seconds==52 || seconds==56 ){
+		if (seconds==44 || seconds==48 ){
 			spawn_four_group(45);
 		}
 		
-		if (seconds==54 || seconds==58){
+		if (seconds==46 || seconds==50){
 			spawn_four_group(45);
 		}
 		
@@ -162,11 +162,14 @@ public class ArcadeScreen_Decoy_Groups extends ArcadeScreen {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   greentext=false;
-		   if (total_time<10){
+		   if (turret_one.targeted||turret_two.targeted||turret_three.targeted||turret_four.targeted){
+			   infuriatingly_specific_bool=true;
+		   }
+		   if (total_time<5){
 				show_the_text=true;
 				the_text="In this level, every row of mines has exactly one decoy. Knowing this makes investigation easier.";
 			}
-		   if (total_time>10 && total_time<13){
+		   if (total_time<5 && infuriatingly_specific_bool){
 				show_the_text=true;
 				the_text="To compensate for this advantage, this level has far higher mine density. Good luck!";
 			}

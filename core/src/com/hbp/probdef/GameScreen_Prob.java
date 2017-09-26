@@ -104,7 +104,7 @@ public class GameScreen_Prob extends GameScreen {
 	
 	private Rectangle screen_proper;
 	
-	private boolean infuriatingly_specific_bool;
+	boolean infuriatingly_specific_bool;
 	
 	BitmapFont acalc_grayfont;
 	BitmapFont acalc_redfont;
@@ -238,37 +238,37 @@ public class GameScreen_Prob extends GameScreen {
 	
 	   void level_specific_events(){
 		   if (seconds==2){
-				spawnMine(-1, 15);
-				spawnMine(1, 15);
+				spawnMine(-1, 65);
+				spawnMine(1, 65);
 				
 			}
-			if (seconds==12){
+			if (seconds==10){
 				spawnMine(-3,65);
 				spawnMine(3,65);
 			}
-			if (seconds==22){
+			if (seconds==20){
 				spawnMine(-2,65);
 				spawnMine(0,65);
 				spawnMine(2,65);
 			}
-			if (seconds==30){
+			if (seconds==28){
 				spawnMine(-2,45);
 				spawnMine(0,100);
 				spawnMine(2,65);
 				
 			}
-			if (seconds==36){
+			if (seconds==34){
 				spawnMine(-3, 45);
 				spawnMine(0,65);
 				spawnMine(2,65);
 			}
-			if (seconds==40){
+			if (seconds==38){
 				spawnMine(-3,45);
 				spawnMine(-1, 45);
 				spawnMine(1,45);
 				spawnMine(3, 45);
 			}
-			if (seconds==46){
+			if (seconds==44){
 				spawnMine(-3,100);
 				spawnMine(-1, 100);
 				spawnMine(2,100);
@@ -283,16 +283,11 @@ public class GameScreen_Prob extends GameScreen {
 		   show_the_text=false;
 		   suppress_freezes=false;
 		   greentext=false;
-		   if (total_time>1 && total_time<11.5){
-			   suppress_freezes=true;
-			   show_the_text=true;
-				the_text="Mines move towards your ship. Every two seconds, time freezes, and you get a chance to stop them.";
-			}
-			   if (total_time>11.5 && total_time<12.5){
-				   show_the_text=true;
+			   if (total_time>3.5 && total_time<4.5){   
 				   if(TIMESPEED==0){
+					   show_the_text=true;
 					   if (!turret_one.targeted){
-						   the_text="Click on a mine while time is frozen to target it.";
+						   the_text="Mines threaten your ship. Every two seconds, time freezes. Click on a mine while time is frozen to target it.";
 					   }
 					   else{
 						   the_text="Keep clicking on mines until every turret is targeted.";
@@ -313,7 +308,7 @@ public class GameScreen_Prob extends GameScreen {
 					   }
 				   }
 			   }
-			   if (total_time>14 && total_time<15 && TIMESPEED==0){
+			   if (total_time>12 && total_time<13 && TIMESPEED==0){
 				   show_the_text=true;
 				   if (currently_active_turret_no==1){
 					   the_text="Triangle Turrets fail 30% of the time, capture 30% of the time, and destroy 40% of the time.";
@@ -331,7 +326,7 @@ public class GameScreen_Prob extends GameScreen {
 					   the_text="You can remind yourself of these probabilities at any time by hovering your mouse over a turret.";
 				   }
 			   }
-			   if (total_time>23 && total_time<25 && TIMESPEED==0){
+			   if (total_time>21 && total_time<23 && TIMESPEED==0){
 				   show_the_text=true;
 				   the_text="The percentage below a mine shows the probability it will remain after the volley.";
 				   if (turret_one.targeted){
@@ -348,12 +343,12 @@ public class GameScreen_Prob extends GameScreen {
 					   the_text="(jsyk you don't have to target every turret every turn before firing but it's usually a good idea)";
 				   }
 			   }
-			   if (total_time>28 && total_time<33){
+			   if (total_time>26 && total_time<31){
 				   show_the_text=true;
 				   the_text="Mines won't always have the same speed, so prioritise.";
 			   }
 			   
-			   if (total_time>36 && total_time<39){
+			   if (total_time>34 && total_time<37){
 				   if (TIMESPEED==0){
 					   show_the_text=true;
 					   if (!turret_two.targeted){

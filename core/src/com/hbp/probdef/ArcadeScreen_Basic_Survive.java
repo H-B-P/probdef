@@ -39,7 +39,7 @@ public class ArcadeScreen_Basic_Survive extends ArcadeScreen {
 	
 	void level_specific_events(){
 		
-		basic_set(10);
+		basic_set(2);
 		
 		
 		
@@ -55,13 +55,9 @@ public class ArcadeScreen_Basic_Survive extends ArcadeScreen {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   greentext=false;
-		   if (seconds<10){
+		   if (seconds<5){
 			   show_the_text=true;
 			   the_text="In this level, capturing mines won't raise your score. Just avoid mines hitting the ship.";
-		   }
-		   if (seconds>=10 && seconds<13){
-			   show_the_text=true;
-			   the_text="Try to end the level with the highest score you can.";
 		   }
 		   
 		   

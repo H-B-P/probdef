@@ -57,7 +57,7 @@ public class ArcadeScreen_Decoy_Intro extends ArcadeScreen {
 		
 		//and then . . .
 		
-		decoy_set(20);
+		decoy_set(10);
 		
 		if (minecount==0){
 			game.setScreen(new SelectScreen_Arcade(game, true));
@@ -86,18 +86,22 @@ public class ArcadeScreen_Decoy_Intro extends ArcadeScreen {
 				show_the_text=true;
 				the_text="The autocalculator assumes every mine is real and calculates odds based on that.";
 			}
-			if (total_time>12 && total_time<18){
+			
+			
+			if (seconds>10 && seconds<13){
 				show_the_text=true;
-				the_text="Eventually, a decoy will defy enough odds that you can assume it's fake, and focus on real threats.";
+				if (turret_one.targeted||turret_two.targeted||turret_three.targeted||turret_four.targeted){
+					   infuriatingly_specific_bool=true;
+				}
 				
-			}
-			if (total_time>18 && total_time<24){
-				show_the_text=true;
-				greentext=true;
-				the_text="(from here on out all decoys are generated randomly, so memorising which mines are fake won't work)";
-			}
-		   
-		   
+				if (!infuriatingly_specific_bool){
+					the_text="Eventually, a decoy will defy enough odds that you can assume it's fake, and focus on real threats.";
+				}
+				else{
+					greentext=true;
+					the_text="(from here on out all decoys are generated randomly, so memorising which mines are fake won't work)";
+				}
+			}		   
 	}
 
 	@Override

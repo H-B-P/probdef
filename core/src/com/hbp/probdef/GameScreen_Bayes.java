@@ -23,11 +23,11 @@ import com.badlogic.gdx.audio.Sound;
 
 import com.hbp.probdef.ProbDef;
 
-public class GameScreen extends SpaceScreen {
+public class GameScreen_Bayes extends GameScreen {
 	
 	final ProbDef game;
 	
-	public GameScreen(final ProbDef gam, boolean play_the_sound) {
+	public GameScreen_Bayes(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		game=gam;
