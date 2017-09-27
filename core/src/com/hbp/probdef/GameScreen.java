@@ -34,6 +34,9 @@ public class GameScreen extends SpaceScreen {
 	
 	//--Textures--
 	
+
+	Texture enemyship_t;
+	
 	//-Dots-
 	
 	Texture destroy_dot_t;
@@ -96,6 +99,8 @@ public class GameScreen extends SpaceScreen {
    Array<Turret> turrets;
    Array<Turret_Standard> turrets_standard;
    
+   Array<EnemyShip> enemyships;
+   
    //--Rectangles--
     
    Rectangle menu_button_r;
@@ -125,7 +130,8 @@ public class GameScreen extends SpaceScreen {
 	   
 	float volley_ending_time;
 	
-	SpriteBatch gamey_batch;
+	SpriteBatch gamey_object_batch;
+	SpriteBatch gamey_interface_batch;
 	
 	public GameScreen(final ProbDef gam, boolean play_the_sound) {
 		
@@ -142,6 +148,7 @@ public class GameScreen extends SpaceScreen {
 	    dots = new Array<RT_Dot>();
 	    turrets= new Array<Turret>();
 	    turrets_standard= new Array<Turret_Standard>();
+	    enemyships=new Array<EnemyShip>();
 	    
 	    the_text="";
 	    show_the_text=false;
@@ -155,12 +162,16 @@ public class GameScreen extends SpaceScreen {
 	    
 	    level_specific_music_setup();
 	    
-	    gamey_batch=new SpriteBatch();
+	    gamey_interface_batch=new SpriteBatch();
+	    
+	    gamey_object_batch=new SpriteBatch();
 	}
 
 	//---Loading in resources which will be useful in all game modes---
 	
 	void load_in_textures(){
+		
+		enemyship_t=new Texture(Gdx.files.internal("enemyship.png"));
 		
 		//-Dots-
 		
@@ -327,21 +338,21 @@ public class GameScreen extends SpaceScreen {
 
 		void gamey_render_draw_objects(){
 			
-			gamey_batch.begin();
+			gamey_object_batch.begin();
 			
-			gamey_batch.setProjectionMatrix(camera.combined);
+			gamey_object_batch.setProjectionMatrix(camera.combined);
 			
 			draw_iterable_objects();
 			
-		    gamey_batch.draw(shipshield_t, shield_r.x, shield_r.y);
+		    gamey_object_batch.draw(shipshield_t, shield_r.x, shield_r.y);
 			
-			gamey_batch.end();
+			gamey_object_batch.end();
 		}
 		
 		void gamey_render_draw_interface(){
-			gamey_batch.begin();
+			gamey_interface_batch.begin();
 			
-			gamey_batch.setProjectionMatrix(camera.combined);
+			gamey_interface_batch.setProjectionMatrix(camera.combined);
 			
 			draw_the_statusbar(); //Draw the bar at the top of the screen, and everything on it.
 		    
@@ -350,10 +361,10 @@ public class GameScreen extends SpaceScreen {
 			}
 
 			
-			gamey_batch.draw(poncho_t, -640, -960); //Draw a massive object over everything to frame the game screen.
+			gamey_interface_batch.draw(poncho_t, -640, -960); //Draw a massive object over everything to frame the game screen.
 			
 			
-			gamey_batch.end();
+			gamey_interface_batch.end();
 		}
 		
 		void gamey_render_postdraw(){
@@ -484,11 +495,19 @@ public class GameScreen extends SpaceScreen {
 	   }
 	   
 	   void move_iterable_objects(float delta){
+		   for (EnemyShip enemyship:enemyships){
+			   enemyship.rect.x+=enemyship.horz_vel*delta;
+			   enemyship.rect.y-=enemyship.vert_vel*delta;
+			   
+			   enemyship.turret.rect.x=enemyship.rect.x+10;
+			   enemyship.turret.rect.y=enemyship.rect.y+5;
+		   }
+		   
+		   
 		   for (Mine mine:mines){
 			   mine.rect.x += mine.horz_vel * delta;
 			     mine.rect.y -= mine.vert_vel * delta;
-		   }
-		   for (Mine mine: mines){
+			     
 			   mine.shield_one.x=mine.rect.x-5;
 			   mine.shield_one.y=mine.rect.y-5;
 			   mine.shield_two.x=mine.rect.x-10;
@@ -525,54 +544,59 @@ public class GameScreen extends SpaceScreen {
 	void draw_iterable_objects(){
 		   for(Mine mine: mines) {
 		       if (mine.minetype.contains("titanium")){
-		    	   gamey_batch.draw(titaniummine_t, mine.rect.x-20, mine.rect.y-20);
+		    	   gamey_object_batch.draw(titaniummine_t, mine.rect.x-20, mine.rect.y-20);
 		       }
 		       else{
-		    	   gamey_batch.draw(mine_t, mine.rect.x-20, mine.rect.y-20);
+		    	   gamey_object_batch.draw(mine_t, mine.rect.x-20, mine.rect.y-20);
 		       }
 			   
 	          
 	          if (mine.being_detained){
-	        	  gamey_batch.draw(detaining_t, mine.rect.x-20, mine.rect.y-20);
+	        	  gamey_object_batch.draw(detaining_t, mine.rect.x-20, mine.rect.y-20);
 	          }
 	          if (mine.shields>=1){
-	        	  gamey_batch.draw(mine_shield_one_t, mine.shield_one.x, mine.shield_one.y);
+	        	  gamey_object_batch.draw(mine_shield_one_t, mine.shield_one.x, mine.shield_one.y);
 	          }
 	          if (mine.shields>=2){
-	        	  gamey_batch.draw(mine_shield_two_t, mine.shield_two.x, mine.shield_two.y);
+	        	  gamey_object_batch.draw(mine_shield_two_t, mine.shield_two.x, mine.shield_two.y);
 	          }
 	          if (mine.shields>=3){
-	        	  gamey_batch.draw(mine_shield_three_t, mine.shield_three.x, mine.shield_three.y);
+	        	  gamey_object_batch.draw(mine_shield_three_t, mine.shield_three.x, mine.shield_three.y);
 	          }
 	          if (mine.shields>=4){
-	        	  gamey_batch.draw(mine_shield_four_t, mine.shield_four.x, mine.shield_four.y);
+	        	  gamey_object_batch.draw(mine_shield_four_t, mine.shield_four.x, mine.shield_four.y);
 	          }
 	          
 	          if (mine.being_detained){
-	        	  gamey_batch.draw(detaining_t, mine.rect.x-20, mine.rect.y-20);
+	        	  gamey_object_batch.draw(detaining_t, mine.rect.x-20, mine.rect.y-20);
 	          }
 		          
 		   }
 		   
+		   for (EnemyShip enemyship: enemyships){
+			   gamey_object_batch.draw(enemyship_t, enemyship.rect.x-10, enemyship.rect.y);
+			   
+		   }
+		   
 			for(RT_Kaboom boom: explosions) {
-		          gamey_batch.draw(explosion_t, boom.rect.x-20, boom.rect.y-20);
+		          gamey_object_batch.draw(explosion_t, boom.rect.x-20, boom.rect.y-20);
 		       }
 			for(Turret_Standard turret_standard: turrets_standard) {
 				if (turret_standard.does_it_work){
-					gamey_batch.draw(turret_standard.current_t, turret_standard.rect.x, turret_standard.rect.y);
+					gamey_object_batch.draw(turret_standard.current_t, turret_standard.rect.x, turret_standard.rect.y);
 				}
 				else{
-					gamey_batch.draw(turret_standard.dead_t, turret_standard.rect.x, turret_standard.rect.y);
+					gamey_object_batch.draw(turret_standard.dead_t, turret_standard.rect.x, turret_standard.rect.y);
 				}
 		       }
 			
 			
 			for(RT_Dot dot: dots) {
 				if (dot.type.equals("destroy")){
-					gamey_batch.draw(destroy_dot_t, dot.rect.x, dot.rect.y);
+					gamey_object_batch.draw(destroy_dot_t, dot.rect.x, dot.rect.y);
 				}
 				if (dot.type.equals("capture")){
-					gamey_batch.draw(capture_dot_t, dot.rect.x, dot.rect.y);
+					gamey_object_batch.draw(capture_dot_t, dot.rect.x, dot.rect.y);
 				}
 				
 		       }
@@ -580,7 +604,7 @@ public class GameScreen extends SpaceScreen {
 			if (current_status.equals("firing")){
 				for(Turret turret: turrets) {
 					if (turret.does_it_work){
-						gamey_batch.draw(turret.overlay_t, turret.rect.x, turret.rect.y);
+						gamey_object_batch.draw(turret.overlay_t, turret.rect.x, turret.rect.y);
 						
 			       }
 				}
@@ -588,16 +612,16 @@ public class GameScreen extends SpaceScreen {
 			}
 			for (Turret_Standard turret_standard: turrets_standard){
 				if (turret_standard.turret_level==2){
-					gamey_batch.draw(scratch_two, turret_standard.rect.x+10, turret_standard.rect.y+15);
+					gamey_object_batch.draw(scratch_two, turret_standard.rect.x+10, turret_standard.rect.y+15);
 				}
 				if (turret_standard.turret_level==3){
-					gamey_batch.draw(scratch_three, turret_standard.rect.x+10, turret_standard.rect.y+15);
+					gamey_object_batch.draw(scratch_three, turret_standard.rect.x+10, turret_standard.rect.y+15);
 				}
 				if (turret_standard.turret_level==4){
-					gamey_batch.draw(scratch_four, turret_standard.rect.x+10, turret_standard.rect.y+15);
+					gamey_object_batch.draw(scratch_four, turret_standard.rect.x+10, turret_standard.rect.y+15);
 				}
 				if (turret_standard.turret_level==5){
-					gamey_batch.draw(scratch_five, turret_standard.rect.x+10, turret_standard.rect.y+15);
+					gamey_object_batch.draw(scratch_five, turret_standard.rect.x+10, turret_standard.rect.y+15);
 				}
 			}
 			
@@ -609,20 +633,20 @@ public class GameScreen extends SpaceScreen {
 	   }
 	   
 	   void draw_the_statusbar(){
-		   gamey_batch.draw(statusbar_t, 0, 400);
+		   gamey_interface_batch.draw(statusbar_t, 0, 400);
 			
-			gamey_batch.draw(menu_button_t,menu_button_r.x,menu_button_r.y);
+			gamey_interface_batch.draw(menu_button_t,menu_button_r.x,menu_button_r.y);
 		      if (menu_button_r.contains(tp_x, tp_y)){
-		    	  gamey_batch.draw(blue_button_trim_t,menu_button_r.x,menu_button_r.y);
+		    	  gamey_interface_batch.draw(blue_button_trim_t,menu_button_r.x,menu_button_r.y);
 		      }
 		      
-		      gamey_batch.draw(fire_button_t,fire_button_r.x,fire_button_r.y);
+		      gamey_interface_batch.draw(fire_button_t,fire_button_r.x,fire_button_r.y);
 				
 		      if (should_firing_button_be_lit_up()){
-		    	  gamey_batch.draw(orange_button_trim_t,fire_button_r.x,fire_button_r.y);
+		    	  gamey_interface_batch.draw(orange_button_trim_t,fire_button_r.x,fire_button_r.y);
 			   }
 		      if (fire_button_r.contains(tp_x, tp_y)){
-		    	  gamey_batch.draw(blue_button_trim_t,fire_button_r.x,fire_button_r.y);
+		    	  gamey_interface_batch.draw(blue_button_trim_t,fire_button_r.x,fire_button_r.y);
 		      }
 		      
 		      draw_the_HUD();
@@ -634,9 +658,9 @@ public class GameScreen extends SpaceScreen {
 	   }
 	
 	   void level_specific_HUD(){
-		   font.draw(gamey_batch, "MINES: "+minecount, 90, 464, 140, 1, true);
-		   font.draw(gamey_batch, "CAPTURED: "+captured, 90, 446, 140, 1, true);
-		   font.draw(gamey_batch, "DESTROYED: "+ destroyed, 90, 428, 140, 1, true);
+		   font.draw(gamey_interface_batch, "MINES: "+minecount, 90, 464, 140, 1, true);
+		   font.draw(gamey_interface_batch, "CAPTURED: "+captured, 90, 446, 140, 1, true);
+		   font.draw(gamey_interface_batch, "DESTROYED: "+ destroyed, 90, 428, 140, 1, true);
 	   }
 	
 	   void draw_textbox(String text){
@@ -644,30 +668,34 @@ public class GameScreen extends SpaceScreen {
 	   }
 	   
 	   void draw_textbox_one(String text){
-		   gamey_batch.draw(textbox_one_t, 20, 100);
+		   gamey_interface_batch.draw(textbox_one_t, 20, 100);
 		   if (greentext){
-			   greenfont.draw(gamey_batch, text, 30, 173, 260, 1, true);
+			   greenfont.draw(gamey_interface_batch, text, 30, 173, 260, 1, true);
 		   }
 		   else{
-			   blackfont.draw(gamey_batch, text, 30, 173, 260, 1, true);
+			   blackfont.draw(gamey_interface_batch, text, 30, 173, 260, 1, true);
 		   }
 	   }
 	   
 	   void draw_textbox_two(String text){
-		   gamey_batch.draw(textbox_two_t, 20, 100);
+		   gamey_interface_batch.draw(textbox_two_t, 20, 100);
 		   if (greentext){
-			   greenfont.draw(gamey_batch, text, 30, 191, 260, 1, true);
+			   greenfont.draw(gamey_interface_batch, text, 30, 191, 260, 1, true);
 		   }
 		   else{
-			   blackfont.draw(gamey_batch, text, 30, 191, 260, 1, true);
+			   blackfont.draw(gamey_interface_batch, text, 30, 191, 260, 1, true);
 		   }
 	   }
 	   
 	
 	
-	void handle_seconds(){
-		
-	}
+	   void handle_seconds(){
+		   if (seconds<Math.floor(total_time)){
+				seconds+=1;
+				System.out.println(seconds+" s");
+				level_specific_events();
+			}
+	   }
 	
 	//---Disposes---
 	

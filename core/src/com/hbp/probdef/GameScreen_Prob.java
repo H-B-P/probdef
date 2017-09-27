@@ -231,9 +231,9 @@ public class GameScreen_Prob extends GameScreen {
 	   @Override
 	   
 	   void level_specific_HUD(){
-		   font.draw(batch, "MINES: "+minecount, 90, 464, 140, 1, true);
-		   font.draw(batch, "CAPTURED: "+captured, 90, 446, 140, 1, true);
-		   font.draw(batch, "DESTROYED: "+ destroyed, 90, 428, 140, 1, true);
+		   font.draw(gamey_interface_batch, "MINES: "+minecount, 90, 464, 140, 1, true);
+		   font.draw(gamey_interface_batch, "CAPTURED: "+captured, 90, 446, 140, 1, true);
+		   font.draw(gamey_interface_batch, "DESTROYED: "+ destroyed, 90, 428, 140, 1, true);
 	   }
 	   //--Autocalc--
 	   
@@ -778,6 +778,8 @@ public class GameScreen_Prob extends GameScreen {
 		    
 			
 			batch.end();
+			
+			gamey_render_draw_interface();
 			
 			//Do appropriate things!
 			

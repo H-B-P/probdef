@@ -29,7 +29,6 @@ public class GameScreen_Bayes extends GameScreen {
 	
 	SpriteBatch batch;
 	
-	Texture enemyship_t;
 	
 	public GameScreen_Bayes(final ProbDef gam, boolean play_the_sound) {
 		
@@ -38,13 +37,14 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		batch=new SpriteBatch();
 		
-		enemyship_t=new Texture(Gdx.files.internal("enemyship.png"));
 	}
 	
 	//---level_specific_yadda_yadda()---
 	
 	void level_specific_timeline(){
-		   
+		   if (seconds==2){
+			   spawn_enemy_ship(0, "triangle");
+		   }
 	   }
 	
 	void level_specific_events(){
@@ -53,8 +53,13 @@ public class GameScreen_Bayes extends GameScreen {
 	
 	//---Spawning---
 	
-	void spawn_enemy_ship(){
-		
+	void spawn_enemy_ship(int xposn, String turret_id){
+		EnemyShip eship=new EnemyShip(xposn, turret_id);
+		enemyships.add(eship);
+		turrets.add(eship.turret);
+		turrets_standard.add((Turret_Standard)eship.turret);
+		eship.turret.rect.x=eship.rect.x+10;
+		eship.turret.rect.y=eship.rect.y+5;
 	}
 	
 	//---Useful functions---
@@ -87,11 +92,11 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		batch.setProjectionMatrix(camera.combined);
 		
-		batch.draw(enemyship_t, 20, 300);
+		//batch.draw(enemyship_t, 20, 300);
 		
-		batch.draw(enemyship_t, 120, 300);
+		//batch.draw(enemyship_t, 120, 300);
 		
-		batch.draw(enemyship_t, 220, 300);
+		//batch.draw(enemyship_t, 220, 300);
 		
 		batch.end();
 		

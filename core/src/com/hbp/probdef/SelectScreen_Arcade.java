@@ -195,15 +195,15 @@ public class SelectScreen_Arcade extends SelectScreen {
 				NUMBER_OF_LEVELS=5;
 				banner_t=banner_blank_t;
 				banner_s="Titanium";
-				one_s="Intro";
+				one_s="";//"Intro";
 				one_double_liner=false;
-				two_s="Barbell";
+				two_s="";//"Barbell";
 				two_double_liner=false;
-				three_s="Spread";
+				three_s="";//"Spread";
 				three_double_liner=false;
-				four_s="Titanium, Decoys";
+				four_s="";//"Titanium, Decoys";
 				four_double_liner=true;
-				five_s="Titanium Decoys";
+				five_s="";//"Titanium Decoys";
 				five_double_liner=true;
 			}
 			
