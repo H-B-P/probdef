@@ -21,7 +21,7 @@ public class EnemyShip {
 		   turret=new Turret_Standard(turret_id);
 		   
 		      rect = new Rectangle();
-		      double xposn_II = (xposn*30.0+160.0)-30.0;
+		      double xposn_II = (xposn*50.0+160.0)-30.0;
 		      rect.x = (float) xposn_II;
 		      rect.y = 420;
 		      rect.width = 60;

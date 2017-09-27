@@ -41,9 +41,6 @@ public class GameScreen_Prob extends GameScreen {
    int currently_active_turret_no; //this is one hell of an overburdened variable and probably needs refactoring.
    //When 0, means no turret has targeted or had the chance to. When 5, means all turrets have had a chance to target.
    
-   
-   
-	SpriteBatch batch;
 	
 	
 	
@@ -231,9 +228,9 @@ public class GameScreen_Prob extends GameScreen {
 	   @Override
 	   
 	   void level_specific_HUD(){
-		   font.draw(gamey_interface_batch, "MINES: "+minecount, 90, 464, 140, 1, true);
-		   font.draw(gamey_interface_batch, "CAPTURED: "+captured, 90, 446, 140, 1, true);
-		   font.draw(gamey_interface_batch, "DESTROYED: "+ destroyed, 90, 428, 140, 1, true);
+		   font.draw(batch, "MINES: "+minecount, 90, 464, 140, 1, true);
+		   font.draw(batch, "CAPTURED: "+captured, 90, 446, 140, 1, true);
+		   font.draw(batch, "DESTROYED: "+ destroyed, 90, 428, 140, 1, true);
 	   }
 	   //--Autocalc--
 	   
@@ -757,12 +754,13 @@ public class GameScreen_Prob extends GameScreen {
 	   public void probgame_render(float delta){
 		   gamey_render_predraw(delta); //Handle everything which happens before the actual drawing.
 			
-		   gamey_render_draw_objects(); //Draw material objects: mines, shields, etc.
 		   
 			batch.begin();
 			
 			batch.setProjectionMatrix(camera.combined);
 			
+			   gamey_render_draw_objects(); //Draw material objects: mines, shields, etc.
+
 		    
 		    if (current_status.equals("targeting")){
 				autocalc_and_display_dummy();
@@ -775,11 +773,9 @@ public class GameScreen_Prob extends GameScreen {
 		    
 		    draw_targeting_symbols(); //You know, the oddly-shaped crosshair things? Draw them.
 			
-		    
+			gamey_render_draw_interface();
 			
 			batch.end();
-			
-			gamey_render_draw_interface();
 			
 			//Do appropriate things!
 			
