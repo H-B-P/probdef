@@ -53,7 +53,7 @@ public class SpaceScreen extends MetaScreen {
 	
 	public String current_status;
 	
-	private SpriteBatch batch;
+	private SpriteBatch spacey_batch;
 	
 	public SpaceScreen(final ProbDef gam, boolean play_the_sound) {
 		
@@ -65,7 +65,7 @@ public class SpaceScreen extends MetaScreen {
 		
 		game = gam;
 		
-		batch= new SpriteBatch();
+		spacey_batch= new SpriteBatch();
 		
 		font = new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
 		font.setColor(Color.BLACK);
@@ -109,23 +109,23 @@ public class SpaceScreen extends MetaScreen {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f); //Make the background at the base of everything black.
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //Prevent objects from sticking around between frames.
 		
-		batch.begin();
+		spacey_batch.begin();
 		
-		batch.setProjectionMatrix(camera.combined);
+		spacey_batch.setProjectionMatrix(camera.combined);
 		
 		
 	      draw_spacey_background(); //draws starry backgrounds which loop at different speeds to give the illusion of parallax.
 	      
-	      batch.draw(ship_t, 0, ship_posn); //draw the ship!
+	      spacey_batch.draw(ship_t, 0, ship_posn); //draw the ship!
 	      
-		batch.end();
+		spacey_batch.end();
 	}
 	
-	public void draw_spacey_background(){
-		batch.draw(starry_background_layer_one_t, 0f, 800-(float)((total_time*starspeed_one)%1600));
-	      batch.draw(starry_background_layer_one_t, 0f, 800-(float)((total_time*starspeed_one+800)%1600));
-	      batch.draw(starry_background_layer_two_t, 0f, 1100-(float)((total_time*starspeed_two)%2200));
-	      batch.draw(starry_background_layer_two_t, 0f, 1100-(float)((total_time*starspeed_two+1100)%2200));
+	void draw_spacey_background(){
+		spacey_batch.draw(starry_background_layer_one_t, 0f, 800-(float)((total_time*starspeed_one)%1600));
+	      spacey_batch.draw(starry_background_layer_one_t, 0f, 800-(float)((total_time*starspeed_one+800)%1600));
+	      spacey_batch.draw(starry_background_layer_two_t, 0f, 1100-(float)((total_time*starspeed_two)%2200));
+	      spacey_batch.draw(starry_background_layer_two_t, 0f, 1100-(float)((total_time*starspeed_two+1100)%2200));
 	}
 	
 	@Override
@@ -133,11 +133,11 @@ public class SpaceScreen extends MetaScreen {
 		//Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 		spacey_render(delta);
 		
-		batch.begin();
-		batch.setProjectionMatrix(camera.combined);
-		batch.draw(statusbar_t, 0, 400);
+		spacey_batch.begin();
+		spacey_batch.setProjectionMatrix(camera.combined);
+		spacey_batch.draw(statusbar_t, 0, 400);
 		
-		batch.end();
+		spacey_batch.end();
 	}
 
 	@Override
@@ -158,14 +158,12 @@ public class SpaceScreen extends MetaScreen {
 
 	@Override
 	public void dispose() {
-		gamey_dispose();
+		spacey_dispose();
 	}
 	
-	public void gamey_dispose(){
+	public void spacey_dispose(){
 		
 		meta_dispose();
-		bgm.stop();
-		bgm.dispose();
 		
 		starry_background_layer_one_t.dispose();
 		starry_background_layer_two_t.dispose();
@@ -176,6 +174,6 @@ public class SpaceScreen extends MetaScreen {
 		shipshield_normal_t.dispose();
 		shipshield_flicker_t.dispose();
 		
-		batch.dispose();
+		spacey_batch.dispose();
 	}
 }

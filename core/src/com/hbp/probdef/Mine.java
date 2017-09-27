@@ -7,7 +7,7 @@ public class Mine {
 	   
 	   String minetype; //Currently supports "decoy", "regular", "titanium", and "decoytitanium".
 	   
-	   float vert_speed;
+	   float vert_vel;
 	   float horz_vel;
 	   
 	   Rectangle shield_one;
@@ -51,7 +51,7 @@ public class Mine {
 		      rect.width = 41;
 		      rect.height = 41;
 		      
-		      vert_speed = m_speed;
+		      vert_vel = m_speed;
 		      
 
 			   set_up_shields();

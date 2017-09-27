@@ -152,7 +152,7 @@ public class BookScreen extends GameScreen_Prob {
 		
 		current_status="waiting";
 		
-		fiat_function();
+		make_every_turret_work();
 	}
 	
 	@Override
@@ -227,13 +227,6 @@ public class BookScreen extends GameScreen_Prob {
 			   }
 		}
 	}
-	
-	@Override
-	
-	void return_to_menu(){
-		   game.setScreen(new SelectScreen_Library(game, true));
-			  dispose();
-	   }
 	
 	void generic_book_dispose(){
 		probgame_dispose();

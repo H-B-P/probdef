@@ -27,9 +27,92 @@ public class GameScreen_Bayes extends GameScreen {
 	
 	final ProbDef game;
 	
+	SpriteBatch batch;
+	
+	Texture enemyship_t;
+	
 	public GameScreen_Bayes(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		game=gam;
+		
+		batch=new SpriteBatch();
+		
+		enemyship_t=new Texture(Gdx.files.internal("enemyship.png"));
 	}
+	
+	//---level_specific_yadda_yadda()---
+	
+	void level_specific_timeline(){
+		   
+	   }
+	
+	void level_specific_events(){
+		
+	}
+	
+	//---Spawning---
+	
+	void spawn_enemy_ship(){
+		
+	}
+	
+	//---Useful functions---
+	
+	
+	
+	
+	//---Do things---
+	
+	void do_firing_things(){
+		
+	}
+	
+	void do_targeting_things(){
+		
+	}
+	
+	void do_zapping_things(){
+		
+	}
+	
+	//---The render---
+	
+	public void render(float delta){
+		gamey_render_predraw(delta);
+		
+		gamey_render_draw_objects();
+		
+		batch.begin();
+		
+		batch.setProjectionMatrix(camera.combined);
+		
+		batch.draw(enemyship_t, 20, 300);
+		
+		batch.draw(enemyship_t, 120, 300);
+		
+		batch.draw(enemyship_t, 220, 300);
+		
+		batch.end();
+		
+		gamey_render_draw_interface();
+		
+		check_for_dot_mineshield_collisions();
+		
+		check_for_dot_mine_collisions();
+		
+		//check_for_mine_enemyshipshield_collisions();
+		
+		//check_for_dot_shipshield_collisions();
+		
+		gamey_render_postdraw();
+		
+		if(Gdx.input.justTouched()){
+			if (menu_button_r.contains(tp_x, tp_y)){
+				game.setScreen(new TitleScreen(game, true));
+				  dispose();
+			}
+		}
+	}
+	
 }

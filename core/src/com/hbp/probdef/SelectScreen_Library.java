@@ -1,16 +1,11 @@
 package com.hbp.probdef;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
 
 
 public class SelectScreen_Library extends SelectScreen {
-	   
-	private Texture banner_prob_t;
-	private Texture banner_bayes_t;
-	private Texture banner_pascal_t;
 	
 	   public SelectScreen_Library(final ProbDef gam, boolean play_the_sound){
 			super(gam, play_the_sound);
@@ -35,9 +30,7 @@ public class SelectScreen_Library extends SelectScreen {
 	   @Override
 	   
 	   public void load_in_banner_textures(){
-		   banner_prob_t=new Texture(Gdx.files.internal("banner_probability.png"));
-		   banner_bayes_t=new Texture(Gdx.files.internal("banner_bayes.png"));
-		   banner_pascal_t=new Texture(Gdx.files.internal("banner_pascal.png"));
+		   
 	   }
 	   
 	   @Override
