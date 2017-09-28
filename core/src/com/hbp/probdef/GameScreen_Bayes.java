@@ -11,6 +11,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -36,6 +37,18 @@ public class GameScreen_Bayes extends GameScreen {
 	int shipwave;
 	int total_shipwaves;
 	
+	String shiptype_one;
+	String shiptype_two;
+	String shiptype_three;
+	
+	int percentfreq_one;
+	int percentfreq_two;
+	int percentfreq_three;
+	
+	int assumedfreq_one;
+	int assumedfreq_two;
+	int assumedfreq_three;
+	
 	public GameScreen_Bayes(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
@@ -47,7 +60,11 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		shields=20;
 		
+		total_shipwaves=10;
+		
 		vane_setup();
+		
+		level_specific_environment_setup();
 	}
 	
 	void vane_setup(){
@@ -66,6 +83,30 @@ public class GameScreen_Bayes extends GameScreen {
 		vanes.add(vane_one);
 		vanes.add(vane_two);
 	}
+	
+	void display_probabilities(){
+		for (EnemyShip enemyship:enemyships){
+			if (enemyship.obscured){
+				acalc_greenfont.draw(batch, "T: "+present_float(enemyship.assignedprob_one*100.0f)+"%\nP: "+present_float(enemyship.assignedprob_two*100.0f)+"%", enemyship.rect.x-20, enemyship.rect.y-20, 100, 1, true);
+			}
+		}
+	}
+	
+	void level_specific_environment_setup(){
+		shiptype_one="triangle";
+		shiptype_two="pentagon";
+		shiptype_three="triangle";
+		
+		percentfreq_one=50;
+		percentfreq_two=50;
+		percentfreq_three=0;
+		
+		assumedfreq_one=50;
+		assumedfreq_two=50;
+		assumedfreq_three=0;
+	}
+	
+	
 	
 	//---level_specific_yadda_yadda()---
 	
@@ -97,34 +138,93 @@ public class GameScreen_Bayes extends GameScreen {
 	
 	void level_specific_timeline(){
 		   
-	   }
+	}
 	
 	void level_specific_events(){
-		if (seconds==2){
-			   spawn_enemy_ship(-2, "pentagon");
-			   spawn_enemy_ship(0, "triangle");
-			   spawn_enemy_ship(2, "triangle");
-			
-			//spawn_enemy_ship(-1, "square");
-			//spawn_enemy_ship(1, "circle");
-			
-			
-		   }
+		
 	}
 	
 	void level_specific_waves(){
-		
+		if (shipwave==1){
+			//spawn_enemy_ship(-1, "triangle", false);
+			//spawn_enemy_ship(1, "triangle", false);
+			spawn_random_obscured(-1);
+			spawn_random_obscured(1);
+		}
+		if (shipwave==2){
+			spawn_enemy_ship(-1, "pentagon", false);
+			spawn_enemy_ship(1, "triangle", false);
+		}
+		if (shipwave==3){
+			spawn_enemy_ship(-2, "triangle", false);
+			spawn_enemy_ship(0, "pentagon", false);
+			spawn_enemy_ship(2, "triangle", false);
+		}
+		if (shipwave==4){
+			spawn_enemy_ship(-2, "pentagon", false);
+			spawn_enemy_ship(0, "triangle", false);
+			spawn_enemy_ship(2, "pentagon", false);
+		}
+		if (shipwave==5){
+			spawn_random_obscured(0);
+		}
+		if (shipwave==6){
+			spawn_random_obscured(-1);
+			spawn_random_obscured(1);
+		}
+		if (shipwave==7){
+			spawn_random_obscured(-2);
+			spawn_enemy_ship(0,"pentagon",false);
+			spawn_random_obscured(2);
+		}
+		if (shipwave>total_shipwaves){
+			game.setScreen(new SelectScreen_Arcade(game, true));
+			  dispose();
+		}
 	}
 	
 	void level_specific_de_sheild(String dot_type){
 		
 	}
 	
+	void level_specific_bayesian_update(String dot_type, EnemyShip enemyship){
+		if (dot_type.equals("destroy")){
+			enemyship.assignedprob_one=enemyship.assignedprob_one*0.4f;
+			enemyship.assignedprob_two=enemyship.assignedprob_two*0.8f;
+		}
+		if (dot_type.equals("capture")){
+			enemyship.assignedprob_one=enemyship.assignedprob_one*0.3f;
+			enemyship.assignedprob_two=enemyship.assignedprob_two*0.1f;
+		}
+		if (dot_type.equals("fail")){
+			enemyship.assignedprob_one=enemyship.assignedprob_one*0.3f;
+			enemyship.assignedprob_two=enemyship.assignedprob_two*0.1f;
+		}
+		normalize(enemyship);
+	}
 	
 	//---Spawning---
 	
-	void spawn_enemy_ship(int xposn, String turret_id){
-		EnemyShip enemyship=new EnemyShip(xposn, turret_id);
+	void spawn_random_obscured(int xposn){
+		int k=MathUtils.random(1,100);
+		if (k<percentfreq_one){
+			spawn_enemy_ship(xposn, shiptype_one, true);
+		}
+		else if (k<(percentfreq_one+percentfreq_two)){
+			spawn_enemy_ship(xposn, shiptype_two, true);
+		}
+		else{
+			spawn_enemy_ship(xposn, shiptype_three, true);
+		}
+	}
+	
+	void spawn_enemy_ship(int xposn, String turret_id, boolean obsc){
+		EnemyShip enemyship=new EnemyShip(xposn, turret_id, obsc);
+		
+		enemyship.assignedprob_one=(float)assumedfreq_one/100f;
+		enemyship.assignedprob_two=(float)assumedfreq_two/100f;
+		enemyship.assignedprob_three=(float)assumedfreq_three/100f;
+		
 		enemyships.add(enemyship);
 		turrets.add(enemyship.turret);
 		turrets_standard.add((Turret_Standard)enemyship.turret);
@@ -177,13 +277,22 @@ public class GameScreen_Bayes extends GameScreen {
 	@Override
 	
 	void level_specific_HUD(){
-		   font.draw(batch, "WAVE: "+"?/?", 90, 464, 140, 1, true);
-		   font.draw(batch, "MINES: "+minecount, 90, 446, 140, 1, true);
-		   font.draw(batch, "SHIELDS: "+ shields, 90, 428, 140, 1, true);
-	   }
+		font.draw(batch, "TRI/PENT", 90, 473, 140, 1, true);
+		font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
+		font.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
+		font.draw(batch, "SHIELDS: "+ shields, 90, 419, 140, 1, true);
+	}
 	
 	//---Useful functions---
 	
+	void normalize(EnemyShip enemyship){
+		float total=enemyship.assignedprob_one+enemyship.assignedprob_two+enemyship.assignedprob_three;
+		if (total>0){
+			enemyship.assignedprob_one=enemyship.assignedprob_one/total;
+			enemyship.assignedprob_two=enemyship.assignedprob_two/total;
+			enemyship.assignedprob_three=enemyship.assignedprob_three/total;
+		}
+	}
 	
 	EnemyShip pick_a_ship(){
 		for(EnemyShip enemyship: enemyships) {
@@ -224,8 +333,8 @@ public class GameScreen_Bayes extends GameScreen {
 	}
 	
 	void hand_over_to_zapping(){
-		//currently_active_vane=vanes.first();
 		current_status="zapping";
+		currently_active_vane=null;
 		set_up_zapping_times();
 	}
 	
@@ -237,16 +346,18 @@ public class GameScreen_Bayes extends GameScreen {
 		current_status="firing";
 	}
 	
-	
 	void do_firing_things(){
-		for(Turret turret: turrets) {
-			if (turret.targeted){
-			   if (turret.turret_type.equals("standard")){
-				   Turret_Standard T=(Turret_Standard)turret;
+		for(EnemyShip enemyship:enemyships){
+			if (enemyship.turret.targeted){
+			   if (enemyship.turret.turret_type.equals("standard")){
+				   Turret_Standard T=(Turret_Standard)enemyship.turret;
 				   if (T.targeted && (T.firing_time+0.01f*T.shotsmade)<total_time){
 					   if (T.shotsmade==0){fire.play(0.3f);}
 					   T.shotsmade+=1;
-					   RT_Dot dot=new RT_Dot(turret.rect, 160, 0, 3000, turret.determine_output());
+					   String output=enemyship.turret.determine_output();
+					   
+					   level_specific_bayesian_update(output, enemyship);
+					   RT_Dot dot=new RT_Dot(enemyship.turret.rect, 160, 0, 3000, output);
 					   dots.add(dot);
 				   }
 				   
@@ -258,14 +369,15 @@ public class GameScreen_Bayes extends GameScreen {
 					   
 			   
 		   }
-			if (turret.firing_time<total_time && (turret.firing_time+0.1f)>total_time){
-			   turret.current_t=turret.firing_t;
+			if (enemyship.turret.firing_time<total_time && (enemyship.turret.firing_time+0.1f)>total_time){
+			   enemyship.turret.current_t=enemyship.turret.firing_t;
 		   }
 		   else{
-				turret.current_t=turret.normal_t;
+				enemyship.turret.current_t=enemyship.turret.normal_t;
 		   }
 		}
 		if (total_time>volley_ending_time){
+			
 			current_status="waiting";
 			status_effects();
 	    }
@@ -281,7 +393,7 @@ public class GameScreen_Bayes extends GameScreen {
 			}
 			if (Gdx.input.justTouched() && currently_active_vane.rect.contains(tp_x,tp_y)){
 				currently_active_vane.current_energy=level_specific_forward_energy_cycle(currently_active_vane.current_energy);
-				shock.play(0.4f);
+				//shock.play(0.4f);
 			}
 			skip_through_vanes();
 		}
@@ -321,6 +433,16 @@ public class GameScreen_Bayes extends GameScreen {
 					}
 					else{
 						mistaken.play(0.7f);
+						if (vane.current_energy.equals(shiptype_one)){
+							vane.target_ship.assignedprob_one=0;
+						}
+						if (vane.current_energy.equals(shiptype_two)){
+							vane.target_ship.assignedprob_two=0;
+						}
+						if (vane.current_energy.equals(shiptype_three)){
+							vane.target_ship.assignedprob_three=0;
+						}
+						normalize(vane.target_ship);
 					}
 				}
 			}
@@ -344,8 +466,14 @@ public class GameScreen_Bayes extends GameScreen {
 				hand_over_to_targeting();
 			}
 			
-			if (seconds%4==2 && any_interesting_ships()){
-				hand_over_to_firing();
+			if (seconds%4==2){
+				if(any_interesting_ships()){
+					hand_over_to_firing();
+				}
+				else{
+					shipwave+=1;
+					level_specific_waves();
+				}
 			}
 			
 			System.out.println(seconds+" s");
@@ -379,6 +507,21 @@ public class GameScreen_Bayes extends GameScreen {
 		for (Vane vane:vanes){
 			if (vane==currently_active_vane){
 			   batch.draw(vane_trim_t, vane.rect.x, vane.rect.y);
+			   if (vane.current_energy.equals("circle")){
+					batch.draw(vane_crosshairs_circle_t, tp_x-30, tp_y-30);
+				}
+				if (vane.current_energy.equals("triangle")){
+					batch.draw(vane_crosshairs_triangle_t, tp_x-30, tp_y-30);
+				}
+				if (vane.current_energy.equals("square")){
+					batch.draw(vane_crosshairs_square_t, tp_x-30, tp_y-30);
+				}
+				if (vane.current_energy.equals("pentagon")){
+					batch.draw(vane_crosshairs_pentagon_t, tp_x-30, tp_y-30);
+				}
+				if (vane.current_energy.equals("hexagon")){
+					batch.draw(vane_crosshairs_hexagon_t, tp_x-30, tp_y-30);
+				}
 			}
 			if (vane.targeted){
 				if (vane.current_energy.equals("circle")){
@@ -432,6 +575,8 @@ public class GameScreen_Bayes extends GameScreen {
 		gamey_render_draw_objects();
 		
 		draw_energy_things();
+		
+		display_probabilities();
 		
 		draw_targeting_things();
 		

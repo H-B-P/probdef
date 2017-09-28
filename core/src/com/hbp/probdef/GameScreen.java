@@ -36,6 +36,8 @@ public class GameScreen extends SpaceScreen {
 	
 
 	Texture enemyship_t;
+	Texture obscurity_t;
+	Texture big_explosion_t;
 	
 	//-Dots-
 	
@@ -64,7 +66,7 @@ public class GameScreen extends SpaceScreen {
    Texture mine_trim_t;
    
    Texture explosion_t;
-   Texture big_explosion_t;
+   
    Texture detaining_t;
    
    //-Textboxes
@@ -193,6 +195,7 @@ public class GameScreen extends SpaceScreen {
 	    attention_button_trim_t=blue_button_trim_t;
 	    
 	    big_explosion_t=new Texture(Gdx.files.internal("big_explosion.png"));
+	    obscurity_t=new Texture(Gdx.files.internal("obscurity.png"));
 	    
 	    batch=new SpriteBatch();
 	}
@@ -464,6 +467,8 @@ public class GameScreen extends SpaceScreen {
 			
 			draw_turret_chickenscratch();
 			
+			draw_obscurities();
+			
 		    batch.draw(shipshield_t, shield_r.x, shield_r.y);
 		}
 		
@@ -618,7 +623,7 @@ public class GameScreen extends SpaceScreen {
 			   enemyship.rect.x+=enemyship.horz_vel*delta;
 			   enemyship.rect.y-=enemyship.vert_vel*delta;
 			   
-			   enemyship.rect.y=Math.max(enemyship.rect.y,300);
+			   enemyship.rect.y=Math.max(enemyship.rect.y,enemyship.ylim);
 			   
 			   enemyship.turret.rect.x=enemyship.rect.x+10;
 			   enemyship.turret.rect.y=enemyship.rect.y+10;
@@ -627,7 +632,7 @@ public class GameScreen extends SpaceScreen {
 		   
 		   for (Mine mine:mines){
 			   mine.rect.x += mine.horz_vel * delta;
-			     mine.rect.y -= mine.vert_vel * delta;
+			   mine.rect.y -= mine.vert_vel * delta;
 			     
 			   mine.shield_one.x=mine.rect.x-5;
 			   mine.shield_one.y=mine.rect.y-5;
@@ -717,7 +722,6 @@ public class GameScreen extends SpaceScreen {
 	   void draw_enemyships(){
 		   for (EnemyShip enemyship: enemyships){
 			   batch.draw(enemyship_t, enemyship.rect.x-10, enemyship.rect.y);
-			   
 		   }
 	   }
 	   
@@ -781,6 +785,14 @@ public class GameScreen extends SpaceScreen {
 					batch.draw(scratch_five, turret_standard.rect.x+10, turret_standard.rect.y+15);
 				}
 			}
+	   }
+	   
+	   void draw_obscurities(){
+		   for (EnemyShip enemyship: enemyships){
+			   if (enemyship.obscured){
+				   batch.draw(obscurity_t, enemyship.rect.x, enemyship.rect.y);
+			   }
+		   }
 	   }
 	   
 	   void draw_vanes(){

@@ -10,16 +10,24 @@ public class EnemyShip {
 	   float vert_vel;
 	   float horz_vel;
 	   
+	   float ylim;
+	   
 	   Rectangle shield;
 	   
 	   boolean actually_there;
+	   boolean obscured;
 	   
-	   public EnemyShip(int xposn, String turret_id){
+	   float assignedprob_one;
+	   float assignedprob_two;
+	   float assignedprob_three;
+	   
+	   public EnemyShip(int xposn, String turret_id, boolean obsc){
 		   
 		   horz_vel=0;
 		   vert_vel=100;
 		   
 		   actually_there=true;
+		   obscured=obsc;
 		   
 		   turret=new Turret_Standard(turret_id);
 		   
@@ -29,6 +37,8 @@ public class EnemyShip {
 		      rect.y = 420;
 		      rect.width = 60;
 		      rect.height = 60;
+		      
+		      ylim=310;
 		      
 		      
 	   }
