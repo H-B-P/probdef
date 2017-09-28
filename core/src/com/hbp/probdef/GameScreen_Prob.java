@@ -58,6 +58,7 @@ public class GameScreen_Prob extends GameScreen {
 	      captured=0;
 	      destroyed=0;
 	      
+	      
 	      minecount=20;
 	      shields=100;
 	      
@@ -69,6 +70,8 @@ public class GameScreen_Prob extends GameScreen {
 	      greentext=false;
 	      
 	      mine_trim_t=new Texture(Gdx.files.internal("mine_trim.png"));
+	      
+	      attention_button_trim_t=orange_button_trim_t;
 	      
 	}
 	
@@ -509,19 +512,7 @@ public class GameScreen_Prob extends GameScreen {
 		   }
 	   }
 	   
-	   private void set_up_firing_times(){
-		   
-		   float q=total_time+0.05f;
-		   
-		   for (Turret turret: turrets){
-			   if (turret.targeted){
-				   q+=0.15;
-				   turret.firing_time=q;
-			   }
-		   }
-		   
-		   volley_ending_time=q+0.2f;
-	   }
+	   
 	   
 	   private void skip_through_turrets(){
 		   boolean exitwhile=false;

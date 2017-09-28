@@ -5,4 +5,5 @@ import com.badlogic.gdx.math.Rectangle;
 public class RT_Kaboom {
 	   Rectangle rect;
 	   float birthtime;
+	   boolean big;
 }

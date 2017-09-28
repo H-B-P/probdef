@@ -59,4 +59,14 @@ public class Turret {
 		   return "destroy";
 	   }
 	   
+	   public void dispose(){
+		   normal_t.dispose();
+		   firing_t.dispose();
+		   selected_t.dispose();
+		   dead_t.dispose();
+		   overlay_t.dispose();
+		   
+		   target_t.dispose();
+	   }
+	   
 }

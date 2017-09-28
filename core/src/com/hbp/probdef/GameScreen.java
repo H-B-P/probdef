@@ -45,9 +45,12 @@ public class GameScreen extends SpaceScreen {
 	//-Buttons-
 	Texture fire_button_t;
 	Texture menu_button_t;
+	
 	Texture blue_button_trim_t;
 	Texture orange_button_trim_t;
+	Texture green_button_trim_t;
    
+	Texture attention_button_trim_t;
    //-Mines and so on-
    Texture mine_t;
    
@@ -61,6 +64,7 @@ public class GameScreen extends SpaceScreen {
    Texture mine_trim_t;
    
    Texture explosion_t;
+   Texture big_explosion_t;
    Texture detaining_t;
    
    //-Textboxes
@@ -75,6 +79,24 @@ public class GameScreen extends SpaceScreen {
 	Texture scratch_four;
 	Texture scratch_five;
    
+	
+	//--Vanes et al--
+	
+	Texture vane_t;
+	Texture vane_trim_t;
+	
+	Texture vane_energy_circle_t;
+	Texture vane_energy_triangle_t;
+	Texture vane_energy_square_t;
+	Texture vane_energy_pentagon_t;
+	Texture vane_energy_hexagon_t;
+	
+	Texture vane_crosshairs_circle_t;
+	Texture vane_crosshairs_triangle_t;
+	Texture vane_crosshairs_square_t;
+	Texture vane_crosshairs_pentagon_t;
+	Texture vane_crosshairs_hexagon_t;
+	
    //--Sounds--
    
    Sound minesplode;
@@ -82,6 +104,9 @@ public class GameScreen extends SpaceScreen {
 	Sound deshield;
 	Sound capture;
 	Sound fire;
+	Sound laser;
+	Sound mistaken;
+	Sound shock;
 	
 	//--Fonts--
 	
@@ -100,6 +125,8 @@ public class GameScreen extends SpaceScreen {
    Array<Turret_Standard> turrets_standard;
    
    Array<EnemyShip> enemyships;
+   
+   Array<Vane> vanes;
    
    //--Rectangles--
     
@@ -129,6 +156,7 @@ public class GameScreen extends SpaceScreen {
 	float effective_delta;
 	   
 	float volley_ending_time;
+	float zappy_ending_time;
 	
 	SpriteBatch batch;
 	
@@ -148,6 +176,7 @@ public class GameScreen extends SpaceScreen {
 	    turrets= new Array<Turret>();
 	    turrets_standard= new Array<Turret_Standard>();
 	    enemyships=new Array<EnemyShip>();
+	    vanes=new Array<Vane>();
 	    
 	    the_text="";
 	    show_the_text=false;
@@ -161,6 +190,10 @@ public class GameScreen extends SpaceScreen {
 	    
 	    level_specific_music_setup();
 	    
+	    attention_button_trim_t=blue_button_trim_t;
+	    
+	    big_explosion_t=new Texture(Gdx.files.internal("big_explosion.png"));
+	    
 	    batch=new SpriteBatch();
 	}
 
@@ -168,7 +201,27 @@ public class GameScreen extends SpaceScreen {
 	
 	void load_in_textures(){
 		
-		enemyship_t=new Texture(Gdx.files.internal("enemyship.png"));
+		//-Vanes et al-
+		
+		vane_t=new Texture(Gdx.files.internal("vanes/vane.png"));
+		vane_trim_t=new Texture(Gdx.files.internal("vanes/vane_trim.png"));
+		
+		vane_energy_circle_t= new Texture(Gdx.files.internal("vanes/vanes_energy_circle.png"));
+		vane_energy_triangle_t= new Texture(Gdx.files.internal("vanes/vanes_energy_triangle.png"));
+		vane_energy_square_t= new Texture(Gdx.files.internal("vanes/vanes_energy_square.png"));
+		vane_energy_pentagon_t= new Texture(Gdx.files.internal("vanes/vanes_energy_pentagon.png"));
+		vane_energy_hexagon_t= new Texture(Gdx.files.internal("vanes/vanes_energy_hexagon.png"));
+		
+		vane_crosshairs_circle_t= new Texture(Gdx.files.internal("vanes/vanes_target_circle.png"));
+		vane_crosshairs_triangle_t= new Texture(Gdx.files.internal("vanes/vanes_target_triangle.png"));
+		vane_crosshairs_square_t= new Texture(Gdx.files.internal("vanes/vanes_target_square.png"));
+		vane_crosshairs_pentagon_t= new Texture(Gdx.files.internal("vanes/vanes_target_pentagon.png"));
+		vane_crosshairs_hexagon_t= new Texture(Gdx.files.internal("vanes/vanes_target_hexagon.png"));
+		
+		
+		//-Enemyship-
+		
+		enemyship_t=new Texture(Gdx.files.internal("enemyship_alt.png"));
 		
 		//-Dots-
 		
@@ -182,7 +235,8 @@ public class GameScreen extends SpaceScreen {
 
 	    blue_button_trim_t=new Texture(Gdx.files.internal("ingame_blue_button_trim.png"));
 	    orange_button_trim_t=new Texture(Gdx.files.internal("ingame_orange_button_trim.png"));
-		
+	    green_button_trim_t=new Texture(Gdx.files.internal("ingame_green_button_trim.png"));
+	    
 	    //-Textboxes-
 	    
 	    textbox_one_t=new Texture(Gdx.files.internal("textbox_1.png"));
@@ -218,6 +272,9 @@ public class GameScreen extends SpaceScreen {
 	    deshield=Gdx.audio.newSound(Gdx.files.internal("sfx_scronched/hurt.wav"));
 	    capture=Gdx.audio.newSound(Gdx.files.internal("sfx_scronched/pick.mp3"));
 	    fire=Gdx.audio.newSound(Gdx.files.internal("sfx_scronched/gunshot.mp3"));
+	    laser=Gdx.audio.newSound(Gdx.files.internal("sfx_scronched/laser.wav"));
+	    mistaken=Gdx.audio.newSound(Gdx.files.internal("sfx_scronched/wrong.wav"));
+	    shock=Gdx.audio.newSound(Gdx.files.internal("sfx_scronched/shock.mp3"));
 	}
 	
 	void load_in_fonts(){
@@ -253,8 +310,27 @@ public class GameScreen extends SpaceScreen {
 		   RT_Kaboom boom = new RT_Kaboom();
 		   boom.rect= new Rectangle();
 		   boom.birthtime=total_time;
-		   boom.rect.x= X;
-		   boom.rect.y= Y;
+
+		   boom.rect.x= X-20;
+		   boom.rect.y= Y-20;
+		   boom.rect.width=80;
+		   boom.rect.height=80;
+		   
+		   boom.big=false;
+		   explosions.add(boom);
+	}
+	
+	void spawnBigExplosion(float X, float Y){
+		   RT_Kaboom boom = new RT_Kaboom();
+		   boom.rect= new Rectangle();
+		   boom.birthtime=total_time;
+		   
+		   boom.rect.x= X-30;
+		   boom.rect.y= Y-30;
+		   boom.rect.width=100;
+		   boom.rect.height=100;
+		   
+		   boom.big=true;
 		   explosions.add(boom);
 	}
 	
@@ -287,6 +363,37 @@ public class GameScreen extends SpaceScreen {
 		   }
 	   }
 	   
+	   
+	   
+	   void set_up_zapping_times(){
+		   
+		   float q=total_time+0.05f;
+		   
+		   for (Vane vane: vanes){
+			   if (vane.targeted){
+				   q+=0.15;
+				   vane.firing_time=q;
+			   }
+		   }
+		   
+		   zappy_ending_time=q+0.2f;
+	   }
+	   
+	   
+	   
+	   void set_up_firing_times(){
+		   
+		   float q=total_time+0.05f;
+		   
+		   for (Turret turret: turrets){
+			   if (turret.targeted){
+				   q+=0.15;
+				   turret.firing_time=q;
+			   }
+		   }
+		   
+		   volley_ending_time=q+0.2f;
+	   }
 	   
 	   //---The render---
 	
@@ -347,6 +454,8 @@ public class GameScreen extends SpaceScreen {
 			
 			draw_explosions();
 			
+			draw_vanes();
+			
 			draw_turrets_standard();
 			
 			draw_dots();
@@ -383,7 +492,8 @@ public class GameScreen extends SpaceScreen {
 		}
 		
 		void check_for_dot_mine_collisions(){
-			   for (RT_Dot dot:dots){
+			for (RT_Dot dot:dots){
+			   if (dot.target_mine!=null){
 				   if (dot.rect.overlaps(dot.target_mine.rect) && dot.target_mine.actually_there){
 					    	 
 					   if (dot.type.equals("destroy") && !dot.target_mine.destroyproof){
@@ -395,46 +505,51 @@ public class GameScreen extends SpaceScreen {
 							     	
 							     	mines.removeValue(dot.target_mine,true);
 							     	
-					    	 }
-					    	 if (dot.type.equals("capture") && !dot.target_mine.captureproof){
-						    	 dot.target_mine.being_detained=true;
-						    	 dot.target_mine.actually_there=false;
-						    	 exit_stage_whatever(dot.target_mine);
-						    	 capture.play();
-					    	 }
-					    	 dots.removeValue(dot, true);
-					     }
+					   }
+					   if (dot.type.equals("capture") && !dot.target_mine.captureproof){
+					    	 dot.target_mine.being_detained=true;
+					    	 dot.target_mine.actually_there=false;
+					    	 exit_stage_whatever(dot.target_mine);
+					    	 capture.play();
+					   }
+					   dots.removeValue(dot, true);
 				   }
+			   }
 		   }
+	   }
 		
 		void check_for_dot_mineshield_collisions(){
 			   for (RT_Dot dot:dots){
-				   if (dot.type.equals("destroy")||dot.type.equals("capture")){
-					   
-					   if (dot.target_mine.shields==4 && dot.target_mine.shield_four.overlaps(dot.rect)){
-						   deshield.play(0.2f);
-						   dot.target_mine.shields-=1;
-						   dots.removeValue(dot, true);
+				   if (dot.target_mine!=null){
+					   if (dot.type.equals("destroy")||dot.type.equals("capture")){
+						   
+						   if (dot.target_mine.shields==4 && dot.target_mine.shield_four.overlaps(dot.rect)){
+							   deshield.play(0.2f);
+							   dot.target_mine.shields-=1;
+							   dots.removeValue(dot, true);
+						   }
+						   else if (dot.target_mine.shields==3 && dot.target_mine.shield_three.overlaps(dot.rect)){
+							   deshield.play(0.25f);
+							   dot.target_mine.shields-=1;
+							   dots.removeValue(dot, true);
+						   }
+						   else if (dot.target_mine.shields==2 && dot.target_mine.shield_two.overlaps(dot.rect)){
+							   deshield.play(0.3f);
+							   dot.target_mine.shields-=1;
+							   dots.removeValue(dot, true);
+						   }
+							else if (dot.target_mine.shields==1 && dot.target_mine.shield_one.overlaps(dot.rect)){
+								deshield.play(0.35f);
+								dot.target_mine.shields-=1;
+								dots.removeValue(dot, true);
+							}
 					   }
-					   else if (dot.target_mine.shields==3 && dot.target_mine.shield_three.overlaps(dot.rect)){
-						   deshield.play(0.25f);
-						   dot.target_mine.shields-=1;
-						   dots.removeValue(dot, true);
-					   }
-					   else if (dot.target_mine.shields==2 && dot.target_mine.shield_two.overlaps(dot.rect)){
-						   deshield.play(0.3f);
-						   dot.target_mine.shields-=1;
-						   dots.removeValue(dot, true);
-					   }
-						else if (dot.target_mine.shields==1 && dot.target_mine.shield_one.overlaps(dot.rect)){
-							deshield.play(0.35f);
-							dot.target_mine.shields-=1;
-							dots.removeValue(dot, true);
-						}
 				   }
 			   }
 		   }
 	   
+		
+		
 	   //---Functions called by the functions called by the render---
 	   
 	
@@ -486,7 +601,7 @@ public class GameScreen extends SpaceScreen {
 				   turret_standard.shotsmade=0;
 			   }
 		   }
-		   if (current_status.contains("firing")){
+		   if (current_status.equals("firing")||current_status.equals("zapping")){
 			   TIMESPEED=0.1;
 			   
 		   }
@@ -545,6 +660,23 @@ public class GameScreen extends SpaceScreen {
 			   }
 		   }
 		   volley_ending_time-=decrement;
+		   
+		   
+		   
+		   decrement=0;
+		   for (Vane vane:vanes){
+			   vane.firing_time-=decrement;
+			   if (vane.targeted==true){
+				   if (vane.target_ship!=null){
+					   if (!vane.target_ship.actually_there){
+						   vane.targeted=false;
+						   vane.firing_time=-1;
+						   decrement+=0.15;
+					   }
+				   }
+			   }
+		   }
+		   zappy_ending_time-=decrement;
 	   }
 	
 	   void draw_mines(){
@@ -591,8 +723,13 @@ public class GameScreen extends SpaceScreen {
 	   
 	   void draw_explosions(){
 		   for(RT_Kaboom boom: explosions) {
-		          batch.draw(explosion_t, boom.rect.x-20, boom.rect.y-20);
+		       if (boom.big){
+		    	   batch.draw(big_explosion_t, boom.rect.x, boom.rect.y);
 		       }
+		       else{
+		    	   batch.draw(explosion_t, boom.rect.x, boom.rect.y);
+		       }
+		   }
 	   }
 	   
 	   void draw_turrets_standard(){
@@ -645,6 +782,12 @@ public class GameScreen extends SpaceScreen {
 				}
 			}
 	   }
+	   
+	   void draw_vanes(){
+		   for (Vane vane:vanes){
+			   batch.draw(vane_t, vane.rect.x, vane.rect.y);
+		   }
+	   }
 	
 	
 	boolean should_firing_button_be_lit_up(){
@@ -662,7 +805,7 @@ public class GameScreen extends SpaceScreen {
 		      batch.draw(fire_button_t,fire_button_r.x,fire_button_r.y);
 				
 		      if (should_firing_button_be_lit_up()){
-		    	  batch.draw(orange_button_trim_t,fire_button_r.x,fire_button_r.y);
+		    	  batch.draw(attention_button_trim_t,fire_button_r.x,fire_button_r.y);
 			   }
 		      if (fire_button_r.contains(tp_x, tp_y)){
 		    	  batch.draw(blue_button_trim_t,fire_button_r.x,fire_button_r.y);

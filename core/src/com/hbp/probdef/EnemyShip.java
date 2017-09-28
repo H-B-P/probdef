@@ -12,11 +12,14 @@ public class EnemyShip {
 	   
 	   Rectangle shield;
 	   
+	   boolean actually_there;
 	   
 	   public EnemyShip(int xposn, String turret_id){
 		   
 		   horz_vel=0;
-		   vert_vel=40;
+		   vert_vel=100;
+		   
+		   actually_there=true;
 		   
 		   turret=new Turret_Standard(turret_id);
 		   

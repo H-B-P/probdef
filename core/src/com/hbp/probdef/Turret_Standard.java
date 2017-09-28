@@ -70,8 +70,8 @@ public class Turret_Standard extends Turret {
 		   this(id);
 		   turret_level=level;
 		   if (turret_level>1){
-			   selected_t=new Texture (Gdx.files.internal("turrets/turret_"+ident+"_"+"selected_multi.png"));
-			   target_t=new Texture (Gdx.files.internal("turrets/target_"+ident+"_multi.png"));
+			   //selected_t=new Texture (Gdx.files.internal("turrets/turret_"+ident+"_"+"selected_multi.png"));
+			   //target_t=new Texture (Gdx.files.internal("turrets/target_"+ident+"_multi.png"));
 		   }
 }
 	   
