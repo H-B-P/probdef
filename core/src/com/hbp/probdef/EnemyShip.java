@@ -34,7 +34,7 @@ public class EnemyShip {
 		      rect = new Rectangle();
 		      double xposn_II = (xposn*50.0+160.0)-30.0;
 		      rect.x = (float) xposn_II;
-		      rect.y = 420;
+		      rect.y = 480;
 		      rect.width = 60;
 		      rect.height = 60;
 		      

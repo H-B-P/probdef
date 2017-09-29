@@ -451,8 +451,10 @@ public class GameScreen_Bayes extends GameScreen {
 			}
 		}   
 		if (total_time>zappy_ending_time){
-			current_status="waiting";
-			status_effects();
+			
+			hand_over_to_firing();
+			//current_status="waiting";
+			//status_effects();
 	    }
 	}
 	
@@ -462,13 +464,9 @@ public class GameScreen_Bayes extends GameScreen {
 	   if (seconds<Math.floor(total_time)){
 			seconds+=1;
 			
-			if (seconds%4==0 && any_interesting_ships() && !suppress_freezes){
-				hand_over_to_targeting();
-			}
-			
-			if (seconds%4==2){
+			if (seconds%2==0){
 				if(any_interesting_ships()){
-					hand_over_to_firing();
+					hand_over_to_targeting();
 				}
 				else{
 					shipwave+=1;
