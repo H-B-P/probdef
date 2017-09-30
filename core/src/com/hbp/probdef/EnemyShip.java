@@ -12,14 +12,15 @@ public class EnemyShip {
 	   
 	   float ylim;
 	   
-	   Rectangle shield;
-	   
 	   boolean actually_there;
 	   boolean obscured;
 	   
 	   float assignedprob_one;
 	   float assignedprob_two;
 	   float assignedprob_three;
+	   
+	   Rectangle shield_r;
+	   boolean flicker;
 	   
 	   public EnemyShip(int xposn, String turret_id, boolean obsc){
 		   
@@ -39,8 +40,14 @@ public class EnemyShip {
 		      rect.height = 60;
 		      
 		      ylim=310;
+		   
+		      handle_shield();
 		      
-		      
+		      flicker=false;
+	   }
+	   
+	   void handle_shield(){
+		   shield_r=new Rectangle(rect.x-10, rect.y-20, 80, 3);
 	   }
 	   
 }

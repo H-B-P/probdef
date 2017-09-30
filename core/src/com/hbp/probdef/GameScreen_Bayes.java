@@ -36,6 +36,7 @@ public class GameScreen_Bayes extends GameScreen {
 	
 	int shipwave;
 	int total_shipwaves;
+	int round;
 	
 	String shiptype_one;
 	String shiptype_two;
@@ -48,6 +49,8 @@ public class GameScreen_Bayes extends GameScreen {
 	int assumedfreq_one;
 	int assumedfreq_two;
 	int assumedfreq_three;
+	
+	boolean suppress_phasing;
 	
 	public GameScreen_Bayes(final ProbDef gam, boolean play_the_sound) {
 		
@@ -62,9 +65,13 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		total_shipwaves=10;
 		
+		minecount=20;
+		
 		vane_setup();
 		
 		level_specific_environment_setup();
+		
+		suppress_phasing=false;
 	}
 	
 	void vane_setup(){
@@ -87,7 +94,7 @@ public class GameScreen_Bayes extends GameScreen {
 	void display_probabilities(){
 		for (EnemyShip enemyship:enemyships){
 			if (enemyship.obscured){
-				acalc_greenfont.draw(batch, "T: "+present_float(enemyship.assignedprob_one*100.0f)+"%\nP: "+present_float(enemyship.assignedprob_two*100.0f)+"%", enemyship.rect.x-20, enemyship.rect.y-20, 100, 1, true);
+				acalc_greenfont.draw(batch, "T: "+present_float(enemyship.assignedprob_one*100.0f)+"%\nP: "+present_float(enemyship.assignedprob_two*100.0f)+"%", enemyship.rect.x-20, enemyship.rect.y-30, 100, 1, true);
 			}
 		}
 	}
@@ -147,15 +154,20 @@ public class GameScreen_Bayes extends GameScreen {
 	void level_specific_waves(){
 		if (shipwave==1){
 			//spawn_enemy_ship(-1, "triangle", false);
-			//spawn_enemy_ship(1, "triangle", false);
+			//spawn_enemy_ship(1, "pentagon", false);
 			spawn_random_obscured(-1);
 			spawn_random_obscured(1);
 		}
 		if (shipwave==2){
-			spawn_enemy_ship(-1, "pentagon", false);
-			spawn_enemy_ship(1, "triangle", false);
+			//spawn_enemy_ship(-1, "pentagon", false);
+			//spawn_enemy_ship(1, "triangle", false);
+			spawn_random_obscured(-2);
+			spawn_random_obscured(0);
+			spawn_random_obscured(2);
 		}
 		if (shipwave==3){
+			
+			suppress_phasing=true;
 			spawn_enemy_ship(-2, "triangle", false);
 			spawn_enemy_ship(0, "pentagon", false);
 			spawn_enemy_ship(2, "triangle", false);
@@ -233,9 +245,9 @@ public class GameScreen_Bayes extends GameScreen {
 		enemyship.turret.rect.y=enemyship.rect.y+10;
 	}
 	
-	void spawnMine(int xposn, EnemyShip enemyship) {
+	void spawnMine(EnemyShip enemyship) {
 		   
-		   Mine mine = new Mine(xposn, 20);
+		   Mine mine = new Mine(enemyship);
 		   mines.add(mine);
 		         
 	}
@@ -303,6 +315,15 @@ public class GameScreen_Bayes extends GameScreen {
 		return null;
 	}
 	
+	boolean is_this_ship_being_attacked(EnemyShip enemyship){
+		for (Mine mine: mines){
+			if (mine.target_enemy_ship==enemyship){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	boolean any_interesting_ships(){
 		   for (EnemyShip enemyship : enemyships){
 			   if (enemyship.rect.overlaps(screen_proper)){
@@ -327,6 +348,11 @@ public class GameScreen_Bayes extends GameScreen {
 	
 	//---Do things---
 	
+	void hand_over_to_bowling(){
+		current_status="bowling";
+		status_effects();
+	}
+	
 	void hand_over_to_targeting(){
 		currently_active_vane=vanes.first();
 		current_status="targeting";
@@ -344,6 +370,45 @@ public class GameScreen_Bayes extends GameScreen {
 		}
 		set_up_firing_times();
 		current_status="firing";
+	}
+	
+	void do_bowling_things(){
+		if (Gdx.input.justTouched() && pick_a_ship()!=null){
+			EnemyShip enemyship=pick_a_ship();
+			if (!is_this_ship_being_attacked(enemyship)){
+				spawnMine(enemyship);
+				enemyship.turret.targeted=true;
+			}
+		}
+		for (Mine mine:mines){
+			if (mine.actually_there && mine.target_enemy_ship!=null){
+				if (mine.rect.y>160){
+					if (mine.target_enemy_ship.turret.targeted){
+					   if (mine.target_enemy_ship.turret.turret_type.equals("standard")){
+						   Turret_Standard T=(Turret_Standard)mine.target_enemy_ship.turret;
+						   if (T.targeted && (T.firing_time+0.01f*T.shotsmade)<total_time){
+							   if (T.shotsmade==0){fire.play(0.3f);}
+							   T.shotsmade+=1;
+							   String output=mine.target_enemy_ship.turret.determine_output();
+							   
+							   level_specific_bayesian_update(output, mine.target_enemy_ship);
+							   RT_Dot dot=new RT_Dot(mine.target_enemy_ship.turret.rect, mine, 3000, output);
+							   dots.add(dot);
+						   }
+						   
+						   if (T.shotsmade>=T.turret_level){
+							   T.targeted=false;
+						   }
+						   
+					   }
+					}
+				}
+			}
+		}
+		if (Gdx.input.justTouched()&& tp_y<80 && mines.size==0){
+			current_status="waiting";
+			shock.play();
+		}
 	}
 	
 	void do_firing_things(){
@@ -464,13 +529,17 @@ public class GameScreen_Bayes extends GameScreen {
 	   if (seconds<Math.floor(total_time)){
 			seconds+=1;
 			
-			if (seconds%2==0){
+			if (seconds%2==0 && !current_status.equals("bowling")){
 				if(any_interesting_ships()){
 					hand_over_to_targeting();
 				}
 				else{
 					shipwave+=1;
 					level_specific_waves();
+					if (!suppress_phasing){
+						hand_over_to_bowling();
+						shock.play();
+					}
 				}
 			}
 			
@@ -559,6 +628,22 @@ public class GameScreen_Bayes extends GameScreen {
 		}
 	}
 	
+	void check_for_mine_enemyshipshield_collisions(){
+			   for (Mine mine: mines){
+				   for (EnemyShip enemyship:enemyships){
+					if(mine.rect.overlaps(enemyship.shield_r)) {
+						minecount-=1;
+						if (!mine.shootproof){
+					     	spawnExplosion(mine.rect.x,mine.rect.y);
+					        minehitshield.play(0.1f);
+					        minesplode.play();
+						}
+						mines.removeValue(mine,true);
+				     }
+				   }
+				}
+	}
+	
 	//---The render---
 	
 	public void render(float delta){
@@ -572,7 +657,11 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		gamey_render_draw_objects();
 		
-		draw_energy_things();
+		if (current_status.equals("targeting")){
+			draw_energy_things();
+		}
+		
+		
 		
 		display_probabilities();
 		
@@ -592,6 +681,10 @@ public class GameScreen_Bayes extends GameScreen {
 			do_zapping_things();
 		}
 		
+		if (current_status.equals("bowling")){
+			do_bowling_things();
+		}
+		
 		if (current_status.equals("targeting")){
 			//check_for_keypresses();
 			do_targeting_things();
@@ -605,7 +698,7 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		check_for_dot_shipshield_collisions();
 		
-		//check_for_mine_enemyshipshield_collisions();
+		check_for_mine_enemyshipshield_collisions();
 		
 		gamey_render_postdraw();
 		

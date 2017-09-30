@@ -26,6 +26,7 @@ public class Mine {
 	   boolean actually_there; //Is the mine currently being dragged offstage, or otherwise incapable of interacting with things?
 	   //NOT to be confused with the shootproofness of decoy mines.
 	   
+	   EnemyShip target_enemy_ship;
 	   
 	   public Mine(int xposn, float m_speed){
 		   
@@ -56,6 +57,14 @@ public class Mine {
 
 			   set_up_shields();
 		      
+	   }
+	   
+	   public Mine(EnemyShip enemyship){
+		   this(0,-100);
+		   rect.x=enemyship.turret.rect.x;
+		   rect.y=-50;
+		   
+		   target_enemy_ship=enemyship;
 	   }
 	   
 	   public Mine(int xposn, float m_speed, String m_type){

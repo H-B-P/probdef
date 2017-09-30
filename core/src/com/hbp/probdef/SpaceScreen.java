@@ -30,11 +30,14 @@ public class SpaceScreen extends MetaScreen {
 	public Texture starry_background_layer_two_t;
 	
 	public Texture statusbar_t;
-
-	public Texture ship_t;
-	public Texture shipshield_t;
-	public Texture shipshield_normal_t;
-	public Texture shipshield_flicker_t;
+	
+	Texture ship_normal_t;
+	Texture ship_invisible_t;
+	Texture ship_t;
+	
+	Texture shipshield_t;
+	Texture shipshield_normal_t;
+	Texture shipshield_flicker_t;
 	
 	public Rectangle shield_r;
 	
@@ -75,7 +78,10 @@ public class SpaceScreen extends MetaScreen {
 		starry_background_layer_one_t=new Texture(Gdx.files.internal("BG1.png"));
 	    starry_background_layer_two_t=new Texture(Gdx.files.internal("BG2.png"));
 		
-	    ship_t=new Texture(Gdx.files.internal("fullship_GREEN.png"));
+	    ship_normal_t=new Texture(Gdx.files.internal("fullship_GREEN.png"));
+	    ship_invisible_t=new Texture(Gdx.files.internal("fullship_INVISIBLE.png"));
+	    ship_t=ship_normal_t;
+	    
 	    shipshield_normal_t=new Texture(Gdx.files.internal("shield_GREEN.png"));
 	    shipshield_flicker_t=new Texture(Gdx.files.internal("shield_flicker.png"));
 	    shipshield_t=shipshield_normal_t;

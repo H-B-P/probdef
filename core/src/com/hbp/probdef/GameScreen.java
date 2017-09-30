@@ -36,6 +36,12 @@ public class GameScreen extends SpaceScreen {
 	
 
 	Texture enemyship_t;
+	
+	Texture enemyshipshield_t;
+	
+	Texture enemyshipshield_flicker_t;
+	Texture enemyshipshield_normal_t;
+	
 	Texture obscurity_t;
 	Texture big_explosion_t;
 	
@@ -84,6 +90,7 @@ public class GameScreen extends SpaceScreen {
 	
 	//--Vanes et al--
 	
+	Texture vane_outline_t;
 	Texture vane_t;
 	Texture vane_trim_t;
 	
@@ -207,6 +214,7 @@ public class GameScreen extends SpaceScreen {
 		//-Vanes et al-
 		
 		vane_t=new Texture(Gdx.files.internal("vanes/vane.png"));
+		vane_outline_t=new Texture(Gdx.files.internal("vanes/vane_outline.png"));
 		vane_trim_t=new Texture(Gdx.files.internal("vanes/vane_trim.png"));
 		
 		vane_energy_circle_t= new Texture(Gdx.files.internal("vanes/vanes_energy_circle.png"));
@@ -225,6 +233,9 @@ public class GameScreen extends SpaceScreen {
 		//-Enemyship-
 		
 		enemyship_t=new Texture(Gdx.files.internal("enemyship_alt.png"));
+		enemyshipshield_normal_t=new Texture(Gdx.files.internal("enemy_ship_shield.png"));
+		enemyshipshield_flicker_t=new Texture(Gdx.files.internal("enemy_ship_shield_flicker.png"));
+		enemyshipshield_t=enemyshipshield_normal_t;
 		
 		//-Dots-
 		
@@ -451,13 +462,13 @@ public class GameScreen extends SpaceScreen {
 
 		void gamey_render_draw_objects(){
 			
-			draw_mines();
+			draw_vanes();
 			
 			draw_enemyships();
 			
 			draw_explosions();
 			
-			draw_vanes();
+			draw_mines();
 			
 			draw_turrets_standard();
 			
@@ -469,7 +480,7 @@ public class GameScreen extends SpaceScreen {
 			
 			draw_obscurities();
 			
-		    batch.draw(shipshield_t, shield_r.x, shield_r.y);
+			batch.draw(shipshield_t, shield_r.x, shield_r.y);
 		}
 		
 		void gamey_render_draw_interface(){
@@ -602,9 +613,7 @@ public class GameScreen extends SpaceScreen {
 	   void status_effects(){
 		   if (current_status.equals("waiting")){
 			   TIMESPEED=1;
-			   for (Turret_Standard turret_standard: turrets_standard){
-				   turret_standard.shotsmade=0;
-			   }
+			   
 		   }
 		   if (current_status.equals("firing")||current_status.equals("zapping")){
 			   TIMESPEED=0.1;
@@ -615,6 +624,46 @@ public class GameScreen extends SpaceScreen {
 			   for (Turret_Standard turret_standard: turrets_standard){
 				   turret_standard.shotsmade=0;
 			   }
+		   }
+		   if (current_status.equals("bowling")){
+			   boolean ok_to_speed=true;
+			   if (dots.size>0){
+				   ok_to_speed=false;
+			   }
+			   if (explosions.size>0){
+				   ok_to_speed=false;
+			   }
+			   for (Mine mine:mines){
+				   if (!mine.actually_there){
+					   ok_to_speed=false;
+				   }
+			   }
+			   
+			   if (ok_to_speed){
+				   TIMESPEED=1;
+			   }
+			   else{
+				   TIMESPEED=0.1;
+			   }
+			   
+			   for (Turret_Standard turret_standard: turrets_standard){
+				   turret_standard.shotsmade=0;
+			   }
+			   
+			   for (EnemyShip enemyship: enemyships){
+				   boolean shots_to_zero=true;
+				   for (Mine mine:mines){
+					   if (mine.actually_there && mine.target_enemy_ship==enemyship){
+						   Turret_Standard T= (Turret_Standard)enemyship.turret;
+						   T.shotsmade=0;
+					   }
+				   }
+			   }
+			   
+			   ship_t=ship_invisible_t;
+		   }
+		   else{
+			   ship_t=ship_normal_t;
 		   }
 	   }
 	   
@@ -627,6 +676,9 @@ public class GameScreen extends SpaceScreen {
 			   
 			   enemyship.turret.rect.x=enemyship.rect.x+10;
 			   enemyship.turret.rect.y=enemyship.rect.y+10;
+			   
+			   enemyship.shield_r.x=enemyship.rect.x-10;
+			   enemyship.shield_r.y=enemyship.rect.y-20;
 		   }
 		   
 		   
@@ -722,6 +774,7 @@ public class GameScreen extends SpaceScreen {
 	   void draw_enemyships(){
 		   for (EnemyShip enemyship: enemyships){
 			   batch.draw(enemyship_t, enemyship.rect.x-10, enemyship.rect.y);
+			   batch.draw(enemyshipshield_t, enemyship.shield_r.x, enemyship.shield_r.y);
 		   }
 	   }
 	   
@@ -797,7 +850,13 @@ public class GameScreen extends SpaceScreen {
 	   
 	   void draw_vanes(){
 		   for (Vane vane:vanes){
-			   batch.draw(vane_t, vane.rect.x, vane.rect.y);
+			   if (current_status.equals("bowling")){
+				   batch.draw(vane_outline_t, vane.rect.x, vane.rect.y);
+			   }
+			   else{
+				   batch.draw(vane_t, vane.rect.x, vane.rect.y);
+			   }
+			   
 		   }
 	   }
 	
