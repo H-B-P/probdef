@@ -4,7 +4,7 @@ package com.hbp.probdef;
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.math.MathUtils;
 
-public class ArcadeScreen_Decoy_Groups extends ArcadeScreen {
+public class ArcadeScreen_Decoy_Groups extends ArcadeScreen_Prob {
 	
 	final ProbDef game;
 	

@@ -3,7 +3,7 @@ package com.hbp.probdef;
 
 import com.hbp.probdef.ProbDef;
 
-public class ArcadeScreen_Decoy_Intro extends ArcadeScreen {
+public class ArcadeScreen_Decoy_Intro extends ArcadeScreen_Prob {
 	
 	final ProbDef game;
 	

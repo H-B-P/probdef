@@ -39,6 +39,16 @@ public class GameScreen extends SpaceScreen {
 	
 	Texture enemyshipshield_t;
 	
+	Texture enemyship_front_a_t;
+	Texture enemyship_front_b_t;
+	Texture enemyship_front_c_t;
+	
+	Texture enemyship_engine_a_t;
+	Texture enemyship_engine_b_t;
+	Texture enemyship_engine_c_t;
+	Texture enemyship_engine_d_t;
+	Texture enemyship_engine_e_t;
+	
 	Texture enemyshipshield_flicker_t;
 	Texture enemyshipshield_normal_t;
 	
@@ -233,9 +243,21 @@ public class GameScreen extends SpaceScreen {
 		//-Enemyship-
 		
 		enemyship_t=new Texture(Gdx.files.internal("enemyship_alt.png"));
+		
 		enemyshipshield_normal_t=new Texture(Gdx.files.internal("enemy_ship_shield.png"));
 		enemyshipshield_flicker_t=new Texture(Gdx.files.internal("enemy_ship_shield_flicker.png"));
 		enemyshipshield_t=enemyshipshield_normal_t;
+		
+		enemyship_engine_a_t=new Texture(Gdx.files.internal("ship_bases/engine_a.png"));
+		enemyship_engine_b_t=new Texture(Gdx.files.internal("ship_bases/engine_b.png"));
+		enemyship_engine_c_t=new Texture(Gdx.files.internal("ship_bases/engine_c.png"));
+		enemyship_engine_d_t=new Texture(Gdx.files.internal("ship_bases/engine_d.png"));
+		enemyship_engine_e_t=new Texture(Gdx.files.internal("ship_bases/engine_e.png"));
+
+		enemyship_front_a_t=new Texture(Gdx.files.internal("ship_bases/front_a.png"));
+		enemyship_front_b_t=new Texture(Gdx.files.internal("ship_bases/front_b.png"));
+		enemyship_front_c_t=new Texture(Gdx.files.internal("ship_bases/front_c.png"));
+
 		
 		//-Dots-
 		
@@ -464,23 +486,30 @@ public class GameScreen extends SpaceScreen {
 			
 			draw_vanes();
 			
-			draw_enemyships();
-			
 			draw_explosions();
+			
+			if (current_status.equals("bowling")){
+				batch.draw(shipshield_t, shield_r.x, shield_r.y);
+			}
 			
 			draw_mines();
 			
-			draw_turrets_standard();
+			draw_enemyships();
 			
-			draw_dots();
+			draw_turrets_standard();
 			
 			draw_turret_overlays();
 			
 			draw_turret_chickenscratch();
 			
+			draw_dots();
+			
 			draw_obscurities();
 			
-			batch.draw(shipshield_t, shield_r.x, shield_r.y);
+			if (!current_status.equals("bowling")){
+				batch.draw(shipshield_t, shield_r.x, shield_r.y);
+			}
+			
 		}
 		
 		void gamey_render_draw_interface(){
@@ -631,7 +660,12 @@ public class GameScreen extends SpaceScreen {
 				   ok_to_speed=false;
 			   }
 			   if (explosions.size>0){
-				   ok_to_speed=false;
+				   for (RT_Kaboom explosion: explosions){
+					   if (explosion.rect.x<240){
+						   ok_to_speed=false;
+					   }
+				   }
+				   
 			   }
 			   for (Mine mine:mines){
 				   if (!mine.actually_there){
@@ -773,8 +807,91 @@ public class GameScreen extends SpaceScreen {
 	   
 	   void draw_enemyships(){
 		   for (EnemyShip enemyship: enemyships){
-			   batch.draw(enemyship_t, enemyship.rect.x-10, enemyship.rect.y);
-			   batch.draw(enemyshipshield_t, enemyship.shield_r.x, enemyship.shield_r.y);
+			   //batch.draw(enemyship_t, enemyship.rect.x-10, enemyship.rect.y);
+			   
+			   //left engine (that's OUR left, not theirs!)
+			   
+			   if (enemyship.left_engine=='a'){
+				   batch.draw(enemyship_engine_a_t, enemyship.rect.x-10, enemyship.rect.y+30);
+			   }
+			   else if (enemyship.left_engine=='b'){
+				   batch.draw(enemyship_engine_b_t, enemyship.rect.x-10, enemyship.rect.y+30);
+			   }
+			   else if (enemyship.left_engine=='c'){
+				   batch.draw(enemyship_engine_c_t, enemyship.rect.x-10, enemyship.rect.y+30);
+			   }
+			   else if (enemyship.left_engine=='d'){
+				   batch.draw(enemyship_engine_d_t, enemyship.rect.x-10, enemyship.rect.y+30);
+			   }
+			   else if (enemyship.left_engine=='e'){
+				   batch.draw(enemyship_engine_e_t, enemyship.rect.x-10, enemyship.rect.y+30);
+			   }
+			   else{
+				   batch.draw(enemyship_engine_a_t, enemyship.rect.x-10, enemyship.rect.y+30);
+			   }
+			   
+			   //right engine (again, OUR right, so the ship's left)
+			   
+			   if (enemyship.right_engine=='a'){
+				   batch.draw(enemyship_engine_a_t, enemyship.rect.x+50, enemyship.rect.y+30, 20, 40, 0, 0, 20, 40, true, false);
+			   }
+			   else if (enemyship.right_engine=='b'){
+				   batch.draw(enemyship_engine_b_t, enemyship.rect.x+50, enemyship.rect.y+30, 20, 40, 0, 0, 20, 40, true, false);
+			   }
+			   else if (enemyship.right_engine=='c'){
+				   batch.draw(enemyship_engine_c_t, enemyship.rect.x+50, enemyship.rect.y+30, 20, 40, 0, 0, 20, 40, true, false);
+			   }
+			   else if (enemyship.right_engine=='d'){
+				   batch.draw(enemyship_engine_d_t, enemyship.rect.x+50, enemyship.rect.y+30, 20, 40, 0, 0, 20, 40, true, false);
+			   }
+			   else if (enemyship.right_engine=='e'){
+				   batch.draw(enemyship_engine_e_t, enemyship.rect.x+50, enemyship.rect.y+30, 20, 40, 0, 0, 20, 40, true, false);
+			   }
+			   else{
+				   batch.draw(enemyship_engine_a_t, enemyship.rect.x+50, enemyship.rect.y+30, 20, 40, 0, 0, 20, 40, true, false);
+			   }
+			   
+			   //front (i.e. the lower part of the ship)
+			   
+			   if (enemyship.front=='a'){
+				   batch.draw(enemyship_front_a_t, enemyship.rect.x, enemyship.rect.y);
+			   }
+			   else if (enemyship.front=='b'){
+				   batch.draw(enemyship_front_b_t, enemyship.rect.x, enemyship.rect.y);
+			   }
+			   else if (enemyship.front=='c'){
+				   batch.draw(enemyship_front_c_t, enemyship.rect.x, enemyship.rect.y);
+			   }
+			   else{
+				   batch.draw(enemyship_front_a_t, enemyship.rect.x, enemyship.rect.y);
+			   }
+			   
+			   //back (i.e. the upper part of the ship)
+			   
+			   if (enemyship.front=='a'){
+				   batch.draw(enemyship_front_a_t, enemyship.rect.x, enemyship.rect.y+30, 60, 30, 0, 0, 60, 30, false, true);
+			   }
+			   else if (enemyship.front=='b'){
+				   batch.draw(enemyship_front_b_t, enemyship.rect.x, enemyship.rect.y+30, 60, 30, 0, 0, 60, 30, false, true);
+			   }
+			   else if (enemyship.front=='c'){
+				   batch.draw(enemyship_front_c_t, enemyship.rect.x, enemyship.rect.y+30, 60, 30, 0, 0, 60, 30, false, true);			  
+			   }
+			   else{
+				   batch.draw(enemyship_front_a_t, enemyship.rect.x, enemyship.rect.y+30, 60, 30, 0, 0, 60, 30, false, true);
+			   }
+			   
+			   //batch.draw(enemyship_engine_d_t, enemyship.rect.x-10, enemyship.rect.y+30);
+				//batch.draw(enemyship_engine_e_t, enemyship.rect.x+50, enemyship.rect.y+30, 20, 40, 0, 0, 20, 40, true, false);
+				//batch.draw(enemyship_front_c_t, enemyship.rect.x, enemyship.rect.y);
+				//batch.draw(enemyship_front_b_t, enemyship.rect.x, enemyship.rect.y+30, 60, 30, 0, 0, 60, 30, false, true);
+
+			   if (enemyship.flicker){
+				   batch.draw(enemyshipshield_flicker_t, enemyship.shield_r.x, enemyship.shield_r.y);
+			   }
+			   else{
+				   batch.draw(enemyshipshield_normal_t, enemyship.shield_r.x, enemyship.shield_r.y);
+			   }
 		   }
 	   }
 	   
@@ -861,7 +978,7 @@ public class GameScreen extends SpaceScreen {
 	   }
 	
 	
-	boolean should_firing_button_be_lit_up(){
+	   boolean should_firing_button_be_lit_up(){
 		   return false;
 	   }
 	   

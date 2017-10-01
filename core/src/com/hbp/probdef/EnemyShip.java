@@ -22,6 +22,11 @@ public class EnemyShip {
 	   Rectangle shield_r;
 	   boolean flicker;
 	   
+	   char front;
+	   char back;
+	   char left_engine;
+	   char right_engine;
+	   
 	   public EnemyShip(int xposn, String turret_id, boolean obsc){
 		   
 		   horz_vel=0;
@@ -29,6 +34,11 @@ public class EnemyShip {
 		   
 		   actually_there=true;
 		   obscured=obsc;
+		   
+		   front='a';
+		   back='a';
+		   left_engine='a';
+		   right_engine='a';
 		   
 		   turret=new Turret_Standard(turret_id);
 		   
@@ -46,8 +56,26 @@ public class EnemyShip {
 		      flicker=false;
 	   }
 	   
+	   public EnemyShip(int xposn, String turret_id, boolean obsc, char f, char b, char e){
+		   this(xposn, turret_id, obsc);
+		   front=f;
+		   back=b;
+		   left_engine=e;
+		   right_engine=e;
+		   
+	   }
+	   
+	   public EnemyShip(int xposn, String turret_id, boolean obsc, char f, char b, char l_e, char r_e){
+		   this(xposn, turret_id, obsc);
+		   front=f;
+		   back=b;
+		   left_engine=l_e;
+		   right_engine=r_e;
+		   
+	   }
+	   
 	   void handle_shield(){
-		   shield_r=new Rectangle(rect.x-10, rect.y-20, 80, 3);
+		   shield_r=new Rectangle(rect.x-10, rect.y-18, 80, 3);
 	   }
 	   
 }

@@ -779,7 +779,11 @@ public class GameScreen_Prob extends GameScreen {
 				do_targeting_things();
 			}
 			
+			shipshield_t=shipshield_normal_t; // If the shield is flickering, we want it to flicker for only one frame; we reset it here.
+			
 			//check for collisions between physical objects which interact.
+			
+			
 			
 			check_for_dot_mineshield_collisions();
 			
@@ -802,7 +806,7 @@ public class GameScreen_Prob extends GameScreen {
 			
 			
 			
-			shipshield_t=shipshield_normal_t; // If the shield is flickering, we want it to flicker for only one frame; we reset it here.
+			
 			
 			if(Gdx.input.justTouched()){
 				if (menu_button_r.contains(tp_x, tp_y)){

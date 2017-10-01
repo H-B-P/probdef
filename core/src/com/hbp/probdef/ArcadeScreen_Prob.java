@@ -7,7 +7,7 @@ import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
-public class ArcadeScreen extends GameScreen_Prob {
+public class ArcadeScreen_Prob extends GameScreen_Prob {
 	
 	final ProbDef game;
 
@@ -20,7 +20,7 @@ public class ArcadeScreen extends GameScreen_Prob {
 	int wave_number;
 	int wave_number_total;
 	
-	public ArcadeScreen(final ProbDef gam, boolean play_the_sound) {
+	public ArcadeScreen_Prob(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		
