@@ -847,9 +847,9 @@ public class GameScreen extends SpaceScreen {
 			   else if (enemyship.right_engine=='e'){
 				   batch.draw(enemyship_engine_e_t, enemyship.rect.x+50, enemyship.rect.y+30, 20, 40, 0, 0, 20, 40, true, false);
 			   }
-			   else{
-				   batch.draw(enemyship_engine_a_t, enemyship.rect.x+50, enemyship.rect.y+30, 20, 40, 0, 0, 20, 40, true, false);
-			   }
+			   //else{
+			//	   batch.draw(enemyship_engine_a_t, enemyship.rect.x+50, enemyship.rect.y+30, 20, 40, 0, 0, 20, 40, true, false);
+			  // }
 			   
 			   //front (i.e. the lower part of the ship)
 			   
@@ -862,24 +862,24 @@ public class GameScreen extends SpaceScreen {
 			   else if (enemyship.front=='c'){
 				   batch.draw(enemyship_front_c_t, enemyship.rect.x, enemyship.rect.y);
 			   }
-			   else{
-				   batch.draw(enemyship_front_a_t, enemyship.rect.x, enemyship.rect.y);
-			   }
+			   //else{
+			//	   batch.draw(enemyship_front_a_t, enemyship.rect.x, enemyship.rect.y);
+			  // }
 			   
 			   //back (i.e. the upper part of the ship)
 			   
-			   if (enemyship.front=='a'){
+			   if (enemyship.back=='a'){
 				   batch.draw(enemyship_front_a_t, enemyship.rect.x, enemyship.rect.y+30, 60, 30, 0, 0, 60, 30, false, true);
 			   }
-			   else if (enemyship.front=='b'){
+			   else if (enemyship.back=='b'){
 				   batch.draw(enemyship_front_b_t, enemyship.rect.x, enemyship.rect.y+30, 60, 30, 0, 0, 60, 30, false, true);
 			   }
-			   else if (enemyship.front=='c'){
+			   else if (enemyship.back=='c'){
 				   batch.draw(enemyship_front_c_t, enemyship.rect.x, enemyship.rect.y+30, 60, 30, 0, 0, 60, 30, false, true);			  
 			   }
-			   else{
-				   batch.draw(enemyship_front_a_t, enemyship.rect.x, enemyship.rect.y+30, 60, 30, 0, 0, 60, 30, false, true);
-			   }
+			   //else{
+				//   batch.draw(enemyship_front_a_t, enemyship.rect.x, enemyship.rect.y+30, 60, 30, 0, 0, 60, 30, false, true);
+			   //}
 			   
 			   //batch.draw(enemyship_engine_d_t, enemyship.rect.x-10, enemyship.rect.y+30);
 				//batch.draw(enemyship_engine_e_t, enemyship.rect.x+50, enemyship.rect.y+30, 20, 40, 0, 0, 20, 40, true, false);

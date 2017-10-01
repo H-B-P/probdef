@@ -91,11 +91,11 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		attention_button_trim_t=green_button_trim_t;
 		
-		shields=20;
+		shields=30;
 		
 		total_shipwaves=10;
 		
-		minecount=30;
+		minecount=25;
 		
 		level_specific_environment_setup();
 		
@@ -138,13 +138,13 @@ public class GameScreen_Bayes extends GameScreen {
 		ship_one_front='a';
 		ship_one_back='a';
 		
-		ship_two_engines='a';
+		ship_two_engines='b';
 		ship_two_front='b';
-		ship_two_back='c';
+		ship_two_back='a';
 		
-		ship_three_engines='d';
-		ship_three_front='b';
-		ship_three_back='c';
+		ship_three_engines='c';
+		ship_three_front='c';
+		ship_three_back='a';
 		
 	}
 	
@@ -157,12 +157,12 @@ public class GameScreen_Bayes extends GameScreen {
 		ship_one_percentfreq_two=20;
 		ship_one_percentfreq_three=40;
 		
-		ship_two_percentfreq_one=20;
+		ship_two_percentfreq_one=10;
 		ship_two_percentfreq_two=40;
-		ship_two_percentfreq_three=40;
+		ship_two_percentfreq_three=50;
 		
-		ship_three_percentfreq_one=40;
-		ship_three_percentfreq_two=40;
+		ship_three_percentfreq_one=50;
+		ship_three_percentfreq_two=30;
 		ship_three_percentfreq_three=20;
 		
 	}
@@ -234,20 +234,53 @@ public class GameScreen_Bayes extends GameScreen {
 		suppress_phasing=false;
 		
 		if (shipwave==1){
-			ship_one_spawn_random_obscured(0);
+			ship_two_spawn_enemy_ship(-2, turret_type_one, false);
+			ship_one_spawn_enemy_ship(0, turret_type_two, false);
+			ship_three_spawn_enemy_ship(2, turret_type_three, false);
+			suppress_phasing=true;
 		}
 		if (shipwave==2){
-			ship_two_spawn_random_obscured(-1);
-			ship_three_spawn_random_obscured(1);
+			ship_one_spawn_random(-1,true);
+			ship_one_spawn_random(1,true);
 		}
-		if (shipwave==3 || shipwave==4 || shipwave==5 ){
-			ship_one_spawn_random_obscured(-1);
-			ship_one_spawn_random_obscured(1);
+		if (shipwave==3){
+			ship_two_spawn_random(-1,true);
+			ship_three_spawn_random(1,true);
 		}
-		if (shipwave==6 || shipwave==7 || shipwave==8 || shipwave==9 || shipwave==10){
-			ship_one_spawn_random_obscured(-2);
-			ship_one_spawn_random_obscured(0);
-			ship_one_spawn_random_obscured(2);
+		if (shipwave==4){
+			ship_one_spawn_random(-2, true);
+			ship_two_spawn_random(0, true);
+			ship_two_spawn_random(2, true);
+		}
+		if (shipwave==5){
+			ship_two_spawn_random(-2, true);
+			ship_three_spawn_random(0, true);
+			ship_three_spawn_random(2, true);
+		}
+		if (shipwave==6){
+			ship_three_spawn_random(-2, true);
+			ship_one_spawn_random(0, true);
+			ship_one_spawn_random(2, true);
+		}
+		if (shipwave==7){
+			ship_one_spawn_random(-2, true);
+			ship_two_spawn_random(0, true);
+			ship_three_spawn_random(2, true);
+		}
+		if (shipwave==8){
+			ship_two_spawn_random(-2, true);
+			ship_two_spawn_random(0, true);
+			ship_three_spawn_random(2, true);
+		}
+		if (shipwave==9){
+			ship_three_spawn_random(-2, true);
+			ship_one_spawn_random(0, true);
+			ship_three_spawn_random(2, true);
+		}
+		if (shipwave==10){
+			ship_one_spawn_random(-2, true);
+			ship_two_spawn_random(0, true);
+			ship_one_spawn_random(2, true);
 		}
 		
 		if (shipwave>total_shipwaves){
@@ -261,7 +294,7 @@ public class GameScreen_Bayes extends GameScreen {
 			shields-=1;
 		}
 		if (dot.type.equals("capture")){
-			shields-=2;
+			shields-=1;
 		}
 	}
 	
@@ -302,42 +335,42 @@ public class GameScreen_Bayes extends GameScreen {
 	
 	//---Spawning---
 	
-	void ship_one_spawn_random_obscured(int xposn){
+	void ship_one_spawn_random(int xposn, boolean obsc){
 		int k=MathUtils.random(1,100);
 		if (k<ship_one_percentfreq_one){
-			ship_one_spawn_enemy_ship(xposn, turret_type_one, true);
+			ship_one_spawn_enemy_ship(xposn, turret_type_one, obsc);
 		}
 		else if (k<(ship_one_percentfreq_one+ship_one_percentfreq_two)){
-			ship_one_spawn_enemy_ship(xposn, turret_type_two, true);
+			ship_one_spawn_enemy_ship(xposn, turret_type_two, obsc);
 		}
 		else{
-			ship_one_spawn_enemy_ship(xposn, turret_type_three, true);
+			ship_one_spawn_enemy_ship(xposn, turret_type_three, obsc);
 		}
 	}
 	
-	void ship_two_spawn_random_obscured(int xposn){
+	void ship_two_spawn_random(int xposn, boolean obsc){
 		int k=MathUtils.random(1,100);
 		if (k<ship_two_percentfreq_one){
-			ship_two_spawn_enemy_ship(xposn, turret_type_one, true);
+			ship_two_spawn_enemy_ship(xposn, turret_type_one, obsc);
 		}
 		else if (k<(ship_two_percentfreq_one+ship_two_percentfreq_two)){
-			ship_two_spawn_enemy_ship(xposn, turret_type_two, true);
+			ship_two_spawn_enemy_ship(xposn, turret_type_two, obsc);
 		}
 		else{
-			ship_two_spawn_enemy_ship(xposn, turret_type_three, true);
+			ship_two_spawn_enemy_ship(xposn, turret_type_three, obsc);
 		}
 	}
 	
-	void ship_three_spawn_random_obscured(int xposn){
+	void ship_three_spawn_random(int xposn, boolean obsc){
 		int k=MathUtils.random(1,100);
 		if (k<ship_three_percentfreq_one){
-			ship_three_spawn_enemy_ship(xposn, turret_type_one, true);
+			ship_three_spawn_enemy_ship(xposn, turret_type_one, obsc);
 		}
 		else if (k<(ship_three_percentfreq_one+ship_three_percentfreq_two)){
-			ship_three_spawn_enemy_ship(xposn, turret_type_two, true);
+			ship_three_spawn_enemy_ship(xposn, turret_type_two, obsc);
 		}
 		else{
-			ship_three_spawn_enemy_ship(xposn, turret_type_three, true);
+			ship_three_spawn_enemy_ship(xposn, turret_type_three, obsc);
 		}
 	}
 	
@@ -369,6 +402,9 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		enemyship.turret.rect.x=enemyship.rect.x+10;
 		enemyship.turret.rect.y=enemyship.rect.y+10;
+		
+		System.out.println(enemyship.back);
+		System.out.println(enemyship.front);
 	}
 	
 	void ship_three_spawn_enemy_ship(int xposn, String turret_id, boolean obsc){
@@ -385,21 +421,6 @@ public class GameScreen_Bayes extends GameScreen {
 		enemyship.turret.rect.x=enemyship.rect.x+10;
 		enemyship.turret.rect.y=enemyship.rect.y+10;
 	}
-	
-//	void spawn_enemy_ship(int xposn, String turret_id, boolean obsc, char front, char back, char engines){
-//		EnemyShip enemyship=new EnemyShip(xposn, turret_id, obsc, front, back, engines);
-//		
-//		enemyship.assignedprob_one=(float)assumedfreq_one/100f;
-//		enemyship.assignedprob_two=(float)assumedfreq_two/100f;
-//		enemyship.assignedprob_three=(float)assumedfreq_three/100f;
-//		
-//		enemyships.add(enemyship);
-//		turrets.add(enemyship.turret);
-//		turrets_standard.add((Turret_Standard)enemyship.turret);
-//		
-//		enemyship.turret.rect.x=enemyship.rect.x+10;
-//		enemyship.turret.rect.y=enemyship.rect.y+10;
-//	}
 	
 	
 	
