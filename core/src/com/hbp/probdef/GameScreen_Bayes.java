@@ -32,7 +32,7 @@ public class GameScreen_Bayes extends GameScreen {
 	Vane vane_two;
 	
 	Vane currently_active_vane;
-	EnemyShip currently_selected_enemyship;
+	EnemyShip the_selected_enemyship;
 	
 	int shipwave;
 	int total_shipwaves;
@@ -79,7 +79,6 @@ public class GameScreen_Bayes extends GameScreen {
 	int ship_three_assumedfreq_two;
 	int ship_three_assumedfreq_three;
 	
-	
 	boolean suppress_phasing;
 	
 	public GameScreen_Bayes(final ProbDef gam, boolean play_the_sound) {
@@ -91,11 +90,11 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		attention_button_trim_t=green_button_trim_t;
 		
-		shields=30;
+		shields=20;
 		
 		total_shipwaves=10;
 		
-		minecount=25;
+		minecount=20;
 		
 		level_specific_environment_setup();
 		
@@ -153,16 +152,16 @@ public class GameScreen_Bayes extends GameScreen {
 		turret_type_two="triangle";
 		turret_type_three="pentagon";
 		
-		ship_one_percentfreq_one=40;
-		ship_one_percentfreq_two=20;
+		ship_one_percentfreq_one=50;
+		ship_one_percentfreq_two=10;
 		ship_one_percentfreq_three=40;
 		
-		ship_two_percentfreq_one=10;
+		ship_two_percentfreq_one=20;
 		ship_two_percentfreq_two=40;
-		ship_two_percentfreq_three=50;
+		ship_two_percentfreq_three=40;
 		
-		ship_three_percentfreq_one=50;
-		ship_three_percentfreq_two=30;
+		ship_three_percentfreq_one=20;
+		ship_three_percentfreq_two=60;
 		ship_three_percentfreq_three=20;
 		
 	}
@@ -403,8 +402,6 @@ public class GameScreen_Bayes extends GameScreen {
 		enemyship.turret.rect.x=enemyship.rect.x+10;
 		enemyship.turret.rect.y=enemyship.rect.y+10;
 		
-		System.out.println(enemyship.back);
-		System.out.println(enemyship.front);
 	}
 	
 	void ship_three_spawn_enemy_ship(int xposn, String turret_id, boolean obsc){
@@ -471,7 +468,7 @@ public class GameScreen_Bayes extends GameScreen {
 		font.draw(batch, "CIRC/TRI/PENT", 90, 473, 140, 1, true);
 		font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
 		font.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
-		font.draw(batch, "SHIELDS: "+ shields, 90, 419, 140, 1, true);
+		font.draw(batch, "SCORE: "+ (shields+20), 90, 419, 140, 1, true);
 	}
 	
 	//---Useful functions---
@@ -513,15 +510,29 @@ public class GameScreen_Bayes extends GameScreen {
 	   }
 	
 	void skip_through_vanes(){
-		if (currently_active_vane.targeted){
-			
-			if (currently_active_vane==vanes.peek()){
-			   currently_active_vane=null;
+		if (currently_active_vane!=null){
+			if (currently_active_vane.targeted){
+				
+				
+				if (currently_active_vane==vanes.peek()){
+				   currently_active_vane=null;
+				   the_selected_enemyship=null;
+				}
+				else{
+					currently_active_vane=vanes.get(vanes.indexOf(currently_active_vane, true)+1);
+					skip_through_vanes();
+				}
 			}
-			else{
-				currently_active_vane=vanes.get(vanes.indexOf(currently_active_vane, true)+1);
-				skip_through_vanes();
-			}
+		}
+	}
+	
+	void vanejump(){
+		if (currently_active_vane==vanes.peek()){
+		   currently_active_vane=null;
+		   the_selected_enemyship=null;
+		}
+		else{
+			currently_active_vane=vanes.get(vanes.indexOf(currently_active_vane, true)+1);
 		}
 	}
 	
@@ -540,6 +551,7 @@ public class GameScreen_Bayes extends GameScreen {
 	void hand_over_to_zapping(){
 		current_status="zapping";
 		currently_active_vane=null;
+		the_selected_enemyship=null;
 		set_up_zapping_times();
 	}
 	
@@ -743,20 +755,22 @@ public class GameScreen_Bayes extends GameScreen {
 	
 	void draw_energy_things(){
 		for (Vane vane: vanes){
-			if (vane.current_energy.equals("circle")){
-				batch.draw(vane_energy_circle_t, vane.rect.x+5, vane.rect.y+5);
-			}
-			if (vane.current_energy.equals("triangle")){
-				batch.draw(vane_energy_triangle_t, vane.rect.x+5, vane.rect.y+5);
-			}
-			if (vane.current_energy.equals("square")){
-				batch.draw(vane_energy_square_t, vane.rect.x+5, vane.rect.y+5);
-			}
-			if (vane.current_energy.equals("pentagon")){
-				batch.draw(vane_energy_pentagon_t, vane.rect.x+5, vane.rect.y+5);
-			}
-			if (vane.current_energy.equals("hexagon")){
-				batch.draw(vane_energy_hexagon_t, vane.rect.x+5, vane.rect.y+5);
+			if (vane.targeted || currently_active_vane==vane){
+				if (vane.current_energy.equals("circle")){
+					batch.draw(vane_energy_circle_t, vane.rect.x+5, vane.rect.y+5);
+				}
+				if (vane.current_energy.equals("triangle")){
+					batch.draw(vane_energy_triangle_t, vane.rect.x+5, vane.rect.y+5);
+				}
+				if (vane.current_energy.equals("square")){
+					batch.draw(vane_energy_square_t, vane.rect.x+5, vane.rect.y+5);
+				}
+				if (vane.current_energy.equals("pentagon")){
+					batch.draw(vane_energy_pentagon_t, vane.rect.x+5, vane.rect.y+5);
+				}
+				if (vane.current_energy.equals("hexagon")){
+					batch.draw(vane_energy_hexagon_t, vane.rect.x+5, vane.rect.y+5);
+				}
 			}
 		}
 	}
@@ -832,6 +846,143 @@ public class GameScreen_Bayes extends GameScreen {
 				}
 	}
 	
+	//HOTKEYS
+	
+	private void check_for_keypresses_bowling(){
+		
+		if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
+			   if(the_selected_enemyship==null && mines.size==0){
+				   	current_status="waiting";
+					shock.play();
+			   }
+			   else{
+				   if (!is_this_ship_being_attacked(the_selected_enemyship)){
+						spawnMine(the_selected_enemyship);
+						the_selected_enemyship.turret.targeted=true;
+					}
+			   }
+		   }
+		
+		if (Gdx.input.isKeyJustPressed(Keys.RIGHT)){
+		   cycle_ships_forward();
+	   }
+	   if (Gdx.input.isKeyJustPressed(Keys.LEFT)){
+		   cycle_ships_back();
+	   }
+	}
+	
+	private void check_for_keypresses_targeting(){
+		   
+		   //handle the final firing.
+		   if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
+			   if(currently_active_vane==null){
+				   hand_over_to_zapping();
+			   }
+			   else{
+				   
+				   if (the_selected_enemyship!=null){
+					   currently_active_vane.targeted=true;
+					   currently_active_vane.target_ship=the_selected_enemyship;
+				   }
+				   vanejump();
+				   skip_through_vanes();
+			   }
+		   }
+		   
+		   if (Gdx.input.isKeyJustPressed(Keys.NUM_1) || Gdx.input.isKeyJustPressed(Keys.A)){
+			   currently_active_vane=vane_one;
+			   vane_one.targeted=false;
+			   vane_one.target_ship=null;
+		   }
+		   if (Gdx.input.isKeyJustPressed(Keys.NUM_2) || Gdx.input.isKeyJustPressed(Keys.S)){
+			   currently_active_vane=vane_two;
+			   vane_two.targeted=false;
+			   vane_two.target_ship=null;
+		   }
+		   if (currently_active_vane!=null){
+			   if (Gdx.input.isKeyJustPressed(Keys.RIGHT)){
+				   cycle_ships_forward();
+			   }
+			   if (Gdx.input.isKeyJustPressed(Keys.LEFT)){
+				   cycle_ships_back();
+			   }
+			   
+			   if (Gdx.input.isKeyJustPressed(Keys.UP)){
+					currently_active_vane.current_energy=level_specific_forward_energy_cycle(currently_active_vane.current_energy);
+			   }
+			   if (Gdx.input.isKeyJustPressed(Keys.DOWN)){
+					currently_active_vane.current_energy=level_specific_backward_energy_cycle(currently_active_vane.current_energy);
+			   }
+		   }
+	}
+	
+	private void cycle_ships_forward(){
+		if (the_selected_enemyship==null){
+			   the_selected_enemyship=enemyships.first();
+			   if (!screen_proper.overlaps(the_selected_enemyship.rect)){
+				   cycle_ships_forward();
+			   }
+		   }
+		   else if (the_selected_enemyship==enemyships.peek()){
+			   the_selected_enemyship=null;
+		   }
+		   else{
+			   int q=enemyships.indexOf(the_selected_enemyship, true);
+			   int j=(q+1)%enemyships.size;
+			   the_selected_enemyship=enemyships.get(j);
+			   if (!screen_proper.overlaps(the_selected_enemyship.rect)){
+				   cycle_ships_forward();
+			   }
+		   }
+	}
+	
+	private void cycle_ships_back(){
+		if (the_selected_enemyship==null){
+			   the_selected_enemyship=enemyships.peek();
+			   if (!screen_proper.overlaps(the_selected_enemyship.rect)){
+				   cycle_ships_back();
+			   }
+		   }
+		   else if (the_selected_enemyship==enemyships.first()){
+			   the_selected_enemyship=null;
+		   }
+		   else{
+			   int q=enemyships.indexOf(the_selected_enemyship, true);
+			   int j=(q+enemyships.size-1)%enemyships.size;
+			   the_selected_enemyship=enemyships.get(j);
+			   if (!screen_proper.overlaps(the_selected_enemyship.rect)){
+				   cycle_ships_back();
+			   }
+		   }
+	}
+	
+	private void show_the_glow(){
+		for (EnemyShip enemyship:enemyships){
+			if (enemyship==the_selected_enemyship){
+				//color the front
+				if (enemyship.front=='a'){
+				   batch.draw(enemyship_glowy_front_a_t, enemyship.rect.x, enemyship.rect.y);
+			   }
+			   else if (enemyship.front=='b'){
+				   batch.draw(enemyship_glowy_front_b_t, enemyship.rect.x, enemyship.rect.y);
+			   }
+			   else if (enemyship.front=='c'){
+				   batch.draw(enemyship_glowy_front_c_t, enemyship.rect.x, enemyship.rect.y);
+			   }
+				//color the back
+				if (enemyship.back=='a'){
+				   batch.draw(enemyship_glowy_front_a_t, enemyship.rect.x, enemyship.rect.y+30, 60, 30, 0, 0, 60, 30, false, true);
+			   }
+			   else if (enemyship.back=='b'){
+				   batch.draw(enemyship_glowy_front_b_t, enemyship.rect.x, enemyship.rect.y+30, 60, 30, 0, 0, 60, 30, false, true);
+			   }
+			   else if (enemyship.back=='c'){
+				   batch.draw(enemyship_glowy_front_c_t, enemyship.rect.x, enemyship.rect.y+30, 60, 30, 0, 0, 60, 30, false, true);			  
+			   }
+			}
+		}
+	}
+	
 	//---The render---
 	
 	public void render(float delta){
@@ -845,8 +996,12 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		gamey_render_draw_objects();
 		
-		if (current_status.equals("targeting")){
+		if (current_status.equals("targeting")||current_status.equals("zapping")){
 			draw_energy_things();
+		}
+		
+		if (current_status.equals("targeting")|| current_status.equals("bowling")){
+			show_the_glow();
 		}
 		
 		
@@ -869,13 +1024,14 @@ public class GameScreen_Bayes extends GameScreen {
 			do_zapping_things();
 		}
 		
-		if (current_status.equals("bowling")){
-			do_bowling_things();
+		if (current_status.equals("targeting")){
+			check_for_keypresses_targeting();
+			do_targeting_things();
 		}
 		
-		if (current_status.equals("targeting")){
-			//check_for_keypresses();
-			do_targeting_things();
+		if (current_status.equals("bowling")){
+			check_for_keypresses_bowling();
+			do_bowling_things();
 		}
 		
 		shipshield_t=shipshield_normal_t; // If the shield is flickering, we want it to flicker for only one frame; we reset it here.

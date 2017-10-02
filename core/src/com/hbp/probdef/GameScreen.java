@@ -43,6 +43,10 @@ public class GameScreen extends SpaceScreen {
 	Texture enemyship_front_b_t;
 	Texture enemyship_front_c_t;
 	
+	Texture enemyship_glowy_front_a_t;
+	Texture enemyship_glowy_front_b_t;
+	Texture enemyship_glowy_front_c_t;
+	
 	Texture enemyship_engine_a_t;
 	Texture enemyship_engine_b_t;
 	Texture enemyship_engine_c_t;
@@ -258,6 +262,10 @@ public class GameScreen extends SpaceScreen {
 		enemyship_front_b_t=new Texture(Gdx.files.internal("ship_bases/front_b.png"));
 		enemyship_front_c_t=new Texture(Gdx.files.internal("ship_bases/front_c.png"));
 
+		enemyship_glowy_front_a_t=new Texture(Gdx.files.internal("ship_bases/front_a_trim.png"));
+		enemyship_glowy_front_b_t=new Texture(Gdx.files.internal("ship_bases/front_b_trim.png"));
+		enemyship_glowy_front_c_t=new Texture(Gdx.files.internal("ship_bases/front_c_trim.png"));
+		
 		
 		//-Dots-
 		
@@ -661,7 +669,7 @@ public class GameScreen extends SpaceScreen {
 			   }
 			   if (explosions.size>0){
 				   for (RT_Kaboom explosion: explosions){
-					   if (explosion.rect.x<240){
+					   if (explosion.rect.y<200){
 						   ok_to_speed=false;
 					   }
 				   }
