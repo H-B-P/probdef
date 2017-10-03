@@ -63,11 +63,11 @@ public class SelectScreen_Library extends SelectScreen {
 				NUMBER_OF_LEVELS=3;
 				banner_t=banner_blank_t;
 				banner_s="Bayes";
-				one_s="Expected Value";
+				one_s="";//"Expected Value";
 				one_double_liner=true;
-				two_s="Eliminate & Normalise";
+				two_s="";//"Eliminate & Normalise";
 				two_double_liner=true;
-				three_s="Bayes' Theorem";
+				three_s="";//"Bayes' Theorem";
 				three_double_liner=true;
 				four_s="";
 				five_s="";
@@ -81,7 +81,7 @@ public class SelectScreen_Library extends SelectScreen {
 				one_double_liner=true;
 				two_s="A Shortcut";
 				two_double_liner=false;
-				three_s="Pascal's Triangle";
+				three_s="";//"Pascal's Triangle";
 				three_double_liner=true;
 				four_s="";
 				five_s="";

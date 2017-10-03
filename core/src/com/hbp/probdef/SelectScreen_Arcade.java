@@ -165,16 +165,33 @@ public class SelectScreen_Arcade extends SelectScreen {
 				NUMBER_OF_LEVELS=5;
 				banner_t=banner_blank_t;
 				banner_s="Deduction";
-				one_s="";
+				one_s="Intro";
 				one_double_liner=false;
-				two_s="";
-				two_double_liner=false;
-				three_s="";
+				two_s="Blatant Evidence";
+				two_double_liner=true;
+				three_s="Finale";
 				three_double_liner=false;
-				four_s="";
-				four_double_liner=false;
-				five_s="";
+				four_s="Subtle Evidence";
+				four_double_liner=true;
+				five_s="Near and Far";
 				five_double_liner=false;
+			}
+			if(TOPIC.equals("Imperfection")){
+				NUMBER_OF_LEVELS=6;
+				banner_t=banner_blank_t;
+				banner_s="Imperfexion";
+				one_s="";//"Flawed Priors";
+				one_double_liner=false;
+				two_s="";//"Incomplete Priors";
+				two_double_liner=false;
+				three_s="";//"Unreliable Vanes";
+				three_double_liner=false;
+				four_s="";//"Impaired Vanes";
+				four_double_liner=false;
+				five_s="";//"Red Shield";
+				five_double_liner=false;
+				six_s="";//"Blue Shield";
+				six_double_liner=false;
 			}
 			if(TOPIC.equals("Induction")){
 				NUMBER_OF_LEVELS=5;
@@ -221,6 +238,9 @@ public class SelectScreen_Arcade extends SelectScreen {
 				TOPIC="Deduction";
 			}
 			else if (TOPIC.equals("Deduction")){
+				TOPIC="Imperfection";
+			}
+			else if (TOPIC.equals("Imperfection")){
 				TOPIC="Induction";
 			}
 			else if (TOPIC.equals("Induction")){
@@ -239,8 +259,11 @@ public class SelectScreen_Arcade extends SelectScreen {
 			else if (TOPIC.equals("Deduction")){
 				TOPIC="Decoys";
 			}
-			else if (TOPIC.equals("Induction")){
+			else if (TOPIC.equals("Imperfection")){
 				TOPIC="Deduction";
+			}
+			else if (TOPIC.equals("Induction")){
+				TOPIC="Imperfection";
 			}
 			else if (TOPIC.equals("Titanium")){
 				TOPIC="Induction";
@@ -296,13 +319,24 @@ public class SelectScreen_Arcade extends SelectScreen {
 		   }
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Deduction")){
 			   if (one_r.contains(tp_x,tp_y)){
-				   game.setScreen(new GameScreen_Bayes(game, true));
+				   game.setScreen(new ArcadeScreen_Bayes_Deduction_Intro(game, true));
 				   dispose();
 			   }
 			   if (two_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Bayes_Deduction_Blatant(game, true));
+				   dispose();
 			   }
 			   if (three_r.contains(tp_x,tp_y)){
-				   
+				   game.setScreen(new ArcadeScreen_Bayes_Deduction_Finale(game, true));
+				   dispose();
+			   }
+			   if (four_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Bayes_Deduction_Subtle(game, true));
+				   dispose();
+			   }
+			   if (five_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Bayes_Deduction_NAF(game, true));
+				   dispose();
 			   }
 		   }
 	   }

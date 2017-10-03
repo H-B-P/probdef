@@ -11,12 +11,92 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends GameScreen_Bayes {
 	
 	final ProbDef game;
 	
+	float specific_start_time;
+	
 	public ArcadeScreen_Bayes_Deduction_Intro(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		
 		game = gam;
 		
+		minecount=30;
+		
+		specific_start_time=9000000000000000000000f;
+		
+	}
+	
+	@Override
+	
+	void level_specific_ship_aesthetics(){
+		ship_one_engines='a';
+		ship_one_front='a';
+		ship_one_back='a';
+		
+		ship_two_engines='b';
+		ship_two_front='c';
+		ship_two_back='a';
+		
+		ship_three_engines='c';
+		ship_three_front='a';
+		ship_three_back='c';
+		
+	}
+	
+	@Override
+	
+	void level_specific_probability_display(){
+		if (!suppress_autocalc){
+			for (EnemyShip enemyship:enemyships){
+				if (enemyship.obscured){
+					acalc_greenfont.draw(batch, "T: "+present_float(enemyship.assignedprob_one*100.0f)+"%\nP: "+present_float(enemyship.assignedprob_two*100.0f)+"%", enemyship.rect.x-20, enemyship.rect.y-30, 100, 1, true);
+				}
+			}
+		}
+	}
+	
+	@Override
+	
+	void level_specific_environment_setup(){
+		turret_type_one="triangle";
+		turret_type_two="pentagon";
+		turret_type_three="";
+		
+		ship_one_percentfreq_one=50;
+		ship_one_percentfreq_two=50;
+		ship_one_percentfreq_three=0;
+		
+		ship_two_percentfreq_one=70;
+		ship_two_percentfreq_two=30;
+		ship_two_percentfreq_three=0;
+		
+		ship_three_percentfreq_one=30;
+		ship_three_percentfreq_two=70;
+		ship_three_percentfreq_three=0;
+		
+	}
+	
+	@Override
+	
+	String level_specific_forward_energy_cycle(String original){
+		if (original.equals(turret_type_one)){
+			return turret_type_two;
+		}
+		if (original.equals(turret_type_two)){
+			return turret_type_one;
+		}
+		return turret_type_one;
+	}
+	
+	@Override
+	
+	String level_specific_backward_energy_cycle(String original){
+		if (original.equals(turret_type_one)){
+			return turret_type_two;
+		}
+		if (original.equals(turret_type_two)){
+			return turret_type_one;
+		}
+		return turret_type_one;
 	}
 	
 	@Override
@@ -35,6 +115,184 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends GameScreen_Bayes {
 			enemyship.assignedprob_two=enemyship.assignedprob_two*0.1f;
 		}
 		normalize(enemyship);
+	}
+	
+	@Override
+	
+	void level_specific_HUD(){
+		font.draw(batch, "TRI/PENT", 90, 473, 140, 1, true);
+		font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
+		font.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
+		font.draw(batch, "SCORE: "+ (shields+10), 90, 419, 140, 1, true);
+	}
+	
+	@Override
+	
+	void level_specific_waves(){
+		
+		suppress_phasing=false;
+		suppress_autocalc=false;
+		
+		if (shipwave==1){
+			ship_one_spawn_enemy_ship(-2, "triangle", false);
+			ship_one_spawn_enemy_ship(0, "pentagon", false);
+			ship_one_spawn_enemy_ship(2, "pentagon", false);
+			suppress_phasing=true;
+		}
+		if (shipwave==2){
+			ship_one_spawn_enemy_ship(-2, "triangle", false);
+			ship_one_spawn_enemy_ship(0, "triangle", false);
+			ship_one_spawn_enemy_ship(2, "pentagon", false);
+			suppress_phasing=true;
+		}
+		if (shipwave==3){
+			ship_one_spawn_random(0,true);
+			suppress_phasing=true;
+			suppress_autocalc=true;
+		}
+		if (shipwave==4){
+			ship_one_spawn_random(-2, true);
+			ship_one_spawn_random(0, true);
+			ship_one_spawn_random(2, true);
+			suppress_phasing=true;
+			suppress_autocalc=true;
+		}
+		if (shipwave==5){
+			ship_one_spawn_random(-1, true);
+			ship_one_spawn_random(1, true);
+			specific_start_time=total_time;
+			suppress_autocalc=true;
+		}
+		if (shipwave==6){
+			ship_one_spawn_random(-1, true);
+			ship_one_spawn_random(1, true);
+		}
+		if (shipwave==7){
+			ship_one_spawn_random(-2, true);
+			ship_two_spawn_random(0, true);
+			ship_three_spawn_random(2, true);
+		}
+		if (shipwave==8){
+			ship_two_spawn_random(-1, true);
+			ship_three_spawn_random(1, true);
+		}
+		if (shipwave==9){
+			ship_three_spawn_random(-1, true);
+			ship_one_spawn_random(1, true);
+		}
+		if (shipwave==10){
+			ship_two_spawn_random(-1, true);
+			ship_one_spawn_random(1, true);
+		}
+		
+		if (shipwave>total_shipwaves){
+			game.setScreen(new SelectScreen_Arcade(game, true));
+			  dispose();
+		}
+	}
+	
+	@Override
+	
+	void level_specific_timeline(){
+		show_the_text=false;
+		greentext=false;
+		
+		if (shipwave==1){
+			if (round==1 && current_status.equals("targeting")){
+				show_the_text=true;
+				the_text="You've destroyed things with turrets; now let's destroy things-with-turrets. Click the leftmost ship to target it.";
+				if (vane_one.targeted){
+					the_text="Click on the right vane to cycle to a pentagon zap, and use it to target another ship. Then, click the fire button.";
+				}
+				if (vane_one.targeted&&vane_two.targeted){
+					the_text="As with turrets, you can click on a vane to retarget it before firing.";
+				}
+			}
+			if ((round==1&& (current_status.equals("firing") || current_status.equals("zapping") || current_status.equals("waiting")))||(round==2 &&current_status.equals("targeting"))){
+				show_the_text=true;
+				the_text="On the enemy turn, the remaining ships shoot back. All successful attacks cost you one point.";
+				
+			}
+		}
+		if (shipwave==2){
+			if (round==1 && current_status.equals("targeting")){
+				show_the_text=true;
+				the_text="If you want, you can use hotkeys. Up/down cycles attacks, left/right cycles ships, spacebar selects.";
+				if (vane_one.targeted||vane_two.targeted){
+					infuriatingly_specific_bool=true;
+				}
+				if (infuriatingly_specific_bool){
+					the_text="You can also use 1 and 2 to select vanes. When everything's targeted, press space again to fire.";
+				}
+			}
+		}
+		if (shipwave==3){
+			if (round==1 && current_status.equals("targeting")){
+				show_the_text=true;
+				the_text="This ship has obscured itself. Target it with a triangle zap and a pentagon zap to make sure it's removed from play.";
+			}
+		}
+		if (shipwave==4){
+			if (round==1 && current_status.equals("targeting")){
+				show_the_text=true;
+				the_text="Ships of this type are 50% pentagon-turreted and 50% triangle-turreted. At this point, it's a matter of luck.";
+			}
+			if (round==2 && current_status.equals("targeting")){
+				show_the_text=true;
+				the_text="If a ship survives a triangle zap, that proves it's not a triangle, so it must be a pentagon. Ditto the reverse.";
+			}
+		}
+		if (shipwave==5){
+			if (round==0 && current_status.equals("bowling")){
+				show_the_text=true;
+				if (minecount==30){
+					if (total_time<specific_start_time+8){
+						the_text="That last wave was rough. Let's make this easier: the ship is now intangible at the start of each wave.";
+					}
+					else{
+						the_text="Click on an enemy ship, or cycle to it with arrow keys and press spacebar. This will launch a mine towards it.";
+					}
+				}
+				if (minecount==29){
+					the_text="The more shots you see them take, the better you'll be able to guess which ships have which turrets.";
+				}
+				if (minecount<29){
+					the_text="When you're ready to start the wave proper, click the ship or press space.";
+				}
+				if (minecount<25){
+					greentext=true;
+					the_text="(good thing we captured so many mines, huh?)";
+				}
+				if (minecount<20){
+					greentext=true;
+					the_text="(ok thats too many mines you need to leave some for later)";
+				}
+				
+			}
+		}
+		if (shipwave==6){
+			if (round==0 && current_status.equals("bowling")){
+				show_the_text=true;
+				the_text="The reasoning you used last wave can be done by the autocalc. When ships fire, their probabilities update.";
+			}
+			if (round==1 && current_status.equals("targeting")){
+				show_the_text=true;
+				the_text="The autocalc also updates when zaps fail.";
+			}
+		}
+		if (shipwave==7){
+			if (round==0 && current_status.equals("bowling")){
+				show_the_text=true;
+				the_text="Not all ships are of the same type. The autocalc knows which shiptypes carry what turrets with what probability.";
+			}
+		}
+		if (shipwave==8){
+			if (round==0 && current_status.equals("bowling")){
+				show_the_text=true;
+				the_text="Different combinations of shiptypes may require different approaches.";
+			}
+		}
+		
 	}
 	
 }
