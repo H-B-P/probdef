@@ -287,22 +287,29 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 		}
 	}
 	
+	void level_specific_minespawn(){
+		
+	}
+	
 	void spawn_formation_mine(int xposn, int shoot_opportunities){
 		if (ordinary_minetype.equals("generic")){
 			if (shoot_opportunities==0){
 				spawnMine(xposn, 200);
 			}
 			if (shoot_opportunities==1){
-				spawnMine(xposn, 95);
+				spawnMine(xposn, 90+5);
 			}
 			if (shoot_opportunities==2){
-				spawnMine(xposn, 65);
+				spawnMine(xposn, 60+5);
 			}
 			if (shoot_opportunities==3){
 				spawnMine(xposn, 45);
 			}
 			if (shoot_opportunities==4){
-				spawnMine(xposn, 37);
+				spawnMine(xposn, 36);
+			}
+			if (shoot_opportunities==5){
+				spawnMine(xposn, 30);
 			}
 		}
 		if (ordinary_minetype.equals("decoy")){
@@ -310,16 +317,39 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 				spawnDecoyProbablistic(xposn, 200, decoyfreq);
 			}
 			if (shoot_opportunities==1){
-				spawnDecoyProbablistic(xposn, 95, decoyfreq);	
+				spawnDecoyProbablistic(xposn, 90+5, decoyfreq);	
 			}
 			if (shoot_opportunities==2){
-				spawnDecoyProbablistic(xposn, 65, decoyfreq);
+				spawnDecoyProbablistic(xposn, 60+5, decoyfreq);
 			}
 			if (shoot_opportunities==3){
 				spawnDecoyProbablistic(xposn, 45, decoyfreq);
 			}
 			if (shoot_opportunities==4){
-				spawnDecoyProbablistic(xposn, 37, decoyfreq);
+				spawnDecoyProbablistic(xposn, 36, decoyfreq);
+			}
+			if (shoot_opportunities==5){
+				spawnDecoyProbablistic(xposn, 30, decoyfreq);
+			}
+		}
+		if (ordinary_minetype.equals("titanium")){
+			if (shoot_opportunities==0){
+				spawnTitaniumMine(xposn, 200);
+			}
+			if (shoot_opportunities==1){
+				spawnTitaniumMine(xposn, 90+5);	
+			}
+			if (shoot_opportunities==2){
+				spawnTitaniumMine(xposn, 60+5);
+			}
+			if (shoot_opportunities==3){
+				spawnTitaniumMine(xposn, 45);
+			}
+			if (shoot_opportunities==4){
+				spawnTitaniumMine(xposn, 36);
+			}
+			if (shoot_opportunities==5){
+				spawnTitaniumMine(xposn, 30);
 			}
 		}
 		
@@ -369,6 +399,29 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 		wave_number_update(sec+14+16+14-1,4);
 		
 		twelve_wave_boxy(sec+14+16+14,3);
+	}
+	
+	void titanium_set(int sec){
+		
+		wave_number_update(sec-1,1);
+		
+		four_wave(sec, 3);
+		
+		wave_number_update(sec+16-1,2);
+
+		six_wave_single_fast(sec+16, 4);
+		
+		wave_number_update(sec+16+18-1,3);
+		
+		six_wave_single_slow(sec+16+18, 4);
+		
+		wave_number_update(sec+16+18*2-1,4);
+		
+		eight_wave_alternating(sec+16+18*2, 5);
+		
+		wave_number_update(sec+16+18*3-1,5);
+		
+		eight_wave_pair(sec+16+18*3, 4);
 	}
 	
 	@Override

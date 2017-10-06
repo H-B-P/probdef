@@ -69,7 +69,7 @@ public class ArcadeScreen_Decoy_Intro extends ArcadeScreen_Prob {
 	void level_specific_timeline(){
 		show_the_text=false;
 		   suppress_freezes=false;
-		   greentext=false;
+		   purpletext=false;
 		   if (total_time<5){
 				show_the_text=true;
 				the_text="Decoy mines look ordinary, but vanish harmlessly when they touch the ship's shield.";
@@ -95,7 +95,7 @@ public class ArcadeScreen_Decoy_Intro extends ArcadeScreen_Prob {
 					the_text="Eventually, a decoy will defy enough odds that you can assume it's fake, and focus on real threats.";
 				}
 				else{
-					greentext=true;
+					purpletext=true;
 					the_text="(from here on out all decoys are generated randomly, so memorising which mines are fake won't work)";
 				}
 			}		   

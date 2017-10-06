@@ -67,7 +67,7 @@ public class GameScreen_Prob extends GameScreen {
 	      
 	      infuriatingly_specific_bool=false; //so infuriating
 	      
-	      greentext=false;
+	      purpletext=false;
 	      
 	      mine_trim_t=new Texture(Gdx.files.internal("mine_trim.png"));
 	      
@@ -142,7 +142,7 @@ public class GameScreen_Prob extends GameScreen {
 	   void level_specific_timeline(){
 		   show_the_text=false;
 		   suppress_freezes=false;
-		   greentext=false;
+		   purpletext=false;
 			   if (total_time<5){   
 				   if(TIMESPEED==0){
 					   show_the_text=true;
@@ -154,16 +154,16 @@ public class GameScreen_Prob extends GameScreen {
 					   }
 					   if (turret_one.targeted && turret_two.targeted){
 						   if (!turret_one.target_mine.equals(turret_two.target_mine)){
-							   greentext=true;
+							   purpletext=true;
 							   the_text="(btw you can target a mine with more than one turret in case that wasn't obvious)";
 						   }
 						   else{
-							   greentext=true;
+							   purpletext=true;
 							   the_text="(btw you probably shouldn't target all your turrets on the same mine)";
 						   }
 					   }
 					   if (currently_active_turret_no==5){
-						   greentext=false;
+						   purpletext=false;
 						   the_text="Once you're done targeting, click the fire button at the top of the screen to launch a volley.";
 					   }
 				   }
@@ -199,7 +199,7 @@ public class GameScreen_Prob extends GameScreen {
 					   the_text="If you change your mind before firing, you can click on the relevant turret to re-target it.";
 				   }
 				   if (currently_active_turret_no==5){
-					   greentext=true;
+					   purpletext=true;
 					   the_text="(jsyk you don't have to target every turret every turn before firing but it's usually a good idea)";
 				   }
 			   }
@@ -215,11 +215,11 @@ public class GameScreen_Prob extends GameScreen {
 						   the_text="If you prefer, you can use left/right arrow keys and the spacebar to select mines.";
 					   }
 					   else{
-						   greentext=true;
+						   purpletext=true;
 						   the_text="(you can also use asdf or 1234 to select turrets if for some reason that seems like a good idea to you)";
 					   }
 					   if (currently_active_turret_no==5){
-						   greentext=false;
+						   purpletext=false;
 						   the_text="Similarly: when you're done targeting, you can use the spacebar to fire.";
 					   }
 				   }
@@ -489,6 +489,26 @@ public class GameScreen_Prob extends GameScreen {
 		   for(Mine mine: mines) {
 			   if (mine.rect.contains(tp_x, tp_y) && tp_y<440){
 				   return mine;
+			   }
+			   if (mine.shields>=1){
+				   if (mine.shield_one.contains(tp_x,tp_y)){
+					   return mine;
+				   }
+			   }
+			   if (mine.shields>=2){
+				   if (mine.shield_two.contains(tp_x,tp_y)){
+					   return mine;
+				   }
+			   }
+			   if (mine.shields>=3){
+				   if (mine.shield_three.contains(tp_x,tp_y)){
+					   return mine;
+				   }
+			   }
+			   if (mine.shields>=4){
+				   if (mine.shield_four.contains(tp_x,tp_y)){
+					   return mine;
+				   }
 			   }
 		   }
 		return null;

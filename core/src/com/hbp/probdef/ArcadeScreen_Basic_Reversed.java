@@ -51,7 +51,7 @@ public class ArcadeScreen_Basic_Reversed extends ArcadeScreen_Prob {
 	void level_specific_timeline(){
 		show_the_text=false;
 		   suppress_freezes=false;
-		   greentext=false;
+		   purpletext=false;
 		   if (turret_one.targeted||turret_two.targeted||turret_three.targeted||turret_four.targeted){
 			   infuriatingly_specific_bool=true;
 		   }
@@ -61,7 +61,7 @@ public class ArcadeScreen_Basic_Reversed extends ArcadeScreen_Prob {
 		   }
 		   if (seconds<5 && infuriatingly_specific_bool){
 			   show_the_text=true;
-			   greentext=true;
+			   purpletext=true;
 			   the_text="(whoever did that must be really careless and/or inconsiderate smh)";
 		   }
 		   

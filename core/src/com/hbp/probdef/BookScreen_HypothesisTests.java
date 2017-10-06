@@ -109,7 +109,7 @@ public class BookScreen_HypothesisTests extends BookScreen {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   time_to_move_on=false;
-		   greentext=false;
+		   purpletext=false;
 		
 		if (page==1){
 			
@@ -133,7 +133,7 @@ public class BookScreen_HypothesisTests extends BookScreen {
 			}
 			if (page_time>18){
 				show_the_text=true;
-				greentext=true;
+				purpletext=true;
 				the_text="(from here on out all decoys are generated randomly, so memorising which mines are fake won't work)";
 			}
 			if (page_time>20){
@@ -160,7 +160,7 @@ public class BookScreen_HypothesisTests extends BookScreen {
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_four.targeted){
 				show_the_text=true;
-				greentext=true;
+				purpletext=true;
 				the_text="(you ready to do some Scientific Investigation and Test some Hypotheses? here we go)";
 			}
 			if (page_time>16){

@@ -105,7 +105,7 @@ public class BookScreen_Shortcut extends BookScreen {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   time_to_move_on=false;
-		   greentext=false;
+		   purpletext=false;
 		
 		if (page==1){
 			if (page_time<3){
@@ -179,7 +179,7 @@ public class BookScreen_Shortcut extends BookScreen {
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_one.targeted){
 				show_the_text=true;
-				greentext=true;
+				purpletext=true;
 				the_text="(note that the autocalc only displays to two decimal places)";
 			}
 			if (page_time>6){
@@ -193,7 +193,7 @@ public class BookScreen_Shortcut extends BookScreen {
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_one.targeted){
 				show_the_text=true;
-				greentext=true;
+				purpletext=true;
 				the_text="(don't stop noting that the autocalc only displays to two decimal places)";
 			}
 			if (page_time>6){

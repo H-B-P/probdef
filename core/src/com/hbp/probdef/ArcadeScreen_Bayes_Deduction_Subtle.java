@@ -17,7 +17,7 @@ public class ArcadeScreen_Bayes_Deduction_Subtle extends GameScreen_Bayes {
 		
 		game = gam;
 		
-		minecount=65;
+		minecount=80;
 		
 	}
 	
@@ -25,7 +25,7 @@ public class ArcadeScreen_Bayes_Deduction_Subtle extends GameScreen_Bayes {
 	
 	void level_specific_timeline(){
 		show_the_text=false;
-		greentext=false;
+		purpletext=false;
 		
 		if (shipwave==1){
 			if (round==1 && current_status.equals("targeting")){
@@ -35,8 +35,8 @@ public class ArcadeScreen_Bayes_Deduction_Subtle extends GameScreen_Bayes {
 					the_text="Ships in this area have triangle, square and pentagon turrets. These all behave very similarly.";
 				}
 				if (vane_one.targeted&&vane_two.targeted){
-					greentext=true;
-					the_text="(so yeah have some extra mines, you'll need them)";
+					purpletext=true;
+					the_text="(so yeah enjoy those extra mines, you'll need them)";
 				}
 			}
 		}
@@ -45,15 +45,15 @@ public class ArcadeScreen_Bayes_Deduction_Subtle extends GameScreen_Bayes {
 	@Override
 	
 	void level_specific_ship_aesthetics(){
-		ship_one_engines='d';
+		ship_one_engines='b';
 		ship_one_front='c';
 		ship_one_back='a';
 		
-		ship_two_engines='b';
+		ship_two_engines='d';
 		ship_two_front='c';
 		ship_two_back='b';
 		
-		ship_three_engines='d';
+		ship_three_engines='b';
 		ship_three_front='c';
 		ship_three_back='c';
 		

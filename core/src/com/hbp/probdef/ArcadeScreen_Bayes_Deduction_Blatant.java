@@ -17,7 +17,7 @@ public class ArcadeScreen_Bayes_Deduction_Blatant extends GameScreen_Bayes {
 		
 		game = gam;
 		
-		minecount=40;
+		minecount=30;
 		
 	}
 	
@@ -25,18 +25,20 @@ public class ArcadeScreen_Bayes_Deduction_Blatant extends GameScreen_Bayes {
 	
 	void level_specific_timeline(){
 		show_the_text=false;
-		greentext=false;
+		purpletext=false;
 		
 		if (shipwave==1){
 			if (round==1 && current_status.equals("targeting")){
 				show_the_text=true;
 				the_text="Sometimes, evidence is blatant and definitive, so you only need to perform a few tests.";
 				if (vane_one.targeted||vane_two.targeted){
-					the_text="Ships in this area have circle, square and hexagon turrets.";
+					the_text="Ships in this area have circle, square and hexagon turrets. These all behave very differently.";
 				}
-				if (vane_one.targeted&&vane_two.targeted){
-					the_text="When an obscured ship fires, it either proves it's not a hexagon or proves it's not a circle.";
-				}
+			}
+		}
+		if (shipwave==2){
+			if (round==1 && current_status.equals("bowling")){
+				the_text="When an obscured ship fires, it either proves it's not a hexagon or proves it's not a circle.";
 			}
 		}
 	}
@@ -45,15 +47,15 @@ public class ArcadeScreen_Bayes_Deduction_Blatant extends GameScreen_Bayes {
 	
 	void level_specific_ship_aesthetics(){
 		ship_one_engines='b';
-		ship_one_front='b';
+		ship_one_front='a';
 		ship_one_back='b';
 		
 		ship_two_engines='c';
-		ship_two_front='b';
+		ship_two_front='a';
 		ship_two_back='b';
 		
-		ship_three_engines='d';
-		ship_three_front='b';
+		ship_three_engines='a';
+		ship_three_front='a';
 		ship_three_back='b';
 		
 	}

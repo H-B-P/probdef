@@ -338,7 +338,12 @@ public class GameScreen_Bayes extends GameScreen {
 	void level_specific_HUD(){
 		font.draw(batch, "CIRC/TRI/PENT", 90, 473, 140, 1, true);
 		font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
-		font.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
+		if (minecount<5){
+			acalc_redfont.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
+		}
+		else{
+			font.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
+		}
 		font.draw(batch, "SCORE: "+ (shields+10), 90, 419, 140, 1, true);
 	}
 	
@@ -362,7 +367,7 @@ public class GameScreen_Bayes extends GameScreen {
 		if (k<ship_two_percentfreq_one){
 			ship_two_spawn_enemy_ship(xposn, turret_type_one, obsc);
 		}
-		else if (k<(ship_two_percentfreq_one+ship_two_percentfreq_two)){
+		else if (k<=(ship_two_percentfreq_one+ship_two_percentfreq_two)){
 			ship_two_spawn_enemy_ship(xposn, turret_type_two, obsc);
 		}
 		else{
@@ -375,7 +380,7 @@ public class GameScreen_Bayes extends GameScreen {
 		if (k<ship_three_percentfreq_one){
 			ship_three_spawn_enemy_ship(xposn, turret_type_one, obsc);
 		}
-		else if (k<(ship_three_percentfreq_one+ship_three_percentfreq_two)){
+		else if (k<=(ship_three_percentfreq_one+ship_three_percentfreq_two)){
 			ship_three_spawn_enemy_ship(xposn, turret_type_two, obsc);
 		}
 		else{
@@ -910,14 +915,15 @@ public class GameScreen_Bayes extends GameScreen {
 				   cycle_ships_back();
 			   }
 			   
-			   if (Gdx.input.isKeyJustPressed(Keys.UP)){
+			   if (Gdx.input.isKeyJustPressed(Keys.UP)){ //|| Gdx.input.getInputProcessor().scrolled(1)){
 					currently_active_vane.current_energy=level_specific_forward_energy_cycle(currently_active_vane.current_energy);
 			   }
-			   if (Gdx.input.isKeyJustPressed(Keys.DOWN)){
+			   if (Gdx.input.isKeyJustPressed(Keys.DOWN)){//|| Gdx.input.getInputProcessor().scrolled(-1)){
 					currently_active_vane.current_energy=level_specific_backward_energy_cycle(currently_active_vane.current_energy);
 			   }
 		   }
 	}
+	
 	
 	private void cycle_ships_forward(){
 		if (the_selected_enemyship==null){
@@ -990,8 +996,6 @@ public class GameScreen_Bayes extends GameScreen {
 	
 	public void render(float delta){
 		gamey_render_predraw(delta);
-		
-		
 		
 		batch.begin();
 		

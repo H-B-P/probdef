@@ -91,7 +91,7 @@ public class BookScreen_Combine extends BookScreen {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   time_to_move_on=false;
-		   greentext=false;
+		   purpletext=false;
 		
 		if (page==1){
 			
@@ -162,15 +162,15 @@ public class BookScreen_Combine extends BookScreen {
 			if (seconds==4 && TIMESPEED==0){
 				show_the_text=true;
 				if (!gotcha){
-					greentext=true;
+					purpletext=true;
 					the_text="(you may need a calculator and/or pen and paper for this)";
 				}
 				else{
-					greentext=true;
+					purpletext=true;
 					the_text="(or you can just blatantly skip ahead that's fine too I guess)";
 				}
 				if (turret_one.targeted && turret_two.targeted && turret_three.targeted && turret_four.targeted){
-					greentext=false;
+					purpletext=false;
 					the_text="0.36%, also known as 0.0036, 36/10000, or 9/2500. Hopefully that lines up with your predictions.";
 				}
 				if (turret_one.targeted || turret_two.targeted || turret_three.targeted || turret_four.targeted){

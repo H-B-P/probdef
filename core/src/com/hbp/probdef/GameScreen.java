@@ -174,7 +174,7 @@ public class GameScreen extends SpaceScreen {
    boolean suppress_freezes;
    
    boolean infuriatingly_specific_bool;
-	boolean greentext;
+	boolean purpletext;
 	
 	float effective_delta;
 	   
@@ -1027,8 +1027,8 @@ public class GameScreen extends SpaceScreen {
 	   
 	   void draw_textbox_one(String text){
 		   batch.draw(textbox_one_t, 20, 100);
-		   if (greentext){
-			   greenfont.draw(batch, text, 30, 173, 260, 1, true);
+		   if (purpletext){
+			   purplefont.draw(batch, text, 30, 173, 260, 1, true);
 		   }
 		   else{
 			   blackfont.draw(batch, text, 30, 173, 260, 1, true);
@@ -1037,8 +1037,8 @@ public class GameScreen extends SpaceScreen {
 	   
 	   void draw_textbox_two(String text){
 		   batch.draw(textbox_two_t, 20, 100);
-		   if (greentext){
-			   greenfont.draw(batch, text, 30, 191, 260, 1, true);
+		   if (purpletext){
+			   purplefont.draw(batch, text, 30, 191, 260, 1, true);
 		   }
 		   else{
 			   blackfont.draw(batch, text, 30, 191, 260, 1, true);

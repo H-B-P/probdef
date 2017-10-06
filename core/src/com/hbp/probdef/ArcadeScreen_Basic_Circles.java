@@ -48,7 +48,7 @@ public class ArcadeScreen_Basic_Circles extends ArcadeScreen_Prob {
 	void level_specific_timeline(){
 		show_the_text=false;
 		   suppress_freezes=false;
-		   greentext=false;
+		   purpletext=false;
 		   if (turret_one.targeted||turret_two.targeted||turret_three.targeted||turret_four.targeted){
 			   infuriatingly_specific_bool=true;
 		   }

@@ -25,14 +25,17 @@ public class ArcadeScreen_Bayes_Deduction_Finale extends GameScreen_Bayes {
 	
 	void level_specific_timeline(){
 		show_the_text=false;
-		greentext=false;
+		purpletext=false;
 		
 		if (shipwave==1){
 			if (round==1 && current_status.equals("targeting")){
 				show_the_text=true;
 				the_text="Sometimes, evidence is less definitive.";
 				if (vane_one.targeted||vane_two.targeted){
-					the_text="Ships in this area have circle, triangle and pentagon turrets. These act similarly enough that it's impossible to be certain which turret does what.";
+					the_text="Ships in this area have circle, triangle and pentagon turrets. These behave more similarly.";
+				}
+				if (vane_one.targeted && vane_two.targeted){
+					the_text="As a result, being confident in your reasoning becomes more difficult.";
 				}
 			}
 		}

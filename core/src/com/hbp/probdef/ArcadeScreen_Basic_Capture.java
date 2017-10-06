@@ -50,7 +50,7 @@ public class ArcadeScreen_Basic_Capture extends ArcadeScreen_Prob {
 	void level_specific_timeline(){
 		show_the_text=false;
 		   suppress_freezes=false;
-		   greentext=false;
+		   purpletext=false;
 		   if (seconds<5){
 			   show_the_text=true;
 			   the_text="In this level, mines hitting your ship won't lower your score. All that matters is how many you capture.";

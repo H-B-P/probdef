@@ -115,7 +115,7 @@ public class BookScreen_MoreTrees extends BookScreen {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   time_to_move_on=false;
-		   greentext=false;
+		   purpletext=false;
 		
 		if (page==1){
 			if (page_time<3){
@@ -127,7 +127,7 @@ public class BookScreen_MoreTrees extends BookScreen {
 				the_text="To destroy or capture them, all their shields must be dropped.";
 			}
 			if (seconds==8 && TIMESPEED==0){
-				greentext=true;
+				purpletext=true;
 				show_the_text=true;
 				the_text="(btw survival stays 100% after targeting your first turret because no single attack can remove a shielded mine)";
 			}
@@ -185,7 +185,7 @@ public class BookScreen_MoreTrees extends BookScreen {
 			}
 			if (seconds==6 && TIMESPEED>0 && TIMESPEED<1){
 				show_the_text=true;
-				greentext=true;
+				purpletext=true;
 				the_text="(do you feel lucky, punk?)";
 			}
 			
@@ -239,7 +239,7 @@ public class BookScreen_MoreTrees extends BookScreen {
 			}
 			if (seconds==4 && TIMESPEED==0){
 				show_the_text=true;
-				greentext=true;
+				purpletext=true;
 				the_text="(or just skip ahead, this is even more optional than most things in life are)";
 			}
 			if (page_time>6){

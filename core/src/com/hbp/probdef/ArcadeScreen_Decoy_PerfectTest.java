@@ -6,13 +6,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-public class ArcadeScreen_Decoy_WitchHunt extends ArcadeScreen_Prob {
+public class ArcadeScreen_Decoy_PerfectTest extends ArcadeScreen_Prob {
 	
 	final ProbDef game;
 	
 	private int decoyfreq;
 	
-	public ArcadeScreen_Decoy_WitchHunt(final ProbDef gam, boolean play_the_sound) {
+	public ArcadeScreen_Decoy_PerfectTest(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		
@@ -104,7 +104,7 @@ public class ArcadeScreen_Decoy_WitchHunt extends ArcadeScreen_Prob {
 	void level_specific_timeline(){
 		show_the_text=false;
 		   suppress_freezes=false;
-		   greentext=false;
+		   purpletext=false;
 		   if (turret_one.targeted||turret_two.targeted||turret_three.targeted||turret_four.targeted){
 			   infuriatingly_specific_bool=true;
 		   }

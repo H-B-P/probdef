@@ -25,7 +25,7 @@ public class ArcadeScreen_Bayes_Deduction_NAF extends GameScreen_Bayes {
 	
 	void level_specific_timeline(){
 		show_the_text=false;
-		greentext=false;
+		purpletext=false;
 		
 		if (shipwave==1){
 			if (round==1 && current_status.equals("targeting")){
@@ -35,7 +35,7 @@ public class ArcadeScreen_Bayes_Deduction_NAF extends GameScreen_Bayes {
 					the_text="Ships in this area have circle, square and pentagon turrets.";
 				}
 				if (vane_one.targeted&&vane_two.targeted){
-					the_text="Squares and pentagons behave very similarly; circles much less so.";
+					the_text="Squares and pentagons behave similarly; circles much less so.";
 				}
 			}
 		}

@@ -51,7 +51,7 @@ public class ArcadeScreen_Basic_Survive extends ArcadeScreen_Prob {
 	void level_specific_timeline(){
 		show_the_text=false;
 		   suppress_freezes=false;
-		   greentext=false;
+		   purpletext=false;
 		   if (seconds<5){
 			   show_the_text=true;
 			   the_text="In this level, capturing mines won't raise your score. Just avoid mines hitting the ship.";

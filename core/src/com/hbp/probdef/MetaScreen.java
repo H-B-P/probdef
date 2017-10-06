@@ -38,7 +38,7 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	public Texture poncho_t;
 	
 	public BitmapFont blackfont;
-	public BitmapFont greenfont;
+	public BitmapFont purplefont;
 	
 	public MetaScreen(final ProbDef gam, boolean play_the_sound) {
 		
@@ -53,8 +53,8 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 		
 		blackfont=new BitmapFont(Gdx.files.internal("regular_font/russo.fnt"));
 		blackfont.setColor(new Color(0f, 0f, 0f, 1.0f));
-		greenfont=new BitmapFont(Gdx.files.internal("regular_font/russo.fnt"));
-		greenfont.setColor(new Color(0.1f, 0.6f, 0.1f, 1.0f));
+		purplefont=new BitmapFont(Gdx.files.internal("regular_font/russo.fnt"));
+		purplefont.setColor(new Color(0.6f, 0.2f, 0.6f, 1.0f));
 		
 		hellosound=Gdx.audio.newSound(Gdx.files.internal("js_sfx/341250__jeremysykes__select01.wav"));
 		if (play_the_sound){

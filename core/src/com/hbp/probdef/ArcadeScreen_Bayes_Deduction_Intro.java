@@ -59,7 +59,7 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends GameScreen_Bayes {
 	void level_specific_environment_setup(){
 		turret_type_one="triangle";
 		turret_type_two="pentagon";
-		turret_type_three="";
+		turret_type_three="triangle";
 		
 		ship_one_percentfreq_one=50;
 		ship_one_percentfreq_two=50;
@@ -195,20 +195,24 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends GameScreen_Bayes {
 	
 	void level_specific_timeline(){
 		show_the_text=false;
-		greentext=false;
+		purpletext=false;
 		
 		if (shipwave==1){
 			if (round==1 && current_status.equals("targeting")){
 				show_the_text=true;
 				the_text="You've destroyed things with turrets; now let's destroy things-with-turrets. Click the leftmost ship to target it.";
 				if (vane_one.targeted){
-					the_text="Click on the right vane to cycle to a pentagon zap, and use it to target another ship. Then, click the fire button.";
+					//the_text="Click on the right vane to cycle to a pentagon zap, and use it to target another ship. Then, click the fire button.";
+					the_text="The right vane currently has a triangle zap, so it won't work on ships with pentagon turrets; click it to cycle zaps.";
+					if (vane_two.current_energy.equals("pentagon")){
+						the_text="Now click on one of the pentagon ships, to target it with that turret.";
+					}
 				}
 				if (vane_one.targeted&&vane_two.targeted){
-					the_text="As with turrets, you can click on a vane to retarget it before firing.";
+					the_text="As with turrets, you can click the fire button to fire, or click on a vane to retarget it before firing.";
 				}
 			}
-			if ((round==1&& (current_status.equals("firing") || current_status.equals("zapping") || current_status.equals("waiting")))||(round==2 &&current_status.equals("targeting"))){
+			if ((round==1 && (current_status.equals("firing") || current_status.equals("zapping") || current_status.equals("waiting")))||(round==2 &&current_status.equals("targeting"))){
 				show_the_text=true;
 				the_text="On the enemy turn, the remaining ships shoot back. All successful attacks cost you one point.";
 				
@@ -222,7 +226,7 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends GameScreen_Bayes {
 					infuriatingly_specific_bool=true;
 				}
 				if (infuriatingly_specific_bool){
-					the_text="You can also use 1 and 2 to select vanes. When everything's targeted, press space again to fire.";
+					the_text="You can also use 1 and 2 to select vanes. When all vanes are targeted, you can press space again to fire.";
 				}
 			}
 		}
@@ -257,14 +261,14 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends GameScreen_Bayes {
 					the_text="The more shots you see them take, the better you'll be able to guess which ships have which turrets.";
 				}
 				if (minecount<29){
-					the_text="When you're ready to start the wave proper, click the ship or press space.";
+					the_text="When you're ready to start the wave proper, click your ship. Alternatively, press space with no ship selected.";
 				}
 				if (minecount<25){
-					greentext=true;
-					the_text="(good thing we captured so many mines, huh?)";
+					purpletext=true;
+					the_text="(good thing we captured so many mines in the other levels, huh?)";
 				}
 				if (minecount<20){
-					greentext=true;
+					purpletext=true;
 					the_text="(ok thats too many mines you need to leave some for later)";
 				}
 				
@@ -273,23 +277,17 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends GameScreen_Bayes {
 		if (shipwave==6){
 			if (round==0 && current_status.equals("bowling")){
 				show_the_text=true;
-				the_text="The reasoning you used last wave can be done by the autocalc. When ships fire, their probabilities update.";
+				the_text="This reasoning can be done by the autocalc. When ships fire, probabilities update. Throw more mines to see it in action.";
 			}
 			if (round==1 && current_status.equals("targeting")){
 				show_the_text=true;
-				the_text="The autocalc also updates when zaps fail.";
+				the_text="The autocalc also updates probabilities when zaps fail.";
 			}
 		}
 		if (shipwave==7){
 			if (round==0 && current_status.equals("bowling")){
 				show_the_text=true;
 				the_text="Not all ships are of the same type. The autocalc knows which shiptypes carry what turrets with what probability.";
-			}
-		}
-		if (shipwave==8){
-			if (round==0 && current_status.equals("bowling")){
-				show_the_text=true;
-				the_text="Different combinations of shiptypes may require different approaches.";
 			}
 		}
 		

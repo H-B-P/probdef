@@ -196,7 +196,7 @@ public class BookScreen_Tree extends BookScreen {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   time_to_move_on=false;
-		   greentext=false;
+		   purpletext=false;
 		
 		if (page==1){
 			
@@ -236,7 +236,7 @@ public class BookScreen_Tree extends BookScreen {
 			}
 			if (page_time>8 && TIMESPEED>0){
 				show_the_text=true;
-				greentext=true;
+				purpletext=true;
 				the_text="(a mine either remains, is destroyed, or is captured, so the probabilities can't not add to 100%)";
 			}
 			if (page_time>10){

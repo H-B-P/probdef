@@ -13,7 +13,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 	   public SelectScreen_Arcade(final ProbDef gam, boolean play_the_sound){
 			super(gam, play_the_sound);
 			first_topic="Basic";
-			last_topic="Titanium";
+			last_topic="Induction";
 			
 			
 			if (prefs.contains("probdef_library_topic")){
@@ -156,10 +156,74 @@ public class SelectScreen_Arcade extends SelectScreen {
 				two_double_liner=true;
 				three_s="Majority Decoy";
 				three_double_liner=true;
-				four_s="Witch Hunt";
+				four_s="Perfect Test";
 				four_double_liner=false;
 				five_s="Groups";
 				five_double_liner=false;
+			}
+			if(TOPIC.equals("Titanium")){
+				NUMBER_OF_LEVELS=5;
+				banner_t=banner_blank_t;
+				banner_s="Titanium";
+				one_s="Intro";
+				one_double_liner=false;
+				two_s="";//"Barbell";
+				two_double_liner=false;
+				three_s="";//"Spread";
+				three_double_liner=false;
+				four_s="";//"Titanium, Decoys";
+				four_double_liner=true;
+				five_s="";//"Titanium Decoys";
+				five_double_liner=true;
+			}
+			if(TOPIC.equals("Shields")){
+				NUMBER_OF_LEVELS=6;
+				banner_t=banner_blank_t;
+				banner_s="Shields";
+				one_s="";//"Intro I";
+				one_double_liner=false;
+				two_s="";//"Intro II";
+				two_double_liner=false;
+				three_s="";//"Doubles";
+				three_double_liner=false;
+				four_s="";//"Shuffled";
+				four_double_liner=true;
+				five_s="";//"Binary";
+				five_double_liner=true;
+				six_s="";//"Shields and Decoys";
+				six_double_liner=true;
+			}
+			if(TOPIC.equals("Challenge")){
+				NUMBER_OF_LEVELS=6;
+				banner_t=banner_blank_t;
+				banner_s="Challenge";
+				one_s="";//"Shields and Titanium";
+				one_double_liner=false;
+				two_s="";//"Shielded Titanium";
+				two_double_liner=false;
+				three_s="";//"Wrong Tool";
+				three_double_liner=false;
+				four_s="";//"Titanium, Decoys";
+				four_double_liner=true;
+				five_s="";//"Combination";
+				five_double_liner=true;
+				six_s="";//"Synthesis";
+				six_double_liner=true;
+			}
+			if(TOPIC.equals("Conditional")){
+				NUMBER_OF_LEVELS=5;
+				banner_t=banner_blank_t;
+				banner_s="Conditional";
+				one_s="";//"Intro";
+				one_double_liner=false;
+				two_s="";//"Barbell";
+				two_double_liner=false;
+				three_s="";//"Spread";
+				three_double_liner=false;
+				four_s="";//"Titanium, Decoys";
+				four_double_liner=true;
+				five_s="";//"Titanium Decoys";
+				five_double_liner=true;
 			}
 			if(TOPIC.equals("Deduction")){
 				NUMBER_OF_LEVELS=5;
@@ -208,21 +272,6 @@ public class SelectScreen_Arcade extends SelectScreen {
 				five_s="";
 				five_double_liner=false;
 			}
-			if(TOPIC.equals("Titanium")){
-				NUMBER_OF_LEVELS=5;
-				banner_t=banner_blank_t;
-				banner_s="Titanium";
-				one_s="";//"Intro";
-				one_double_liner=false;
-				two_s="";//"Barbell";
-				two_double_liner=false;
-				three_s="";//"Spread";
-				three_double_liner=false;
-				four_s="";//"Titanium, Decoys";
-				four_double_liner=true;
-				five_s="";//"Titanium Decoys";
-				five_double_liner=true;
-			}
 			
 		}
 	   
@@ -235,6 +284,19 @@ public class SelectScreen_Arcade extends SelectScreen {
 				TOPIC="Decoys";
 			}
 			else if (TOPIC.equals("Decoys")){
+				//TOPIC="Titanium";
+				TOPIC="Deduction";
+			}
+			else if (TOPIC.equals("Titanium")){
+				TOPIC="Shields";
+			}
+			else if (TOPIC.equals("Shields")){
+				TOPIC="Challenge";
+			}
+			else if (TOPIC.equals("Challenge")){
+				TOPIC="Conditional";
+			}
+			else if (TOPIC.equals("Conditional")){
 				TOPIC="Deduction";
 			}
 			else if (TOPIC.equals("Deduction")){
@@ -243,20 +305,31 @@ public class SelectScreen_Arcade extends SelectScreen {
 			else if (TOPIC.equals("Imperfection")){
 				TOPIC="Induction";
 			}
-			else if (TOPIC.equals("Induction")){
-				TOPIC="Titanium";
-			}
 		}
 		
 	   @Override
 	   
 		public void go_back(){
 			
+		   System.out.println("FROM "+TOPIC);
 			arrowsound.play();
 			if (TOPIC.equals("Decoys")){
 				TOPIC="Basic";
 			}
+			else if (TOPIC.equals("Titanium")){
+				TOPIC="Decoys";
+			}
+			else if (TOPIC.equals("Shields")){
+				TOPIC="Titanium";
+			}
+			else if (TOPIC.equals("Challenge")){
+				TOPIC="Shields";
+			}
+			else if (TOPIC.equals("Conditional")){
+				TOPIC="Challenge";
+			}
 			else if (TOPIC.equals("Deduction")){
+				//TOPIC="Conditional";
 				TOPIC="Decoys";
 			}
 			else if (TOPIC.equals("Imperfection")){
@@ -265,9 +338,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 			else if (TOPIC.equals("Induction")){
 				TOPIC="Imperfection";
 			}
-			else if (TOPIC.equals("Titanium")){
-				TOPIC="Induction";
-			}
+			System.out.println("TO "+TOPIC);
 		}
 	   
 	   @Override
@@ -309,11 +380,17 @@ public class SelectScreen_Arcade extends SelectScreen {
 				   dispose();
 			   }
 			   if (four_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Decoy_WitchHunt(game, true));
+				   game.setScreen(new ArcadeScreen_Decoy_PerfectTest(game, true));
 				   dispose();
 			   }
 			   if (five_r.contains(tp_x,tp_y)){
 				   game.setScreen(new ArcadeScreen_Decoy_Groups(game, true));
+				   dispose();
+			   }
+		   }
+		   if (Gdx.input.justTouched()&& TOPIC.equals("Titanium")){
+			   if (one_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Titanium_Intro(game, true));
 				   dispose();
 			   }
 		   }
