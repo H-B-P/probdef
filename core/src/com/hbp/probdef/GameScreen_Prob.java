@@ -427,15 +427,32 @@ public class GameScreen_Prob extends GameScreen {
 	   private void draw_targeting_symbols(){
 		   if (turret_one.targeted && turret_one.target_mine!=null){
 			   batch.draw(turret_one.target_t, turret_one.target_mine.rect.x-25, turret_one.target_mine.rect.y+5);
+			   //batch.draw(turret_one.target_t, turret_one.target_mine.rect.x-10, turret_one.target_mine.rect.y-10);
+			   draw_orange_dotted_line(turret_one.rect.x+turret_one.rect.width/2f, turret_one.rect.y+turret_one.rect.height*3f/4f, turret_one.target_mine.rect.x+turret_one.target_mine.rect.width/2-15, turret_one.target_mine.rect.y+turret_one.target_mine.rect.height/2+15,  10);
 		   }
 		   if (turret_two.targeted && turret_two.target_mine!=null){
 			   batch.draw(turret_two.target_t, turret_two.target_mine.rect.x+5, turret_two.target_mine.rect.y+5);
+			   //batch.draw(turret_two.target_t, turret_two.target_mine.rect.x-10, turret_two.target_mine.rect.y-10);
+			   draw_orange_dotted_line(turret_two.rect.x+turret_two.rect.width/2f, turret_two.rect.y+turret_two.rect.height*3f/4f,  turret_two.target_mine.rect.x+turret_two.target_mine.rect.width/2+15, turret_two.target_mine.rect.y+turret_two.target_mine.rect.height/2+15, 10);
 		   }
 		   if (turret_three.targeted&& turret_three.target_mine!=null){
+			   //batch.draw(turret_three.target_t, turret_three.target_mine.rect.x-10, turret_three.target_mine.rect.y-10);
+			   draw_orange_dotted_line(turret_three.rect.x+turret_three.rect.width/2f, turret_three.rect.y+turret_three.rect.height*3f/4f, turret_three.target_mine.rect.x+turret_three.target_mine.rect.width/2-15, turret_three.target_mine.rect.y+turret_three.target_mine.rect.height/2-15,  10);
 			   batch.draw(turret_three.target_t, turret_three.target_mine.rect.x-25, turret_three.target_mine.rect.y-25);
 		   }
 		   if (turret_four.targeted && turret_four.target_mine!=null){
+			   //batch.draw(turret_four.target_t, turret_four.target_mine.rect.x-10, turret_four.target_mine.rect.y-10);
+			   draw_orange_dotted_line(turret_four.rect.x+turret_four.rect.width/2f, turret_four.rect.y+turret_four.rect.height*3f/4f, turret_four.target_mine.rect.x+turret_four.target_mine.rect.width/2+15, turret_four.target_mine.rect.y+turret_four.target_mine.rect.height/2-15, 10);
 			   batch.draw(turret_four.target_t, turret_four.target_mine.rect.x+5, turret_four.target_mine.rect.y-25);
+		   }
+	   }
+	   
+	   
+	   private void draw_orange_dotted_line(float start_x, float start_y, float finish_x, float finish_y, int number_of_divs){
+		   for (int q=1; q<number_of_divs; q++){
+			   float centre_x=start_x+((float)q/(float)number_of_divs)*(finish_x-start_x);
+			   float centre_y=start_y+((float)q/(float)number_of_divs)*(finish_y-start_y);
+			   batch.draw(orange_dot_t, centre_x-1, centre_y-1);
 		   }
 	   }
 	   
@@ -780,6 +797,7 @@ public class GameScreen_Prob extends GameScreen {
 		    
 		    if (current_status.equals("targeting") && currently_active_turret_no<5 && currently_active_turret_no>0){
 		    	batch.draw(currently_active_turret.target_t,tp_x-30,tp_y-30);
+		    	draw_orange_dotted_line(currently_active_turret.rect.x+currently_active_turret.rect.width/2, currently_active_turret.rect.y+currently_active_turret.rect.height*3/4,tp_x,tp_y,10);
 		    }
 		    
 		    draw_targeting_symbols(); //You know, the oddly-shaped crosshair things? Draw them.

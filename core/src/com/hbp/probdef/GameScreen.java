@@ -33,7 +33,8 @@ public class GameScreen extends SpaceScreen {
 	
 	
 	//--Textures--
-	
+	Texture orange_dot_t;
+	Texture green_dot_t;
 
 	Texture enemyship_t;
 	
@@ -224,6 +225,11 @@ public class GameScreen extends SpaceScreen {
 	//---Loading in resources which will be useful in all game modes---
 	
 	void load_in_textures(){
+		
+		//-Dots for dotted lines-
+		
+		orange_dot_t=new Texture(Gdx.files.internal("orange_dot.png"));
+		green_dot_t=new Texture(Gdx.files.internal("green_dot.png"));
 		
 		//-Vanes et al-
 		

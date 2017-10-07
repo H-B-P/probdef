@@ -787,6 +787,7 @@ public class GameScreen_Bayes extends GameScreen {
 		for (Vane vane:vanes){
 			if (vane==currently_active_vane){
 			   batch.draw(vane_trim_t, vane.rect.x, vane.rect.y);
+				draw_green_dotted_line(vane.rect.x+vane.rect.width/2, vane.rect.y+vane.rect.height/2, tp_x,tp_y,10);
 			   if (vane.current_energy.equals("circle")){
 					batch.draw(vane_crosshairs_circle_t, tp_x-30, tp_y-30);
 				}
@@ -804,6 +805,7 @@ public class GameScreen_Bayes extends GameScreen {
 				}
 			}
 			if (vane.targeted){
+				draw_green_dotted_line(vane.rect.x+vane.rect.width/2, vane.rect.y+vane.rect.height/2, vane.target_ship.rect.x+vane.target_ship.rect.width/2,vane.target_ship.rect.y+vane.target_ship.rect.height/2,10);
 				if (vane.current_energy.equals("circle")){
 					batch.draw(vane_crosshairs_circle_t, vane.target_ship.rect.x, vane.target_ship.rect.y);
 				}
@@ -822,6 +824,14 @@ public class GameScreen_Bayes extends GameScreen {
 			}
 		}
 	}
+	
+	private void draw_green_dotted_line(float start_x, float start_y, float finish_x, float finish_y, int number_of_divs){
+		   for (int q=1; q<number_of_divs; q++){
+			   float centre_x=start_x+((float)q/(float)number_of_divs)*(finish_x-start_x);
+			   float centre_y=start_y+((float)q/(float)number_of_divs)*(finish_y-start_y);
+			   batch.draw(green_dot_t, centre_x-1, centre_y-1);
+		   }
+	   }
 	//---More collisions---
 	
 	void check_for_dot_shipshield_collisions(){
