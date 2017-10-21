@@ -10,7 +10,7 @@ public class SelectScreen_Library extends SelectScreen {
 	   public SelectScreen_Library(final ProbDef gam, boolean play_the_sound){
 			super(gam, play_the_sound);
 			first_topic="Probability";
-			last_topic="Pascal";
+			last_topic="Bayes";
 			
 			
 			if (prefs.contains("probdef_library_topic")){

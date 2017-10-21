@@ -391,7 +391,7 @@ public class GameScreen extends SpaceScreen {
 		   int b=a%100;
 		   int c=(a-b)/100;
 		   if (b<10){
-			   return c+"."+b+"0";
+			   return c+".0"+b;
 		   }
 		   else{
 			   return c+"."+b;

@@ -225,7 +225,7 @@ public class BookScreen_Tree extends BookScreen {
 					the_text="The probability that the triangle destroys it is 40%.";
 				}
 				if (turret_one.targeted && turret_two.targeted){
-					the_text="The probability that it survives the triangle but the pentagon destroys it is 80% of 30%, or 24%.\n40% + 24% = 64% total.";
+					the_text="The probability that it remains after the triangle but the pentagon destroys it is 80% of 30%, or 24%.\n40% + 24% = 64% total.";
 				}
 				
 			}

@@ -13,7 +13,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 	   public SelectScreen_Arcade(final ProbDef gam, boolean play_the_sound){
 			super(gam, play_the_sound);
 			first_topic="Basic";
-			last_topic="Induction";
+			last_topic="Deduction";
 			
 			
 			if (prefs.contains("probdef_library_topic")){
@@ -167,9 +167,9 @@ public class SelectScreen_Arcade extends SelectScreen {
 				banner_s="Titanium";
 				one_s="Intro";
 				one_double_liner=false;
-				two_s="";//"Barbell";
+				two_s="Barbell";
 				two_double_liner=false;
-				three_s="";//"Spread";
+				three_s="Spread";
 				three_double_liner=false;
 				four_s="";//"Titanium, Decoys";
 				four_double_liner=true;
@@ -284,12 +284,19 @@ public class SelectScreen_Arcade extends SelectScreen {
 				TOPIC="Decoys";
 			}
 			else if (TOPIC.equals("Decoys")){
-				//TOPIC="Titanium";
 				TOPIC="Deduction";
+				
 			}
-			else if (TOPIC.equals("Titanium")){
-				TOPIC="Shields";
+			
+			
+			
+			
+			
+			
+			else if (TOPIC.equals("Deduction")){
+				TOPIC="Imperfection";
 			}
+			
 			else if (TOPIC.equals("Shields")){
 				TOPIC="Challenge";
 			}
@@ -299,9 +306,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 			else if (TOPIC.equals("Conditional")){
 				TOPIC="Deduction";
 			}
-			else if (TOPIC.equals("Deduction")){
-				TOPIC="Imperfection";
-			}
+			
 			else if (TOPIC.equals("Imperfection")){
 				TOPIC="Induction";
 			}
@@ -316,9 +321,18 @@ public class SelectScreen_Arcade extends SelectScreen {
 			if (TOPIC.equals("Decoys")){
 				TOPIC="Basic";
 			}
+			else if (TOPIC.equals("Deduction")){
+				TOPIC="Decoys";
+			}
+			
+			
+			
+			
+			
 			else if (TOPIC.equals("Titanium")){
 				TOPIC="Decoys";
 			}
+			
 			else if (TOPIC.equals("Shields")){
 				TOPIC="Titanium";
 			}
@@ -328,10 +342,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 			else if (TOPIC.equals("Conditional")){
 				TOPIC="Challenge";
 			}
-			else if (TOPIC.equals("Deduction")){
-				//TOPIC="Conditional";
-				TOPIC="Decoys";
-			}
+			
 			else if (TOPIC.equals("Imperfection")){
 				TOPIC="Deduction";
 			}
@@ -390,7 +401,15 @@ public class SelectScreen_Arcade extends SelectScreen {
 		   }
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Titanium")){
 			   if (one_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Titanium_Intro(game, true));
+				   game.setScreen(new ArcadeScreen_Prob_Titanium_Intro(game, true));
+				   dispose();
+			   }
+			   if (two_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Prob_Titanium_Barbell(game, true));
+				   dispose();
+			   }
+			   if (three_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Prob_Titanium_Spread(game, true));
 				   dispose();
 			   }
 		   }

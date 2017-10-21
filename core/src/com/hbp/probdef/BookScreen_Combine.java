@@ -135,7 +135,7 @@ public class BookScreen_Combine extends BookScreen {
 				show_the_text=true;
 				the_text="When more than two turrets are targeted on a mine, apply the same reasoning.";
 				if (turret_one.targeted || turret_two.targeted || turret_three.targeted){
-					the_text="The probability of a mine remaining is the probability of all turrets missing.";
+					the_text="The probability of a mine remaining is the probability of all turrets failing.";
 				}
 				if (turret_one.targeted && turret_two.targeted){
 					the_text="20% of 30% is 6%,";
@@ -162,8 +162,8 @@ public class BookScreen_Combine extends BookScreen {
 			if (seconds==4 && TIMESPEED==0){
 				show_the_text=true;
 				if (!gotcha){
-					purpletext=true;
-					the_text="(you may need a calculator and/or pen and paper for this)";
+					//purpletext=true;
+					//the_text="(you may need a calculator and/or pen and paper for this)";
 				}
 				else{
 					purpletext=true;

@@ -81,6 +81,17 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 		}
 	}
 	
+	void eight_wave_lopsided (int start_second, int normal_ops){
+		if (seconds==start_second || seconds==(start_second+4)){
+			spawn_formation_mine(-3,normal_ops);
+			spawn_formation_mine(-1,normal_ops);
+			spawn_formation_mine(1,normal_ops);
+		}
+		if (seconds==(start_second+2) || seconds==(start_second+6)){
+			spawn_formation_mine(3,normal_ops);
+		}
+	}
+	
 	void eight_wave_pair (int start_second, int normal_ops){
 		if (seconds==start_second || seconds==(start_second+4)){
 			spawn_formation_mine(1,normal_ops+1);
@@ -287,73 +298,22 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 		}
 	}
 	
-	void level_specific_minespawn(){
-		
-	}
+	
 	
 	void spawn_formation_mine(int xposn, int shoot_opportunities){
 		if (ordinary_minetype.equals("generic")){
-			if (shoot_opportunities==0){
-				spawnMine(xposn, 200);
-			}
-			if (shoot_opportunities==1){
-				spawnMine(xposn, 90+5);
-			}
-			if (shoot_opportunities==2){
-				spawnMine(xposn, 60+5);
-			}
-			if (shoot_opportunities==3){
-				spawnMine(xposn, 45);
-			}
-			if (shoot_opportunities==4){
-				spawnMine(xposn, 36);
-			}
-			if (shoot_opportunities==5){
-				spawnMine(xposn, 30);
-			}
+			spawnMine(xposn, 180/(shoot_opportunities+1));
 		}
 		if (ordinary_minetype.equals("decoy")){
-			if (shoot_opportunities==0){
-				spawnDecoyProbablistic(xposn, 200, decoyfreq);
-			}
-			if (shoot_opportunities==1){
-				spawnDecoyProbablistic(xposn, 90+5, decoyfreq);	
-			}
-			if (shoot_opportunities==2){
-				spawnDecoyProbablistic(xposn, 60+5, decoyfreq);
-			}
-			if (shoot_opportunities==3){
-				spawnDecoyProbablistic(xposn, 45, decoyfreq);
-			}
-			if (shoot_opportunities==4){
-				spawnDecoyProbablistic(xposn, 36, decoyfreq);
-			}
-			if (shoot_opportunities==5){
-				spawnDecoyProbablistic(xposn, 30, decoyfreq);
-			}
+			spawnDecoyProbablistic(xposn, 180/(shoot_opportunities+1),decoyfreq);
 		}
 		if (ordinary_minetype.equals("titanium")){
-			if (shoot_opportunities==0){
-				spawnTitaniumMine(xposn, 200);
-			}
-			if (shoot_opportunities==1){
-				spawnTitaniumMine(xposn, 90+5);	
-			}
-			if (shoot_opportunities==2){
-				spawnTitaniumMine(xposn, 60+5);
-			}
-			if (shoot_opportunities==3){
-				spawnTitaniumMine(xposn, 45);
-			}
-			if (shoot_opportunities==4){
-				spawnTitaniumMine(xposn, 36);
-			}
-			if (shoot_opportunities==5){
-				spawnTitaniumMine(xposn, 30);
-			}
+			spawnTitaniumMine(xposn,180/(shoot_opportunities+1));
 		}
 		
 	}
+	
+	
 	
 	void basic_set(int sec){
 		

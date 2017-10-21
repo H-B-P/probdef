@@ -335,6 +335,33 @@ public class GameScreen_Bayes extends GameScreen {
 	
 	@Override
 	
+	void draw_the_HUD(){
+		boolean torrit=false;
+	      
+	      for (EnemyShip enemyship: enemyships){
+	    	  if (enemyship.rect.contains(tp_x, tp_y) && !enemyship.obscured){
+	    		  torrit=true;
+	    		  if (enemyship.turret.lines_no==4){
+	    			font.draw(batch, enemyship.turret.line_one, 90, 472, 140,1, true);
+	  				font.draw(batch, enemyship.turret.line_two, 90, 455, 140, 1, true);
+	  				font.draw(batch, enemyship.turret.line_three, 90, 437, 140, 1, true);
+	  				font.draw(batch, enemyship.turret.line_four, 90, 420, 140, 1, true);
+	    		  }
+	    		  if (enemyship.turret.lines_no==3){
+		  			font.draw(batch, enemyship.turret.line_one, 90, 465, 140, 1, true);
+		  			font.draw(batch, enemyship.turret.line_two, 90, 448, 140, 1, true);
+		  			font.draw(batch, enemyship.turret.line_three, 90, 431, 140, 1, true);
+	    		  }
+	    	  }
+	      }
+	      
+	      if (!torrit){
+	    	level_specific_HUD();
+	      }
+	}
+	
+	@Override
+	
 	void level_specific_HUD(){
 		font.draw(batch, "CIRC/TRI/PENT", 90, 473, 140, 1, true);
 		font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);

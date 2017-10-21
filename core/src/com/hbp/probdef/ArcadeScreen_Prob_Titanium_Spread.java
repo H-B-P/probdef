@@ -2,18 +2,20 @@ package com.hbp.probdef;
 
 import com.hbp.probdef.ProbDef;
 
-public class ArcadeScreen_Titanium_Intro extends ArcadeScreen_Prob {
+public class ArcadeScreen_Prob_Titanium_Spread extends ArcadeScreen_Prob_Titanium {
 	
 	final ProbDef game;
 
 	
-	public ArcadeScreen_Titanium_Intro(final ProbDef gam, boolean play_the_sound) {
+	public ArcadeScreen_Prob_Titanium_Spread(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		
 		game = gam;
 		
-	    minecount=32;
+	    minecount=60;
+	    
+	    wave_number_total=6;
 	    
 	    ordinary_minetype="titanium";
 	}
@@ -21,10 +23,10 @@ public class ArcadeScreen_Titanium_Intro extends ArcadeScreen_Prob {
 	@Override
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("triangle");
-		   turret_two=new Turret_Standard("square");
-		   turret_three=new Turret_Standard("square");
-		   turret_four=new Turret_Standard("circle");
+		   turret_one=new Turret_Standard("circle");
+		   turret_two=new Turret_Standard("triangle");
+		   turret_three=new Turret_Standard("triangle");
+		   turret_four=new Turret_Standard("pentagon");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -37,7 +39,7 @@ public class ArcadeScreen_Titanium_Intro extends ArcadeScreen_Prob {
 	
 	void level_specific_events(){
 		
-		titanium_set(2);
+		mixed_set(2);
 		
 		
 		
@@ -55,7 +57,7 @@ public class ArcadeScreen_Titanium_Intro extends ArcadeScreen_Prob {
 		   purpletext=false;
 		   if (seconds<5){
 			   show_the_text=true;
-			   the_text="Titanium mines cannot be destroyed; only captured.";
+			   the_text="Choices in this level are not as clear-cut as before. Choose wisely.";
 		   }
 	}
 
