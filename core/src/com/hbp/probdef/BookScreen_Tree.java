@@ -205,7 +205,7 @@ public class BookScreen_Tree extends BookScreen {
 			
 			if (page_time<3){
 				show_the_text=true;
-				the_text="If you care whether a mine gets captured or destroyed, reasoning gets more complicated.";
+				the_text="If you care whether mines are captured or destroyed, reasoning gets more complicated.";
 			}
 			if (seconds==4 && TIMESPEED==0){
 				show_the_text=true;

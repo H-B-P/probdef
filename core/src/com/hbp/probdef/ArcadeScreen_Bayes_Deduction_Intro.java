@@ -123,7 +123,27 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends GameScreen_Bayes {
 		font.draw(batch, "TRI/PENT", 90, 473, 140, 1, true);
 		font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
 		font.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
-		font.draw(batch, "SCORE: "+ (shields+10), 90, 419, 140, 1, true);
+		font.draw(batch, "SCORE: "+ (shields+20), 90, 419, 140, 1, true);
+	}
+	
+	@Override
+	
+	void level_specific_ST_ONE_HUD(){
+		font.draw(batch, "SHIP DESIGN A12", 90, 473, 140, 1, true);
+		font.draw(batch, "TRIANGLE: "+ship_one_percentfreq_one+"%", 90, 455, 140, 1, true);
+		font.draw(batch, "PENTAGON: "+ship_one_percentfreq_two+"%", 90, 437, 140, 1, true);
+	}
+	
+	void level_specific_ST_TWO_HUD(){
+		font.draw(batch, "SHIP DESIGN A19", 90, 473, 140, 1, true);
+		font.draw(batch, "TRIANGLE: "+ship_two_percentfreq_one+"%", 90, 455, 140, 1, true);
+		font.draw(batch, "PENTAGON: "+ship_two_percentfreq_two+"%", 90, 437, 140, 1, true);
+	}
+	
+	void level_specific_ST_THREE_HUD(){
+		font.draw(batch, "SHIP DESIGN A14", 90, 473, 140, 1, true);
+		font.draw(batch, "TRIANGLE: "+ship_three_percentfreq_one+"%", 90, 455, 140, 1, true);
+		font.draw(batch, "PENTAGON: "+ship_three_percentfreq_two+"%", 90, 437, 140, 1, true);
 	}
 	
 	@Override
@@ -203,13 +223,13 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends GameScreen_Bayes {
 				the_text="You've destroyed things with turrets; now let's destroy things-with-turrets. Click the leftmost ship to target it.";
 				if (vane_one.targeted){
 					//the_text="Click on the right vane to cycle to a pentagon zap, and use it to target another ship. Then, click the fire button.";
-					the_text="The right vane currently has a triangle zap, so it won't work on ships with pentagon turrets; click it to cycle zaps.";
+					the_text="The right shocker currently has a triangle zap, so it won't work on ships with pentagon turrets; click it to cycle zaps.";
 					if (vane_two.current_energy.equals("pentagon")){
-						the_text="Now click on one of the pentagon ships, to target it with that turret.";
+						the_text="Now click on one of the pentagon ships, to target it with that shocker.";
 					}
 				}
 				if (vane_one.targeted&&vane_two.targeted){
-					the_text="As with turrets, you can click the fire button to fire, or click on a vane to retarget it before firing.";
+					the_text="As with turrets, you can click the fire button to fire, or click on a shocker to retarget it before firing.";
 				}
 			}
 			if ((round==1 && (current_status.equals("firing") || current_status.equals("zapping") || current_status.equals("waiting")))||(round==2 &&current_status.equals("targeting"))){
@@ -217,16 +237,21 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends GameScreen_Bayes {
 				the_text="On the enemy turn, the remaining ships shoot back. All successful attacks cost you one point.";
 				
 			}
+			if ((round==2 &&current_status.equals("targeting")) && vane_one.targeted){
+				show_the_text=true;
+				purpletext=true;
+				the_text="(btw you can hover your mouse over a ship if you want a reminder of which turrets do what)";
+			}
 		}
 		if (shipwave==2){
 			if (round==1 && current_status.equals("targeting")){
 				show_the_text=true;
-				the_text="If you want, you can use hotkeys. Up/down cycles attacks, left/right cycles ships, spacebar selects.";
+				the_text="If you want, you can use hotkeys. Up/down cycles zaps, left/right cycles ships, spacebar selects.";
 				if (vane_one.targeted||vane_two.targeted){
 					infuriatingly_specific_bool=true;
 				}
 				if (infuriatingly_specific_bool){
-					the_text="You can also use 1 and 2 to select vanes. When all vanes are targeted, you can press space again to fire.";
+					the_text="You can also use 1 and 2 to select shockers. When all shockers are targeted, you can press space again to fire.";
 				}
 			}
 		}
@@ -251,7 +276,7 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends GameScreen_Bayes {
 				show_the_text=true;
 				if (minecount==30){
 					if (total_time<specific_start_time+8){
-						the_text="That last wave was rough. Let's make this easier: the ship is now intangible at the start of each wave.";
+						the_text="That last wave was rough. Let's make this easier: your ship is now intangible at the start of each wave.";
 					}
 					else{
 						the_text="Click on an enemy ship, or cycle to it with arrow keys and press spacebar. This will launch a mine towards it.";

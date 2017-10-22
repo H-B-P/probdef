@@ -137,8 +137,8 @@ public class SelectScreen_Arcade extends SelectScreen {
 				banner_s="Basic";
 				one_s="Intro";
 				one_double_liner=false;
-				two_s="Circles";
-				two_double_liner=false;
+				two_s="Circles and Hexagons";
+				two_double_liner=true;
 				three_s="Reversed";
 				three_double_liner=false;
 				four_s="Capture";

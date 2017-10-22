@@ -121,4 +121,26 @@ public class ArcadeScreen_Bayes_Deduction_Blatant extends GameScreen_Bayes {
 		font.draw(batch, "SCORE: "+ (shields+20), 90, 419, 140, 1, true);
 	}
 	
+	void level_specific_ST_ONE_HUD(){
+		font.draw(batch, "SHIP DESIGN B22", 90, 473, 140, 1, true);
+		font.draw(batch, "CIRCLE: "+ship_one_percentfreq_one+"%", 90, 455, 140, 1, true);
+		font.draw(batch, "SQUARE: "+ship_one_percentfreq_two+"%", 90, 437, 140, 1, true);
+		font.draw(batch, "HEXAGON: "+ship_one_percentfreq_three+"%", 90, 419, 140, 1, true);
+
+	}
+	
+	void level_specific_ST_TWO_HUD(){
+		font.draw(batch, "SHIP DESIGN B53", 90, 473, 140, 1, true);
+		font.draw(batch, "CIRCLE: "+ship_two_percentfreq_one+"%", 90, 455, 140, 1, true);
+		font.draw(batch, "SQUARE: "+ship_two_percentfreq_two+"%", 90, 437, 140, 1, true);
+		font.draw(batch, "HEXAGON: "+ship_two_percentfreq_three+"%", 90, 419, 140, 1, true);
+	}
+	
+	void level_specific_ST_THREE_HUD(){
+		font.draw(batch, "SHIP DESIGN B86", 90, 473, 140, 1, true);
+		font.draw(batch, "CIRCLE: "+ship_three_percentfreq_one+"%", 90, 455, 140, 1, true);
+		font.draw(batch, "SQUARE: "+ship_three_percentfreq_two+"%", 90, 437, 140, 1, true);
+		font.draw(batch, "HEXAGON: "+ship_three_percentfreq_three+"%", 90, 419, 140, 1, true);
+	}
+	
 }

@@ -27,6 +27,8 @@ public class EnemyShip {
 	   char left_engine;
 	   char right_engine;
 	   
+	   int shiptype;
+	   
 	   public EnemyShip(int xposn, String turret_id, boolean obsc){
 		   
 		   horz_vel=0;

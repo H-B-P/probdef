@@ -339,18 +339,31 @@ public class GameScreen_Bayes extends GameScreen {
 		boolean torrit=false;
 	      
 	      for (EnemyShip enemyship: enemyships){
-	    	  if (enemyship.rect.contains(tp_x, tp_y) && !enemyship.obscured){
+	    	  if (enemyship.rect.contains(tp_x, tp_y)){
 	    		  torrit=true;
-	    		  if (enemyship.turret.lines_no==4){
-	    			font.draw(batch, enemyship.turret.line_one, 90, 472, 140,1, true);
-	  				font.draw(batch, enemyship.turret.line_two, 90, 455, 140, 1, true);
-	  				font.draw(batch, enemyship.turret.line_three, 90, 437, 140, 1, true);
-	  				font.draw(batch, enemyship.turret.line_four, 90, 420, 140, 1, true);
+	    		  if(!enemyship.obscured){		  
+		    		  if (enemyship.turret.lines_no==4){
+		    			font.draw(batch, enemyship.turret.line_one, 90, 472, 140,1, true);
+		  				font.draw(batch, enemyship.turret.line_two, 90, 455, 140, 1, true);
+		  				font.draw(batch, enemyship.turret.line_three, 90, 437, 140, 1, true);
+		  				font.draw(batch, enemyship.turret.line_four, 90, 420, 140, 1, true);
+		    		  }
+		    		  if (enemyship.turret.lines_no==3){
+			  			font.draw(batch, enemyship.turret.line_one, 90, 465, 140, 1, true);
+			  			font.draw(batch, enemyship.turret.line_two, 90, 448, 140, 1, true);
+			  			font.draw(batch, enemyship.turret.line_three, 90, 431, 140, 1, true);
+		    		  }
 	    		  }
-	    		  if (enemyship.turret.lines_no==3){
-		  			font.draw(batch, enemyship.turret.line_one, 90, 465, 140, 1, true);
-		  			font.draw(batch, enemyship.turret.line_two, 90, 448, 140, 1, true);
-		  			font.draw(batch, enemyship.turret.line_three, 90, 431, 140, 1, true);
+	    		  else{
+	    			  if (enemyship.shiptype==1){
+	    				  level_specific_ST_ONE_HUD();
+	    			  }
+	    			  if (enemyship.shiptype==2){
+	    				  level_specific_ST_TWO_HUD();
+	    			  }
+	    			  if (enemyship.shiptype==3){
+	    				  level_specific_ST_THREE_HUD();
+	    			  }
 	    		  }
 	    	  }
 	      }
@@ -365,15 +378,25 @@ public class GameScreen_Bayes extends GameScreen {
 	void level_specific_HUD(){
 		font.draw(batch, "CIRC/TRI/PENT", 90, 473, 140, 1, true);
 		font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
-		if (minecount<5){
-			acalc_redfont.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
-		}
-		else{
-			font.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
-		}
-		font.draw(batch, "SCORE: "+ (shields+10), 90, 419, 140, 1, true);
+		font.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
+		font.draw(batch, "SCORE: "+ (shields+20), 90, 419, 140, 1, true);
+	}
+
+
+	void level_specific_ST_ONE_HUD(){
+		font.draw(batch, "SHIP DESIGN A34", 90, 473, 140, 1, true);
+		font.draw(batch, "TRIANGLE: "+ship_one_percentfreq_one+"%", 90, 455, 140, 1, true);
+		font.draw(batch, "PENTAGON: "+ship_one_percentfreq_two+"%", 90, 437, 140, 1, true);
+		font.draw(batch, "HEXAGON: "+ ship_one_percentfreq_three+"%", 90, 419, 140, 1, true);
 	}
 	
+	void level_specific_ST_TWO_HUD(){
+		
+	}
+	
+	void level_specific_ST_THREE_HUD(){
+		
+	}
 	//---Spawning---
 	
 	void ship_one_spawn_random(int xposn, boolean obsc){
@@ -422,6 +445,8 @@ public class GameScreen_Bayes extends GameScreen {
 		enemyship.assignedprob_two=(float)ship_one_assumedfreq_two/100f;
 		enemyship.assignedprob_three=(float)ship_one_assumedfreq_three/100f;
 		
+		enemyship.shiptype=1;
+		
 		enemyships.add(enemyship);
 		turrets.add(enemyship.turret);
 		turrets_standard.add((Turret_Standard)enemyship.turret);
@@ -436,6 +461,8 @@ public class GameScreen_Bayes extends GameScreen {
 		enemyship.assignedprob_one=(float)ship_two_assumedfreq_one/100f;
 		enemyship.assignedprob_two=(float)ship_two_assumedfreq_two/100f;
 		enemyship.assignedprob_three=(float)ship_two_assumedfreq_three/100f;
+		
+		enemyship.shiptype=2;
 		
 		enemyships.add(enemyship);
 		turrets.add(enemyship.turret);
@@ -452,6 +479,8 @@ public class GameScreen_Bayes extends GameScreen {
 		enemyship.assignedprob_one=(float)ship_three_assumedfreq_one/100f;
 		enemyship.assignedprob_two=(float)ship_three_assumedfreq_two/100f;
 		enemyship.assignedprob_three=(float)ship_three_assumedfreq_three/100f;
+		
+		enemyship.shiptype=3;
 		
 		enemyships.add(enemyship);
 		turrets.add(enemyship.turret);
