@@ -19,6 +19,12 @@ public class ArcadeScreen_Basic_Intro extends ArcadeScreen_Prob {
 	
 	@Override
 	
+	void set_score_name(){
+		score_name="Score_Basic_Intro";
+	}
+	
+	@Override
+	
 	void level_specific_turret_setup(){
 		   turret_one=new Turret_Standard("triangle");
 		   turret_two=new Turret_Standard("triangle");

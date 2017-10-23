@@ -30,6 +30,10 @@ public class ArcadeScreen_Decoy_PerfectTest extends ArcadeScreen_Prob {
 	    wave_number_total=4;
 	}
 	
+	void set_score_name(){
+		score_name="Score_Decoy_PerfectTest";
+	}
+	
 	@Override
 	
 	void level_specific_turret_setup(){

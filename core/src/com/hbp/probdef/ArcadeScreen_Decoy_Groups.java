@@ -21,6 +21,12 @@ public class ArcadeScreen_Decoy_Groups extends ArcadeScreen_Prob {
 	
 	@Override
 	
+	void set_score_name(){
+		score_name="Score_Decoy_Groups";
+	}
+	
+	@Override
+	
 	void level_specific_turret_setup(){
 		   turret_one=new Turret_Standard("triangle");
 		   turret_two=new Turret_Standard("square");

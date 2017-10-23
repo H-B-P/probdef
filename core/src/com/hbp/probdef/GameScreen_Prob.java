@@ -133,10 +133,7 @@ public class GameScreen_Prob extends GameScreen {
 				spawnMine(-1, 100);
 				spawnMine(2,100);
 			}
-			if (minecount==0){
-				game.setScreen(new TitleScreen(game, true));
-  			  dispose();
-			}
+			
 	   }
 	   
 	   void level_specific_timeline(){
@@ -489,6 +486,8 @@ public class GameScreen_Prob extends GameScreen {
 				}
 				System.out.println(seconds+" s");
 				level_specific_events();
+				
+				
 				
 			}
 	   }
@@ -843,6 +842,13 @@ public class GameScreen_Prob extends GameScreen {
 			
 			
 			
+			if (minecount==0 && explosions.size==0){
+				if (update_scores){
+					update_score_on_exit();
+				}
+				game.setScreen(new TitleScreen(game, true));
+  			  dispose();
+			}
 			
 			
 			

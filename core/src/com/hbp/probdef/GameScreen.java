@@ -12,7 +12,6 @@ package com.hbp.probdef;
 import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
@@ -162,13 +161,19 @@ public class GameScreen extends SpaceScreen {
 	//--Counts--
    
 	int shields;
-   int score;
    int minecount;
    int captured;
    int destroyed;
    
+   //--Scoring--
    
-   
+   boolean update_scores;
+	int old_score;
+	int score;
+	String score_name;
+	
+	//--Event/timeline/text stuff--
+	
    String the_text;
    
    boolean show_the_text;
@@ -176,6 +181,8 @@ public class GameScreen extends SpaceScreen {
    
    boolean infuriatingly_specific_bool;
 	boolean purpletext;
+	
+	//--Time--
 	
 	float effective_delta;
 	   
@@ -206,6 +213,21 @@ public class GameScreen extends SpaceScreen {
 	    show_the_text=false;
 	    suppress_freezes=false;
 	    
+	    //--Scoring--
+	    
+	    set_score_name();
+	    
+	    if (!prefs.contains(score_name)){
+	    	prefs.putInteger(score_name, 0);
+	    	prefs.flush();
+	    }
+
+    	old_score=prefs.getInteger(score_name);
+	    
+    	update_scores=true;
+    	
+	    //--Loading--
+	    
 	    load_in_textures();
 	    
 	    load_in_sounds();
@@ -220,6 +242,17 @@ public class GameScreen extends SpaceScreen {
 	    obscurity_t=new Texture(Gdx.files.internal("obscurity.png"));
 	    
 	    batch=new SpriteBatch();
+	}
+	
+	void set_score_name(){
+		score_name="fakename";
+	}
+	
+	void update_score_on_exit(){
+		if (score>old_score){
+			prefs.putInteger(score_name,score);
+			prefs.flush();
+		}
 	}
 
 	//---Loading in resources which will be useful in all game modes---
@@ -699,12 +732,9 @@ public class GameScreen extends SpaceScreen {
 			   }
 			   
 			   for (EnemyShip enemyship: enemyships){
-				   boolean shots_to_zero=true;
-				   for (Mine mine:mines){
-					   if (mine.actually_there && mine.target_enemy_ship==enemyship){
-						   Turret_Standard T= (Turret_Standard)enemyship.turret;
-						   T.shotsmade=0;
-					   }
+				   if (!enemyship.turret.targeted){
+					   Turret_Standard T= (Turret_Standard)enemyship.turret;
+					   T.shotsmade=0;
 				   }
 			   }
 			   

@@ -1,13 +1,8 @@
 package com.hbp.probdef;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 import com.hbp.probdef.ProbDef;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
-public class ArcadeScreen_Bayes_Deduction_Blatant extends GameScreen_Bayes {
+
+public class ArcadeScreen_Bayes_Deduction_Blatant extends ArcadeScreen_Bayes {
 	
 	final ProbDef game;
 	
@@ -19,6 +14,10 @@ public class ArcadeScreen_Bayes_Deduction_Blatant extends GameScreen_Bayes {
 		
 		minecount=30;
 		
+	}
+	
+	void set_score_name(){
+		score_name="Score_Deduction_Blatant";
 	}
 	
 	@Override

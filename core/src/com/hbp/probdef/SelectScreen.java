@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -523,7 +522,7 @@ public class SelectScreen extends MetaScreen {
 		draw_level_buttons();
 		draw_level_titles();
 		if (scores_exist){
-			//draw_scores();
+			draw_scores();
 		}
 		draw_banner_and_arrows();
 		draw_banner_text();

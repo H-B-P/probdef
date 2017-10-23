@@ -26,6 +26,10 @@ public class ArcadeScreen_Decoy_Minority extends ArcadeScreen_Prob {
 	    ordinary_minetype="decoy";
 	}
 	
+	void set_score_name(){
+		score_name="Score_Decoy_Minority";
+	}
+	
 	@Override
 	
 	void level_specific_turret_setup(){

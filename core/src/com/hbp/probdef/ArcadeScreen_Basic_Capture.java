@@ -18,6 +18,12 @@ public class ArcadeScreen_Basic_Capture extends ArcadeScreen_Prob {
 	
 	@Override
 	
+	void set_score_name(){
+		score_name="Score_Basic_Capture";
+	}
+	
+	@Override
+	
 	void level_specific_turret_setup(){
 		   turret_one=new Turret_Standard("circle");
 		   turret_two=new Turret_Standard("square");
@@ -56,6 +62,7 @@ public class ArcadeScreen_Basic_Capture extends ArcadeScreen_Prob {
 			   the_text="In this level, mines hitting your ship won't lower your score. All that matters is how many you capture.";
 		   }
 	}
+	
 	
 	@Override
 	void calculate_score(){

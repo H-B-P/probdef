@@ -283,10 +283,7 @@ public class GameScreen_Bayes extends GameScreen {
 			ship_three_spawn_random(2, true);
 		}
 		
-		if (shipwave>total_shipwaves){
-			game.setScreen(new SelectScreen_Arcade(game, true));
-			  dispose();
-		}
+		
 	}
 	
 	void level_specific_deshield(RT_Dot dot){
@@ -637,6 +634,7 @@ public class GameScreen_Bayes extends GameScreen {
 		}
 		for (Mine mine:mines){
 			if (mine.actually_there && mine.target_enemy_ship!=null){
+				//if (mine.rect.y>160){
 				if (mine.rect.y>160){
 					if (mine.target_enemy_ship.turret.targeted){
 					   if (mine.target_enemy_ship.turret.turret_type.equals("standard")){
@@ -687,6 +685,7 @@ public class GameScreen_Bayes extends GameScreen {
 					   level_specific_bayesian_update(output, enemyship);
 					   RT_Dot dot=new RT_Dot(enemyship.turret.rect, 160, 0, 3000, output);
 					   dots.add(dot);
+					   //status_effects();
 				   }
 				   
 				   if (T.shotsmade>=T.turret_level){
@@ -812,6 +811,9 @@ public class GameScreen_Bayes extends GameScreen {
 			
 			System.out.println(seconds+" s");
 			level_specific_events();
+			
+			
+			
 		}
 	}
 	
@@ -892,7 +894,7 @@ public class GameScreen_Bayes extends GameScreen {
 	
 	void check_for_dot_shipshield_collisions(){
 		for (RT_Dot dot: dots){
-			if (dot.rect.overlaps(shield_r)){
+			if (dot.target_mine==null && dot.rect.overlaps(shield_r)){
 				dots.removeValue(dot, true);
 				if (dot.type.equals("destroy")|| dot.type.equals("capture")){
 					deshield.play();
@@ -1105,6 +1107,7 @@ public class GameScreen_Bayes extends GameScreen {
 		if (current_status.equals("bowling")){
 			check_for_keypresses_bowling();
 			do_bowling_things();
+			status_effects();
 		}
 		
 		shipshield_t=shipshield_normal_t; // If the shield is flickering, we want it to flicker for only one frame; we reset it here.
@@ -1123,7 +1126,19 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		check_for_mine_enemyshipshield_collisions();
 		
+		//
+		
 		gamey_render_postdraw();
+		
+		//handle exits
+		
+		if (shipwave>=total_shipwaves && enemyships.size==0 && explosions.size==0){
+			if (update_scores){
+				update_score_on_exit();
+			}
+			game.setScreen(new SelectScreen_Arcade(game, true));
+			  dispose();
+		}
 		
 		if(Gdx.input.justTouched()){
 			if (menu_button_r.contains(tp_x, tp_y)){
@@ -1131,6 +1146,7 @@ public class GameScreen_Bayes extends GameScreen {
 				  dispose();
 			}
 		}
+		
 	}
 	
 }

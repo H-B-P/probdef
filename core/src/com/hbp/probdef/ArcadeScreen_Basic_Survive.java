@@ -19,6 +19,12 @@ public class ArcadeScreen_Basic_Survive extends ArcadeScreen_Prob {
 	
 	@Override
 	
+	void set_score_name(){
+		score_name="Score_Basic_Survive";
+	}
+	
+	@Override
+	
 	void level_specific_turret_setup(){
 		   turret_one=new Turret_Standard("pentagon");
 		   turret_two=new Turret_Standard("triangle");

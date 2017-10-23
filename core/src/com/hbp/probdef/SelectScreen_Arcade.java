@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
 
 
 
@@ -31,6 +32,35 @@ public class SelectScreen_Arcade extends SelectScreen {
 			buttony_font.setColor(Color.BLACK);
 			
 			scores_exist=true;
+			init_scores();
+	   }
+	   
+	   void init_scores(){
+		   Array<String> names=new Array<String>();
+		   
+		   names.add("Score_Basic_Intro");
+		   names.add("Score_Basic_Circles");
+		   names.add("Score_Basic_Reversed");
+		   names.add("Score_Basic_Capture");
+		   names.add("Score_Basic_Survive");
+		   
+		   names.add("Score_Decoy_Intro");
+		   names.add("Score_Decoy_Majority");
+		   names.add("Score_Decoy_Minority");
+		   names.add("Score_Decoy_PerfectTest");
+		   names.add("Score_Decoy_Groups");
+		   
+		   names.add("Score_Deduction_Intro");
+		   names.add("Score_Deduction_Blatant");
+		   names.add("Score_Deduction_Finale");
+		   names.add("Score_Deduction_Subtle");
+		   names.add("Score_Deduction_NAF");
+		   
+		   for (String name:names){
+			   if (!prefs.contains(name)){
+				   prefs.putInteger(name, 0);
+			   }
+		   }
 	   }
 	   
 	   
@@ -148,47 +178,76 @@ public class SelectScreen_Arcade extends SelectScreen {
 				NUMBER_OF_LEVELS=5;
 				banner_t=banner_blank_t;
 				banner_s="Basic";
+				
 				one_s="Intro";
 				one_double_liner=false;
 				score_one=prefs.getInteger("Score_Basic_Intro");
+				
 				two_s="Circles";
 				two_double_liner=false;
+				score_two=prefs.getInteger("Score_Basic_Circles");
+				
 				three_s="Reversed";
 				three_double_liner=false;
+				score_three=prefs.getInteger("Score_Basic_Reversed");
+				
 				four_s="Capture";
 				four_double_liner=false;
+				score_four=prefs.getInteger("Score_Basic_Capture");
+				
 				five_s="Survive";
 				five_double_liner=false;
+				score_five=prefs.getInteger("Score_Basic_Survive");
 			}
 			if(TOPIC.equals("Decoys")){
 				NUMBER_OF_LEVELS=5;
 				banner_t=banner_blank_t;
 				banner_s="Decoys";
+				
 				one_s="Intro";
 				one_double_liner=false;
+				score_one=prefs.getInteger("Score_Decoy_Intro");
+				
 				two_s="Minority Decoy";
 				two_double_liner=true;
+				score_two=prefs.getInteger("Score_Decoy_Minority");
+				
 				three_s="Majority Decoy";
 				three_double_liner=true;
+				score_three=prefs.getInteger("Score_Decoy_Majority");
+				
 				four_s="Perfect Test";
 				four_double_liner=false;
+				score_four=prefs.getInteger("Score_Decoy_PerfectTest");
+				
 				five_s="Groups";
 				five_double_liner=false;
+				score_five=prefs.getInteger("Score_Decoy_Groups");
 			}
 			if(TOPIC.equals("Deduction")){
 				NUMBER_OF_LEVELS=5;
 				banner_t=banner_blank_t;
 				banner_s="Deduction";
+				
 				one_s="Intro";
 				one_double_liner=false;
+				score_one=prefs.getInteger("Score_Deduction_Intro");
+				
 				two_s="Blatant Evidence";
 				two_double_liner=true;
+				score_two=prefs.getInteger("Score_Deduction_Blatant");
+				
 				three_s="Finale";
 				three_double_liner=false;
+				score_three=prefs.getInteger("Score_Deduction_Finale");
+				
 				four_s="Subtle Evidence";
 				four_double_liner=true;
+				score_four=prefs.getInteger("Score_Deduction_Subtle");
+				
 				five_s="Near and Far";
 				five_double_liner=false;
+				score_five=prefs.getInteger("Score_Deduction_NAF");
 			}
 			
 			

@@ -20,6 +20,12 @@ public class ArcadeScreen_Basic_Reversed extends ArcadeScreen_Prob {
 	
 	@Override
 	
+	void set_score_name(){
+		score_name="Score_Basic_Reversed";
+	}
+	
+	@Override
+	
 	void level_specific_turret_setup(){
 		   turret_one=new Turret_Standard("hexagon");
 		   turret_two=new Turret_Standard("square");
