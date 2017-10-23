@@ -45,7 +45,7 @@ public class ArcadeScreen_Decoy_Minority extends ArcadeScreen_Prob {
 	
 	void level_specific_events(){
 		
-		decoy_set(4);
+		decoy_set(2);
 				
 		
 		
@@ -66,11 +66,11 @@ public class ArcadeScreen_Decoy_Minority extends ArcadeScreen_Prob {
 		   if (turret_one.targeted||turret_two.targeted||turret_three.targeted||turret_four.targeted){
 			   infuriatingly_specific_bool=true;
 		   }
-		   if (total_time<4){
+		   if (total_time<5){
 				show_the_text=true;
 				the_text="In this level, decoys are rare.";
 			}
-		   if (total_time<4 && infuriatingly_specific_bool){
+		   if (total_time<5 && infuriatingly_specific_bool){
 				show_the_text=true;
 				the_text="This means you have fewer of them to deal with, but also means you must use higher standards of proof.";
 			}

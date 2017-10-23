@@ -1127,7 +1127,7 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		if(Gdx.input.justTouched()){
 			if (menu_button_r.contains(tp_x, tp_y)){
-				game.setScreen(new TitleScreen(game, true));
+				game.setScreen(new SelectScreen_Arcade(game, true));
 				  dispose();
 			}
 		}

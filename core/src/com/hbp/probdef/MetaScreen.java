@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.Preferences;
 
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -40,7 +41,11 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	public BitmapFont blackfont;
 	public BitmapFont purplefont;
 	
+	Preferences prefs;
+	
 	public MetaScreen(final ProbDef gam, boolean play_the_sound) {
+		
+		prefs = Gdx.app.getPreferences("galen_preferences_II");
 		
 		ANDROID=false;// If this is true, we're running on an Android device. If not, it's a PC or HTML thing.
 		//Necessary because of slight differences in gameplay depending on whether people use a mouse or a finger.

@@ -15,12 +15,12 @@ public class SelectScreen_Arcade extends SelectScreen {
 			first_topic="Basic";
 			last_topic="Deduction";
 			
+			System.out.println("-----");
+			System.out.println(prefs.contains("probdef_arcade_top"));
+			System.out.println(prefs.getString("probdef_arcade_top"));
+			System.out.println("-----");
 			
-			if (prefs.contains("probdef_library_topic")){
-				prefs.putString("probdef_library_topic", "Basic");
-			}
 			
-			TOPIC=prefs.getString("probdef_library_topic");
 			
 			System.out.println("topic is somehow "+TOPIC);
 			
@@ -29,9 +29,21 @@ public class SelectScreen_Arcade extends SelectScreen {
 			set_up_level_button_positions(NUMBER_OF_LEVELS);
 			buttony_font=new BitmapFont(Gdx.files.internal("regular_font/gravity_20.fnt"));
 			buttony_font.setColor(Color.BLACK);
-
+			
+			scores_exist=true;
 	   }
 	   
+	   
+	   @Override
+	   
+	   void screen_specific_initial_adjustment(){
+		   if (!prefs.contains("probdef_arcade_top")){
+				prefs.putString("probdef_arcade_top", "Basic");
+				System.out.println("put it there!");
+				prefs.flush();
+			}
+		   TOPIC=prefs.getString("probdef_arcade_top");
+	   }
 	   
 	   @Override
 	   
@@ -130,15 +142,17 @@ public class SelectScreen_Arcade extends SelectScreen {
 	   
 	   public void adjustToTopic(){
 			
-			prefs.putString("probdef_library_topic", TOPIC);
+			prefs.putString("probdef_arcade_top", TOPIC);
+			prefs.flush();
 			if(TOPIC.equals("Basic")){
 				NUMBER_OF_LEVELS=5;
 				banner_t=banner_blank_t;
 				banner_s="Basic";
 				one_s="Intro";
 				one_double_liner=false;
-				two_s="Circles and Hexagons";
-				two_double_liner=true;
+				score_one=prefs.getInteger("Score_Basic_Intro");
+				two_s="Circles";
+				two_double_liner=false;
 				three_s="Reversed";
 				three_double_liner=false;
 				four_s="Capture";
@@ -161,6 +175,24 @@ public class SelectScreen_Arcade extends SelectScreen {
 				five_s="Groups";
 				five_double_liner=false;
 			}
+			if(TOPIC.equals("Deduction")){
+				NUMBER_OF_LEVELS=5;
+				banner_t=banner_blank_t;
+				banner_s="Deduction";
+				one_s="Intro";
+				one_double_liner=false;
+				two_s="Blatant Evidence";
+				two_double_liner=true;
+				three_s="Finale";
+				three_double_liner=false;
+				four_s="Subtle Evidence";
+				four_double_liner=true;
+				five_s="Near and Far";
+				five_double_liner=false;
+			}
+			
+			
+			
 			if(TOPIC.equals("Titanium")){
 				NUMBER_OF_LEVELS=5;
 				banner_t=banner_blank_t;
@@ -225,21 +257,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 				five_s="";//"Titanium Decoys";
 				five_double_liner=true;
 			}
-			if(TOPIC.equals("Deduction")){
-				NUMBER_OF_LEVELS=5;
-				banner_t=banner_blank_t;
-				banner_s="Deduction";
-				one_s="Intro";
-				one_double_liner=false;
-				two_s="Blatant Evidence";
-				two_double_liner=true;
-				three_s="Finale";
-				three_double_liner=false;
-				four_s="Subtle Evidence";
-				four_double_liner=true;
-				five_s="Near and Far";
-				five_double_liner=false;
-			}
+			
 			if(TOPIC.equals("Imperfection")){
 				NUMBER_OF_LEVELS=6;
 				banner_t=banner_blank_t;
@@ -277,7 +295,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 	   
 	   @Override
 	   
-		public void go_forward(){
+		void go_forward(){
 			
 			arrowsound.play();
 			if (TOPIC.equals("Basic")){
@@ -314,7 +332,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 		
 	   @Override
 	   
-		public void go_back(){
+		void go_back(){
 			
 		   System.out.println("FROM "+TOPIC);
 			arrowsound.play();

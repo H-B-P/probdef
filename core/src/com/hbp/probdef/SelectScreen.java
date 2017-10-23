@@ -81,6 +81,15 @@ public class SelectScreen extends MetaScreen {
 	boolean six_double_liner;
 	
 	
+	boolean scores_exist;
+	
+	int score_one;
+	int score_two;
+	int score_three;
+	int score_four;
+	int score_five;
+	int score_six;
+	
 	String TOPIC;
 	String first_topic;
 	String last_topic;
@@ -88,9 +97,6 @@ public class SelectScreen extends MetaScreen {
 	
 	private boolean is_it_first;
 	private boolean is_it_last;
-	
-	
-	Preferences prefs;
 	
 	BitmapFont buttony_font;
 	
@@ -110,20 +116,11 @@ public class SelectScreen extends MetaScreen {
 		
 		super(gam, play_the_sound);
 		
-		prefs=Gdx.app.getPreferences("probdef_preferences");
-		
-		if (!prefs.contains("example_topic")){
-			prefs.putString("example_topic", "example_1");
-		}
-		TOPIC=prefs.getString("example_topic");
-		
+		screen_specific_initial_adjustment();
 		
 		is_it_first=false;
 		is_it_last=false;
 		
-		
-		first_topic="example_1";
-		last_topic="example_3";
 		bgm=Gdx.audio.newMusic(Gdx.files.internal("LevelSelect.mp3"));
 		bgm.setLooping(true);
 		   bgm.play();
@@ -202,9 +199,22 @@ public class SelectScreen extends MetaScreen {
 		
 		arrowsound=Gdx.audio.newSound(Gdx.files.internal("js_sfx/344510__jeremysykes__select03.wav"));		
 		
+		scores_exist=false;
+		
 		adjustToTopic();
 		check_first_last();
 		set_up_level_button_positions(NUMBER_OF_LEVELS);
+	}
+	
+	void screen_specific_initial_adjustment(){
+		if (!prefs.contains("example_topic")){
+			prefs.putString("example_topic", "example_1");
+		}
+		TOPIC=prefs.getString("example_topic");
+		
+		first_topic="example_1";
+		last_topic="example_3";
+		
 	}
 	
 	void set_up_level_button_positions(int how_many){
@@ -443,6 +453,27 @@ public class SelectScreen extends MetaScreen {
 		}
 	}
 	
+	private void draw_scores(){
+		if (NUMBER_OF_LEVELS>=1){
+			blackfont.draw(batch, "score: "+score_one,one_r.x, one_r.y-10, one_r.width, 1, true);
+		}
+		if (NUMBER_OF_LEVELS>=2){
+			blackfont.draw(batch, "score: "+score_two, two_r.x, two_r.y-10, two_r.width, 1, true);
+		}
+		if (NUMBER_OF_LEVELS>=3){
+			blackfont.draw(batch, "score: "+score_three,three_r.x, three_r.y-10, three_r.width, 1, true);
+		}
+		if (NUMBER_OF_LEVELS>=4){
+			blackfont.draw(batch, "score: "+score_four,four_r.x, four_r.y-10, four_r.width, 1, true);
+		}
+		if (NUMBER_OF_LEVELS>=5){
+			blackfont.draw(batch, "score: "+score_five,five_r.x, five_r.y-10, five_r.width, 1, true);
+		}
+		if (NUMBER_OF_LEVELS>=6){
+			blackfont.draw(batch, "score: "+score_six,six_r.x, six_r.y-10, six_r.width, 1, true);
+		}
+	}
+	
 	void go_forward(){
 		
 		arrowsound.play();
@@ -491,6 +522,9 @@ public class SelectScreen extends MetaScreen {
 		batch.setProjectionMatrix(camera.combined);
 		draw_level_buttons();
 		draw_level_titles();
+		if (scores_exist){
+			//draw_scores();
+		}
 		draw_banner_and_arrows();
 		draw_banner_text();
 		batch.draw(menu_t, menu_r.x, menu_r.y);

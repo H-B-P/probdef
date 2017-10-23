@@ -67,13 +67,13 @@ public class ArcadeScreen_Bayes_Deduction_Blatant extends GameScreen_Bayes {
 		turret_type_two="square";
 		turret_type_three="hexagon";
 		
-		ship_one_percentfreq_one=33;
-		ship_one_percentfreq_two=34;
-		ship_one_percentfreq_three=33;
+		ship_one_percentfreq_one=30;
+		ship_one_percentfreq_two=40;
+		ship_one_percentfreq_three=30;
 		
-		ship_two_percentfreq_one=25;
-		ship_two_percentfreq_two=50;
-		ship_two_percentfreq_three=25;
+		ship_two_percentfreq_one=20;
+		ship_two_percentfreq_two=60;
+		ship_two_percentfreq_three=20;
 		
 		ship_three_percentfreq_one=40;
 		ship_three_percentfreq_two=20;

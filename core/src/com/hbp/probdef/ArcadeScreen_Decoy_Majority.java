@@ -47,7 +47,7 @@ public class ArcadeScreen_Decoy_Majority extends ArcadeScreen_Prob {
 	
 	void level_specific_events(){
 		
-		decoy_set(4);
+		decoy_set(2);
 		
 		
 		
