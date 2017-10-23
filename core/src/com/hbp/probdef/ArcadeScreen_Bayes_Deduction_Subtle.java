@@ -12,7 +12,7 @@ public class ArcadeScreen_Bayes_Deduction_Subtle extends ArcadeScreen_Bayes {
 		
 		game = gam;
 		
-		minecount=80;
+		minecount=60;
 		
 	}
 	
@@ -116,7 +116,7 @@ public class ArcadeScreen_Bayes_Deduction_Subtle extends ArcadeScreen_Bayes {
 		font.draw(batch, "TRI/SQ/PENT", 90, 473, 140, 1, true);
 		font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
 		font.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
-		font.draw(batch, "SCORE: "+ (shields+20), 90, 419, 140, 1, true);
+		font.draw(batch, "SCORE: "+ score, 90, 419, 140, 1, true);
 	}
 	
 	void level_specific_ST_ONE_HUD(){

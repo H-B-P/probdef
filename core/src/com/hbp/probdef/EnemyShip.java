@@ -29,6 +29,9 @@ public class EnemyShip {
 	   
 	   int shiptype;
 	   
+	   int obscurityno;
+	   float obscuritytime;
+	   
 	   public EnemyShip(int xposn, String turret_id, boolean obsc){
 		   
 		   horz_vel=0;
@@ -36,6 +39,9 @@ public class EnemyShip {
 		   
 		   actually_there=true;
 		   obscured=obsc;
+		   
+		   obscurityno=1;
+		   obscuritytime=0;
 		   
 		   front='a';
 		   back='a';

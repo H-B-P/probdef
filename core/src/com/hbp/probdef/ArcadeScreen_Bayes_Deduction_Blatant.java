@@ -14,6 +14,7 @@ public class ArcadeScreen_Bayes_Deduction_Blatant extends ArcadeScreen_Bayes {
 		
 		minecount=30;
 		
+		score=30;
 	}
 	
 	void set_score_name(){
@@ -117,7 +118,7 @@ public class ArcadeScreen_Bayes_Deduction_Blatant extends ArcadeScreen_Bayes {
 		font.draw(batch, "CIRC/SQ/HEX", 90, 473, 140, 1, true);
 		font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
 		font.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
-		font.draw(batch, "SCORE: "+ (shields+20), 90, 419, 140, 1, true);
+		font.draw(batch, "SCORE: "+ score, 90, 419, 140, 1, true);
 	}
 	
 	void level_specific_ST_ONE_HUD(){

@@ -21,7 +21,7 @@ public class BookScreen_Tree extends BookScreen {
 	private Texture lb_decimal_t;
 	
 	private Texture lb_trim_blue_t;
-	private Texture lb_trim_orange_t;
+	private Texture lb_trim_purple_t;
 	
 	private Rectangle lb_percentage_r;
 	private Rectangle lb_fraction_r;
@@ -54,7 +54,7 @@ public class BookScreen_Tree extends BookScreen {
 		
 		
 		lb_trim_blue_t=new Texture(Gdx.files.internal("little_button_blue_trim.png"));
-		lb_trim_orange_t=new Texture(Gdx.files.internal("little_button_orange_trim.png"));
+		lb_trim_purple_t=new Texture(Gdx.files.internal("little_button_purple_trim.png"));
 		
 		
 		which_tree="percentage";
@@ -73,15 +73,15 @@ public class BookScreen_Tree extends BookScreen {
 			
 			if (which_tree.equals("percentage")){
 				batch.draw(tree_percentage, 60, 190);
-				batch.draw(lb_trim_orange_t, lb_percentage_r.x, lb_percentage_r.y);
+				batch.draw(lb_trim_purple_t, lb_percentage_r.x, lb_percentage_r.y);
 			}
 			if (which_tree.equals("decimal")){
 				batch.draw(tree_decimal, 60, 190);
-				batch.draw(lb_trim_orange_t, lb_decimal_r.x, lb_decimal_r.y);
+				batch.draw(lb_trim_purple_t, lb_decimal_r.x, lb_decimal_r.y);
 			}
 			if (which_tree.equals("fraction")){
 				batch.draw(tree_fraction, 60, 190);
-				batch.draw(lb_trim_orange_t, lb_fraction_r.x, lb_fraction_r.y);
+				batch.draw(lb_trim_purple_t, lb_fraction_r.x, lb_fraction_r.y);
 			}
 			
 			if (lb_percentage_r.contains(tp_x, tp_y)){
@@ -203,10 +203,6 @@ public class BookScreen_Tree extends BookScreen {
 			turret_three.does_it_work=false;
 			turret_four.does_it_work=false;
 			
-			if (page_time<3){
-				show_the_text=true;
-				the_text="If you care whether mines are captured or destroyed, reasoning gets more complicated.";
-			}
 			if (seconds==4 && TIMESPEED==0){
 				show_the_text=true;
 				the_text="Let's say we want to know the odds of this mine being captured.";

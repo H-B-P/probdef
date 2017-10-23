@@ -14,4 +14,9 @@ public class ArcadeScreen_Bayes extends GameScreen_Bayes {
 		
 	}
 	
+	@Override
+	void calculate_score(){
+		score=shields+20;
+		score=Math.max(score, 0);
+	}
 }

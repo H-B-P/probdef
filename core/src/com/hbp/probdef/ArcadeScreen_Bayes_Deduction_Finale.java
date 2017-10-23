@@ -115,7 +115,7 @@ public class ArcadeScreen_Bayes_Deduction_Finale extends ArcadeScreen_Bayes {
 		font.draw(batch, "CIRC/TRI/PENT", 90, 473, 140, 1, true);
 		font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
 		font.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
-		font.draw(batch, "SCORE: "+ (shields+20), 90, 419, 140, 1, true);
+		font.draw(batch, "SCORE: "+ score, 90, 419, 140, 1, true);
 	}
 	void level_specific_ST_ONE_HUD(){
 		font.draw(batch, "SHIP DESIGN C55", 90, 473, 140, 1, true);

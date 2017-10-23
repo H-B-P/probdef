@@ -14,6 +14,7 @@ import java.util.Iterator;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -57,6 +58,12 @@ public class GameScreen extends SpaceScreen {
 	Texture enemyshipshield_normal_t;
 	
 	Texture obscurity_t;
+	Texture obscurity_one_t;
+	Texture obscurity_two_t;
+	Texture obscurity_three_t;
+	Texture obscurity_four_t;
+	
+	
 	Texture big_explosion_t;
 	
 	//-Dots-
@@ -182,6 +189,8 @@ public class GameScreen extends SpaceScreen {
    boolean infuriatingly_specific_bool;
 	boolean purpletext;
 	
+	boolean obscurities_move;
+	
 	//--Time--
 	
 	float effective_delta;
@@ -239,7 +248,8 @@ public class GameScreen extends SpaceScreen {
 	    attention_button_trim_t=blue_button_trim_t;
 	    
 	    big_explosion_t=new Texture(Gdx.files.internal("big_explosion.png"));
-	    obscurity_t=new Texture(Gdx.files.internal("obscurity.png"));
+	    
+	    obscurities_move=true;
 	    
 	    batch=new SpriteBatch();
 	}
@@ -345,7 +355,13 @@ public class GameScreen extends SpaceScreen {
 	    scratch_four= new Texture(Gdx.files.internal("turrets/chickenscratch_4.png"));
 	    scratch_five= new Texture(Gdx.files.internal("turrets/chickenscratch_5.png"));
 		
-		
+		//-Obscurities-
+	    
+	    obscurity_t=new Texture(Gdx.files.internal("obscurity.png"));
+	    obscurity_one_t=new Texture(Gdx.files.internal("obscurity_1.png"));
+	    obscurity_two_t=new Texture(Gdx.files.internal("obscurity_2.png"));
+	    obscurity_three_t=new Texture(Gdx.files.internal("obscurity_3.png"));
+	    obscurity_four_t=new Texture(Gdx.files.internal("obscurity_4.png"));
 	}
 	
 	
@@ -1004,7 +1020,26 @@ public class GameScreen extends SpaceScreen {
 	   void draw_obscurities(){
 		   for (EnemyShip enemyship: enemyships){
 			   if (enemyship.obscured){
-				   batch.draw(obscurity_t, enemyship.rect.x, enemyship.rect.y);
+				   if (total_time>enemyship.obscuritytime){
+					   enemyship.obscuritytime=total_time+0.08f;
+					   enemyship.obscurityno=((enemyship.obscurityno+MathUtils.random(0,2))%4)+1;
+				   }
+				   
+				   if (enemyship.obscurityno==1){
+					   batch.draw(obscurity_one_t, enemyship.rect.x, enemyship.rect.y);
+				   }
+				   else if (enemyship.obscurityno==2){
+					   batch.draw(obscurity_two_t, enemyship.rect.x, enemyship.rect.y);
+				   }
+				   else if (enemyship.obscurityno==3){
+					   batch.draw(obscurity_three_t, enemyship.rect.x, enemyship.rect.y);
+				   }
+				   else if (enemyship.obscurityno==4){
+					   batch.draw(obscurity_four_t, enemyship.rect.x, enemyship.rect.y);
+				   }
+				   else{
+					   batch.draw(obscurity_t, enemyship.rect.x, enemyship.rect.y);
+				   }
 			   }
 		   }
 	   }
