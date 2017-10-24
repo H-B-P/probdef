@@ -1136,14 +1136,12 @@ public class GameScreen_Bayes extends GameScreen {
 			if (update_scores){
 				update_score_on_exit();
 			}
-			game.setScreen(new SelectScreen_Arcade(game, true));
-			  dispose();
+			exit_level();
 		}
 		
 		if(Gdx.input.justTouched()){
 			if (menu_button_r.contains(tp_x, tp_y)){
-				game.setScreen(new SelectScreen_Arcade(game, true));
-				  dispose();
+				exit_level();
 			}
 		}
 		

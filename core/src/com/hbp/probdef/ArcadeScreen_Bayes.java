@@ -12,6 +12,8 @@ public class ArcadeScreen_Bayes extends GameScreen_Bayes {
 		
 		game = gam;
 		
+		exit_to="arcade";
+		
 	}
 	
 	@Override

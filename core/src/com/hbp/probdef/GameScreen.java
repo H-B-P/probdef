@@ -31,6 +31,7 @@ public class GameScreen extends SpaceScreen {
 	
 	final ProbDef game;
 	
+	String exit_to;
 	
 	//--Textures--
 	Texture orange_dot_t;
@@ -80,8 +81,10 @@ public class GameScreen extends SpaceScreen {
 	Texture green_button_trim_t;
    
 	Texture attention_button_trim_t;
+	
    //-Mines and so on-
-   Texture mine_t;
+   
+	Texture mine_t;
    
    Texture titaniummine_t;
    
@@ -204,6 +207,8 @@ public class GameScreen extends SpaceScreen {
 		
 		super(gam, play_the_sound);
 		game=gam;
+		
+		exit_to="title";
 		
 		menu_button_r=new Rectangle(230,420,100,40);
 	    fire_button_r=new Rectangle(10,420,100,40);
@@ -1126,6 +1131,22 @@ public class GameScreen extends SpaceScreen {
 			}
 	   }
 	
+	   
+	   
+	   
+	   
+	   void exit_level(){
+		   if (exit_to.equals("arcade")){
+			   game.setScreen(new SelectScreen_Arcade(game, true));
+			}
+			else if (exit_to.equals("campaign")){
+				
+			}
+			else {
+				game.setScreen(new TitleScreen(game, true));
+			}
+		   dispose();
+	   }
 	//---Disposes---
 	
 	public void gamey_dispose(){

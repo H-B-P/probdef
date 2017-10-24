@@ -38,6 +38,8 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 	    
 	    wave_number=0;
 	    wave_number_total=6;
+	    
+	    exit_to="arcade";
 	}
 	
 	void wave_number_update(int target_seconds, int target_wave_number){
