@@ -236,76 +236,82 @@ public class GameScreen_Prob extends GameScreen {
 	   
 	   void autocalc_and_display(String displaywhat){
 		   for (Mine mine:mines){
-			   float four=0f;
-			   float three=0f;
-			   float two=0f;
-			   float one=0f;
-			   float zero=0f;
-			   float destroy=0f;
-			   float destroy_extra=0f;
-			   float capture=0f;
-			   float capture_extra=0f;
-			   
-			   if (mine.shields==4){
-				   four=1f;
-			   }
-			   if (mine.shields==3){
-				   three=1f;
-			   }
-			   if (mine.shields==2){
-				   two=1f;
-			   }
-			   if (mine.shields==1){
-				   one=1f;
-			   }
-			   if (mine.shields==0){
-				   zero=1f;
-			   }
-			   
-			   for (Turret_Standard turret_standard:turrets_standard){
-				   if (turret_standard.targeted){
-					   if (turret_standard.target_mine!=null){
-						   if (turret_standard.target_mine.equals(mine)){
-							   for (int i=0; i<turret_standard.turret_level;i++){
-								   destroy_extra=0;
-								   capture_extra=0;
-								   if (!mine.destroyproof){
-									   destroy_extra=zero*turret_standard.destroy_percent/100.0f;
-									   destroy= destroy + destroy_extra;
+			   if (screen_proper.overlaps(mine.rect)){
+				   float four=0f;
+				   float three=0f;
+				   float two=0f;
+				   float one=0f;
+				   float zero=0f;
+				   float destroy=0f;
+				   float destroy_extra=0f;
+				   float capture=0f;
+				   float capture_extra=0f;
+				   
+				   if (mine.shields==4){
+					   four=1f;
+				   }
+				   if (mine.shields==3){
+					   three=1f;
+				   }
+				   if (mine.shields==2){
+					   two=1f;
+				   }
+				   if (mine.shields==1){
+					   one=1f;
+				   }
+				   if (mine.shields==0){
+					   zero=1f;
+				   }
+				   
+				   for (Turret_Standard turret_standard:turrets_standard){
+					   if (turret_standard.targeted){
+						   if (turret_standard.target_mine!=null){
+							   if (turret_standard.target_mine.equals(mine)){
+								   for (int i=0; i<turret_standard.turret_level;i++){
+									   destroy_extra=0;
+									   capture_extra=0;
+									   if (!mine.destroyproof){
+										   destroy_extra=zero*turret_standard.destroy_percent/100.0f;
+										   destroy= destroy + destroy_extra;
+									   }
+										   
+									   if (!mine.captureproof){
+										   capture_extra=zero*turret_standard.capture_percent/100.0f;
+										   capture= capture + capture_extra;
+									   }
+									   zero= (zero-destroy_extra-capture_extra) + one*(1f-turret_standard.fail_percent/100.0f);
+									   one= one*turret_standard.fail_percent/100.0f + two*(1f-turret_standard.fail_percent/100.0f);
+									   two= two*turret_standard.fail_percent/100.0f + three*(1f-turret_standard.fail_percent/100.0f);
+									   three=three*turret_standard.fail_percent/100.0f + four*(1f-turret_standard.fail_percent/100.0f);
+									   four=four*turret_standard.fail_percent/100.0f;
 								   }
-									   
-								   if (!mine.captureproof){
-									   capture_extra=zero*turret_standard.capture_percent/100.0f;
-									   capture= capture + capture_extra;
-								   }
-								   zero= (zero-destroy_extra-capture_extra) + one*(1f-turret_standard.fail_percent/100.0f);
-								   one= one*turret_standard.fail_percent/100.0f + two*(1f-turret_standard.fail_percent/100.0f);
-								   two= two*turret_standard.fail_percent/100.0f + three*(1f-turret_standard.fail_percent/100.0f);
-								   three=three*turret_standard.fail_percent/100.0f + four*(1f-turret_standard.fail_percent/100.0f);
-								   four=four*turret_standard.fail_percent/100.0f;
 							   }
 						   }
 					   }
 				   }
-			   }
-			   
-			   float survival=zero+one+two+three+four;
-			   
-			   if (displaywhat.equals("destroy")){
-				   acalc_redfont.draw(batch, present_float(destroy*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 80, 1, true);
-
-			   }
-			   else if (displaywhat.equals("capture")){
-				   acalc_bluefont.draw(batch, present_float(capture*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 80, 1, true);
-			   }
-			   else{
-				   acalc_grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
+				   
+				   float survival=zero+one+two+three+four;
+				   if (displaywhat.equals("everything")){
+					   acalc_grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
+					   acalc_redfont.draw(batch, " "+present_float(destroy*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
+					   acalc_bluefont.draw(batch, " "+present_float(capture*100.0f)+"%", mine.rect.x-20, mine.rect.y-50, 81, 1, true);
+				   }
+				   else if (displaywhat.equals("destroy")){
+					   acalc_redfont.draw(batch, " "+present_float(destroy*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
+				   }
+				   else if (displaywhat.equals("capture")){
+					   acalc_bluefont.draw(batch, " "+present_float(capture*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
+				   }
+				   else{
+					   acalc_grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
+				   }
 			   }
 		   }
 	   }
 	   
 	   void autocalc_and_display_dummy(){
-		   autocalc_and_display("survive");
+		   //autocalc_and_display("survive");
+		   autocalc_and_display("everything");
 	   }
 	   
 	   //---General Setup---
@@ -464,8 +470,8 @@ public class GameScreen_Prob extends GameScreen {
 					if (!mine.shootproof){
 				     	spawnExplosion(mine.rect.x,mine.rect.y);
 				        shields-=1;
-				        minehitshield.play(0.4f);
-				        minesplode.play();
+				        minehitshield.play(option_sfx_volume*0.4f);
+				        minesplode.play(option_sfx_volume);
 				        shipshield_t=shipshield_flicker_t;
 					}
 					mines.removeValue(mine,true);
@@ -703,7 +709,7 @@ public class GameScreen_Prob extends GameScreen {
 					   if (turret.turret_type.equals("standard")){
 						   Turret_Standard T=(Turret_Standard)turret;
 						   if (T.targeted && (T.firing_time+0.01f*T.shotsmade)<total_time){
-							   if (T.shotsmade==0){fire.play(0.3f);}
+							   if (T.shotsmade==0){fire.play(option_sfx_volume*0.3f);}
 							   T.shotsmade+=1;
 							   if (!T.target_mine.shootproof){
 								   RT_Dot dot=new RT_Dot(turret.rect, turret.target_mine, 3000, turret.determine_output());

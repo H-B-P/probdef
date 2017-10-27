@@ -37,6 +37,8 @@ public class SelectScreen extends MetaScreen {
 	Texture banner_t;
 	String banner_s;
 	
+	Texture title_t;
+	
 	Texture banner_blank_t;
 	
 	private Texture banner_example_one_t;
@@ -107,7 +109,7 @@ public class SelectScreen extends MetaScreen {
 	
 	Texture button_blank_t;
 	
-	public Sound arrowsound;
+	
 	
 	private SpriteBatch batch;
 	
@@ -122,6 +124,7 @@ public class SelectScreen extends MetaScreen {
 		
 		bgm=Gdx.audio.newMusic(Gdx.files.internal("LevelSelect.mp3"));
 		bgm.setLooping(true);
+		bgm.setVolume(option_music_volume);
 		   bgm.play();
 		   
 		dull_trim_t=new Texture(Gdx.files.internal("abutton_trim_boring.png"));
@@ -186,6 +189,8 @@ public class SelectScreen extends MetaScreen {
 		
 		banner_t=banner_blank_t;
 		
+		title_t=new Texture(Gdx.files.internal("TITLE_LIBRARY.png"));
+		
 		batch=new SpriteBatch();
 		
 		game = gam;
@@ -196,7 +201,6 @@ public class SelectScreen extends MetaScreen {
 		buttony_font.setColor(Color.BLACK);
 		
 		
-		arrowsound=Gdx.audio.newSound(Gdx.files.internal("js_sfx/344510__jeremysykes__select03.wav"));		
 		
 		scores_exist=false;
 		
@@ -527,6 +531,7 @@ public class SelectScreen extends MetaScreen {
 		draw_banner_and_arrows();
 		draw_banner_text();
 		batch.draw(menu_t, menu_r.x, menu_r.y);
+		batch.draw(title_t, 0, 400);
 		draw_trims();
 		
 		batch.end();

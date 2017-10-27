@@ -4,7 +4,7 @@ package com.hbp.probdef;
  * 
  * The most basic screen. Every other screen is an extension of this.
  * 
- * Its job is to handle the camera, load in the 'poncho', and play the sound that happens when you start the game.
+ * Its job is to handle the camerawork, take care of options, and play the sound that happens when you switch screens.
  * 
  * All the actual content is left for its children.
  * 
@@ -31,6 +31,7 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	public boolean ANDROID; // this variable is Very Important
 	
 	private Sound hellosound;
+	public Sound arrowsound;
 	
 	public float tp_x; //These two lines between them give the True Position of the mouse on the screen.
 	public float tp_y; //This is as opposed to the position in whatever grid we're using in a level.
@@ -41,16 +42,39 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	public BitmapFont blackfont;
 	public BitmapFont purplefont;
 	
-	Preferences prefs;
+	public Preferences prefs;
+	
+	float option_sfx_volume;
+	float option_music_volume;
+	String option_acalc;
+	String option_screensize;
 	
 	public MetaScreen(final ProbDef gam, boolean play_the_sound) {
-		
-		prefs = Gdx.app.getPreferences("galen_preferences_II");
 		
 		ANDROID=false;// If this is true, we're running on an Android device. If not, it's a PC or HTML thing.
 		//Necessary because of slight differences in gameplay depending on whether people use a mouse or a finger.
 		//(for example, you can't hover over things when all you have is a finger)
 		
+		prefs = Gdx.app.getPreferences("galen_preferences_II");
+		
+		if (!prefs.contains("SFX Volume")){
+			prefs.putFloat("SFX Volume", 1.0f);
+			prefs.flush();
+		}
+		if (!prefs.contains("Music Volume")){
+		    prefs.putFloat("Music Volume", 1.0f);
+			prefs.flush();
+		}
+		if (prefs.contains("Autocalc")){
+			prefs.putString("Autocalc", "Normal");
+			prefs.flush();
+		}
+		if (!prefs.contains("Screen Size")){
+			prefs.putString("Screen Size", "Normal");
+			prefs.flush();
+		}
+		
+		update_options();
 		
 		game=gam;
 		camera = new OrthographicCamera();
@@ -61,12 +85,23 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 		purplefont=new BitmapFont(Gdx.files.internal("regular_font/russo.fnt"));
 		purplefont.setColor(new Color(0.6f, 0.2f, 0.6f, 1.0f));
 		
+		arrowsound=Gdx.audio.newSound(Gdx.files.internal("js_sfx/344510__jeremysykes__select03.wav"));
+		
 		hellosound=Gdx.audio.newSound(Gdx.files.internal("js_sfx/341250__jeremysykes__select01.wav"));
 		if (play_the_sound){
-			hellosound.play();
+			hellosound.play(option_sfx_volume);
 		}
 		
 		poncho_t = new Texture(Gdx.files.internal("blackbar_poncho.png"));
+		
+	}
+	
+	void update_options(){
+		option_sfx_volume=prefs.getFloat("SFX Volume");
+		option_music_volume=prefs.getFloat("Music Volume");
+		System.out.println(option_music_volume);
+		option_acalc=prefs.getString("Autocalc");
+		option_screensize=prefs.getString("Autocalc");
 	}
 	
 	//This function contains the things every screen has to do every step.
@@ -87,7 +122,9 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 		
 	}
 	
-	//All children override this. It's so adorably pathetic.
+	
+	
+	//All children override this render. It's so adorably pathetic.
 	
 	@Override
 	public void render(float delta){
@@ -109,6 +146,12 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 		}
 		if (width>=320 && height>=480){
 			scale=1f; //"If the screen is screen-sized, size the screen to be the size of the screen."
+		}
+		if (width>=480 && height>=720){
+			scale=1.5f; //Another special indulgence for scaling by a factor of 1.5.
+		}
+		if (width>=640 && height>=960){
+			scale=2f; //Gotta get the scale to an integer value before the next bit.
 		}
 		while (width>=(320*(scale+1)) && height>=(480*(scale+1))){
 			scale+=1f; //For all n, we see if we could scale up by a factor of n and still fit on the device's screen.
@@ -138,6 +181,7 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	
 	public void meta_dispose(){
 		hellosound.dispose();
+		arrowsound.dispose();
 		poncho_t.dispose();
 	}
 	@Override

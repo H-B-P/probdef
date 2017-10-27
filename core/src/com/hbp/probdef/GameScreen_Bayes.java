@@ -640,7 +640,7 @@ public class GameScreen_Bayes extends GameScreen {
 					   if (mine.target_enemy_ship.turret.turret_type.equals("standard")){
 						   Turret_Standard T=(Turret_Standard)mine.target_enemy_ship.turret;
 						   if (T.targeted && (T.firing_time+0.01f*T.shotsmade)<total_time){
-							   if (T.shotsmade==0){fire.play(0.3f);}
+							   if (T.shotsmade==0){fire.play(option_sfx_volume*0.3f);}
 							   T.shotsmade+=1;
 							   String output=mine.target_enemy_ship.turret.determine_output();
 							   
@@ -668,7 +668,7 @@ public class GameScreen_Bayes extends GameScreen {
 		}
 		if (Gdx.input.justTouched()&& tp_y<80 && mines.size==0){
 			current_status="waiting";
-			shock.play();
+			shock.play(option_sfx_volume);
 		}
 	}
 	
@@ -678,7 +678,7 @@ public class GameScreen_Bayes extends GameScreen {
 			   if (enemyship.turret.turret_type.equals("standard")){
 				   Turret_Standard T=(Turret_Standard)enemyship.turret;
 				   if (T.targeted && (T.firing_time+0.01f*T.shotsmade)<total_time){
-					   if (T.shotsmade==0){fire.play(0.3f);}
+					   if (T.shotsmade==0){fire.play(option_sfx_volume*0.3f);}
 					   T.shotsmade+=1;
 					   String output=enemyship.turret.determine_output();
 					   
@@ -720,8 +720,7 @@ public class GameScreen_Bayes extends GameScreen {
 			}
 			if (Gdx.input.justTouched() && currently_active_vane.rect.contains(tp_x,tp_y)){
 				currently_active_vane.current_energy=level_specific_forward_energy_cycle(currently_active_vane.current_energy);
-				//shock.play(0.4f);
-			}
+				}
 			skip_through_vanes();
 		}
 	   
@@ -746,10 +745,10 @@ public class GameScreen_Bayes extends GameScreen {
 			if (vane.targeted && vane.target_ship!=null){	
 				if (vane.firing_time<total_time){
 					vane.targeted=false;
-					laser.play(0.4f);
+					laser.play(option_sfx_volume*0.4f);
 					if (vane.current_energy.equals(vane.target_ship.turret.ident)){
 					   spawnBigExplosion(vane.target_ship.turret.rect.x, vane.target_ship.turret.rect.y);
-					   minesplode.play();
+					   minesplode.play(option_sfx_volume);
 					   enemyships.removeValue(vane.target_ship, true);
 					   turrets.removeValue(vane.target_ship.turret, true);
 					   vane.target_ship.actually_there=false;
@@ -759,7 +758,7 @@ public class GameScreen_Bayes extends GameScreen {
 					   vane.target_ship.turret.dispose();
 					}
 					else{
-						mistaken.play(0.7f);
+						mistaken.play(option_sfx_volume*0.7f);
 						if (vane.current_energy.equals(turret_type_one)){
 							vane.target_ship.assignedprob_one=0;
 						}
@@ -803,7 +802,7 @@ public class GameScreen_Bayes extends GameScreen {
 					if (!suppress_phasing){
 						hand_over_to_bowling();
 						if (shipwave<total_shipwaves){
-							shock.play();
+							shock.play(option_sfx_volume);
 						}
 					}
 				}
@@ -897,7 +896,7 @@ public class GameScreen_Bayes extends GameScreen {
 			if (dot.target_mine==null && dot.rect.overlaps(shield_r)){
 				dots.removeValue(dot, true);
 				if (dot.type.equals("destroy")|| dot.type.equals("capture")){
-					deshield.play();
+					deshield.play(option_sfx_volume);
 					level_specific_deshield(dot);
 					shipshield_t=shipshield_flicker_t;
 				}
@@ -913,8 +912,8 @@ public class GameScreen_Bayes extends GameScreen {
 						minecount-=1;
 						if (!mine.shootproof){
 					     	spawnExplosion(mine.rect.x,mine.rect.y);
-					        minehitshield.play(0.1f);
-					        minesplode.play();
+					        minehitshield.play(option_sfx_volume*0.1f);
+					        minesplode.play(option_sfx_volume);
 						}
 						mines.removeValue(mine,true);
 				     }
@@ -929,7 +928,7 @@ public class GameScreen_Bayes extends GameScreen {
 		if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
 			   if(the_selected_enemyship==null && mines.size==0){
 				   	current_status="waiting";
-					shock.play();
+					shock.play(option_sfx_volume);
 			   }
 			   else{
 				   if (the_selected_enemyship!=null && !is_this_ship_being_attacked(the_selected_enemyship) && (minecount>mines.size)){

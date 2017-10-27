@@ -1,6 +1,7 @@
 package com.hbp.probdef;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
 
@@ -9,6 +10,9 @@ public class SelectScreen_Library extends SelectScreen {
 	
 	   public SelectScreen_Library(final ProbDef gam, boolean play_the_sound){
 			super(gam, play_the_sound);
+			
+			title_t=new Texture(Gdx.files.internal("TITLE_LIBRARY.png"));
+			
 			first_topic="Probability";
 			last_topic="Bayes";
 			

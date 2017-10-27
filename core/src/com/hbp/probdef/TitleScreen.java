@@ -57,6 +57,7 @@ public class TitleScreen extends MetaScreen {
 		
 		bgm=Gdx.audio.newMusic(Gdx.files.internal("Menu.mp3"));
 		bgm.setLooping(true);
+		bgm.setVolume(option_music_volume);
 		bgm.play();
 		
 		
@@ -170,7 +171,7 @@ public class TitleScreen extends MetaScreen {
 		
 		if (ARCADE_r.contains(tp_x,tp_y)){
 			batch.draw(TRIM_t, ARCADE_r.x, ARCADE_r.y);
-			blackfont.draw(batch, "Play through a collection of scenarios with no lose condition.\nTry to get the best score.", 10, 83, 300,1, true);
+			blackfont.draw(batch, "Play through a collection of scenarios with no lose condition.\nTry to get the best score.", 10, 76, 300,1, true);
 		}
 		
 		if (CAMPAIGN_r.contains(tp_x,tp_y)){
@@ -184,7 +185,7 @@ public class TitleScreen extends MetaScreen {
 		}
 		
 		if (OPTIONS_r.contains(tp_x,tp_y)){
-			//batch.draw(TRIM_t, OPTIONS_r.x, OPTIONS_r.y);
+			batch.draw(TRIM_t, OPTIONS_r.x, OPTIONS_r.y);
 			blackfont.draw(batch,"Change the sound volume, etc.", 10, 56, 300,1, true);
 		}
 		
@@ -215,6 +216,11 @@ public class TitleScreen extends MetaScreen {
 				
 				if (ARCADE_r.contains(tp_x,tp_y)){
 					game.setScreen(new SelectScreen_Arcade(game, true));
+		            dispose();
+				}
+				
+				if (OPTIONS_r.contains(tp_x,tp_y)){
+					game.setScreen(new OptionsScreen(game, true));
 		            dispose();
 				}
 		}

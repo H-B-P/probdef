@@ -279,7 +279,7 @@ public class BookScreen_Tree extends BookScreen {
 			turret_four.does_it_work=false;
 			if (page_time<4||(seconds==4 && TIMESPEED==0 && turret_one.targeted==false)){
 				show_the_text=true;
-				the_text="Before targeting, use a probability tree to calculate the probability that this mine will be destroyed when targeted with three turrets.";
+				the_text="Before targeting, use a probability tree to calculate the probability that this mine will be destroyed when targeted with these turrets.";
 			}
 			if (page_time>6){
 				time_to_move_on=true;

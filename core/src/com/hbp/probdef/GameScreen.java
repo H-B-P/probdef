@@ -137,6 +137,7 @@ public class GameScreen extends SpaceScreen {
 	Sound deshield;
 	Sound capture;
 	Sound fire;
+	Sound fire_failed;
 	Sound laser;
 	Sound mistaken;
 	Sound shock;
@@ -257,6 +258,7 @@ public class GameScreen extends SpaceScreen {
 	    obscurities_move=true;
 	    
 	    batch=new SpriteBatch();
+	    
 	}
 	
 	void set_score_name(){
@@ -376,6 +378,7 @@ public class GameScreen extends SpaceScreen {
 	    deshield=Gdx.audio.newSound(Gdx.files.internal("sfx_scronched/hurt.wav"));
 	    capture=Gdx.audio.newSound(Gdx.files.internal("sfx_scronched/pick.mp3"));
 	    fire=Gdx.audio.newSound(Gdx.files.internal("sfx_scronched/gunshot.mp3"));
+	    fire_failed=Gdx.audio.newSound(Gdx.files.internal("sfx_scronched/gunshot_failed.mp3"));
 	    laser=Gdx.audio.newSound(Gdx.files.internal("sfx_scronched/laser.wav"));
 	    mistaken=Gdx.audio.newSound(Gdx.files.internal("sfx_scronched/wrong.wav"));
 	    shock=Gdx.audio.newSound(Gdx.files.internal("sfx_scronched/shock.mp3"));
@@ -397,6 +400,7 @@ public class GameScreen extends SpaceScreen {
 	void level_specific_music_setup(){
 		bgm=Gdx.audio.newMusic(Gdx.files.internal("MCS_Dampen.mp3"));
 		bgm.setLooping(true);
+		bgm.setVolume(option_music_volume);
 		bgm.play();
 	}
 	
@@ -499,7 +503,6 @@ public class GameScreen extends SpaceScreen {
 		   volley_ending_time=q+0.2f;
 	   }
 	   
-	   //---The render---
 	
 	   @Override
 		
@@ -614,7 +617,7 @@ public class GameScreen extends SpaceScreen {
 							     	spawnExplosion(dot.target_mine.rect.x,dot.target_mine.rect.y);
 							     	destroyed+=1;
 							     	minecount-=1;
-							     	minesplode.play();
+							     	minesplode.play(option_sfx_volume);
 							     	
 							     	mines.removeValue(dot.target_mine,true);
 							     	
@@ -623,7 +626,7 @@ public class GameScreen extends SpaceScreen {
 					    	 dot.target_mine.being_detained=true;
 					    	 dot.target_mine.actually_there=false;
 					    	 exit_stage_whatever(dot.target_mine);
-					    	 capture.play();
+					    	 capture.play(option_sfx_volume);
 					   }
 					   dots.removeValue(dot, true);
 				   }
@@ -637,22 +640,22 @@ public class GameScreen extends SpaceScreen {
 					   if (dot.type.equals("destroy")||dot.type.equals("capture")){
 						   
 						   if (dot.target_mine.shields==4 && dot.target_mine.shield_four.overlaps(dot.rect)){
-							   deshield.play(0.2f);
+							   deshield.play(option_sfx_volume*0.2f);
 							   dot.target_mine.shields-=1;
 							   dots.removeValue(dot, true);
 						   }
 						   else if (dot.target_mine.shields==3 && dot.target_mine.shield_three.overlaps(dot.rect)){
-							   deshield.play(0.25f);
+							   deshield.play(option_sfx_volume*0.25f);
 							   dot.target_mine.shields-=1;
 							   dots.removeValue(dot, true);
 						   }
 						   else if (dot.target_mine.shields==2 && dot.target_mine.shield_two.overlaps(dot.rect)){
-							   deshield.play(0.3f);
+							   deshield.play(option_sfx_volume*0.3f);
 							   dot.target_mine.shields-=1;
 							   dots.removeValue(dot, true);
 						   }
 							else if (dot.target_mine.shields==1 && dot.target_mine.shield_one.overlaps(dot.rect)){
-								deshield.play(0.35f);
+								deshield.play(option_sfx_volume*0.35f);
 								dot.target_mine.shields-=1;
 								dots.removeValue(dot, true);
 							}

@@ -2,6 +2,7 @@ package com.hbp.probdef;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
@@ -21,7 +22,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 			System.out.println(prefs.getString("probdef_arcade_top"));
 			System.out.println("-----");
 			
-			
+			title_t=new Texture(Gdx.files.internal("TITLE_ARCADE.png"));
 			
 			System.out.println("topic is somehow "+TOPIC);
 			
@@ -61,6 +62,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 				   prefs.putInteger(name, 0);
 			   }
 		   }
+		   prefs.flush();
 	   }
 	   
 	   

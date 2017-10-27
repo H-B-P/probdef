@@ -57,26 +57,28 @@ public class ArcadeScreen_Decoy_PerfectTest extends ArcadeScreen_Prob {
 		wave_number_update(1,1);
 		
 		if (seconds==2 || seconds==4 ||seconds==6 || seconds==8){
-			spawnDecoyProbablistic(-3,45,decoyfreq);
-			spawnDecoyProbablistic(-1,45,decoyfreq);
-			spawnDecoyProbablistic(1,45,decoyfreq);
-			spawnDecoyProbablistic(3,45,decoyfreq);
+			
+			
+			spawnDecoyProbablistic(-1,65,decoyfreq);
+			spawnDecoyProbablistic(1,95,decoyfreq);
 		}
 		
-		wave_number_update(15,2);
+		wave_number_update(13,2);
 		
 		
-		if (seconds==16 || seconds==18 || seconds==20 || seconds==22){
+		if (seconds==16 || seconds==18 || seconds==20 || seconds==14){
 			spawnDecoyProbablistic(-2,65,decoyfreq);
 			spawnDecoyProbablistic(0,65,decoyfreq);
 			spawnDecoyProbablistic(2,65,decoyfreq);
 		}
 		
-		wave_number_update(29,3);
+		wave_number_update(27,3);
 		
-		if (seconds==30 || seconds==32 ||seconds==34 || seconds==36){
-			spawnDecoyProbablistic(-1,65,decoyfreq);
-			spawnDecoyProbablistic(1,95,decoyfreq);
+		if (seconds==30 || seconds==32 ||seconds==34 || seconds==28){
+			spawnDecoyProbablistic(-3,45,decoyfreq);
+			spawnDecoyProbablistic(-1,45,decoyfreq);
+			spawnDecoyProbablistic(1,45,decoyfreq);
+			spawnDecoyProbablistic(3,45,decoyfreq);
 		}
 		
 		wave_number_update(41,4);
