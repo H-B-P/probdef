@@ -435,81 +435,81 @@ public class SelectScreen_Arcade extends SelectScreen {
 		   generic_render();
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Basic")){
 			   if (one_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Basic_Intro(game, true));
+				   game.setScreen(new ArcadeScreen_Prob_Basic_Intro(game, false));
 				   dispose();
 			   }
 			   if (two_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Basic_Circles(game, true));
+				   game.setScreen(new ArcadeScreen_Prob_Basic_Circles(game, false));
 				   dispose();
 			   }
 			   if (three_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Basic_Reversed(game, true));
+				   game.setScreen(new ArcadeScreen_Prob_Basic_Reversed(game, false));
 				   dispose();
 			   }
 			   if (four_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Basic_Capture(game, true));
+				   game.setScreen(new ArcadeScreen_Prob_Basic_Capture(game, false));
 				   dispose();
 			   }
 			   if (five_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Basic_Survive(game, true));
+				   game.setScreen(new ArcadeScreen_Prob_Basic_Survive(game, false));
 				   dispose();
 			   }
 		   }
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Decoys")){
 			   if (one_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Decoy_Intro(game, true));
+				   game.setScreen(new ArcadeScreen_Prob_Decoy_Intro(game, false));
 				   dispose();
 			   }
 			   if (two_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Decoy_Minority(game, true));
+				   game.setScreen(new ArcadeScreen_Prob_Decoy_Minority(game, false));
 				   dispose();
 			   }
 			   if (three_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Decoy_Majority(game, true));
+				   game.setScreen(new ArcadeScreen_Prob_Decoy_Majority(game, false));
 				   dispose();
 			   }
 			   if (four_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Decoy_PerfectTest(game, true));
+				   game.setScreen(new ArcadeScreen_Prob_Decoy_PerfectTest(game, false));
 				   dispose();
 			   }
 			   if (five_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Decoy_Groups(game, true));
+				   game.setScreen(new ArcadeScreen_Prob_Decoy_Groups(game, false));
 				   dispose();
 			   }
 		   }
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Titanium")){
 			   if (one_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Prob_Titanium_Intro(game, true));
+				   game.setScreen(new ArcadeScreen_Prob_Titanium_Intro(game, false));
 				   dispose();
 			   }
 			   if (two_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Prob_Titanium_Barbell(game, true));
+				   game.setScreen(new ArcadeScreen_Prob_Titanium_Barbell(game, false));
 				   dispose();
 			   }
 			   if (three_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Prob_Titanium_Spread(game, true));
+				   game.setScreen(new ArcadeScreen_Prob_Titanium_Spread(game, false));
 				   dispose();
 			   }
 		   }
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Deduction")){
 			   if (one_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Bayes_Deduction_Intro(game, true));
+				   game.setScreen(new ArcadeScreen_Bayes_Deduction_Intro(game, false));
 				   dispose();
 			   }
 			   if (two_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Bayes_Deduction_Blatant(game, true));
+				   game.setScreen(new ArcadeScreen_Bayes_Deduction_Blatant(game, false));
 				   dispose();
 			   }
 			   if (three_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Bayes_Deduction_Finale(game, true));
+				   game.setScreen(new ArcadeScreen_Bayes_Deduction_Finale(game, false));
 				   dispose();
 			   }
 			   if (four_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Bayes_Deduction_Subtle(game, true));
+				   game.setScreen(new ArcadeScreen_Bayes_Deduction_Subtle(game, false));
 				   dispose();
 			   }
 			   if (five_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Bayes_Deduction_NAF(game, true));
+				   game.setScreen(new ArcadeScreen_Bayes_Deduction_NAF(game, false));
 				   dispose();
 			   }
 		   }

@@ -204,9 +204,9 @@ public class GameScreen extends SpaceScreen {
 	
 	SpriteBatch batch;
 	
-	public GameScreen(final ProbDef gam, boolean play_the_sound) {
+	public GameScreen(final ProbDef gam) {
 		
-		super(gam, play_the_sound);
+		super(gam, true);
 		game=gam;
 		
 		exit_to="title";

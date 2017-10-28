@@ -1,14 +1,14 @@
 package com.hbp.probdef;
 
 import com.hbp.probdef.ProbDef;
-public class ArcadeScreen_Basic_Circles extends ArcadeScreen_Prob {
+public class ArcadeScreen_Prob_Basic_Circles extends ArcadeScreen_Prob {
 	
 	final ProbDef game;
 
 	
-	public ArcadeScreen_Basic_Circles(final ProbDef gam, boolean play_the_sound) {
+	public ArcadeScreen_Prob_Basic_Circles(final ProbDef gam, boolean camp) {
 		
-		super(gam, play_the_sound);
+		super(gam, camp);
 		
 		game = gam;
 		minecount=60;

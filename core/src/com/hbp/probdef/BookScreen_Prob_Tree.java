@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-public class BookScreen_Tree extends BookScreen {
+public class BookScreen_Prob_Tree extends BookScreen_Prob {
 	
 	final ProbDef game;
 	
@@ -30,9 +30,9 @@ public class BookScreen_Tree extends BookScreen {
 	private String which_tree;
 
 	
-	public BookScreen_Tree(final ProbDef gam, boolean play_the_sound) {
+	public BookScreen_Prob_Tree(final ProbDef gam) {
 		
-		super(gam, play_the_sound);
+		super(gam);
 		
 		game = gam;
 		

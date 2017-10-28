@@ -5,16 +5,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
-public class BookScreen_Shortcut extends BookScreen {
+public class BookScreen_Prob_Shortcut extends BookScreen_Prob {
 	
 	final ProbDef game;
 	
 	private SpriteBatch batch;
 	
 	
-	public BookScreen_Shortcut(final ProbDef gam, boolean play_the_sound) {
+	public BookScreen_Prob_Shortcut(final ProbDef gam) {
 		
-		super(gam, play_the_sound);
+		super(gam);
 		
 		game = gam;
 		

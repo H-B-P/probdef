@@ -1,15 +1,16 @@
 package com.hbp.probdef;
 
+
 import com.hbp.probdef.ProbDef;
 
-public class ArcadeScreen_Basic_Capture extends ArcadeScreen_Prob {
+public class ArcadeScreen_Prob_Basic_Survive extends ArcadeScreen_Prob {
 	
 	final ProbDef game;
 
 	
-	public ArcadeScreen_Basic_Capture(final ProbDef gam, boolean play_the_sound) {
+	public ArcadeScreen_Prob_Basic_Survive(final ProbDef gam, boolean camp) {
 		
-		super(gam, play_the_sound);
+		super(gam, camp);
 		
 		game = gam;
 		
@@ -19,16 +20,16 @@ public class ArcadeScreen_Basic_Capture extends ArcadeScreen_Prob {
 	@Override
 	
 	void set_score_name(){
-		score_name="Score_Basic_Capture";
+		score_name="Score_Basic_Survive";
 	}
 	
 	@Override
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("circle");
-		   turret_two=new Turret_Standard("square");
-		   turret_three=new Turret_Standard("circle");
-		   turret_four=new Turret_Standard("square");
+		   turret_one=new Turret_Standard("pentagon");
+		   turret_two=new Turret_Standard("triangle");
+		   turret_three=new Turret_Standard("triangle");
+		   turret_four=new Turret_Standard("triangle");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -59,14 +60,15 @@ public class ArcadeScreen_Basic_Capture extends ArcadeScreen_Prob {
 		   purpletext=false;
 		   if (seconds<5){
 			   show_the_text=true;
-			   the_text="In this level, mines hitting your ship won't lower your score. All that matters is how many you capture.";
+			   the_text="In this level, capturing mines won't raise your score. Just avoid mines hitting the ship.";
 		   }
+		   
+		   
 	}
-	
 	
 	@Override
 	void calculate_score(){
-		score=captured;
+		score=shields*4+20;
 		score=Math.max(score, 0);
 	}
 

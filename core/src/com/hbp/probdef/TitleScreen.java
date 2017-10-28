@@ -210,7 +210,7 @@ public class TitleScreen extends MetaScreen {
 				}
 				
 				if (TUTORIAL_r.contains(tp_x,tp_y)){
-					game.setScreen(new GameScreen_Prob(game, true));
+					game.setScreen(new GameScreen_Prob(game));
 		            dispose();
 				}
 				

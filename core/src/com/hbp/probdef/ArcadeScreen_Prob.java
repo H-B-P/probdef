@@ -20,11 +20,15 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 	int wave_number;
 	int wave_number_total;
 	
-	public ArcadeScreen_Prob(final ProbDef gam, boolean play_the_sound) {
+	boolean CAMPAIGN;
+	
+	public ArcadeScreen_Prob(final ProbDef gam, boolean camp) {
 		
-		super(gam, play_the_sound);
+		super(gam);
 		
 		game = gam;
+		
+		CAMPAIGN=camp;
 		
 		captured=0;
 	    destroyed=0;

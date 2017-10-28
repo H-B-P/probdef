@@ -150,15 +150,15 @@ public class SelectScreen_Library extends SelectScreen {
 		   generic_render();
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Probability")){
 			   if (one_r.contains(tp_x,tp_y)){
-				   game.setScreen(new BookScreen_Combine(game, true));
+				   game.setScreen(new BookScreen_Prob_Combine(game));
 				   dispose();
 			   }
 			   if (two_r.contains(tp_x,tp_y)){
-				   game.setScreen(new BookScreen_Tree(game, true));
+				   game.setScreen(new BookScreen_Prob_Tree(game));
 				   dispose();
 			   }
 			   if (three_r.contains(tp_x,tp_y)){
-				   game.setScreen(new BookScreen_HypothesisTests(game, true));
+				   game.setScreen(new BookScreen_Prob_HypothesisTests(game));
 				   dispose();
 			   }
 		   }
@@ -166,11 +166,11 @@ public class SelectScreen_Library extends SelectScreen {
 		   }
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Pascal")){
 			   if (one_r.contains(tp_x,tp_y)){
-				   game.setScreen(new BookScreen_MoreTrees(game, true));
+				   game.setScreen(new BookScreen_Prob_MoreTrees(game));
 				   dispose();
 			   }
 			   if (two_r.contains(tp_x,tp_y)){
-				   game.setScreen(new BookScreen_Shortcut(game, true));
+				   game.setScreen(new BookScreen_Prob_Shortcut(game));
 				   dispose();
 			   }
 			   if (three_r.contains(tp_x,tp_y)){

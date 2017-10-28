@@ -11,9 +11,9 @@ public class ArcadeScreen_Prob_Titanium extends ArcadeScreen_Prob {
 	
 	final ProbDef game;
 	
-	public ArcadeScreen_Prob_Titanium(final ProbDef gam, boolean play_the_sound) {
+	public ArcadeScreen_Prob_Titanium(final ProbDef gam, boolean camp) {
 		
-		super(gam, play_the_sound);
+		super(gam, camp);
 		
 		game = gam;
 		

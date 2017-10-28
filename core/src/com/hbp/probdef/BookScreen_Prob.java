@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.hbp.probdef.ProbDef;
 
-public class BookScreen extends GameScreen_Prob {
+public class BookScreen_Prob extends GameScreen_Prob {
 	
 	final ProbDef game;
 	
@@ -39,9 +39,9 @@ public class BookScreen extends GameScreen_Prob {
 	Sound arrowsound;
 	
 	
-	public BookScreen(final ProbDef gam, boolean play_the_sound) {
+	public BookScreen_Prob(final ProbDef gam) {
 		
-		super(gam, play_the_sound);
+		super(gam);
 		
 		game = gam;
 		

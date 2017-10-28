@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.hbp.probdef.ProbDef;
 
-public class BookScreen_Combine extends BookScreen {
+public class BookScreen_Prob_Combine extends BookScreen_Prob {
 	
 	final ProbDef game;
 	
@@ -16,9 +16,9 @@ public class BookScreen_Combine extends BookScreen {
 	
 	private boolean gotcha;
 	
-	public BookScreen_Combine(final ProbDef gam, boolean play_the_sound) {
+	public BookScreen_Prob_Combine(final ProbDef gam) {
 		
-		super(gam, play_the_sound);
+		super(gam);
 		
 		game = gam;
 		

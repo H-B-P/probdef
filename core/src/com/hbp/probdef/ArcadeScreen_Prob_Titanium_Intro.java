@@ -7,9 +7,9 @@ public class ArcadeScreen_Prob_Titanium_Intro extends ArcadeScreen_Prob_Titanium
 	final ProbDef game;
 
 	
-	public ArcadeScreen_Prob_Titanium_Intro(final ProbDef gam, boolean play_the_sound) {
+	public ArcadeScreen_Prob_Titanium_Intro(final ProbDef gam, boolean camp) {
 		
-		super(gam, play_the_sound);
+		super(gam, camp);
 		
 		game = gam;
 		

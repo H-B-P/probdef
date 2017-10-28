@@ -8,9 +8,9 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends ArcadeScreen_Bayes {
 	
 	float specific_start_time;
 	
-	public ArcadeScreen_Bayes_Deduction_Intro(final ProbDef gam, boolean play_the_sound) {
+	public ArcadeScreen_Bayes_Deduction_Intro(final ProbDef gam, boolean camp) {
 		
-		super(gam, play_the_sound);
+		super(gam, camp);
 		
 		game = gam;
 		

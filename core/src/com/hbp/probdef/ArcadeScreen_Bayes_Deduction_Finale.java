@@ -6,9 +6,9 @@ public class ArcadeScreen_Bayes_Deduction_Finale extends ArcadeScreen_Bayes {
 	
 	final ProbDef game;
 	
-	public ArcadeScreen_Bayes_Deduction_Finale(final ProbDef gam, boolean play_the_sound) {
+	public ArcadeScreen_Bayes_Deduction_Finale(final ProbDef gam, boolean camp) {
 		
-		super(gam, play_the_sound);
+		super(gam, camp);
 		
 		game = gam;
 		

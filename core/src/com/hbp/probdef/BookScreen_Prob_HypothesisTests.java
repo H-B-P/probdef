@@ -5,16 +5,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
-public class BookScreen_HypothesisTests extends BookScreen {
+public class BookScreen_Prob_HypothesisTests extends BookScreen_Prob {
 	
 	final ProbDef game;
 	
 	private SpriteBatch batch;
 	
 	
-	public BookScreen_HypothesisTests(final ProbDef gam, boolean play_the_sound) {
+	public BookScreen_Prob_HypothesisTests(final ProbDef gam) {
 		
-		super(gam, play_the_sound);
+		super(gam);
 		
 		game = gam;
 		

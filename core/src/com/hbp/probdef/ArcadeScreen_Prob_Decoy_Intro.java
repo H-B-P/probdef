@@ -3,13 +3,13 @@ package com.hbp.probdef;
 
 import com.hbp.probdef.ProbDef;
 
-public class ArcadeScreen_Decoy_Intro extends ArcadeScreen_Prob {
+public class ArcadeScreen_Prob_Decoy_Intro extends ArcadeScreen_Prob {
 	
 	final ProbDef game;
 	
-	public ArcadeScreen_Decoy_Intro(final ProbDef gam, boolean play_the_sound) {
+	public ArcadeScreen_Prob_Decoy_Intro(final ProbDef gam, boolean camp) {
 		
-		super(gam, play_the_sound);
+		super(gam, camp);
 		
 		game = gam;
 

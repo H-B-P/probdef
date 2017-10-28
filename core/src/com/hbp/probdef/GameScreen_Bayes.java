@@ -82,9 +82,9 @@ public class GameScreen_Bayes extends GameScreen {
 	boolean suppress_phasing;
 	boolean suppress_autocalc;
 	
-	public GameScreen_Bayes(final ProbDef gam, boolean play_the_sound) {
+	public GameScreen_Bayes(final ProbDef gam) {
 		
-		super(gam, play_the_sound);
+		super(gam);
 		game=gam;
 		
 		current_status="waiting";

@@ -4,13 +4,13 @@ package com.hbp.probdef;
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.math.MathUtils;
 
-public class ArcadeScreen_Decoy_Groups extends ArcadeScreen_Prob {
+public class ArcadeScreen_Prob_Decoy_Groups extends ArcadeScreen_Prob {
 	
 	final ProbDef game;
 	
-	public ArcadeScreen_Decoy_Groups(final ProbDef gam, boolean play_the_sound) {
+	public ArcadeScreen_Prob_Decoy_Groups(final ProbDef gam, boolean camp) {
 		
-		super(gam, play_the_sound);
+		super(gam, camp);
 		
 		game = gam;
 	      

@@ -45,9 +45,9 @@ public class GameScreen_Prob extends GameScreen {
 	
 	
 	
-	public GameScreen_Prob(final ProbDef gam, boolean play_the_sound) {
+	public GameScreen_Prob(final ProbDef gam) {
 		
-		super(gam, play_the_sound);
+		super(gam);
 		game=gam;
 		
 		batch= new SpriteBatch();

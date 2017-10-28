@@ -1,35 +1,36 @@
 package com.hbp.probdef;
 
 
+
 import com.hbp.probdef.ProbDef;
 
-public class ArcadeScreen_Basic_Intro extends ArcadeScreen_Prob {
+public class ArcadeScreen_Prob_Basic_Reversed extends ArcadeScreen_Prob {
 	
 	final ProbDef game;
 
 	
-	public ArcadeScreen_Basic_Intro(final ProbDef gam, boolean play_the_sound) {
+	public ArcadeScreen_Prob_Basic_Reversed(final ProbDef gam, boolean camp) {
 		
-		super(gam, play_the_sound);
+		super(gam, camp);
 		
 		game = gam;
-		
+	      
 	    minecount=60;
 	}
 	
 	@Override
 	
 	void set_score_name(){
-		score_name="Score_Basic_Intro";
+		score_name="Score_Basic_Reversed";
 	}
 	
 	@Override
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("triangle");
-		   turret_two=new Turret_Standard("triangle");
-		   turret_three=new Turret_Standard("square");
-		   turret_four=new Turret_Standard("pentagon");
+		   turret_one=new Turret_Standard("hexagon");
+		   turret_two=new Turret_Standard("square");
+		   turret_three=new Turret_Standard("triangle");
+		   turret_four=new Turret_Standard("circle");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -41,13 +42,14 @@ public class ArcadeScreen_Basic_Intro extends ArcadeScreen_Prob {
 	@Override
 	
 	void level_specific_events(){
-		
+	
 		basic_set(2);
 		
 		if (minecount==0){
 			game.setScreen(new SelectScreen_Arcade(game, true));
-			  dispose();
+			dispose();
 		}
+	
 	}
 	
 	@Override
@@ -61,10 +63,12 @@ public class ArcadeScreen_Basic_Intro extends ArcadeScreen_Prob {
 		   }
 		   if (seconds<5){
 			   show_the_text=true;
-			   the_text="Your score starts at twenty. If you capture a mine, you gain one point. If a mine hits, you lose four points.";
-			   if (infuriatingly_specific_bool){
-				   the_text="Try to end the level with the highest score you can.";
-			   }
+			   the_text="Someone arranged these turrets so they fire in exactly the worst order.";
+		   }
+		   if (seconds<5 && infuriatingly_specific_bool){
+			   show_the_text=true;
+			   purpletext=true;
+			   the_text="(whoever did that must be really careless and/or inconsiderate smh)";
 		   }
 		   
 		   
