@@ -71,7 +71,6 @@ public class SelectScreen_Arcade extends SelectScreen {
 	   void screen_specific_initial_adjustment(){
 		   if (!prefs.contains("probdef_arcade_top")){
 				prefs.putString("probdef_arcade_top", "Basic");
-				System.out.println("put it there!");
 				prefs.flush();
 			}
 		   TOPIC=prefs.getString("probdef_arcade_top");
@@ -294,9 +293,9 @@ public class SelectScreen_Arcade extends SelectScreen {
 				one_double_liner=false;
 				two_s="";//"Shielded Titanium";
 				two_double_liner=false;
-				three_s="";//"Wrong Tool";
+				three_s="";//" ";
 				three_double_liner=false;
-				four_s="";//"Titanium, Decoys";
+				four_s="";//" ";
 				four_double_liner=true;
 				five_s="";//"Combination";
 				five_double_liner=true;

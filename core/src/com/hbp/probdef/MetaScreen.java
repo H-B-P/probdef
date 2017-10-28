@@ -65,7 +65,7 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 		    prefs.putFloat("Music Volume", 1.0f);
 			prefs.flush();
 		}
-		if (prefs.contains("Autocalc")){
+		if (!prefs.contains("Autocalc")){
 			prefs.putString("Autocalc", "Normal");
 			prefs.flush();
 		}
@@ -74,11 +74,17 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 			prefs.flush();
 		}
 		
+		
+		
 		update_options();
 		
 		game=gam;
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 320, 480);
+		
+		
+		set_screensize();
+		
 		
 		blackfont=new BitmapFont(Gdx.files.internal("regular_font/russo.fnt"));
 		blackfont.setColor(new Color(0f, 0f, 0f, 1.0f));
@@ -97,18 +103,51 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	}
 	
 	void update_options(){
+		
+		boolean bother_adjusting=false;
+		
+		if (option_screensize!=null){
+			if (!option_screensize.equals(prefs.getString("Screen Size"))){
+				bother_adjusting=true;
+			}
+		}
+		
 		option_sfx_volume=prefs.getFloat("SFX Volume");
 		option_music_volume=prefs.getFloat("Music Volume");
-		System.out.println(option_music_volume);
 		option_acalc=prefs.getString("Autocalc");
-		option_screensize=prefs.getString("Autocalc");
+		option_screensize=prefs.getString("Screen Size");
+		
+		if (bother_adjusting){
+			set_screensize();
+		}
+	}
+	
+	void set_screensize(){
+		if (!ANDROID){
+			if(option_screensize.equals("Small")){
+				Gdx.graphics.setWindowedMode(160, 240);
+			}
+			else if (option_screensize.equals("Normal")){
+				Gdx.graphics.setWindowedMode(320, 480);
+			}
+			else if (option_screensize.equals("Large")){
+				Gdx.graphics.setWindowedMode(480, 720);
+			}
+			else if (option_screensize.equals("Huge")){
+				Gdx.graphics.setWindowedMode(640, 960);
+			}
+			else if (option_screensize.equals("Giant")){
+				Gdx.graphics.setWindowedMode(960, 1440);
+			}
+			else{
+				Gdx.graphics.setWindowedMode(320, 480); //At 1:1 scale, the expected screen is 320px wide and 480px tall.
+			}
+		}
 	}
 	
 	//This function contains the things every screen has to do every step.
 	
 	public void meta_render() {
-		
-		if (!ANDROID){Gdx.graphics.setWindowedMode(320, 480);} //At 1:1 scale, the expected screen is 320px wide and 480px tall.
 		
 		//Comment out the above line if you want to try stretching the screen and confirming this would work on Android.
 		

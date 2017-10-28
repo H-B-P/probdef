@@ -310,8 +310,13 @@ public class GameScreen_Prob extends GameScreen {
 	   }
 	   
 	   void autocalc_and_display_dummy(){
-		   //autocalc_and_display("survive");
-		   autocalc_and_display("everything");
+		   if (option_acalc.equals("Normal")){
+			   autocalc_and_display("survive");
+		   }
+		   if (option_acalc.equals("Detail")){
+			   autocalc_and_display("everything");
+		   }
+		   
 	   }
 	   
 	   //---General Setup---

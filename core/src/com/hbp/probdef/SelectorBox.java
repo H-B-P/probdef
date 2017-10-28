@@ -25,7 +25,7 @@ public class SelectorBox {
 		
 		prefs = Gdx.app.getPreferences("galen_preferences_II");
 		
-		current_nature_string="broke";
+		current_nature_string="broken";
 		
 		if (is_it_numeric){
 			retrieve_pref_num();

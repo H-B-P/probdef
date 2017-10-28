@@ -720,7 +720,7 @@ public class GameScreen_Bayes extends GameScreen {
 			}
 			if (Gdx.input.justTouched() && currently_active_vane.rect.contains(tp_x,tp_y)){
 				currently_active_vane.current_energy=level_specific_forward_energy_cycle(currently_active_vane.current_energy);
-				}
+			}
 			skip_through_vanes();
 		}
 	   
@@ -1079,8 +1079,9 @@ public class GameScreen_Bayes extends GameScreen {
 		}
 		
 		
-		
-		level_specific_probability_display();
+		if (!option_acalc.equals("Off")){
+			level_specific_probability_display();
+		}
 		
 		draw_targeting_things();
 		

@@ -175,8 +175,8 @@ public class TitleScreen extends MetaScreen {
 		}
 		
 		if (CAMPAIGN_r.contains(tp_x,tp_y)){
-			//batch.draw(TRIM_t, CAMPAIGN_r.x, CAMPAIGN_r.y);
-			blackfont.draw(batch, "Survive a series of levels with mounting difficulty, drawing on limited resources.\nTry not to explode.", 10, 83, 300,1, true);
+			batch.draw(TRIM_t, CAMPAIGN_r.x, CAMPAIGN_r.y);
+			blackfont.draw(batch, "Survive a series of levels with mounting difficulty, accumulating and expending limited resources.\nTry not to explode.", 10, 83, 300,1, true);
 		}
 		
 		if (LIBRARY_r.contains(tp_x,tp_y)){
@@ -190,7 +190,7 @@ public class TitleScreen extends MetaScreen {
 		}
 		
 		if (CREDITS_r.contains(tp_x,tp_y)){
-			//batch.draw(TRIM_t, CREDITS_r.x, CREDITS_r.y);
+			batch.draw(TRIM_t, CREDITS_r.x, CREDITS_r.y);
 			blackfont.draw(batch,"Who did this?\nWhy?", 10, 64, 300,1, true);
 
 		}
@@ -211,6 +211,16 @@ public class TitleScreen extends MetaScreen {
 				
 				if (TUTORIAL_r.contains(tp_x,tp_y)){
 					game.setScreen(new GameScreen_Prob(game, true));
+		            dispose();
+				}
+				
+				if (CREDITS_r.contains(tp_x,tp_y)){
+					game.setScreen(new CreditsScreen(game, true));
+		            dispose();
+				}
+				
+				if (CAMPAIGN_r.contains(tp_x,tp_y)){
+					game.setScreen(new CampaignScreen(game, true));
 		            dispose();
 				}
 				

@@ -62,16 +62,18 @@ public class OptionsScreen extends MetaScreen {
 		
 	    selectorboxes=new Array<SelectorBox>();
 	    
-	    musicVolumeSelectorBox=new SelectorBox_Percentage("Music Volume",10,330);
+	    screenSizeSelectorBox=new SelectorBox_Size("Screen Size",170,330);
+		selectorboxes.add(screenSizeSelectorBox);
+		
+	    musicVolumeSelectorBox=new SelectorBox_Percentage("Music Volume",10,255);
 		selectorboxes.add(musicVolumeSelectorBox);
-		sfxVolumeSelectorBox=new SelectorBox_Percentage("SFX Volume",170,330);
+		
+		sfxVolumeSelectorBox=new SelectorBox_Percentage("SFX Volume",170,255);
 		selectorboxes.add(sfxVolumeSelectorBox);
-		acalcSelectorBox=new SelectorBox_Acalc("Autocalc",10, 235);
+		
+		acalcSelectorBox=new SelectorBox_Acalc("Autocalc",10, 330);
 		selectorboxes.add(acalcSelectorBox);
-		//acalcSelectorBox=new SelectorBox_Percentage("Autocalc",20,315);
-		//selectorboxes.add((SelectorBox)acalcSelectorBox);
-		//screenSizeSelectorBox=new SelectorBox_Percentage("Screen Size",20,315);
-		//selectorboxes.add((SelectorBox)screenSizeSelectorBox);
+		
 		
 	    
 		EBOX_t= new Texture(Gdx.files.internal("explainybox.png"));
@@ -147,37 +149,20 @@ public class OptionsScreen extends MetaScreen {
 		
 		
 		
-//		if (TUTORIAL_r.contains(tp_x,tp_y)){
-//			batch.draw(TRIM_t, TUTORIAL_r.x, TUTORIAL_r.y);
-//			blackfont.draw(batch, "Learn the controls, and the underlying mechanics of the game.\nDo this first.", 10, 76, 300,1, true);
-//		}
-//		
-//		if (ARCADE_r.contains(tp_x,tp_y)){
-//			batch.draw(TRIM_t, ARCADE_r.x, ARCADE_r.y);
-//			blackfont.draw(batch, "Play through a collection of scenarios with no lose condition.\nTry to get the best score.", 10, 83, 300,1, true);
-//		}
-//		
-//		if (CAMPAIGN_r.contains(tp_x,tp_y)){
-//			//batch.draw(TRIM_t, CAMPAIGN_r.x, CAMPAIGN_r.y);
-//			blackfont.draw(batch, "Survive a series of levels with mounting difficulty, drawing on limited resources.\nTry not to explode.", 10, 83, 300,1, true);
-//		}
-//		
-//		if (LIBRARY_r.contains(tp_x,tp_y)){
-//			batch.draw(TRIM_t, LIBRARY_r.x, LIBRARY_r.y);
-//			blackfont.draw(batch, "Use an archive of explorable explanations to understand the math behind the gameplay.\nBring pen and paper.", 10, 83, 300,1, true);
-//		}
-//		
-//		if (OPTIONS_r.contains(tp_x,tp_y)){
-//			//batch.draw(TRIM_t, OPTIONS_r.x, OPTIONS_r.y);
-//			blackfont.draw(batch,"Change the sound volume, etc.", 10, 56, 300,1, true);
-//		}
-//		
-//		if (CREDITS_r.contains(tp_x,tp_y)){
-//			//batch.draw(TRIM_t, CREDITS_r.x, CREDITS_r.y);
-//			blackfont.draw(batch,"Who did this?\nWhy?", 10, 64, 300,1, true);
-//
-//		}
-		
+		if (musicVolumeSelectorBox.rect.contains(tp_x,tp_y)){
+			blackfont.draw(batch, "Set the volume at which the music plays.", 15, 64, 290,1, true);
+		}
+
+		if (sfxVolumeSelectorBox.rect.contains(tp_x,tp_y)){
+			blackfont.draw(batch, "Set the volume at which all sound effects play.", 15, 64, 290,1, true);
+		}
+		if (screenSizeSelectorBox.rect.contains(tp_x,tp_y)){
+			blackfont.draw(batch, "Screen the wrong size? Difficulty reading text? See if this helps.", 15, 83, 290,1, true);
+			purplefont.draw(batch, "(if you're playing the web version browser options work better tbh)", 15, 46, 290,1, true);
+		}
+		if (acalcSelectorBox.rect.contains(tp_x,tp_y)){
+			blackfont.draw(batch, "Leave the autocalc Off if you want a challenge, or set it to Detail if you want more info and don't mind cluttering the screen.", 15, 83, 290,1, true);
+		}
 		
 		
 		
