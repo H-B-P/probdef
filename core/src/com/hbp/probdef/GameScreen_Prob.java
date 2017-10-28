@@ -474,7 +474,7 @@ public class GameScreen_Prob extends GameScreen {
 					minecount-=1;
 					if (!mine.shootproof){
 				     	spawnExplosion(mine.rect.x,mine.rect.y);
-				        shields-=1;
+				        shields-=4;
 				        minehitshield.play(option_sfx_volume*0.4f);
 				        minesplode.play(option_sfx_volume);
 				        shipshield_t=shipshield_flicker_t;
@@ -852,17 +852,14 @@ public class GameScreen_Prob extends GameScreen {
 			
 			
 			
-			
-			if (minecount==0 && explosions.size==0){
-				if (update_scores){
-					update_score_on_exit();
-				}
+			if (shields<=0 && exit_on_shieldfail){
 				exit_level();
 			}
-			
-			
-			
-			if(Gdx.input.justTouched()){
+			else if (minecount==0 && explosions.size==0){
+				update_score_on_exit();
+				exit_level();
+			} 
+			else if(Gdx.input.justTouched()){
 				if (menu_button_r.contains(tp_x, tp_y)){
 					exit_level();
 				}

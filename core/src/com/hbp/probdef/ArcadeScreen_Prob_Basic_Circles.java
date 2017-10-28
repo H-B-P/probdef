@@ -12,6 +12,8 @@ public class ArcadeScreen_Prob_Basic_Circles extends ArcadeScreen_Prob {
 		
 		game = gam;
 		minecount=60;
+		
+		extra_mines=prefs.getInteger("one_captured");
 	}
 	
 	@Override
@@ -50,6 +52,23 @@ public class ArcadeScreen_Prob_Basic_Circles extends ArcadeScreen_Prob {
 	}
 	
 	@Override
+	void update_score_on_exit(){
+		if (CAMPAIGN){
+			if (prefs.getInteger("two_captured")<captured){
+				prefs.putInteger("two_captured",captured);
+			}
+			prefs.putBoolean("two_done",true);
+		}
+		else{
+			if (score>old_score){
+				prefs.putInteger(score_name,score);
+				prefs.flush();
+			}
+		}
+		
+	}
+	
+	@Override
 	
 	void level_specific_timeline(){
 		show_the_text=false;
@@ -69,6 +88,8 @@ public class ArcadeScreen_Prob_Basic_Circles extends ArcadeScreen_Prob {
 		   
 		   
 	}
+	
+	
 
 	@Override
 	public void dispose() {

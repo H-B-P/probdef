@@ -17,7 +17,6 @@ public class ArcadeScreen_Prob_Decoy_Majority extends ArcadeScreen_Prob {
 		game = gam;
 	      
 	    minecount=40;
-	    shields=5;
 	    
 	    score=0;
 	    

@@ -16,7 +16,7 @@ public class ArcadeScreen_Bayes extends GameScreen_Bayes {
 		
 		CAMPAIGN=camp;
 		
-		exit_to="arcade";
+		exit_on_shieldfail=true;
 		
 	}
 	
@@ -24,5 +24,17 @@ public class ArcadeScreen_Bayes extends GameScreen_Bayes {
 	void calculate_score(){
 		score=shields+20;
 		score=Math.max(score, 0);
+	}
+	
+	@Override
+	
+	void exit_level(){
+		if (CAMPAIGN){
+			game.setScreen(new CampaignScreen(game, true));
+		}
+		else{
+			game.setScreen(new SelectScreen_Arcade(game, true));
+		}
+		dispose();
 	}
 }

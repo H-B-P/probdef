@@ -15,7 +15,6 @@ public class ArcadeScreen_Prob_Decoy_Groups extends ArcadeScreen_Prob {
 		game = gam;
 	      
 	    minecount=52;
-	    shields=5;
 	    wave_number_total=4;
 	}
 	

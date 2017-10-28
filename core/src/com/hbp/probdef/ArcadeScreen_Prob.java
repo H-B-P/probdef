@@ -20,6 +20,8 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 	int wave_number;
 	int wave_number_total;
 	
+	int extra_mines;
+	
 	boolean CAMPAIGN;
 	
 	public ArcadeScreen_Prob(final ProbDef gam, boolean camp) {
@@ -32,7 +34,7 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 		
 		captured=0;
 	    destroyed=0;
-	    shields=5;
+	    shields=10;
 	    score=0;
 	    
 	    ordinary_minetype="generic";
@@ -43,7 +45,22 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 	    wave_number=0;
 	    wave_number_total=6;
 	    
-	    exit_to="arcade";
+	    exit_on_shieldfail=true;
+	    
+	    extra_mines=0;
+	}
+	
+	@Override
+	
+	void exit_level(){
+		if (CAMPAIGN){
+			game.setScreen(new CampaignScreen(game, true));
+			dispose();
+		}
+		else{
+			game.setScreen(new SelectScreen_Arcade(game, true));
+			dispose();
+		}
 	}
 	
 	void wave_number_update(int target_seconds, int target_wave_number){
@@ -367,28 +384,7 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 		twelve_wave_boxy(sec+14+16+14,3);
 	}
 	
-	void titanium_set(int sec){
-		
-		wave_number_update(sec-1,1);
-		
-		four_wave(sec, 3);
-		
-		wave_number_update(sec+16-1,2);
-
-		six_wave_single_fast(sec+16, 4);
-		
-		wave_number_update(sec+16+18-1,3);
-		
-		six_wave_single_slow(sec+16+18, 4);
-		
-		wave_number_update(sec+16+18*2-1,4);
-		
-		eight_wave_alternating(sec+16+18*2, 5);
-		
-		wave_number_update(sec+16+18*3-1,5);
-		
-		eight_wave_pair(sec+16+18*3, 4);
-	}
+	
 	
 	@Override
 	void level_specific_HUD(){
@@ -397,13 +393,20 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 		//font.draw(batch, "DESTROYED: "+ destroyed, 90, 437, 140, 1, true);
 		//font.draw(batch, "SCORE: "+score, 90, 420, 140, 1, true);
 		
-		font.draw(batch, "WAVE: "+wave_number+"/"+wave_number_total, 90, 455, 140, 1, true);
-		font.draw(batch, "SCORE: "+ score, 90, 437, 140, 1, true);
-	   }
+		if (!CAMPAIGN){
+			font.draw(batch, "WAVE: "+wave_number+"/"+wave_number_total, 90, 455, 140, 1, true);
+			font.draw(batch, "SCORE: "+ score, 90, 437, 140, 1, true);
+		}
+		if (CAMPAIGN){
+			font.draw(batch, "WAVE: "+wave_number+"/"+wave_number_total, 90, 464, 140, 1, true);
+			font.draw(batch, "SHIELDS: " + shields, 90, 446, 140, 1, true);
+			font.draw(batch, "CAPTURED: " + (captured+extra_mines), 90, 428, 140, 1, true);
+		}
+	}
 	
 	@Override
 	void calculate_score(){
-		score=captured+shields*4;
+		score=captured+shields+10;
 		score=Math.max(score, 0);
 	}
 

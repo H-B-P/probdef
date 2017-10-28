@@ -309,12 +309,6 @@ public class ArcadeScreen_Prob_Titanium extends ArcadeScreen_Prob {
 		font.draw(batch, "WAVE: "+wave_number+"/"+wave_number_total, 90, 455, 140, 1, true);
 		font.draw(batch, "SCORE: "+ score, 90, 437, 140, 1, true);
 	   }
-	
-	@Override
-	void calculate_score(){
-		score=captured+shields*4;
-		score=Math.max(score, 0);
-	}
 
 	@Override
 	public void dispose() {

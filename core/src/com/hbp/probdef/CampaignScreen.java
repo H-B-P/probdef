@@ -41,6 +41,26 @@ public class CampaignScreen extends MetaScreen {
 	Rectangle eight_r;
 	Rectangle nine_r;
 	
+	boolean one_done;
+	boolean two_done;
+	boolean three_done;
+	boolean four_done;
+	boolean five_done;
+	boolean six_done;
+	boolean seven_done;
+	boolean eight_done;
+	boolean nine_done;
+	
+	int one_captured;
+	int two_captured;
+	int three_captured;
+	int four_captured;
+	int five_captured;
+	int six_captured;
+	int seven_spent;
+	int eight_spent;
+	int nine_spent;
+	
 	Texture final_score_box_t;
 	
 	private SpriteBatch batch;
@@ -53,6 +73,63 @@ public class CampaignScreen extends MetaScreen {
 		super(gam, play_the_sound);
 		
 		System.out.print(camera);
+		
+		if (!prefs.contains("one_done")){
+			prefs.putBoolean("one_done",false);
+			prefs.putInteger("one_captured",0);
+		}
+		if (!prefs.contains("two_done")){
+			prefs.putBoolean("two_done",false);
+			prefs.putInteger("two_captured",0);
+		}
+		if (!prefs.contains("three_done")){
+			prefs.putBoolean("three_done",false);
+			prefs.putInteger("three_captured",0);
+		}
+		if (!prefs.contains("four_done")){
+			prefs.putBoolean("four_done",false);
+			prefs.putInteger("four_captured",0);
+		}
+		if (!prefs.contains("five_done")){
+			prefs.putBoolean("five_done",false);
+			prefs.putInteger("five_captured",0);
+		}
+		if (!prefs.contains("six_done")){
+			prefs.putBoolean("six_done",false);
+			prefs.putInteger("six_captured",0);
+		}
+		if (!prefs.contains("seven_done")){
+			prefs.putBoolean("seven_done",false);
+			prefs.putInteger("seven_spent",0);
+		}
+		if (!prefs.contains("eight_done")){
+			prefs.putBoolean("eight_done",false);
+			prefs.putInteger("eight_spent",0);
+		}
+		if (!prefs.contains("nine_done")){
+			prefs.putBoolean("nine_done",false);
+			prefs.putInteger("nine_spent",0);
+		}
+		
+		one_done=prefs.getBoolean("one_done");
+		one_captured=prefs.getInteger("one_captured");
+		two_done=prefs.getBoolean("two_done");
+		two_captured=prefs.getInteger("two_captured");
+		three_done=prefs.getBoolean("three_done");
+		three_captured=prefs.getInteger("three_captured");
+		four_done=prefs.getBoolean("four_done");
+		four_captured=prefs.getInteger("four_captured");
+		five_done=prefs.getBoolean("five_done");
+		five_captured=prefs.getInteger("five_captured");
+		six_done=prefs.getBoolean("six_done");
+		six_captured=prefs.getInteger("six_captured");
+		
+		seven_done=prefs.getBoolean("seven_done");
+		seven_spent=prefs.getInteger("seven_captured");
+		eight_done=prefs.getBoolean("eight_done");
+		eight_spent=prefs.getInteger("eight_captured");
+		nine_done=prefs.getBoolean("nine_done");
+		nine_spent=prefs.getInteger("nine_captured");
 		
 		
 		bgm=Gdx.audio.newMusic(Gdx.files.internal("Menu.mp3"));
@@ -158,35 +235,45 @@ public class CampaignScreen extends MetaScreen {
 		
 	    
 	    batch.draw(menu_t, menu_r.x, menu_r.y);
+	    
 	    if (menu_r.contains(tp_x,tp_y)){
 			batch.draw(dull_trim_t, menu_r.x, menu_r.y);
 		}
 		
+	    
 	    batch.draw(button_blank_t, one_r.x, one_r.y);
 	    buttony_font.draw(batch, "Intro", one_r.x+10, one_r.y+38, 120, 1, true);
+	    
 	    if (one_r.contains(tp_x,tp_y)){
 	    	batch.draw(dull_trim_t, one_r.x, one_r.y);
 	    }
-	    blackfont.draw(batch, "mines: 0",one_r.x, one_r.y-2, one_r.width, 1, true);
+	    if (one_done){blackfont.draw(batch, "mines: "+(one_captured),one_r.x, one_r.y-2, one_r.width, 1, true);}
+	    
 	    
 	    batch.draw(button_blank_t, two_r.x, two_r.y);
 	    buttony_font.draw(batch, "Circles", two_r.x+10, two_r.y+38, 120, 1, true);
+	    
 	    if (two_r.contains(tp_x,tp_y)){
 	    	batch.draw(dull_trim_t, two_r.x, two_r.y);
 	    }
-	    if (true){
+	    if (!one_done){
 	    	batch.draw(button_dead_t, two_r.x, two_r.y);
 	    }
+	    if (two_done){blackfont.draw(batch, "mines: "+(one_captured+two_captured),two_r.x, two_r.y-2, two_r.width, 1, true);}
+	    
 	    
 	    
 	    batch.draw(button_blank_t, three_r.x, three_r.y);
 	    buttony_font.draw(batch, "Reversed", three_r.x+10, three_r.y+38, 120, 1, true);
+	    
 	    if (three_r.contains(tp_x,tp_y)){
 	    	batch.draw(dull_trim_t, three_r.x, three_r.y);
 	    }
-	    if (true){
+	    if (!two_done){
 	    	batch.draw(button_dead_t, three_r.x, three_r.y);
 	    }
+	    if (three_done){blackfont.draw(batch, "mines: "+(one_captured+two_captured+three_captured),three_r.x, three_r.y-2, three_r.width, 1, true);}
+
 	    
 	    
 	    batch.draw(button_blank_t, four_r.x, four_r.y);
@@ -195,9 +282,12 @@ public class CampaignScreen extends MetaScreen {
 	    if (four_r.contains(tp_x,tp_y)){
 	    	batch.draw(dull_trim_t, four_r.x, four_r.y);
 	    }
-	    if (true){
+	    if (!three_done){
 	    	batch.draw(button_dead_t, four_r.x, four_r.y);
 	    }
+	    if (four_done){blackfont.draw(batch, "mines: "+(one_captured+two_captured+three_captured+four_captured), four_r.x, four_r.y-2, four_r.width, 1, true);}
+
+	    
 	    
 	    batch.draw(button_blank_t, five_r.x, five_r.y);
 	    buttony_font.draw(batch, "Minority\nDecoy", five_r.x+10, five_r.y+38+12, 120, 1, true);
@@ -205,9 +295,10 @@ public class CampaignScreen extends MetaScreen {
 	    if (five_r.contains(tp_x,tp_y)){
 	    	batch.draw(dull_trim_t, five_r.x, five_r.y);
 	    }
-	    if (true){
+	    if (!four_done){
 	    	batch.draw(button_dead_t, five_r.x, five_r.y);
 	    }
+	    if (five_done){blackfont.draw(batch, "mines: "+(one_captured+two_captured+three_captured+four_captured+five_captured), five_r.x, five_r.y-2, five_r.width, 1, true);}
 	    
 	    
 	    batch.draw(button_blank_t, six_r.x, six_r.y);
@@ -216,9 +307,11 @@ public class CampaignScreen extends MetaScreen {
 	    if (six_r.contains(tp_x,tp_y)){
 	    	batch.draw(dull_trim_t, six_r.x, six_r.y);
 	    }
-	    if (true){
+	    if (!five_done){
 	    	batch.draw(button_dead_t, six_r.x, six_r.y);
 	    }
+	    if (six_done){blackfont.draw(batch, "mines: "+(one_captured+two_captured+three_captured+four_captured+five_captured+six_captured), six_r.x, six_r.y-2, six_r.width, 1, true);}
+	    
 	    
 	    batch.draw(button_blank_t, seven_r.x, seven_r.y);
 	    buttony_font.draw(batch, "Intro\n(Deduction)", seven_r.x+10, seven_r.y+38+12, 120, 1, true);
@@ -226,9 +319,11 @@ public class CampaignScreen extends MetaScreen {
 	    if (seven_r.contains(tp_x,tp_y)){
 	    	batch.draw(dull_trim_t, seven_r.x, seven_r.y);
 	    }
-	    if (true){
+	    if (!six_done){
 	    	batch.draw(button_dead_t, seven_r.x, seven_r.y);
 	    }
+	    if (seven_done){blackfont.draw(batch, "mines: "+(one_captured+two_captured+three_captured+four_captured+five_captured+six_captured-seven_spent), seven_r.x, seven_r.y-2, seven_r.width, 1, true);}
+	    
 	    
 	    batch.draw(button_blank_t, eight_r.x, eight_r.y);
 	    buttony_font.draw(batch, "Blatant\nEvidence", eight_r.x+10, eight_r.y+38+12, 120, 1, true);
@@ -236,9 +331,11 @@ public class CampaignScreen extends MetaScreen {
 	    if (eight_r.contains(tp_x,tp_y)){
 	    	batch.draw(dull_trim_t, eight_r.x, eight_r.y);
 	    }
-	    if (true){
+	    if (!seven_done){
 	    	batch.draw(button_dead_t, eight_r.x, eight_r.y);
 	    }
+	    if (eight_done){blackfont.draw(batch, "mines: "+(one_captured+two_captured+three_captured+four_captured+five_captured+six_captured-seven_spent-eight_spent), eight_r.x, eight_r.y-2, eight_r.width, 1, true);}
+	    
 	    
 	    batch.draw(button_blank_t, nine_r.x, nine_r.y);
 	    buttony_font.draw(batch, "Finale", nine_r.x+10, nine_r.y+38, 120, 1, true);
@@ -246,16 +343,33 @@ public class CampaignScreen extends MetaScreen {
 	    if (nine_r.contains(tp_x,tp_y)){
 	    	batch.draw(dull_trim_t, nine_r.x, nine_r.y);
 	    }
-	    if (true){
+	    if (!eight_done){
 	    	batch.draw(button_dead_t, nine_r.x, nine_r.y);
 	    }
+	    if (nine_done){blackfont.draw(batch, "mines: "+(one_captured+two_captured+three_captured+four_captured+five_captured+six_captured-seven_spent-eight_spent-nine_spent), nine_r.x, nine_r.y-2, nine_r.width, 1, true);}
 	    
 	    
 		batch.draw(poncho_t, -640, -960);
 		
 		batch.end();
 		
-		if (Gdx.input.justTouched()) {			
+		if (Gdx.input.justTouched()) {
+			
+			if (one_r.contains(tp_x,tp_y)){
+				game.setScreen(new ArcadeScreen_Prob_Basic_Intro(game,true));
+				dispose();
+			}
+			
+			if (one_done &&two_r.contains(tp_x,tp_y)){
+				game.setScreen(new ArcadeScreen_Prob_Basic_Circles(game,true));
+				dispose();
+			}
+			
+			if (two_done && three_r.contains(tp_x,tp_y)){
+				game.setScreen(new ArcadeScreen_Prob_Basic_Reversed(game,true));
+				dispose();
+			}
+			
 			if (menu_r.contains(tp_x,tp_y)){
 				game.setScreen(new TitleScreen(game, true));
 	            dispose();

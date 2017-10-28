@@ -31,8 +31,6 @@ public class GameScreen extends SpaceScreen {
 	
 	final ProbDef game;
 	
-	String exit_to;
-	
 	//--Textures--
 	Texture orange_dot_t;
 	Texture green_dot_t;
@@ -176,9 +174,10 @@ public class GameScreen extends SpaceScreen {
    int captured;
    int destroyed;
    
+   int original_minecount;
+   
    //--Scoring--
    
-   boolean update_scores;
 	int old_score;
 	int score;
 	String score_name;
@@ -204,12 +203,14 @@ public class GameScreen extends SpaceScreen {
 	
 	SpriteBatch batch;
 	
+	boolean exit_on_shieldfail;
+	
 	public GameScreen(final ProbDef gam) {
 		
 		super(gam, true);
 		game=gam;
 		
-		exit_to="title";
+		exit_on_shieldfail=false;
 		
 		menu_button_r=new Rectangle(230,420,100,40);
 	    fire_button_r=new Rectangle(10,420,100,40);
@@ -238,8 +239,6 @@ public class GameScreen extends SpaceScreen {
 	    }
 
     	old_score=prefs.getInteger(score_name);
-	    
-    	update_scores=true;
     	
 	    //--Loading--
 	    
@@ -388,9 +387,9 @@ public class GameScreen extends SpaceScreen {
 		acalc_grayfont=new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
 		acalc_grayfont.setColor(new Color(0.6f, 0.6f, 0.6f, 1.0f));
 		acalc_redfont=new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
-		acalc_redfont.setColor(new Color(1.0f, 0.1f, 0.1f, 1.0f));
+		acalc_redfont.setColor(new Color(1.0f, 0.2f, 0.2f, 1.0f));
 		acalc_bluefont=new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
-		acalc_bluefont.setColor(new Color(0.1f, 0.1f, 1.0f, 1.0f));
+		acalc_bluefont.setColor(new Color(0.3f, 0.3f, 1.0f, 1.0f));
 		acalc_greenfont=new BitmapFont(Gdx.files.internal("the_font/greenflame.fnt"));
 		acalc_greenfont.setColor(new Color(0.2f, 0.6f, 0.2f, 1.0f));
 	}
@@ -845,8 +844,6 @@ public class GameScreen extends SpaceScreen {
 		       }
 		       else{
 		    	   batch.draw(mine_t, mine.rect.x-20, mine.rect.y-20);
-		    	   
-		    	   //batch.draw(enemyship_t, mine.rect.x-20, mine.rect.y-20);
 		       }
 			   
 	          
@@ -1091,7 +1088,7 @@ public class GameScreen extends SpaceScreen {
 	   }
 	   
 	   void draw_the_HUD(){
-		    	level_specific_HUD();
+		   level_specific_HUD();
 	   }
 	
 	   void level_specific_HUD(){
@@ -1139,15 +1136,7 @@ public class GameScreen extends SpaceScreen {
 	   
 	   
 	   void exit_level(){
-		   if (exit_to.equals("arcade")){
-			   game.setScreen(new SelectScreen_Arcade(game, true));
-			}
-			else if (exit_to.equals("campaign")){
-				
-			}
-			else {
-				game.setScreen(new TitleScreen(game, true));
-			}
+		   game.setScreen(new TitleScreen(game, true));
 		   dispose();
 	   }
 	//---Disposes---

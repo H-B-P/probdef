@@ -24,6 +24,24 @@ public class ArcadeScreen_Prob_Basic_Intro extends ArcadeScreen_Prob {
 	}
 	
 	@Override
+	void update_score_on_exit(){
+		if (CAMPAIGN){
+			if (prefs.getInteger("one_captured")<captured){
+				prefs.putInteger("one_captured",captured);
+			}
+			prefs.putBoolean("one_done",true);
+			prefs.flush();
+		}
+		else{
+			if (score>old_score){
+				prefs.putInteger(score_name,score);
+				prefs.flush();
+			}
+		}
+		
+	}
+	
+	@Override
 	
 	void level_specific_turret_setup(){
 		   turret_one=new Turret_Standard("triangle");
@@ -61,14 +79,25 @@ public class ArcadeScreen_Prob_Basic_Intro extends ArcadeScreen_Prob {
 		   }
 		   if (seconds<5){
 			   show_the_text=true;
-			   the_text="Your score starts at twenty. If you capture a mine, you gain one point. If a mine hits, you lose four points.";
-			   if (infuriatingly_specific_bool){
-				   the_text="Try to end the level with the highest score you can.";
+			   if (CAMPAIGN){
+				   the_text="You start with ten shields. If a mine hits, you lose four shields. If your shields hit zero, you fail the level.";
+				   if (infuriatingly_specific_bool){
+					   the_text="Try to end the level with as many captured mines as possible. You'll need them later.";
+				   }
 			   }
+			   else{
+				   the_text="Your score starts at twenty. If you capture a mine, you gain one point. If a mine hits, you lose four points.";
+				   if (infuriatingly_specific_bool){
+					   the_text="Try to end the level with the highest score you can.";
+				   }
+			   }
+			   
 		   }
 		   
 		   
 	}
+	
+	//void 
 
 	@Override
 	public void dispose() {

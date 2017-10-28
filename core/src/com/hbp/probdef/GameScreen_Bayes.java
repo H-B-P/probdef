@@ -1133,9 +1133,7 @@ public class GameScreen_Bayes extends GameScreen {
 		//handle exits
 		
 		if (shipwave>=total_shipwaves && enemyships.size==0 && explosions.size==0){
-			if (update_scores){
-				update_score_on_exit();
-			}
+			update_score_on_exit();
 			exit_level();
 		}
 		

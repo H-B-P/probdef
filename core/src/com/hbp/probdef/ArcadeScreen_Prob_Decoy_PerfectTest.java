@@ -22,7 +22,6 @@ public class ArcadeScreen_Prob_Decoy_PerfectTest extends ArcadeScreen_Prob {
 	    destroyed=0;
 	      
 	    minecount=50;
-	    shields=5;
 	    
 	    score=0;
 	    decoyfreq=40;
