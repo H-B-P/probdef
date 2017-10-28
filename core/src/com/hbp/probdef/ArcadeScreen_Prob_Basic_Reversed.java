@@ -16,6 +16,8 @@ public class ArcadeScreen_Prob_Basic_Reversed extends ArcadeScreen_Prob {
 		game = gam;
 	      
 	    minecount=60;
+	    
+		extra_mines=prefs.getInteger("one_captured")+prefs.getInteger("two_captured");
 	}
 	
 	@Override
@@ -50,6 +52,25 @@ public class ArcadeScreen_Prob_Basic_Reversed extends ArcadeScreen_Prob {
 			dispose();
 		}
 	
+	}
+	
+	
+	@Override
+	void update_score_on_exit(){
+		if (CAMPAIGN){
+			if (prefs.getInteger("three_captured")<captured){
+				prefs.putInteger("three_captured",captured);
+			}
+			prefs.putBoolean("three_done",true);
+			prefs.flush();
+		}
+		else{
+			if (score>old_score){
+				prefs.putInteger(score_name,score);
+				prefs.flush();
+			}
+		}
+		
 	}
 	
 	@Override

@@ -14,11 +14,42 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends ArcadeScreen_Bayes {
 		
 		game = gam;
 		
-		minecount=30;
+		if (CAMPAIGN){
+			minecount=prefs.getInteger("one_captured")+prefs.getInteger("two_captured")+prefs.getInteger("three_captured")+prefs.getInteger("four_captured")+prefs.getInteger("five_captured")+prefs.getInteger("six_captured");
+		}
+		else{
+			minecount=30;
+		}
+		original_minecount=minecount;
 		
 		specific_start_time=9000000000000000000000f;
 		
 	}
+	
+	@Override
+	
+	void update_score_on_exit(){
+		if (CAMPAIGN){
+			if (!prefs.getBoolean("seven_done")){
+				prefs.putBoolean("seven_done",true);
+				prefs.putInteger("seven_spent", (original_minecount-minecount));
+			}
+			else if (prefs.getInteger("seven_spent")>(original_minecount-minecount)){
+				prefs.putInteger("seven_spent", (original_minecount-minecount));
+			}
+			
+			prefs.flush();
+		}
+		else{
+			if (score>old_score){
+				prefs.putInteger(score_name,score);
+				prefs.flush();
+			}
+		}
+		
+	}
+	
+	@Override
 	
 	void set_score_name(){
 		score_name="Score_Deduction_Intro";
@@ -119,10 +150,19 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends ArcadeScreen_Bayes {
 	@Override
 	
 	void level_specific_HUD(){
-		font.draw(batch, "TRI/PENT", 90, 473, 140, 1, true);
-		font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
-		font.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
-		font.draw(batch, "SCORE: "+ score, 90, 419, 140, 1, true);
+		if (CAMPAIGN){
+			font.draw(batch, "TRI/PENT", 90, 473, 140, 1, true);
+			font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
+			font.draw(batch, "SHIELDS: "+shields, 90, 437, 140, 1, true);
+			font.draw(batch, "MINES: "+ minecount, 90, 419, 140, 1, true);
+		}
+		else{
+			font.draw(batch, "TRI/PENT", 90, 473, 140, 1, true);
+			font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
+			font.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
+			font.draw(batch, "SCORE: "+ score, 90, 419, 140, 1, true);
+		}
+		
 	}
 	
 	@Override
@@ -233,7 +273,12 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends ArcadeScreen_Bayes {
 			}
 			if ((round==1 && (current_status.equals("firing") || current_status.equals("zapping") || current_status.equals("waiting")))||(round==2 &&current_status.equals("targeting"))){
 				show_the_text=true;
-				the_text="On the enemy turn, the remaining ships shoot back. All successful attacks cost you one point.";
+				if (CAMPAIGN){
+					the_text="On the enemy turn, the remaining ships shoot back. All successful attacks cost you one shield.";
+				}
+				else{
+					the_text="On the enemy turn, the remaining ships shoot back. All successful attacks cost you one point.";
+				}
 				
 			}
 			if ((round==2 &&current_status.equals("targeting")) && vane_one.targeted){
@@ -273,25 +318,26 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends ArcadeScreen_Bayes {
 		if (shipwave==5){
 			if (round==0 && current_status.equals("bowling")){
 				show_the_text=true;
-				if (minecount==30){
-					if (total_time<specific_start_time+8){
-						the_text="That last wave was rough. Let's make this easier: your ship is now intangible at the start of each wave.";
-					}
-					else{
-						the_text="Click on an enemy ship, or cycle to it with arrow keys and press spacebar. This will launch a mine towards it.";
-					}
+				if (minecount==original_minecount){
+//					if (total_time<specific_start_time+8){
+//						the_text="That last wave was rough. Let's make this easier: your ship is now intangible at the start of each wave.";
+//					}
+//					else{
+//						the_text="Click on an enemy ship, or cycle to it with arrow keys and press spacebar. This will launch a mine towards it.";
+//					}
+					the_text="That last wave was rough. Let's make this easier. Click on an enemy ship to launch a mine toward it.";
 				}
-				if (minecount==29){
+				if (minecount==(original_minecount-1)){
 					the_text="The more shots you see them take, the better you'll be able to guess which ships have which turrets.";
 				}
-				if (minecount<29){
+				if (minecount<(original_minecount-1)){
 					the_text="When you're ready to start the wave proper, click your ship. Alternatively, press space with no ship selected.";
 				}
-				if (minecount<25){
+				if (minecount<(original_minecount-4)){
 					purpletext=true;
 					the_text="(good thing we captured so many mines in the other levels, huh?)";
 				}
-				if (minecount<20){
+				if (minecount<(original_minecount-9)){
 					purpletext=true;
 					the_text="(ok thats too many mines you need to leave some for later)";
 				}
@@ -312,6 +358,13 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends ArcadeScreen_Bayes {
 			if (round==0 && current_status.equals("bowling")){
 				show_the_text=true;
 				the_text="Not all ships are of the same type. The autocalc knows which shiptypes carry what turrets with what probability.";
+			}
+		}
+		if (shipwave==8){
+			if (round==0 && current_status.equals("bowling")){
+				show_the_text=true;
+				purpletext=true;
+				the_text="(oh and jsyk you can also cycle between ships with arrowkeys and launch mines with spacebar if you prefer)";
 			}
 		}
 		

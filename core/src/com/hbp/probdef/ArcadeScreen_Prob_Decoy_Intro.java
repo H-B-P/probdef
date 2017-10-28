@@ -21,6 +21,8 @@ public class ArcadeScreen_Prob_Decoy_Intro extends ArcadeScreen_Prob {
 	    minecount=42;
 	    
 	    wave_number_total=4;
+	    
+		extra_mines=prefs.getInteger("one_captured")+prefs.getInteger("two_captured")+prefs.getInteger("three_captured");
 	}
 	
 	void set_score_name(){
@@ -41,6 +43,25 @@ public class ArcadeScreen_Prob_Decoy_Intro extends ArcadeScreen_Prob {
 		   turrets_standard.add((Turret_Standard) turret_four);
 		   
 	   }
+	
+	@Override
+	
+	void update_score_on_exit(){
+		if (CAMPAIGN){
+			if (prefs.getInteger("four_captured")<captured){
+				prefs.putInteger("four_captured",captured);
+			}
+			prefs.putBoolean("four_done",true);
+			prefs.flush();
+		}
+		else{
+			if (score>old_score){
+				prefs.putInteger(score_name,score);
+				prefs.flush();
+			}
+		}
+		
+	}
 	
 	@Override
 	

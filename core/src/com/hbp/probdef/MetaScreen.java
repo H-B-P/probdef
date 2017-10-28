@@ -51,11 +51,17 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	
 	public MetaScreen(final ProbDef gam, boolean play_the_sound) {
 		
+		
+		
 		ANDROID=false;// If this is true, we're running on an Android device. If not, it's a PC or HTML thing.
 		//Necessary because of slight differences in gameplay depending on whether people use a mouse or a finger.
 		//(for example, you can't hover over things when all you have is a finger)
 		
 		prefs = Gdx.app.getPreferences("galen_preferences_II");
+		
+		
+		
+		System.out.println(prefs.get());
 		
 		if (!prefs.contains("SFX Volume")){
 			prefs.putFloat("SFX Volume", 1.0f);

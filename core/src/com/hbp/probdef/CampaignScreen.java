@@ -125,11 +125,11 @@ public class CampaignScreen extends MetaScreen {
 		six_captured=prefs.getInteger("six_captured");
 		
 		seven_done=prefs.getBoolean("seven_done");
-		seven_spent=prefs.getInteger("seven_captured");
+		seven_spent=prefs.getInteger("seven_spent");
 		eight_done=prefs.getBoolean("eight_done");
-		eight_spent=prefs.getInteger("eight_captured");
+		eight_spent=prefs.getInteger("eight_spent");
 		nine_done=prefs.getBoolean("nine_done");
-		nine_spent=prefs.getInteger("nine_captured");
+		nine_spent=prefs.getInteger("nine_spent");
 		
 		
 		bgm=Gdx.audio.newMusic(Gdx.files.internal("Menu.mp3"));
@@ -290,7 +290,7 @@ public class CampaignScreen extends MetaScreen {
 	    
 	    
 	    batch.draw(button_blank_t, five_r.x, five_r.y);
-	    buttony_font.draw(batch, "Minority\nDecoy", five_r.x+10, five_r.y+38+12, 120, 1, true);
+	    buttony_font.draw(batch, "Perfect Test", five_r.x+10, five_r.y+38, 120, 1, true);
 	    
 	    if (five_r.contains(tp_x,tp_y)){
 	    	batch.draw(dull_trim_t, five_r.x, five_r.y);
@@ -302,7 +302,7 @@ public class CampaignScreen extends MetaScreen {
 	    
 	    
 	    batch.draw(button_blank_t, six_r.x, six_r.y);
-	    buttony_font.draw(batch, "Majority\nDecoy", six_r.x+10, six_r.y+38+12, 120, 1, true);
+	    buttony_font.draw(batch, "Groups", six_r.x+10, six_r.y+38, 120, 1, true);
 	    
 	    if (six_r.contains(tp_x,tp_y)){
 	    	batch.draw(dull_trim_t, six_r.x, six_r.y);
@@ -346,7 +346,7 @@ public class CampaignScreen extends MetaScreen {
 	    if (!eight_done){
 	    	batch.draw(button_dead_t, nine_r.x, nine_r.y);
 	    }
-	    if (nine_done){blackfont.draw(batch, "mines: "+(one_captured+two_captured+three_captured+four_captured+five_captured+six_captured-seven_spent-eight_spent-nine_spent), nine_r.x, nine_r.y-2, nine_r.width, 1, true);}
+	    if (nine_done){blackfont.draw(batch, "final mines: "+(one_captured+two_captured+three_captured+four_captured+five_captured+six_captured-seven_spent-eight_spent-nine_spent), nine_r.x-30, nine_r.y-2, nine_r.width+60, 1, true);}
 	    
 	    
 		batch.draw(poncho_t, -640, -960);
@@ -367,6 +367,36 @@ public class CampaignScreen extends MetaScreen {
 			
 			if (two_done && three_r.contains(tp_x,tp_y)){
 				game.setScreen(new ArcadeScreen_Prob_Basic_Reversed(game,true));
+				dispose();
+			}
+			
+			if (three_done && four_r.contains(tp_x,tp_y)){
+				game.setScreen(new ArcadeScreen_Prob_Decoy_Intro(game,true));
+				dispose();
+			}
+			
+			if (four_done && five_r.contains(tp_x,tp_y)){
+				game.setScreen(new ArcadeScreen_Prob_Decoy_PerfectTest(game,true));
+				dispose();
+			}
+			
+			if (five_done && six_r.contains(tp_x,tp_y)){
+				game.setScreen(new ArcadeScreen_Prob_Decoy_Groups(game,true));
+				dispose();
+			}
+			
+			if (six_done && seven_r.contains(tp_x,tp_y)){
+				game.setScreen(new ArcadeScreen_Bayes_Deduction_Intro(game,true));
+				dispose();
+			}
+			
+			if (seven_done && eight_r.contains(tp_x,tp_y)){
+				game.setScreen(new ArcadeScreen_Bayes_Deduction_Blatant(game,true));
+				dispose();
+			}
+			
+			if (eight_done && nine_r.contains(tp_x,tp_y)){
+				game.setScreen(new ArcadeScreen_Bayes_Deduction_Finale(game,true));
 				dispose();
 			}
 			

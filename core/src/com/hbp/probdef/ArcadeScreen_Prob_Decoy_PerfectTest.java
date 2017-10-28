@@ -27,10 +27,31 @@ public class ArcadeScreen_Prob_Decoy_PerfectTest extends ArcadeScreen_Prob {
 	    decoyfreq=40;
 	    
 	    wave_number_total=4;
+	    
+		extra_mines=prefs.getInteger("one_captured")+prefs.getInteger("two_captured")+prefs.getInteger("three_captured")+prefs.getInteger("four_captured");
 	}
 	
 	void set_score_name(){
 		score_name="Score_Decoy_PerfectTest";
+	}
+	
+	@Override
+	
+	void update_score_on_exit(){
+		if (CAMPAIGN){
+			if (prefs.getInteger("five_captured")<captured){
+				prefs.putInteger("five_captured",captured);
+			}
+			prefs.putBoolean("five_done",true);
+			prefs.flush();
+		}
+		else{
+			if (score>old_score){
+				prefs.putInteger(score_name,score);
+				prefs.flush();
+			}
+		}
+		
 	}
 	
 	@Override
@@ -119,7 +140,7 @@ public class ArcadeScreen_Prob_Decoy_PerfectTest extends ArcadeScreen_Prob {
 			}
 		   if (total_time<5 && infuriatingly_specific_bool){
 				show_the_text=true;
-				the_text="To compensate for this advantage, this level has far higher mine density. Good luck!";
+				//the_text="To compensate for this advantage, this level has far higher mine density. Good luck!";
 			}
 		   
 		   

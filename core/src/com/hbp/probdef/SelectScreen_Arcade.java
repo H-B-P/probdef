@@ -209,21 +209,23 @@ public class SelectScreen_Arcade extends SelectScreen {
 				one_double_liner=false;
 				score_one=prefs.getInteger("Score_Decoy_Intro");
 				
-				two_s="Minority Decoy";
-				two_double_liner=true;
-				score_two=prefs.getInteger("Score_Decoy_Minority");
 				
-				three_s="Majority Decoy";
-				three_double_liner=true;
-				score_three=prefs.getInteger("Score_Decoy_Majority");
 				
-				four_s="Perfect Test";
-				four_double_liner=false;
-				score_four=prefs.getInteger("Score_Decoy_PerfectTest");
+				two_s="Perfect Test";
+				two_double_liner=false;
+				score_two=prefs.getInteger("Score_Decoy_PerfectTest");
 				
-				five_s="Groups";
-				five_double_liner=false;
-				score_five=prefs.getInteger("Score_Decoy_Groups");
+				three_s="Groups";
+				three_double_liner=false;
+				score_three=prefs.getInteger("Score_Decoy_Groups");
+				
+				four_s="Minority Decoy";
+				four_double_liner=true;
+				score_four=prefs.getInteger("Score_Decoy_Minority");
+				
+				five_s="Majority Decoy";
+				five_double_liner=true;
+				score_five=prefs.getInteger("Score_Decoy_Majority");
 			}
 			if(TOPIC.equals("Deduction")){
 				NUMBER_OF_LEVELS=5;
@@ -461,19 +463,19 @@ public class SelectScreen_Arcade extends SelectScreen {
 				   dispose();
 			   }
 			   if (two_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Prob_Decoy_Minority(game, false));
-				   dispose();
-			   }
-			   if (three_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Prob_Decoy_Majority(game, false));
-				   dispose();
-			   }
-			   if (four_r.contains(tp_x,tp_y)){
 				   game.setScreen(new ArcadeScreen_Prob_Decoy_PerfectTest(game, false));
 				   dispose();
 			   }
-			   if (five_r.contains(tp_x,tp_y)){
+			   if (three_r.contains(tp_x,tp_y)){
 				   game.setScreen(new ArcadeScreen_Prob_Decoy_Groups(game, false));
+				   dispose();
+			   }
+			   if (four_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Prob_Decoy_Minority(game, false));
+				   dispose();
+			   }
+			   if (five_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Prob_Decoy_Majority(game, false));
 				   dispose();
 			   }
 		   }

@@ -12,7 +12,14 @@ public class ArcadeScreen_Bayes_Deduction_Blatant extends ArcadeScreen_Bayes {
 		
 		game = gam;
 		
-		minecount=30;
+		if (CAMPAIGN){
+			minecount=prefs.getInteger("one_captured")+prefs.getInteger("two_captured")+prefs.getInteger("three_captured")+prefs.getInteger("four_captured")+prefs.getInteger("five_captured")+prefs.getInteger("six_captured")-prefs.getInteger("seven_spent");
+		}
+		else{
+			minecount=30;
+		}
+		
+		original_minecount=minecount;
 		
 		score=30;
 	}
@@ -30,9 +37,18 @@ public class ArcadeScreen_Bayes_Deduction_Blatant extends ArcadeScreen_Bayes {
 		if (shipwave==1){
 			if (round==1 && current_status.equals("targeting")){
 				show_the_text=true;
+				
 				the_text="Sometimes, evidence is blatant and definitive, so you only need to perform a few tests.";
+				if (minecount<15){
+					purpletext=true;
+					the_text="(hey jsyk you should probably replay some earlier levels and get a bigger stash of mines before trying this one)";
+				}
 				if (vane_one.targeted||vane_two.targeted){
 					the_text="Ships in this area have circle, square and hexagon turrets. These all behave very differently.";
+					if (minecount<15){
+						purpletext=true;
+						the_text="(or you can keep going if you want just don't say I didn't warn you)";
+					}
 				}
 			}
 		}
@@ -57,6 +73,29 @@ public class ArcadeScreen_Bayes_Deduction_Blatant extends ArcadeScreen_Bayes {
 		ship_three_engines='a';
 		ship_three_front='a';
 		ship_three_back='b';
+		
+	}
+	
+	@Override
+	
+	void update_score_on_exit(){
+		if (CAMPAIGN){
+			if (!prefs.getBoolean("eight_done")){
+				prefs.putBoolean("eight_done",true);
+				prefs.putInteger("eight_spent", (original_minecount-minecount));
+			}
+			else if (prefs.getInteger("eight_spent")>(original_minecount-minecount)){
+				prefs.putInteger("eight_spent", (original_minecount-minecount));
+			}
+			
+			prefs.flush();
+		}
+		else{
+			if (score>old_score){
+				prefs.putInteger(score_name,score);
+				prefs.flush();
+			}
+		}
 		
 	}
 	
@@ -115,10 +154,19 @@ public class ArcadeScreen_Bayes_Deduction_Blatant extends ArcadeScreen_Bayes {
 	@Override
 	
 	void level_specific_HUD(){
-		font.draw(batch, "CIRC/SQ/HEX", 90, 473, 140, 1, true);
-		font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
-		font.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
-		font.draw(batch, "SCORE: "+ score, 90, 419, 140, 1, true);
+		if (CAMPAIGN){
+			font.draw(batch, "CIRC/SQ/HEX", 90, 473, 140, 1, true);
+			font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
+			font.draw(batch, "SHIELDS: "+shields, 90, 437, 140, 1, true);
+			font.draw(batch, "MINES: "+ minecount, 90, 419, 140, 1, true);
+		}
+		else{
+			font.draw(batch, "CIRC/SQ/HEX", 90, 473, 140, 1, true);
+			font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
+			font.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
+			font.draw(batch, "SCORE: "+ score, 90, 419, 140, 1, true);
+		}
+		
 	}
 	
 	void level_specific_ST_ONE_HUD(){

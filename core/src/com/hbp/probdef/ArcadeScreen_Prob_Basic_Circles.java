@@ -58,6 +58,7 @@ public class ArcadeScreen_Prob_Basic_Circles extends ArcadeScreen_Prob {
 				prefs.putInteger("two_captured",captured);
 			}
 			prefs.putBoolean("two_done",true);
+			prefs.flush();
 		}
 		else{
 			if (score>old_score){

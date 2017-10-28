@@ -12,7 +12,14 @@ public class ArcadeScreen_Bayes_Deduction_Finale extends ArcadeScreen_Bayes {
 		
 		game = gam;
 		
-		minecount=40;
+		if (CAMPAIGN){
+			minecount=prefs.getInteger("one_captured")+prefs.getInteger("two_captured")+prefs.getInteger("three_captured")+prefs.getInteger("four_captured")+prefs.getInteger("five_captured")+prefs.getInteger("six_captured")-prefs.getInteger("seven_spent")-prefs.getInteger("eight_spent");
+		}
+		else{
+			minecount=40;
+		}
+		
+		original_minecount=minecount;
 		
 	}
 	
@@ -30,11 +37,23 @@ public class ArcadeScreen_Bayes_Deduction_Finale extends ArcadeScreen_Bayes {
 			if (round==1 && current_status.equals("targeting")){
 				show_the_text=true;
 				the_text="Sometimes, evidence is less definitive.";
+				if (minecount<15){
+					purpletext=true;
+					the_text="(hey jsyk you should probably replay some earlier levels and get a bigger stash of mines before trying this one)";
+				}
 				if (vane_one.targeted||vane_two.targeted){
 					the_text="Ships in this area have circle, triangle and pentagon turrets. These behave more similarly.";
+					if (minecount<15){
+						purpletext=true;
+						the_text="(or you can keep going if you want just don't say I didn't warn you)";
+					}
 				}
 				if (vane_one.targeted && vane_two.targeted){
 					the_text="As a result, being confident in your reasoning becomes more difficult.";
+					if (minecount<15){
+						purpletext=true;
+						the_text="(or you can keep going if you want just don't say I didn't warn you)";
+					}
 				}
 			}
 		}
@@ -54,6 +73,29 @@ public class ArcadeScreen_Bayes_Deduction_Finale extends ArcadeScreen_Bayes {
 		ship_three_engines='c';
 		ship_three_front='c';
 		ship_three_back='c';
+		
+	}
+	
+@Override
+	
+	void update_score_on_exit(){
+		if (CAMPAIGN){
+			if (!prefs.getBoolean("nine_done")){
+				prefs.putBoolean("nine_done",true);
+				prefs.putInteger("nine_spent", (original_minecount-minecount));
+			}
+			else if (prefs.getInteger("nine_spent")>(original_minecount-minecount)){
+				prefs.putInteger("nine_spent", (original_minecount-minecount));
+			}
+			
+			prefs.flush();
+		}
+		else{
+			if (score>old_score){
+				prefs.putInteger(score_name,score);
+				prefs.flush();
+			}
+		}
 		
 	}
 	
@@ -112,10 +154,18 @@ public class ArcadeScreen_Bayes_Deduction_Finale extends ArcadeScreen_Bayes {
 	@Override
 	
 	void level_specific_HUD(){
-		font.draw(batch, "CIRC/TRI/PENT", 90, 473, 140, 1, true);
-		font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
-		font.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
-		font.draw(batch, "SCORE: "+ score, 90, 419, 140, 1, true);
+		if (CAMPAIGN){
+			font.draw(batch, "CIRC/TRI/PENT", 90, 473, 140, 1, true);
+			font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
+			font.draw(batch, "SHIELDS: "+shields, 90, 437, 140, 1, true);
+			font.draw(batch, "MINES: "+ minecount, 90, 419, 140, 1, true);
+		}
+		else{
+			font.draw(batch, "CIRC/TRI/PENT", 90, 473, 140, 1, true);
+			font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
+			font.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
+			font.draw(batch, "SCORE: "+ score, 90, 419, 140, 1, true);
+		}
 	}
 	void level_specific_ST_ONE_HUD(){
 		font.draw(batch, "SHIP DESIGN C55", 90, 473, 140, 1, true);

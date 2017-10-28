@@ -8,6 +8,8 @@ public class ArcadeScreen_Bayes extends GameScreen_Bayes {
 	
 	boolean CAMPAIGN;
 	
+	int original_minecount;
+	
 	public ArcadeScreen_Bayes(final ProbDef gam, boolean camp) {
 		
 		super(gam);
