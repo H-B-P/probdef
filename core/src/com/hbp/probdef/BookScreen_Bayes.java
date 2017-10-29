@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.hbp.probdef.ProbDef;
 
-public class BookScreen_Prob extends GameScreen_Prob {
+public class BookScreen_Bayes extends GameScreen_Bayes {
 	
 	final ProbDef game;
 	
@@ -39,7 +39,7 @@ public class BookScreen_Prob extends GameScreen_Prob {
 	Sound arrowsound;
 	
 	
-	public BookScreen_Prob(final ProbDef gam) {
+	public BookScreen_Bayes(final ProbDef gam) {
 		
 		super(gam);
 		
@@ -78,7 +78,7 @@ public class BookScreen_Prob extends GameScreen_Prob {
 	}
 	
 	void generic_book_render(float delta){
-		probgame_render(delta);
+		bayesgame_render(delta);
 		
 		page_time+=effective_delta;
 		
@@ -138,13 +138,12 @@ public class BookScreen_Prob extends GameScreen_Prob {
 		seconds=0;
 		
 		arrowsound.play();
-		for (Turret turret:turrets){
-			turret.targeted=false;
-			turret.current_t=turret.normal_t;
-		}
+		
 		mines.clear();
 		
 		explosions.clear();
+		
+		enemyships.clear();
 		
 		current_status="waiting";
 		
@@ -159,8 +158,8 @@ public class BookScreen_Prob extends GameScreen_Prob {
 				if (seconds%2==0 && mines.size>0 && !suppress_freezes){
 					current_status="targeting";
 					TIMESPEED=0;
-					currently_active_turret_no=1;
-					number_to_turret();
+					//currently_active_turret_no=1;
+					//number_to_turret();
 				}
 				System.out.println(seconds+" s");
 				System.out.println("page "+page);
@@ -169,27 +168,26 @@ public class BookScreen_Prob extends GameScreen_Prob {
 			}
 	   }
 	
-	@Override
-	
-	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("triangle");
-		   turret_two=new Turret_Standard("square");
-		   turret_three=new Turret_Standard("square");
-		   turret_four=new Turret_Standard("triangle");
-		   
-		   turrets_standard.add((Turret_Standard) turret_one);
-		   turrets_standard.add((Turret_Standard) turret_two);
-		   turrets_standard.add((Turret_Standard) turret_three);
-		   turrets_standard.add((Turret_Standard) turret_four);
-		   
-	   }
+//	@Override
+//	
+//	void level_specific_turret_setup(){
+//		   turret_one=new Turret_Standard("triangle");
+//		   turret_two=new Turret_Standard("square");
+//		   turret_three=new Turret_Standard("square");
+//		   turret_four=new Turret_Standard("triangle");
+//		   
+//		   turrets_standard.add((Turret_Standard) turret_one);
+//		   turrets_standard.add((Turret_Standard) turret_two);
+//		   turrets_standard.add((Turret_Standard) turret_three);
+//		   turrets_standard.add((Turret_Standard) turret_four);
+//		   
+//	   }
 	
 	@Override
 	
 	void level_specific_events(){
 		if (page==1){
 			if (seconds==2){
-				spawnMine(0,95);
 			}
 			if (seconds==5){
 				time_to_move_on=true;
@@ -224,14 +222,8 @@ public class BookScreen_Prob extends GameScreen_Prob {
 		}
 	}
 	
-	@Override
-	void exit_level(){
-		   game.setScreen(new SelectScreen_Library(game, true));
-		   dispose();
-	   }
-	
 	void generic_book_dispose(){
-		probgame_dispose();
+		gamey_dispose();
 	}
 	
 	@Override

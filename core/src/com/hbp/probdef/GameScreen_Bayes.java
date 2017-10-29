@@ -1061,7 +1061,7 @@ public class GameScreen_Bayes extends GameScreen {
 	
 	//---The render---
 	
-	public void render(float delta){
+	public void bayesgame_render(float delta){
 		gamey_render_predraw(delta);
 		
 		batch.begin();
@@ -1142,6 +1142,10 @@ public class GameScreen_Bayes extends GameScreen {
 				exit_level();
 			}
 		}
+	}
+	
+	public void render(float delta){
+		bayesgame_render(delta);
 		
 	}
 	
