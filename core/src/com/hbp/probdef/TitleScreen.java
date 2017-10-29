@@ -166,7 +166,7 @@ public class TitleScreen extends MetaScreen {
 		
 		if (TUTORIAL_r.contains(tp_x,tp_y)){
 			batch.draw(TRIM_t, TUTORIAL_r.x, TUTORIAL_r.y);
-			blackfont.draw(batch, "Learn the controls, and the underlying mechanics of the game.\nDo this first.", 10, 76, 300,1, true);
+			blackfont.draw(batch, "Learn the controls and the basic game mechanics.\nDo this first.", 10, 76, 300,1, true);
 		}
 		
 		if (ARCADE_r.contains(tp_x,tp_y)){

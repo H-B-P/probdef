@@ -82,7 +82,7 @@ public class ArcadeScreen_Prob_Basic_Intro extends ArcadeScreen_Prob {
 			   if (CAMPAIGN){
 				   the_text="You start with ten shields. If a mine hits, you lose four shields. If your shields hit zero, you fail the level.";
 				   if (infuriatingly_specific_bool){
-					   the_text="Try to end the level with as many captured mines as possible. You'll need them later.";
+					   the_text="Try to end each level with as many captured mines as possible. You'll need them later.";
 				   }
 			   }
 			   else{

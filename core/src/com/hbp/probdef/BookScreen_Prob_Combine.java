@@ -113,7 +113,7 @@ public class BookScreen_Prob_Combine extends BookScreen_Prob {
 			
 			if (seconds==6 && TIMESPEED==0){
 				show_the_text=true;
-				the_text="The probability of two unrelated things both happening is the product of their probabilities.";
+				the_text="The probability of two independent events both happening is found by multiplying their probabilities.";
 				if (turret_one.targeted && turret_two.targeted){
 					the_text="In this case, that means 20% of 30%: 6%.";
 				}

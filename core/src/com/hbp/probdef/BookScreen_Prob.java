@@ -29,8 +29,8 @@ public class BookScreen_Prob extends GameScreen_Prob {
 	Texture prv_trim_blue_t;
 	Texture nxt_trim_blue_t;
 	
-	Texture prv_trim_orange_t;
-	Texture nxt_trim_orange_t;
+	Texture prv_trim_purple_t;
+	Texture nxt_trim_purple_t;
 	
 	int maxpages;
 	
@@ -68,8 +68,8 @@ public class BookScreen_Prob extends GameScreen_Prob {
 		prv_trim_blue_t=new Texture(Gdx.files.internal("pobutton_left_trim.png"));
 		nxt_trim_blue_t=new Texture(Gdx.files.internal("pobutton_right_trim.png"));
 		
-		prv_trim_orange_t=new Texture(Gdx.files.internal("pobutton_left_trim_orange.png"));
-		nxt_trim_orange_t=new Texture(Gdx.files.internal("pobutton_right_trim_orange.png"));
+		prv_trim_purple_t=new Texture(Gdx.files.internal("pobutton_left_trim_orange.png"));
+		nxt_trim_purple_t=new Texture(Gdx.files.internal("pobutton_right_trim_orange.png"));
 		
 		
 		time_to_move_on=false;
@@ -93,7 +93,7 @@ public class BookScreen_Prob extends GameScreen_Prob {
 		if (page<maxpages){
 			batch.draw(nxt_t, nxt_r.x, nxt_r.y);
 			if (time_to_move_on && seconds%2==1){
-				batch.draw(nxt_trim_orange_t, nxt_r.x, nxt_r.y);
+				batch.draw(nxt_trim_purple_t, nxt_r.x, nxt_r.y);
 			}
 			if (nxt_r.contains(tp_x,tp_y)){
 				batch.draw(nxt_trim_blue_t, nxt_r.x, nxt_r.y);

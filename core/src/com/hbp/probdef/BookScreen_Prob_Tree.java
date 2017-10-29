@@ -277,7 +277,7 @@ public class BookScreen_Prob_Tree extends BookScreen_Prob {
 			turret_four.does_it_work=false;
 			turret_three.does_it_work=false;
 			show_the_text=true;
-			the_text="Each branch multiplies the probability above by the probability along it to get the probability below it.";
+			the_text="Each branch multiplies the probability above it by the probability along it to get the probability below it.";
 			if (page_time>2){
 				time_to_move_on=true;
 			}

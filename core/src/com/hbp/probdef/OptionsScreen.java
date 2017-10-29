@@ -154,7 +154,7 @@ public class OptionsScreen extends MetaScreen {
 		}
 
 		if (sfxVolumeSelectorBox.rect.contains(tp_x,tp_y)){
-			blackfont.draw(batch, "Set the volume at which all sound effects play.", 15, 64, 290,1, true);
+			blackfont.draw(batch, "Set the volume at which sound effects play.", 15, 64, 290,1, true);
 		}
 		if (screenSizeSelectorBox.rect.contains(tp_x,tp_y)){
 			blackfont.draw(batch, "Screen the wrong size? Difficulty reading text? See if this helps.", 15, 83, 290,1, true);

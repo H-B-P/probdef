@@ -625,6 +625,7 @@ public class GameScreen extends SpaceScreen {
 					    	 dot.target_mine.being_detained=true;
 					    	 dot.target_mine.actually_there=false;
 					    	 exit_stage_whatever(dot.target_mine);
+					    	 System.out.println("bark!");
 					    	 capture.play(option_sfx_volume);
 					   }
 					   dots.removeValue(dot, true);

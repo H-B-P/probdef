@@ -61,7 +61,7 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 		
 		
 		
-		System.out.println(prefs.get());
+		//System.out.println(prefs.get());
 		
 		if (!prefs.contains("SFX Volume")){
 			prefs.putFloat("SFX Volume", 1.0f);

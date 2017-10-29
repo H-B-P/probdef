@@ -72,20 +72,12 @@ public class BookScreen_Prob_HypothesisTests extends BookScreen_Prob {
 			if (seconds==4){
 				spawnDecoyProbablistic(-1,45,50);
 				spawnDecoyProbablistic(1,45,50);
+				spawnDecoyProbablistic(3,45,50);
 			}
 			if (seconds==6){
 				spawnDecoyProbablistic(-2,45,50);
 				spawnDecoyProbablistic(2,45,50);
 			}
-			if (seconds==8){
-				spawnDecoyProbablistic(0,45,50);
-			}
-		}
-		if (page==3){
-			
-		}
-		if (page==4){
-			
 		}
 	}
 	@Override
@@ -94,7 +86,7 @@ public class BookScreen_Prob_HypothesisTests extends BookScreen_Prob {
 	   }
 	@Override
 	void draw_textbox(String text){
-		if (page==2){
+		if (page==2 && turret_three.targeted && !turret_four.targeted){
 			draw_textbox_two(text);
 		}
 		else{
@@ -148,22 +140,22 @@ public class BookScreen_Prob_HypothesisTests extends BookScreen_Prob {
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_one.targeted){
 				show_the_text=true;
-				the_text="Your null hypothesis, H0, is that it's a real mine. Your alternative hypothesis, HA, is that it's a decoy.";
+				the_text="Your null hypothesis, 'H0', is that it's a real mine. Your alternative hypothesis, 'Ha', is that it's a decoy.";
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_two.targeted){
 				show_the_text=true;
-				the_text="If the autocalc gives it less than a p% chance of remaining, but it remains, you reject the null and assume it's fake.";
+				the_text="If it has less than a 5% chance of remaining, but it remains, you 'reject the null' and assume it's fake.";
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_three.targeted){
 				show_the_text=true;
-				the_text="The standard p-value is 5%. You may want to use a different one depending on how common decoys are and how careful you're being.";
+				the_text="Note: the standard p-value is 5%, but you may want to use a different one depending on how common decoys are and how careful you're being.";
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_four.targeted){
 				show_the_text=true;
 				purpletext=true;
 				the_text="(you ready to do some Scientific Investigation and Test some Hypotheses? here we go)";
 			}
-			if (page_time>16){
+			if (page_time>14){
 				time_to_move_on=true;
 			}
 			
