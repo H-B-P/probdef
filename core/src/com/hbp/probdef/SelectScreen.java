@@ -458,22 +458,22 @@ public class SelectScreen extends MetaScreen {
 	
 	private void draw_scores(){
 		if (NUMBER_OF_LEVELS>=1){
-			blackfont.draw(batch, "score: "+score_one,one_r.x, one_r.y-10, one_r.width, 1, true);
+			blackfont.draw(batch, "highscore: "+score_one,one_r.x, one_r.y-10, one_r.width, 1, true);
 		}
 		if (NUMBER_OF_LEVELS>=2){
-			blackfont.draw(batch, "score: "+score_two, two_r.x, two_r.y-10, two_r.width, 1, true);
+			blackfont.draw(batch, "highscore: "+score_two, two_r.x, two_r.y-10, two_r.width, 1, true);
 		}
 		if (NUMBER_OF_LEVELS>=3){
-			blackfont.draw(batch, "score: "+score_three,three_r.x, three_r.y-10, three_r.width, 1, true);
+			blackfont.draw(batch, "highscore: "+score_three,three_r.x, three_r.y-10, three_r.width, 1, true);
 		}
 		if (NUMBER_OF_LEVELS>=4){
-			blackfont.draw(batch, "score: "+score_four,four_r.x, four_r.y-10, four_r.width, 1, true);
+			blackfont.draw(batch, "highscore: "+score_four,four_r.x, four_r.y-10, four_r.width, 1, true);
 		}
 		if (NUMBER_OF_LEVELS>=5){
-			blackfont.draw(batch, "score: "+score_five,five_r.x, five_r.y-10, five_r.width, 1, true);
+			blackfont.draw(batch, "highscore: "+score_five,five_r.x, five_r.y-10, five_r.width, 1, true);
 		}
 		if (NUMBER_OF_LEVELS>=6){
-			blackfont.draw(batch, "score: "+score_six,six_r.x, six_r.y-10, six_r.width, 1, true);
+			blackfont.draw(batch, "highscore: "+score_six,six_r.x, six_r.y-10, six_r.width, 1, true);
 		}
 	}
 	
