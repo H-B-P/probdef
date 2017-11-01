@@ -145,27 +145,7 @@ public class BookScreen_Bayes_ExpectedValue extends BookScreen_Bayes {
 	@Override
 	
 	void level_specific_events(){
-//		if (page==1){
-//			if (seconds==2){
-//				spawnMine(0,95);
-//			}
-//			if (seconds==4){
-//				spawnMine(0,95);
-//			}
-//			if (seconds==6){
-//				spawnMine(0,95);
-//			}
-//		}
-//		if (page==5){
-//			if (seconds==2){
-//				spawnMine(0,95);
-//			}
-//		}
-//		if (page==6){
-//			if (seconds==2){
-//				spawnMine(0,95);
-//			}
-//		}
+		
 	}
 	@Override
 	void level_specific_HUD(){
@@ -205,12 +185,6 @@ public class BookScreen_Bayes_ExpectedValue extends BookScreen_Bayes {
 		else{
 			draw_textbox_one(text);
 		}
-//		if (page==5){
-//			draw_textbox_two(text);
-//		}
-//		else{
-//			draw_textbox_one(text);
-//		}
 	   }
 	
 	@Override
@@ -221,12 +195,6 @@ public class BookScreen_Bayes_ExpectedValue extends BookScreen_Bayes {
 		else{
 			draw_other_textbox_two(text);
 		}
-//		if (page==5){
-//			draw_textbox_two(text);
-//		}
-//		else{
-//			draw_textbox_one(text);
-//		}
 	   }
 	
 	
@@ -427,7 +395,7 @@ public class BookScreen_Bayes_ExpectedValue extends BookScreen_Bayes {
 			   show_the_text=true;
 			   show_the_other_text=true;
 			   purpletext=true;
-			   the_other_text="That's true, and it's also true that no amount of planning can protect you from a run of bad luck.";
+			   the_other_text="That's true, and it's also true that things get much more complicated when there's more than one ship.";
 			   the_text="(but yeah all else being equal thinking in terms of Expected Value for things like this is usually a good idea)";
 			   if (seconds>6){
 				   time_to_move_on=true;

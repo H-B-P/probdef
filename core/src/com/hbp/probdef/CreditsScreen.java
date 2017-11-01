@@ -45,7 +45,7 @@ public class CreditsScreen extends MetaScreen {
 				
 		TITLE_t=new Texture(Gdx.files.internal("TITLE_CREDITS.png"));
 		
-		creds_t=new Texture(Gdx.files.internal("creds2.png"));
+		creds_t=new Texture(Gdx.files.internal("creds3.png"));
 		
 		menu_r = new Rectangle();
 		menu_r.x=170;
@@ -86,7 +86,7 @@ public class CreditsScreen extends MetaScreen {
 			batch.draw(dull_trim_t, menu_r.x, menu_r.y);
 		}
 	    
-		batch.draw(creds_t, 5, 5);
+		batch.draw(creds_t, 10, 10);
 		
 		batch.draw(poncho_t, -640, -960);
 		

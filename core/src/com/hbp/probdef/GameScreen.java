@@ -76,6 +76,7 @@ public class GameScreen extends SpaceScreen {
 	
 	Texture blue_button_trim_t;
 	Texture orange_button_trim_t;
+	Texture purple_button_trim_t;
 	Texture green_button_trim_t;
    
 	Texture attention_button_trim_t;
@@ -349,6 +350,7 @@ public class GameScreen extends SpaceScreen {
 	    blue_button_trim_t=new Texture(Gdx.files.internal("ingame_blue_button_trim.png"));
 	    orange_button_trim_t=new Texture(Gdx.files.internal("ingame_orange_button_trim.png"));
 	    green_button_trim_t=new Texture(Gdx.files.internal("ingame_green_button_trim.png"));
+	    purple_button_trim_t=new Texture(Gdx.files.internal("ingame_purple_button_trim.png"));
 	    
 	    //-Textboxes-
 	    
