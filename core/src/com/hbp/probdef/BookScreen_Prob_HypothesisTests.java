@@ -144,16 +144,16 @@ public class BookScreen_Prob_HypothesisTests extends BookScreen_Prob {
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_two.targeted){
 				show_the_text=true;
-				the_text="If it has less than a 5% chance of remaining, but it remains, you 'reject the null' and assume it's fake.";
+				the_text="If it has 5%-or-less chance of remaining, but it remains, you 'reject the null' and assume it's fake.";
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_three.targeted){
 				show_the_text=true;
-				the_text="Note: the standard p-value is 5%, but you may want to use a different one depending on how common decoys are and how careful you're being.";
+				the_text="Note: the standard 'p-value' is 5%, but you may want to use a different one depending on how common decoys are and how careful you're being.";
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_four.targeted){
 				show_the_text=true;
 				purpletext=true;
-				the_text="(you ready to do some Scientific Investigation and Test some Hypotheses? here we go)";
+				the_text="(you ready to do some Scientific Investigation and Test some Hypotheses?)";
 			}
 			if (page_time>14){
 				time_to_move_on=true;

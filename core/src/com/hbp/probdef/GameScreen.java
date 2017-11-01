@@ -185,12 +185,19 @@ public class GameScreen extends SpaceScreen {
 	//--Event/timeline/text stuff--
 	
    String the_text;
+   String the_other_text;
+
+   
    
    boolean show_the_text;
+   boolean show_the_other_text;
+   
    boolean suppress_freezes;
    
    boolean infuriatingly_specific_bool;
 	boolean purpletext;
+	
+	boolean other_purpletext;
 	
 	boolean obscurities_move;
 	
@@ -226,7 +233,14 @@ public class GameScreen extends SpaceScreen {
 	    vanes=new Array<Vane>();
 	    
 	    the_text="";
+	    the_other_text="";
+	    
 	    show_the_text=false;
+	    show_the_other_text=false;
+	    
+	    purpletext=false;
+	    other_purpletext=false;
+	    
 	    suppress_freezes=false;
 	    
 	    //--Scoring--
@@ -588,6 +602,10 @@ public class GameScreen extends SpaceScreen {
 		    
 			if (show_the_text){
 				draw_textbox(the_text);
+			}
+			
+			if (show_the_other_text){
+				draw_other_textbox(the_other_text);
 			}
 
 			
@@ -1097,7 +1115,11 @@ public class GameScreen extends SpaceScreen {
 		   font.draw(batch, "CAPTURED: "+captured, 90, 446, 140, 1, true);
 		   font.draw(batch, "DESTROYED: "+ destroyed, 90, 428, 140, 1, true);
 	   }
-	
+	   
+	   void draw_other_textbox(String text){
+		   draw_other_textbox_two(text);
+	   }
+	   
 	   void draw_textbox(String text){
 		   draw_textbox_one(text);
 	   }
@@ -1119,6 +1141,26 @@ public class GameScreen extends SpaceScreen {
 		   }
 		   else{
 			   blackfont.draw(batch, text, 30, 191, 260, 1, true);
+		   }
+	   }
+	   
+	   void draw_other_textbox_one(String text){
+		   batch.draw(textbox_one_t, 20, 300);
+		   if (other_purpletext){
+			   purplefont.draw(batch, text, 30, 371, 260, 1, true);
+		   }
+		   else{
+			   blackfont.draw(batch, text, 30, 371, 260, 1, true);
+		   }
+	   }
+	   
+	   void draw_other_textbox_two(String text){
+		   batch.draw(textbox_two_t, 20, 280);
+		   if (other_purpletext){
+			   purplefont.draw(batch, text, 30, 371, 260, 1, true);
+		   }
+		   else{
+			   blackfont.draw(batch, text, 30, 371, 260, 1, true);
 		   }
 	   }
 	   

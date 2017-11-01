@@ -114,7 +114,7 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends ArcadeScreen_Bayes {
 		if (original.equals(turret_type_two)){
 			return turret_type_one;
 		}
-		return turret_type_one;
+		return turret_type_two;
 	}
 	
 	@Override
@@ -126,7 +126,7 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends ArcadeScreen_Bayes {
 		if (original.equals(turret_type_two)){
 			return turret_type_one;
 		}
-		return turret_type_one;
+		return turret_type_two;
 	}
 	
 	@Override
@@ -193,14 +193,14 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends ArcadeScreen_Bayes {
 		suppress_autocalc=false;
 		
 		if (shipwave==1){
-			ship_one_spawn_enemy_ship(-2, "triangle", false);
-			ship_one_spawn_enemy_ship(0, "pentagon", false);
-			ship_one_spawn_enemy_ship(2, "pentagon", false);
+			ship_one_spawn_enemy_ship(-2, "pentagon", false);
+			ship_one_spawn_enemy_ship(0, "triangle", false);
+			ship_one_spawn_enemy_ship(2, "triangle", false);
 			suppress_phasing=true;
 		}
 		if (shipwave==2){
 			ship_one_spawn_enemy_ship(-2, "triangle", false);
-			ship_one_spawn_enemy_ship(0, "triangle", false);
+			ship_one_spawn_enemy_ship(0, "pentagon", false);
 			ship_one_spawn_enemy_ship(2, "pentagon", false);
 			suppress_phasing=true;
 		}
@@ -261,10 +261,9 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends ArcadeScreen_Bayes {
 				show_the_text=true;
 				the_text="You've destroyed things with turrets; now let's destroy things-with-turrets. Click the leftmost ship to target it.";
 				if (vane_one.targeted){
-					//the_text="Click on the right vane to cycle to a pentagon zap, and use it to target another ship. Then, click the fire button.";
-					the_text="The right shocker currently has a triangle zap, so it won't work on ships with pentagon turrets; click it to cycle zaps.";
-					if (vane_two.current_energy.equals("pentagon")){
-						the_text="Now click on one of the pentagon ships, to target it with that shocker.";
+					the_text="The right shocker currently has a pentagon zap, so it won't work on ships with triangle turrets; click it to cycle zaps.";
+					if (vane_two.current_energy.equals("triangle")){
+						the_text="Now click on one of the triangle ships, to target it with that shocker.";
 					}
 				}
 				if (vane_one.targeted&&vane_two.targeted){

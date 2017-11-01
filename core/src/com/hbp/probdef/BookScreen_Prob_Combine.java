@@ -104,10 +104,10 @@ public class BookScreen_Prob_Combine extends BookScreen_Prob {
 				show_the_text=true;
 				the_text="When no turret is targeted on a mine, the probability of it remaining is 100%.";
 				if (turret_one.targeted || turret_two.targeted){
-					the_text="When one turret is targeted, it's the probability of that turret failing.";
+					the_text="When one turret is targeted, the probability the mine remains is the probability of that turret failing.";
 				}
 				if (turret_one.targeted && turret_two.targeted){
-					the_text="When two turrets are targeted, it's the probability of both turrets failing.";
+					the_text="And when two turrets are targeted, the probability the mine remains is the probability of both failing.";
 				}
 			}
 			
@@ -157,7 +157,7 @@ public class BookScreen_Prob_Combine extends BookScreen_Prob {
 		if (page==3){
 			if (page_time<4){
 				show_the_text=true;
-				the_text="See if you can work out what will be shown when you target all four turrets.";
+				the_text="Before targeting, try to calculate what the probability of remaining will be when you target all four turrets.";
 			}
 			if (seconds==4 && TIMESPEED==0){
 				show_the_text=true;

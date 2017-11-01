@@ -190,7 +190,7 @@ public class ArcadeScreen_Prob_Decoy_Groups extends ArcadeScreen_Prob {
 		   }
 		   if (total_time<5){
 				show_the_text=true;
-				the_text="In this level, every row of mines has exactly one decoy. Knowing this makes investigation easier.";
+				the_text="In this level, every row of mines has exactly one decoy. Knowing patterns like this makes investigation easier.";
 			}
 		   if (total_time<5 && infuriatingly_specific_bool){
 				show_the_text=true;

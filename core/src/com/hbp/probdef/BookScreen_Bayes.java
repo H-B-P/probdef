@@ -14,8 +14,6 @@ public class BookScreen_Bayes extends GameScreen_Bayes {
 	
 	final ProbDef game;
 	
-	private SpriteBatch batch;
-	
 	int page;
 	
 	double page_time;
@@ -73,6 +71,7 @@ public class BookScreen_Bayes extends GameScreen_Bayes {
 		
 		
 		time_to_move_on=false;
+		suppress_exits=true;
 		
 		arrowsound=Gdx.audio.newSound(Gdx.files.internal("js_sfx/344510__jeremysykes__select03.wav"));
 	}
@@ -137,36 +136,24 @@ public class BookScreen_Bayes extends GameScreen_Bayes {
 		page_time=0;
 		seconds=0;
 		
+		shipwave=0;
+		
+		shields=10;
+		
 		arrowsound.play();
 		
 		mines.clear();
 		
 		explosions.clear();
+		turrets.clear();
+		turrets_standard.clear();
 		
 		enemyships.clear();
 		
 		current_status="waiting";
-		
-		make_every_turret_work();
 	}
 	
-	@Override
 	
-	   void handle_seconds(){
-		   if (seconds<Math.floor(page_time)){
-				seconds+=1;
-				if (seconds%2==0 && mines.size>0 && !suppress_freezes){
-					current_status="targeting";
-					TIMESPEED=0;
-					//currently_active_turret_no=1;
-					//number_to_turret();
-				}
-				System.out.println(seconds+" s");
-				System.out.println("page "+page);
-				level_specific_events();
-				
-			}
-	   }
 	
 //	@Override
 //	
@@ -220,6 +207,44 @@ public class BookScreen_Bayes extends GameScreen_Bayes {
 					the_text="Example text 2";
 			   }
 		}
+	}
+	
+@Override
+	
+	void handle_seconds(){
+	   if (seconds<Math.floor(page_time)){
+			seconds+=1;
+			
+			if (seconds%2==0 && !current_status.equals("bowling")){
+				if(any_interesting_ships()){
+					round+=1;
+					hand_over_to_targeting();
+				}
+				else{
+					shipwave+=1;
+					round=0;
+					level_specific_waves();
+					if (!suppress_phasing){
+						hand_over_to_bowling();
+						if (shipwave<total_shipwaves){
+							shock.play(option_sfx_volume);
+						}
+					}
+				}
+			}
+			
+			System.out.println(seconds+" s");
+			level_specific_events();
+			
+			
+			
+		}
+	}
+	
+	@Override
+	void exit_level(){
+		   game.setScreen(new SelectScreen_Library(game, true));
+		   dispose();
 	}
 	
 	void generic_book_dispose(){

@@ -136,10 +136,12 @@ public class ArcadeScreen_Prob_Decoy_PerfectTest extends ArcadeScreen_Prob {
 		   }
 		   if (total_time<5){
 				show_the_text=true;
-				the_text="Having a perfect test,\nlike a hexagon turret,\nmakes scientific investigation much easier.";
+				the_text="Having a perfect test,\nlike a hexagon turret,\nmakes hunting for decoys much easier.";
 			}
 		   if (total_time<5 && infuriatingly_specific_bool){
 				show_the_text=true;
+				purpletext=true;
+				the_text="(hexagons always work on real mines, so if a hex fails, the mine that made it fail has to be a decoy)";
 				//the_text="To compensate for this advantage, this level has far higher mine density. Good luck!";
 			}
 		   

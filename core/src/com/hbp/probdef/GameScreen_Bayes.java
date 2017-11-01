@@ -81,6 +81,7 @@ public class GameScreen_Bayes extends GameScreen {
 	
 	boolean suppress_phasing;
 	boolean suppress_autocalc;
+	boolean suppress_exits;
 	
 	public GameScreen_Bayes(final ProbDef gam) {
 		
@@ -107,6 +108,7 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		suppress_phasing=false;
 		suppress_autocalc=false;
+		suppress_exits=false;
 	}
 	
 	void vane_setup(){
@@ -210,7 +212,7 @@ public class GameScreen_Bayes extends GameScreen {
 		if (original.equals(turret_type_three)){
 			return turret_type_one;
 		}
-		return turret_type_one;
+		return turret_type_three;
 	}
 	
 	String level_specific_backward_energy_cycle(String original){
@@ -223,7 +225,7 @@ public class GameScreen_Bayes extends GameScreen {
 		if (original.equals(turret_type_three)){
 			return turret_type_two;
 		}
-		return turret_type_one;
+		return turret_type_three;
 	}
 	
 	void level_specific_timeline(){
@@ -1132,7 +1134,7 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		//handle exits
 		
-		if (shipwave>=total_shipwaves && enemyships.size==0 && explosions.size==0){
+		if (shipwave>=total_shipwaves && enemyships.size==0 && explosions.size==0 && !suppress_exits){
 			update_score_on_exit();
 			exit_level();
 		}

@@ -67,7 +67,7 @@ public class SelectScreen_Library extends SelectScreen {
 				NUMBER_OF_LEVELS=3;
 				banner_t=banner_blank_t;
 				banner_s="Bayes";
-				one_s="";//"Expected Value";
+				one_s="Expected Value";
 				one_double_liner=true;
 				two_s="";//"Eliminate & Normalise";
 				two_double_liner=true;
@@ -163,6 +163,10 @@ public class SelectScreen_Library extends SelectScreen {
 			   }
 		   }
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Bayes")){
+			   if (one_r.contains(tp_x, tp_y)){
+				   game.setScreen(new BookScreen_Bayes_ExpectedValue(game));
+				   dispose();
+			   }
 		   }
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Pascal")){
 			   if (one_r.contains(tp_x,tp_y)){

@@ -39,23 +39,20 @@ public class ArcadeScreen_Bayes_Deduction_Blatant extends ArcadeScreen_Bayes {
 				show_the_text=true;
 				
 				the_text="Sometimes, evidence is blatant and definitive, so you only need to perform a few tests.";
-				if (minecount<15){
-					purpletext=true;
-					the_text="(hey jsyk you should probably replay some earlier levels and get a bigger stash of mines before trying this one)";
-				}
 				if (vane_one.targeted||vane_two.targeted){
 					the_text="Ships in this area have circle, square and hexagon turrets. These all behave very differently.";
-					if (minecount<15){
-						purpletext=true;
-						the_text="(or you can keep going if you want just don't say I didn't warn you)";
-					}
 				}
 			}
 		}
 		if (shipwave==2){
-			if (round==1 && current_status.equals("bowling")){
-				the_text="When an obscured ship fires, it either proves it's not a hexagon or proves it's not a circle.";
+			if (CAMPAIGN && current_status.equals("bowling")){
+				purpletext=true;
+				show_the_text=true;
+				the_text="(just fyi if you run low on mines you can replay earlier levels to make it so you collected more / spent fewer)";
 			}
+		}
+		if (shipwave==3){
+			
 		}
 	}
 	
