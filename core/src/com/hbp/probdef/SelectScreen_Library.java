@@ -69,9 +69,9 @@ public class SelectScreen_Library extends SelectScreen {
 				banner_s="Bayes";
 				one_s="Expected Value";
 				one_double_liner=true;
-				two_s="";//"Eliminate & Normalise";
+				two_s="Eliminate & Normalise";
 				two_double_liner=true;
-				three_s="";//"Bayes' Theorem";
+				three_s="Bayes' Theorem";
 				three_double_liner=true;
 				four_s="";
 				five_s="";
@@ -165,6 +165,10 @@ public class SelectScreen_Library extends SelectScreen {
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Bayes")){
 			   if (one_r.contains(tp_x, tp_y)){
 				   game.setScreen(new BookScreen_Bayes_ExpectedValue(game));
+				   dispose();
+			   }
+			   if (two_r.contains(tp_x, tp_y)){
+				   game.setScreen(new BookScreen_Bayes_EliminateAndNormalise(game));
 				   dispose();
 			   }
 		   }

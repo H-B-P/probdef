@@ -114,6 +114,7 @@ public class GameScreen extends SpaceScreen {
 	//--Vanes et al--
 	
 	Texture vane_outline_t;
+	Texture vane_silhouette_t;
 	Texture vane_t;
 	Texture vane_trim_t;
 	
@@ -298,6 +299,7 @@ public class GameScreen extends SpaceScreen {
 		//-Vanes et al-
 		
 		vane_t=new Texture(Gdx.files.internal("vanes/vane.png"));
+		vane_silhouette_t=new Texture(Gdx.files.internal("vanes/vane_silhouette.png"));
 		vane_outline_t=new Texture(Gdx.files.internal("vanes/vane_outline.png"));
 		vane_trim_t=new Texture(Gdx.files.internal("vanes/vane_trim.png"));
 		
@@ -1076,7 +1078,12 @@ public class GameScreen extends SpaceScreen {
 				   batch.draw(vane_outline_t, vane.rect.x, vane.rect.y);
 			   }
 			   else{
-				   batch.draw(vane_t, vane.rect.x, vane.rect.y);
+				   if (vane.does_it_work){
+					   batch.draw(vane_t, vane.rect.x, vane.rect.y);
+				   }
+				   else{
+					   batch.draw(vane_silhouette_t, vane.rect.x, vane.rect.y);
+				   }
 			   }
 			   
 		   }

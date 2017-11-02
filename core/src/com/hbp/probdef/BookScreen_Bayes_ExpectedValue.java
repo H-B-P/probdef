@@ -23,8 +23,6 @@ public class BookScreen_Bayes_ExpectedValue extends BookScreen_Bayes {
 		
 		first_decision_clever=false;
 		second_decision_clever=false;
-		
-		batch=new SpriteBatch();
 	}
 
 	@Override
@@ -155,7 +153,7 @@ public class BookScreen_Bayes_ExpectedValue extends BookScreen_Bayes {
 	
 	@Override
 	void level_specific_ST_ONE_HUD(){
-		font.draw(batch, "SHIP DESIGN 1-44", 90, 473, 140, 1, true);
+		font.draw(batch, "SHIP DESIGN X44", 90, 473, 140, 1, true);
 		font.draw(batch, "CIRCLE: "+ship_one_percentfreq_one+"%", 90, 455, 140, 1, true);
 		font.draw(batch, "TRIANGLE: "+ship_one_percentfreq_two+"%", 90, 437, 140, 1, true);
 		font.draw(batch, "PENTAGON: "+ ship_one_percentfreq_three+"%", 90, 419, 140, 1, true);
@@ -163,18 +161,18 @@ public class BookScreen_Bayes_ExpectedValue extends BookScreen_Bayes {
 	
 	@Override
 	void level_specific_ST_TWO_HUD(){
-		font.draw(batch, "SHIP DESIGN 1-47", 90, 473, 140, 1, true);
-		font.draw(batch, "CIRCLE: "+ship_one_percentfreq_one+"%", 90, 455, 140, 1, true);
-		font.draw(batch, "TRIANGLE: "+ship_one_percentfreq_two+"%", 90, 437, 140, 1, true);
-		font.draw(batch, "PENTAGON: "+ ship_one_percentfreq_three+"%", 90, 419, 140, 1, true);
+		font.draw(batch, "SHIP DESIGN X47", 90, 473, 140, 1, true);
+		font.draw(batch, "CIRCLE: "+ship_two_percentfreq_one+"%", 90, 455, 140, 1, true);
+		font.draw(batch, "TRIANGLE: "+ship_two_percentfreq_two+"%", 90, 437, 140, 1, true);
+		font.draw(batch, "PENTAGON: "+ ship_two_percentfreq_three+"%", 90, 419, 140, 1, true);
 	}
 	
 	@Override
 	void level_specific_ST_THREE_HUD(){
-		font.draw(batch, "SHIP DESIGN 1-49", 90, 473, 140, 1, true);
-		font.draw(batch, "CIRCLE: "+ship_one_percentfreq_one+"%", 90, 455, 140, 1, true);
-		font.draw(batch, "TRIANGLE: "+ship_one_percentfreq_two+"%", 90, 437, 140, 1, true);
-		font.draw(batch, "PENTAGON: "+ ship_one_percentfreq_three+"%", 90, 419, 140, 1, true);
+		font.draw(batch, "SHIP DESIGN X49", 90, 473, 140, 1, true);
+		font.draw(batch, "CIRCLE: "+ship_three_percentfreq_one+"%", 90, 455, 140, 1, true);
+		font.draw(batch, "TRIANGLE: "+ship_three_percentfreq_two+"%", 90, 437, 140, 1, true);
+		font.draw(batch, "PENTAGON: "+ ship_three_percentfreq_three+"%", 90, 419, 140, 1, true);
 	}
 	
 	@Override
@@ -306,7 +304,7 @@ public class BookScreen_Bayes_ExpectedValue extends BookScreen_Bayes {
 		   if (page==4){
 			   show_the_text=true;
 			   show_the_other_text=true;
-			   the_other_text="For the same reason, the triangle and circle have Expected Values of 0.7 and 0.5 shields/turn respectively.";
+			   the_other_text="For the same reason, damage from triangles and circles has Expected Values of 0.7 and 0.5 shields/turn respectively.";
 			   the_text="We want to lose as few shields as possible, so it makes sense to prioritise pentagons over triangles and triangles over circles.";
 			   if (seconds>6){
 				   time_to_move_on=true;
@@ -357,7 +355,7 @@ public class BookScreen_Bayes_ExpectedValue extends BookScreen_Bayes {
 			   show_the_text=true;
 			   show_the_other_text=true;
 			   
-			   the_other_text="Remember that these turret types have Expected Values of 0.9, 0.7 and 0.5 shields lost per turn respectively. So:";
+			   the_other_text="Remember that these turret types have Expected Values of 0.9, 0.7, and 0.5 shields lost per turn respectively. So:";
 			   the_text=". A 25% chance of letting a pentagon shoot you once loses you 25% of 0.9 shields, or 0.225 shields, on average.";
 			   if (seconds>6){
 				   time_to_move_on=true;

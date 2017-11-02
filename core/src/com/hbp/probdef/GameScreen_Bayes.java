@@ -574,7 +574,7 @@ public class GameScreen_Bayes extends GameScreen {
 	
 	void skip_through_vanes(){
 		if (currently_active_vane!=null){
-			if (currently_active_vane.targeted){
+			if (currently_active_vane.targeted || !currently_active_vane.does_it_work){
 				
 				
 				if (currently_active_vane==vanes.peek()){
@@ -636,7 +636,6 @@ public class GameScreen_Bayes extends GameScreen {
 		}
 		for (Mine mine:mines){
 			if (mine.actually_there && mine.target_enemy_ship!=null){
-				//if (mine.rect.y>160){
 				if (mine.rect.y>160){
 					if (mine.target_enemy_ship.turret.targeted){
 					   if (mine.target_enemy_ship.turret.turret_type.equals("standard")){
@@ -822,21 +821,23 @@ public class GameScreen_Bayes extends GameScreen {
 	
 	void draw_energy_things(){
 		for (Vane vane: vanes){
-			if (vane.targeted || currently_active_vane==vane){
-				if (vane.current_energy.equals("circle")){
-					batch.draw(vane_energy_circle_t, vane.rect.x+5, vane.rect.y+5);
-				}
-				if (vane.current_energy.equals("triangle")){
-					batch.draw(vane_energy_triangle_t, vane.rect.x+5, vane.rect.y+5);
-				}
-				if (vane.current_energy.equals("square")){
-					batch.draw(vane_energy_square_t, vane.rect.x+5, vane.rect.y+5);
-				}
-				if (vane.current_energy.equals("pentagon")){
-					batch.draw(vane_energy_pentagon_t, vane.rect.x+5, vane.rect.y+5);
-				}
-				if (vane.current_energy.equals("hexagon")){
-					batch.draw(vane_energy_hexagon_t, vane.rect.x+5, vane.rect.y+5);
+			if (vane.does_it_work){
+				if (vane.targeted || currently_active_vane==vane){
+					if (vane.current_energy.equals("circle")){
+						batch.draw(vane_energy_circle_t, vane.rect.x+5, vane.rect.y+5);
+					}
+					if (vane.current_energy.equals("triangle")){
+						batch.draw(vane_energy_triangle_t, vane.rect.x+5, vane.rect.y+5);
+					}
+					if (vane.current_energy.equals("square")){
+						batch.draw(vane_energy_square_t, vane.rect.x+5, vane.rect.y+5);
+					}
+					if (vane.current_energy.equals("pentagon")){
+						batch.draw(vane_energy_pentagon_t, vane.rect.x+5, vane.rect.y+5);
+					}
+					if (vane.current_energy.equals("hexagon")){
+						batch.draw(vane_energy_hexagon_t, vane.rect.x+5, vane.rect.y+5);
+					}
 				}
 			}
 		}
