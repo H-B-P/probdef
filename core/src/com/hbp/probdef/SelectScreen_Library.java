@@ -171,6 +171,10 @@ public class SelectScreen_Library extends SelectScreen {
 				   game.setScreen(new BookScreen_Bayes_EliminateAndNormalise(game));
 				   dispose();
 			   }
+			   if (three_r.contains(tp_x, tp_y)){
+				   game.setScreen(new BookScreen_Bayes_BayesTheorem(game));
+				   dispose();
+			   }
 		   }
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Pascal")){
 			   if (one_r.contains(tp_x,tp_y)){

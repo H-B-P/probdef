@@ -62,17 +62,19 @@ public class OptionsScreen extends MetaScreen {
 		
 	    selectorboxes=new Array<SelectorBox>();
 	    
-	    screenSizeSelectorBox=new SelectorBox_Size("Screen Size",170,330);
-		selectorboxes.add(screenSizeSelectorBox);
+	    //screenSizeSelectorBox=new SelectorBox_Size("Screen Size",170,330);
+		//selectorboxes.add(screenSizeSelectorBox);
 		
+	    acalcSelectorBox=new SelectorBox_Acalc("Autocalc",90, 330);
+		selectorboxes.add(acalcSelectorBox);
+	    
 	    musicVolumeSelectorBox=new SelectorBox_Percentage("Music Volume",10,255);
 		selectorboxes.add(musicVolumeSelectorBox);
 		
 		sfxVolumeSelectorBox=new SelectorBox_Percentage("SFX Volume",170,255);
 		selectorboxes.add(sfxVolumeSelectorBox);
 		
-		acalcSelectorBox=new SelectorBox_Acalc("Autocalc",10, 330);
-		selectorboxes.add(acalcSelectorBox);
+		
 		
 		
 	    
@@ -156,10 +158,10 @@ public class OptionsScreen extends MetaScreen {
 		if (sfxVolumeSelectorBox.rect.contains(tp_x,tp_y)){
 			blackfont.draw(batch, "Set the volume at which sound effects play.", 15, 64, 290,1, true);
 		}
-		if (screenSizeSelectorBox.rect.contains(tp_x,tp_y)){
-			blackfont.draw(batch, "Screen the wrong size? Difficulty reading text? See if this helps.", 15, 83, 290,1, true);
-			purplefont.draw(batch, "(if you're playing the web version browser options work better tbh)", 15, 46, 290,1, true);
-		}
+		//if (screenSizeSelectorBox.rect.contains(tp_x,tp_y)){
+		//	blackfont.draw(batch, "Screen the wrong size? Difficulty reading text? See if this helps.", 15, 83, 290,1, true);
+		//	purplefont.draw(batch, "(if you're playing the web version browser options work better tbh)", 15, 46, 290,1, true);
+		//}
 		if (acalcSelectorBox.rect.contains(tp_x,tp_y)){
 			blackfont.draw(batch, "Leave the autocalc Off if you want a challenge, or set it to Detail if you want more info and don't mind cluttering the screen.", 15, 83, 290,1, true);
 		}

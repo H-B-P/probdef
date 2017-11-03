@@ -150,6 +150,12 @@ public class BookScreen_Bayes extends GameScreen_Bayes {
 		
 		enemyships.clear();
 		
+		vane_one.targeted=false;
+		vane_two.targeted=false;
+		vane_one.target_ship=null;
+		vane_two.target_ship=null;
+		currently_active_vane=null;
+		
 		current_status="waiting";
 	}
 	
