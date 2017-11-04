@@ -23,7 +23,12 @@ public class BookScreen_Prob_HypothesisTests extends BookScreen_Prob {
 		batch=new SpriteBatch();
 		
 	}
-
+	
+	@Override
+	void set_book_name(){
+		bookname="Book_HypothesisTests";
+	}
+	
 	@Override
 	public void render(float delta) {
 		generic_book_render(delta);

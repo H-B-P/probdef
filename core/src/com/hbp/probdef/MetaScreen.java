@@ -80,6 +80,32 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 			prefs.flush();
 		}
 		
+		if (!prefs.contains("Book_Combine")){
+			prefs.putInteger("Book_Combine", 0);
+			prefs.flush();
+		}
+		if (!prefs.contains("Book_Tree")){
+		    prefs.putInteger("Book_Tree", 0);
+			prefs.flush();
+		}
+		if (!prefs.contains("Book_HypothesisTests")){
+			prefs.putInteger("Book_HypothesisTests", 0);
+			prefs.flush();
+		}
+		
+		if (!prefs.contains("Book_ExpectedValue")){
+			prefs.putInteger("Book_ExpectedValue", 0);
+			prefs.flush();
+		}
+		if (!prefs.contains("Book_EliminateAndNormalise")){
+		    prefs.putInteger("Book_EliminateAndNormalise", 0);
+			prefs.flush();
+		}
+		if (!prefs.contains("Book_BayesTheorem")){
+			prefs.putInteger("Book_BayesTheorem", 0);
+			prefs.flush();
+		}
+		
 		
 		
 		update_options();

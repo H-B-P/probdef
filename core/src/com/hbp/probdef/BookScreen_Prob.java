@@ -38,6 +38,10 @@ public class BookScreen_Prob extends GameScreen_Prob {
 	
 	Sound arrowsound;
 	
+	int pages_done;
+	
+	String bookname;
+	
 	
 	public BookScreen_Prob(final ProbDef gam) {
 		
@@ -71,16 +75,31 @@ public class BookScreen_Prob extends GameScreen_Prob {
 		prv_trim_purple_t=new Texture(Gdx.files.internal("pobutton_left_trim_orange.png"));
 		nxt_trim_purple_t=new Texture(Gdx.files.internal("pobutton_right_trim_orange.png"));
 		
+		set_book_name();
+		
+		pages_done=prefs.getInteger(bookname);
+		
 		
 		time_to_move_on=false;
 		
 		arrowsound=Gdx.audio.newSound(Gdx.files.internal("js_sfx/344510__jeremysykes__select03.wav"));
 	}
 	
+	void set_book_name(){
+		bookname="example_prob";
+	}
+	
 	void generic_book_render(float delta){
 		probgame_render(delta);
 		
 		page_time+=effective_delta;
+		
+		
+		if (page==(pages_done+1) &&time_to_move_on){
+			pages_done=page;
+			prefs.putInteger(bookname, pages_done);
+			prefs.flush();
+		}
 		
 		batch.begin();
 		
@@ -90,11 +109,11 @@ public class BookScreen_Prob extends GameScreen_Prob {
 				batch.draw(prv_trim_blue_t, prv_r.x, prv_r.y);
 			}
 		}
-		if (page<maxpages){
+		if (page<maxpages && page<=pages_done){
 			batch.draw(nxt_t, nxt_r.x, nxt_r.y);
-			if (time_to_move_on && seconds%2==1){
-				batch.draw(nxt_trim_purple_t, nxt_r.x, nxt_r.y);
-			}
+			//if (time_to_move_on && seconds%2==1){
+			//	batch.draw(nxt_trim_purple_t, nxt_r.x, nxt_r.y);
+			//}
 			if (nxt_r.contains(tp_x,tp_y)){
 				batch.draw(nxt_trim_blue_t, nxt_r.x, nxt_r.y);
 			}
@@ -107,12 +126,12 @@ public class BookScreen_Prob extends GameScreen_Prob {
 		batch.end();
 		
 		if (Gdx.input.justTouched()){
-			if (page>1 && prv_r.contains(tp_x,tp_y)){
+			if (page>1 && prv_r.contains(tp_x,tp_y) ){
 				page-=1;
 				total_time=0; //this is to make the stars jitter when we go back in time;
 				new_page();
 			}
-			if (page<maxpages && nxt_r.contains(tp_x,tp_y)){
+			if (page<maxpages && nxt_r.contains(tp_x,tp_y) && page<=pages_done){
 				page+=1;
 				if (!time_to_move_on){total_time=0;}//make stars jitter if and only if our forward motion was premature.
 				new_page();
@@ -164,6 +183,7 @@ public class BookScreen_Prob extends GameScreen_Prob {
 				}
 				System.out.println(seconds+" s");
 				System.out.println("page "+page);
+				System.out.println(pages_done+" pages done");
 				level_specific_events();
 				
 			}

@@ -37,6 +37,11 @@ public class BookScreen_Bayes_BayesTheorem extends BookScreen_Bayes {
 	}
 	
 	@Override
+	void set_book_name(){
+		bookname="Book_BayesTheorem";
+	}
+	
+	@Override
 	void level_specific_bayesian_update(String dot_type, EnemyShip enemyship){
 		if (dot_type.equals("destroy")){
 			enemyship.assignedprob_one=enemyship.assignedprob_one*0f;
@@ -86,8 +91,8 @@ public class BookScreen_Bayes_BayesTheorem extends BookScreen_Bayes {
 		ship_one_percentfreq_three=0;
 		
 		ship_two_percentfreq_one=0;
-		ship_two_percentfreq_two=60;
-		ship_two_percentfreq_three=40;
+		ship_two_percentfreq_two=50;
+		ship_two_percentfreq_three=50;
 		
 		ship_three_percentfreq_one=50;
 		ship_three_percentfreq_two=25;
@@ -338,7 +343,7 @@ public class BookScreen_Bayes_BayesTheorem extends BookScreen_Bayes {
 		   }
 		   if (page==7){
 			   show_the_text=true;
-			   the_text="Step one: Eliminate outcomes with no shot, or with a destroying shot. Collect the outcomes by turret type.";
+			   the_text="Step one: Eliminate outcomes with a destroying shot, or no shot. Collect remaining outcomes by turret type.";
 			   if (seconds>6){
 				   time_to_move_on=true;
 			   }

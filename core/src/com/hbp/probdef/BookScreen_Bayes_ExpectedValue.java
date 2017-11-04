@@ -24,6 +24,11 @@ public class BookScreen_Bayes_ExpectedValue extends BookScreen_Bayes {
 		first_decision_clever=false;
 		second_decision_clever=false;
 	}
+	
+	@Override
+	void set_book_name(){
+		bookname="Book_ExpectedValue";
+	}
 
 	@Override
 	
@@ -187,7 +192,7 @@ public class BookScreen_Bayes_ExpectedValue extends BookScreen_Bayes {
 	
 	@Override
 	void draw_other_textbox(String text){
-		if (page==4 || page==8 || page==9 || page==11){
+		if ( page==8 || page==9 || page==11){
 			draw_other_textbox_one(text);
 		}
 		else{
@@ -304,7 +309,7 @@ public class BookScreen_Bayes_ExpectedValue extends BookScreen_Bayes {
 		   if (page==4){
 			   show_the_text=true;
 			   show_the_other_text=true;
-			   the_other_text="For the same reason, damage from triangles and circles has Expected Values of 0.7 and 0.5 shields/turn respectively.";
+			   the_other_text="For the same reason, damage from triangles and damage from circles have Expected Values of 0.7 shields/turn and 0.5 shields/turn respectively.";
 			   the_text="We want to lose as few shields as possible, so it makes sense to prioritise pentagons over triangles and triangles over circles.";
 			   if (seconds>6){
 				   time_to_move_on=true;

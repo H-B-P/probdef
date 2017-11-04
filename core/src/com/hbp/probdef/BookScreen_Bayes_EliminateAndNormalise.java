@@ -26,6 +26,11 @@ public class BookScreen_Bayes_EliminateAndNormalise extends BookScreen_Bayes {
 	}
 
 	@Override
+	void set_book_name(){
+		bookname="Book_EliminateAndNormalise";
+	}
+	
+	@Override
 	
 	void level_specific_ship_aesthetics(){
 		ship_one_engines='e';

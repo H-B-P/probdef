@@ -36,6 +36,9 @@ public class BookScreen_Bayes extends GameScreen_Bayes {
 	
 	Sound arrowsound;
 	
+	int pages_done;
+	
+	String bookname;
 	
 	public BookScreen_Bayes(final ProbDef gam) {
 		
@@ -73,13 +76,27 @@ public class BookScreen_Bayes extends GameScreen_Bayes {
 		time_to_move_on=false;
 		suppress_exits=true;
 		
+		set_book_name();
+		
+		pages_done=prefs.getInteger(bookname);
+		
 		arrowsound=Gdx.audio.newSound(Gdx.files.internal("js_sfx/344510__jeremysykes__select03.wav"));
+	}
+	
+	void set_book_name(){
+		bookname="example_bayes";
 	}
 	
 	void generic_book_render(float delta){
 		bayesgame_render(delta);
 		
 		page_time+=effective_delta;
+		
+		if (page==(pages_done+1) &&time_to_move_on){
+			pages_done=page;
+			prefs.putInteger(bookname, pages_done);
+			prefs.flush();
+		}
 		
 		batch.begin();
 		
@@ -89,11 +106,11 @@ public class BookScreen_Bayes extends GameScreen_Bayes {
 				batch.draw(prv_trim_blue_t, prv_r.x, prv_r.y);
 			}
 		}
-		if (page<maxpages){
+		if (page<maxpages && page<=pages_done){
 			batch.draw(nxt_t, nxt_r.x, nxt_r.y);
-			if (time_to_move_on && seconds%2==1){
-				batch.draw(nxt_trim_purple_t, nxt_r.x, nxt_r.y);
-			}
+			//if (time_to_move_on && seconds%2==1){
+			//	batch.draw(nxt_trim_purple_t, nxt_r.x, nxt_r.y);
+			//}
 			if (nxt_r.contains(tp_x,tp_y)){
 				batch.draw(nxt_trim_blue_t, nxt_r.x, nxt_r.y);
 			}
@@ -111,7 +128,7 @@ public class BookScreen_Bayes extends GameScreen_Bayes {
 				total_time=0; //this is to make the stars jitter when we go back in time;
 				new_page();
 			}
-			if (page<maxpages && nxt_r.contains(tp_x,tp_y)){
+			if (page<maxpages && nxt_r.contains(tp_x,tp_y) && page<=pages_done){
 				page+=1;
 				if (!time_to_move_on){total_time=0;}//make stars jitter if and only if our forward motion was premature.
 				new_page();

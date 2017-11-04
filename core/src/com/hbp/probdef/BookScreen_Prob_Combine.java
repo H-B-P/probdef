@@ -28,7 +28,12 @@ public class BookScreen_Prob_Combine extends BookScreen_Prob {
 		
 		gotcha=false;
 	}
-
+	
+	@Override
+	void set_book_name(){
+		bookname="Book_Combine";
+	}
+	
 	@Override
 	public void render(float delta) {
 		generic_book_render(delta);

@@ -59,6 +59,11 @@ public class BookScreen_Prob_Tree extends BookScreen_Prob {
 		
 		which_tree="percentage";
 	}
+	
+	@Override
+	void set_book_name(){
+		bookname="Book_Tree";
+	}
 
 	@Override
 	public void render(float delta) {
@@ -219,7 +224,7 @@ public class BookScreen_Prob_Tree extends BookScreen_Prob {
 					the_text="The probability that the triangle captures it is 30%.";
 				}
 				if (turret_one.targeted && turret_two.targeted){
-					the_text="The probability that it survives the triangle but the pentagon captures it is 10% of 30%, or 3%.\nSo, 33% total.";
+					the_text="The probability that it remains after the triangle fires, but the pentagon captures it, is 10% of 30%, or 3%. So, 33% total.";
 				}
 				
 			}
