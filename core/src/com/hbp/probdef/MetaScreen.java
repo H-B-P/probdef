@@ -41,6 +41,7 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	
 	public BitmapFont blackfont;
 	public BitmapFont purplefont;
+	public BitmapFont greenfont;
 	
 	public Preferences prefs;
 	
@@ -122,6 +123,9 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 		blackfont.setColor(new Color(0f, 0f, 0f, 1.0f));
 		purplefont=new BitmapFont(Gdx.files.internal("regular_font/russo.fnt"));
 		purplefont.setColor(new Color(0.6f, 0.2f, 0.6f, 1.0f));
+		greenfont=new BitmapFont(Gdx.files.internal("regular_font/russo.fnt"));
+		greenfont.setColor(new Color(0.2f, 0.6f, 0.2f, 1.0f));
+		
 		
 		arrowsound=Gdx.audio.newSound(Gdx.files.internal("js_sfx/344510__jeremysykes__select03.wav"));
 		

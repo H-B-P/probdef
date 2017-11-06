@@ -124,7 +124,17 @@ public class BookScreen_Bayes_EliminateAndNormalise extends BookScreen_Bayes {
 		if (page==6){
 			batch.begin();
 			
-			acalc_greenfont.draw(batch, "10:30 = 1:3 = 25:75", 80, 345, 160, 1, true);
+			//acalc_greenfont.draw(batch, "10:30 = 1:3 = 25:75", 80, 345, 160, 1, true);
+			
+			//acalc_greenfont.draw(batch, "10:30 = 1:3 = 25:75", 40, 370, 240, 1, true);
+			//acalc_greenfont.draw(batch, "10/[10+30+0] = 10/40 = 25%", 40, 350, 240, 1, true);
+			//acalc_greenfont.draw(batch, "30/(10+30+0) = 30/40 = 75%", 40, 335, 240, 1, true);
+			//acalc_greenfont.draw(batch, "0/(10+30+0) = 0/40 = 0%", 40, 320, 240, 1, true);
+
+			greenfont.draw(batch, "10 : 30 = 1 : 3 = 25 : 75", 40, 370, 240, 1, true);
+			greenfont.draw(batch, "10/(10+30+0) = 10/40 = 25%", 40, 345, 240, 1, true);
+			greenfont.draw(batch, "30/(10+30+0) = 30/40 = 75%", 40, 325, 240, 1, true);
+			greenfont.draw(batch, "0/(10+30+0) = 0/40 = 0%", 40, 305, 240, 1, true);
 			
 			batch.end();
 		}
@@ -235,7 +245,7 @@ public class BookScreen_Bayes_EliminateAndNormalise extends BookScreen_Bayes {
 	
 	@Override
 	void draw_other_textbox(String text){
-		if (page==2|| page==3 || page==4 || page==5|| page==6){
+		if (page==2|| page==3 || page==4 || page==5){
 			draw_other_textbox_one(text);
 		}
 		else{
@@ -334,6 +344,14 @@ public class BookScreen_Bayes_EliminateAndNormalise extends BookScreen_Bayes {
 				   the_text="Test your understanding here: predict in advance what the autocalc will display immediately after a failed pentagon zap to each ship.";
 				   vane_one.current_energy="pentagon";
 				   vane_two.current_energy="pentagon";
+				   if (vane_one.targeted || vane_two.targeted){
+					   purpletext=true;
+					   the_text="(if you're wondering how we can know it'll fail: we're blatantly lying to the autocalc, all ships in this book are definitely triangles)";
+				   }
+				   if (vane_one.targeted && vane_two.targeted){
+					   purpletext=true;
+					   the_text="(but it'll still update perfectly on its false priors, so yeah just roll with it and pretend you don't know what's under the obscurities)";
+				   }
 			   }
 			   if (shipwave==1 && round==2 && current_status.equals("targeting")){
 				   show_the_text=true;

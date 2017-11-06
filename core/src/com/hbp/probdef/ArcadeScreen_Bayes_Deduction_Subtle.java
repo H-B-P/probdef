@@ -12,7 +12,7 @@ public class ArcadeScreen_Bayes_Deduction_Subtle extends ArcadeScreen_Bayes {
 		
 		game = gam;
 		
-		minecount=60;
+		minecount=90;
 		
 	}
 	
