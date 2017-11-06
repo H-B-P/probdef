@@ -346,11 +346,11 @@ public class BookScreen_Bayes_EliminateAndNormalise extends BookScreen_Bayes {
 				   vane_two.current_energy="pentagon";
 				   if (vane_one.targeted || vane_two.targeted){
 					   purpletext=true;
-					   the_text="(if you're wondering how we can know it'll fail: we're blatantly lying to the autocalc, all ships in this book are definitely triangles)";
+					   the_text="(if you're wondering how we can know it'll fail: we're blatantly lying to the autocalc, all ships in this book are always triangles)";
 				   }
 				   if (vane_one.targeted && vane_two.targeted){
 					   purpletext=true;
-					   the_text="(but it'll still update perfectly on its false priors, so yeah just roll with it and pretend you don't know what's under the obscurities)";
+					   the_text="(but it'll still update perfectly on its bad priors, so yeah just roll with it and pretend you don't know what's under the obscurities)";
 				   }
 			   }
 			   if (shipwave==1 && round==2 && current_status.equals("targeting")){
