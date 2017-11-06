@@ -46,17 +46,17 @@ public class BookScreen_Bayes_BayesTheorem extends BookScreen_Bayes {
 		if (dot_type.equals("destroy")){
 			enemyship.assignedprob_one=enemyship.assignedprob_one*0f;
 			enemyship.assignedprob_two=enemyship.assignedprob_two*0.4f;
-			enemyship.assignedprob_three=enemyship.assignedprob_three*0.6f;
+			enemyship.assignedprob_three=enemyship.assignedprob_three*0.8f;
 		}
 		if (dot_type.equals("capture")){
 			enemyship.assignedprob_one=enemyship.assignedprob_one*0.5f;
 			enemyship.assignedprob_two=enemyship.assignedprob_two*0.3f;
-			enemyship.assignedprob_three=enemyship.assignedprob_three*0.2f;
+			enemyship.assignedprob_three=enemyship.assignedprob_three*0.1f;
 		}
 		if (dot_type.equals("fail")){
 			enemyship.assignedprob_one=enemyship.assignedprob_one*0.5f;
 			enemyship.assignedprob_two=enemyship.assignedprob_two*0.3f;
-			enemyship.assignedprob_three=enemyship.assignedprob_three*0.2f;
+			enemyship.assignedprob_three=enemyship.assignedprob_three*0.1f;
 		}
 		normalize(enemyship);
 	}
@@ -84,15 +84,15 @@ public class BookScreen_Bayes_BayesTheorem extends BookScreen_Bayes {
 	void level_specific_environment_setup(){
 		turret_type_one="circle";
 		turret_type_two="triangle";
-		turret_type_three="square";
+		turret_type_three="pentagon";
 		
 		ship_one_percentfreq_one=50;
 		ship_one_percentfreq_two=50;
 		ship_one_percentfreq_three=0;
 		
 		ship_two_percentfreq_one=0;
-		ship_two_percentfreq_two=50;
-		ship_two_percentfreq_three=50;
+		ship_two_percentfreq_two=40;
+		ship_two_percentfreq_three=60;
 		
 		ship_three_percentfreq_one=50;
 		ship_three_percentfreq_two=25;
@@ -127,7 +127,7 @@ public class BookScreen_Bayes_BayesTheorem extends BookScreen_Bayes {
 		if (page==11){
 			if (shipwave==1){
 				minecount=999;
-				ship_three_spawn_enemy_ship(0, "circle", true);
+				ship_three_spawn_random(0, true);
 				suppress_phasing=false;
 			}
 			
@@ -155,22 +155,22 @@ public class BookScreen_Bayes_BayesTheorem extends BookScreen_Bayes {
 		if (page==4){
 			batch.begin();
 			
-			acalc_greenfont.draw(batch, "C: "+present_float(0f)+"%\nT: "+present_float(20f)+"%\nS: "+present_float(0f)+"%", 40+25, 363, 100, 1, true);
+			acalc_greenfont.draw(batch, "C: "+present_float(0f)+"%\nT: "+present_float(20f)+"%\nP: "+present_float(0f)+"%", 40+25, 363, 100, 1, true);
 			batch.draw(tiny_black_arrow_t, 155,335);
-			acalc_greenfont.draw(batch, "C: "+present_float(0f)+"%\nT: "+present_float(100f)+"%\nS: "+present_float(0f)+"%", 180-25, 363, 100, 1, true);
+			acalc_greenfont.draw(batch, "C: "+present_float(0f)+"%\nT: "+present_float(100f)+"%\nP: "+present_float(0f)+"%", 180-25, 363, 100, 1, true);
 			
 			batch.end();
 		}
 		if (page==5){
 			batch.begin();
 			
-			acalc_greenfont.draw(batch, "C: "+present_float(50f)+"%\nT: "+present_float(50f)+"%\nS: "+present_float(0f)+"%", 20, 343, 100, 1, true);
+			acalc_greenfont.draw(batch, "C: "+present_float(50f)+"%\nT: "+present_float(50f)+"%\nP: "+present_float(0f)+"%", 20, 343, 100, 1, true);
 			blackfont.draw(batch, "Step 1",85, 363, 60, 1, true);
 			batch.draw(tiny_black_arrow_t, 110, 315);
-			acalc_greenfont.draw(batch, "C: "+present_float(0f)+"%\nT: "+present_float(20f)+"%\nS: "+present_float(0f)+"%", 110, 343, 100, 1, true);
+			acalc_greenfont.draw(batch, "C: "+present_float(0f)+"%\nT: "+present_float(20f)+"%\nP: "+present_float(0f)+"%", 110, 343, 100, 1, true);
 			blackfont.draw(batch, "Step 2",175, 363, 60, 1, true);
 			batch.draw(tiny_black_arrow_t, 200, 315);
-			acalc_greenfont.draw(batch, "C: "+present_float(0f)+"%\nT: "+present_float(100f)+"%\nS: "+present_float(0f)+"%", 200, 343, 100, 1, true);
+			acalc_greenfont.draw(batch, "C: "+present_float(0f)+"%\nT: "+present_float(100f)+"%\nP: "+present_float(0f)+"%", 200, 343, 100, 1, true);
 			
 			batch.end();
 		}
@@ -191,9 +191,9 @@ public class BookScreen_Bayes_BayesTheorem extends BookScreen_Bayes {
 		if (page==8){
 			batch.begin();
 			
-			acalc_greenfont.draw(batch, "C: "+present_float(25f)+"%\nT: "+present_float(15f)+"%\nS: "+present_float(0f)+"%", 40+25, 363, 100, 1, true);
+			acalc_greenfont.draw(batch, "C: "+present_float(25f)+"%\nT: "+present_float(15f)+"%\nP: "+present_float(0f)+"%", 40+25, 363, 100, 1, true);
 			batch.draw(tiny_black_arrow_t, 155,335);
-			acalc_greenfont.draw(batch, "C: "+present_float(62.5f)+"%\nT: "+present_float(37.5f)+"%\nS: "+present_float(0f)+"%", 180-25, 363, 100, 1, true);
+			acalc_greenfont.draw(batch, "C: "+present_float(62.5f)+"%\nT: "+present_float(37.5f)+"%\nP: "+present_float(0f)+"%", 180-25, 363, 100, 1, true);
 			
 			batch.end();
 		}
@@ -209,7 +209,7 @@ public class BookScreen_Bayes_BayesTheorem extends BookScreen_Bayes {
 	}
 	@Override
 	void level_specific_HUD(){
-		font.draw(batch, "CIRC/TRI/SQ", 90, 455, 140, 1, true);
+		font.draw(batch, "CIRC/TRI/PENT", 90, 455, 140, 1, true);
 		font.draw(batch, "SHIELDS: "+shields, 90, 437, 140, 1, true);
 	   }
 	
@@ -218,7 +218,7 @@ public class BookScreen_Bayes_BayesTheorem extends BookScreen_Bayes {
 		font.draw(batch, "SHIP DESIGN Z01", 90, 473, 140, 1, true);
 		font.draw(batch, "CIRCLE: "+ship_one_percentfreq_one+"%", 90, 455, 140, 1, true);
 		font.draw(batch, "TRIANGLE: "+ship_one_percentfreq_two+"%", 90, 437, 140, 1, true);
-		font.draw(batch, "SQUARE: "+ ship_one_percentfreq_three+"%", 90, 419, 140, 1, true);
+		font.draw(batch, "PENTAGON: "+ ship_one_percentfreq_three+"%", 90, 419, 140, 1, true);
 	}
 	
 	@Override
@@ -226,7 +226,7 @@ public class BookScreen_Bayes_BayesTheorem extends BookScreen_Bayes {
 		font.draw(batch, "SHIP DESIGN Z02", 90, 473, 140, 1, true);
 		font.draw(batch, "CIRCLE: "+ship_two_percentfreq_one+"%", 90, 455, 140, 1, true);
 		font.draw(batch, "TRIANGLE: "+ship_two_percentfreq_two+"%", 90, 437, 140, 1, true);
-		font.draw(batch, "SQUARE: "+ ship_two_percentfreq_three+"%", 90, 419, 140, 1, true);
+		font.draw(batch, "PENTAGON: "+ ship_two_percentfreq_three+"%", 90, 419, 140, 1, true);
 	}
 	
 	@Override
@@ -234,7 +234,7 @@ public class BookScreen_Bayes_BayesTheorem extends BookScreen_Bayes {
 		font.draw(batch, "SHIP DESIGN Z03", 90, 473, 140, 1, true);
 		font.draw(batch, "CIRCLE: "+ship_three_percentfreq_one+"%", 90, 455, 140, 1, true);
 		font.draw(batch, "TRIANGLE: "+ship_three_percentfreq_two+"%", 90, 437, 140, 1, true);
-		font.draw(batch, "SQUARE: "+ ship_three_percentfreq_three+"%", 90, 419, 140, 1, true);
+		font.draw(batch, "PENTAGON: "+ ship_three_percentfreq_three+"%", 90, 419, 140, 1, true);
 	}
 	
 	@Override
@@ -261,7 +261,7 @@ public class BookScreen_Bayes_BayesTheorem extends BookScreen_Bayes {
 		if (!suppress_autocalc){
 			for (EnemyShip enemyship:enemyships){
 				if (enemyship.obscured){
-					acalc_greenfont.draw(batch, "C: "+present_float(enemyship.assignedprob_one*100.0f)+"%\nT: "+present_float(enemyship.assignedprob_two*100.0f)+"%\nS: "+present_float(enemyship.assignedprob_three*100.0f)+"%", enemyship.rect.x-20, enemyship.rect.y-30, 100, 1, true);
+					acalc_greenfont.draw(batch, "C: "+present_float(enemyship.assignedprob_one*100.0f)+"%\nT: "+present_float(enemyship.assignedprob_two*100.0f)+"%\nP: "+present_float(enemyship.assignedprob_three*100.0f)+"%", enemyship.rect.x-20, enemyship.rect.y-30, 100, 1, true);
 				}
 			}
 		}

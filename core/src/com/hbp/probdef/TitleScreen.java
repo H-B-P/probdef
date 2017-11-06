@@ -73,14 +73,14 @@ public class TitleScreen extends MetaScreen {
 		
 		
 		CAMPAIGN_r = new Rectangle();
-		CAMPAIGN_r.x=170;
+		CAMPAIGN_r.x=10;
 		CAMPAIGN_r.y=255;
 		CAMPAIGN_r.height=60;
 		CAMPAIGN_r.width=140;
 		CAMPAIGN_t = new Texture(Gdx.files.internal("abutton_campaign.png"));
 		
 		ARCADE_r = new Rectangle();
-		ARCADE_r.x=10;
+		ARCADE_r.x=170;
 		ARCADE_r.y=255;
 		ARCADE_r.height=60;
 		ARCADE_r.width=140;
@@ -171,7 +171,7 @@ public class TitleScreen extends MetaScreen {
 		
 		if (ARCADE_r.contains(tp_x,tp_y)){
 			batch.draw(TRIM_t, ARCADE_r.x, ARCADE_r.y);
-			blackfont.draw(batch, "Play through a collection of scenarios with no lose condition.\nTry to get the best score.", 10, 76, 300,1, true);
+			blackfont.draw(batch, "Play through a collection of scenarios with no lose condition.\nTry to improve your highscores.", 10, 76, 300,1, true);
 		}
 		
 		if (CAMPAIGN_r.contains(tp_x,tp_y)){
