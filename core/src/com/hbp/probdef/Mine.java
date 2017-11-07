@@ -7,6 +7,8 @@ public class Mine {
 	   
 	   String minetype; //Currently supports "decoy", "regular", "titanium", and "decoytitanium".
 	   
+	   int turns_to_hit;
+	   
 	   float vert_vel;
 	   float horz_vel;
 	   
@@ -32,6 +34,7 @@ public class Mine {
 		   
 		   horz_vel=0;
 		   
+		   turns_to_hit=(int)(180f/m_speed);
 		   
 		   captureproof=false;
 		   destroyproof=false;

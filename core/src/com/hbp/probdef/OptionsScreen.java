@@ -24,6 +24,7 @@ public class OptionsScreen extends MetaScreen {
 	private SelectorBox sfxVolumeSelectorBox;
 	private SelectorBox acalcSelectorBox;
 	private SelectorBox screenSizeSelectorBox;
+	private SelectorBox tthSelectorBox;
 	
 	private Array<SelectorBox> selectorboxes;
 	
@@ -65,9 +66,12 @@ public class OptionsScreen extends MetaScreen {
 	    //screenSizeSelectorBox=new SelectorBox_Size("Screen Size",170,330);
 		//selectorboxes.add(screenSizeSelectorBox);
 		
-	    acalcSelectorBox=new SelectorBox_Acalc("Autocalc",90, 330);
+	    acalcSelectorBox=new SelectorBox_Acalc("Autocalc",10, 330);
 		selectorboxes.add(acalcSelectorBox);
 	    
+		tthSelectorBox=new SelectorBox_TTH_Display("TTH Display",170, 330);
+		selectorboxes.add(tthSelectorBox);
+		
 	    musicVolumeSelectorBox=new SelectorBox_Percentage("Music Volume",10,255);
 		selectorboxes.add(musicVolumeSelectorBox);
 		
@@ -166,6 +170,9 @@ public class OptionsScreen extends MetaScreen {
 			blackfont.draw(batch, "Leave the autocalc Off if you want a challenge, or set it to Detail if you want more info and don't mind cluttering the screen.", 15, 83, 290,1, true);
 		}
 		
+		if (tthSelectorBox.rect.contains(tp_x,tp_y)){
+			blackfont.draw(batch, "How we display the turns until a mine hits. Normal displays on mouseover, Below displays below the mine, Off doesn't display.", 15, 83, 290,1, true);
+		}
 		
 		
 		batch.draw(poncho_t, -640, -960);

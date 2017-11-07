@@ -1,8 +1,8 @@
 package com.hbp.probdef;
 
-public class SelectorBox_Acalc extends SelectorBox {
+public class SelectorBox_TTH_Display extends SelectorBox {
 	
-	   public SelectorBox_Acalc(String ident, float x, float y){
+	   public SelectorBox_TTH_Display(String ident, float x, float y){
 		   super(ident, x, y, false);
 		   
 	   }
@@ -13,7 +13,7 @@ public class SelectorBox_Acalc extends SelectorBox {
 			   current_nature_string="Normal";
 		   }
 		   else if (current_nature_string.equals("Normal")){
-			   current_nature_string="Detail";
+			   current_nature_string="Below";
 		   }
 		   update_pref_str();
 	   }
@@ -23,7 +23,7 @@ public class SelectorBox_Acalc extends SelectorBox {
 		   if (current_nature_string.equals("Normal")){
 			   current_nature_string="Off";
 		   }
-		   else if (current_nature_string.equals("Detail")){
+		   else if (current_nature_string.equals("Below")){
 			   current_nature_string="Normal";
 		   }
 		   update_pref_str();

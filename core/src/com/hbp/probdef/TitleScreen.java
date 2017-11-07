@@ -166,12 +166,12 @@ public class TitleScreen extends MetaScreen {
 		
 		if (TUTORIAL_r.contains(tp_x,tp_y)){
 			batch.draw(TRIM_t, TUTORIAL_r.x, TUTORIAL_r.y);
-			blackfont.draw(batch, "Learn the controls and the basic game mechanics.\nDo this first.", 10, 76, 300,1, true);
+			blackfont.draw(batch, "Learn the controls and the basic game mechanics.\nDo this first.", 10, 75, 300,1, true);
 		}
 		
 		if (ARCADE_r.contains(tp_x,tp_y)){
 			batch.draw(TRIM_t, ARCADE_r.x, ARCADE_r.y);
-			blackfont.draw(batch, "Play through a collection of scenarios with no lose condition.\nTry to improve your highscores.", 10, 76, 300,1, true);
+			blackfont.draw(batch, "Play through a collection of scenarios with no lose condition.\nTry to improve your highscores.", 10, 75, 300,1, true);
 		}
 		
 		if (CAMPAIGN_r.contains(tp_x,tp_y)){
@@ -186,7 +186,7 @@ public class TitleScreen extends MetaScreen {
 		
 		if (OPTIONS_r.contains(tp_x,tp_y)){
 			batch.draw(TRIM_t, OPTIONS_r.x, OPTIONS_r.y);
-			blackfont.draw(batch,"Change the sound volume, etc.", 10, 56, 300,1, true);
+			blackfont.draw(batch,"Change the autocalc display settings, the turns-to-hit display settings, and the audio settings.", 10, 75, 300,1, true);
 		}
 		
 		if (CREDITS_r.contains(tp_x,tp_y)){

@@ -18,7 +18,9 @@ public class ArcadeScreen_Bayes extends GameScreen_Bayes {
 		
 		CAMPAIGN=camp;
 		
-		exit_on_shieldfail=true;
+		if (CAMPAIGN){
+	    	exit_on_shieldfail=true;
+	    }
 		
 	}
 	

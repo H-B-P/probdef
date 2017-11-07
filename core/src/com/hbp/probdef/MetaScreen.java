@@ -49,6 +49,7 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	float option_music_volume;
 	String option_acalc;
 	String option_screensize;
+	String option_turns_to_hit_display;
 	
 	public MetaScreen(final ProbDef gam, boolean play_the_sound) {
 		
@@ -78,6 +79,10 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 		}
 		if (!prefs.contains("Screen Size")){
 			prefs.putString("Screen Size", "Normal");
+			prefs.flush();
+		}
+		if (!prefs.contains("TTH Display")){
+			prefs.putString("TTH Display", "Normal");
 			prefs.flush();
 		}
 		
@@ -152,6 +157,7 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 		option_music_volume=prefs.getFloat("Music Volume");
 		option_acalc=prefs.getString("Autocalc");
 		option_screensize=prefs.getString("Screen Size");
+		option_turns_to_hit_display=prefs.getString("TTH Display");
 		
 		if (bother_adjusting){
 			set_screensize();

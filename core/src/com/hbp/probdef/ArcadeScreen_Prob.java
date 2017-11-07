@@ -45,7 +45,9 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 	    wave_number=0;
 	    wave_number_total=6;
 	    
-	    exit_on_shieldfail=true;
+	    if (CAMPAIGN){
+	    	exit_on_shieldfail=true;
+	    }
 	    
 	    extra_mines=0;
 	}

@@ -197,23 +197,26 @@ public class GameScreen_Prob extends GameScreen {
 				   }
 				   if (currently_active_turret_no==5){
 					   purpletext=true;
-					   the_text="(jsyk you don't have to target every turret every turn before firing but it's usually a good idea)";
+					   the_text="(jsyk you can skip over some turrets if you want but it's usually a good idea to target them all)";
 				   }
 			   }
 			   if (total_time>22 && total_time<23){
 				   show_the_text=true;
-				   the_text="Mines won't always have the same speed, so prioritise.";
+				   the_text="Mines won't always have the same speed, so prioritise.";//Add explanation of viewy thing here.
 			   }
 			   
 			   if (total_time>30 && total_time<31){
 				   if (TIMESPEED==0){
 					   show_the_text=true;
-					   if (!turret_two.targeted){
-						   the_text="If you prefer, you can use left/right arrow keys and the spacebar to select mines.";
-					   }
-					   else{
+					   the_text="If you prefer, you can use left/right arrow keys and the spacebar to select mines.";
+					   if (turret_one.targeted){
 						   purpletext=true;
 						   the_text="(you can also use asdf or 1234 to select turrets if for some reason that seems like a good idea to you)";
+					   }
+					   if (turret_two.targeted){
+						   purpletext=false;
+						   the_text="And if you want to skip a turret via the keyboard, press space with no mine selected.";
+						   
 					   }
 					   if (currently_active_turret_no==5){
 						   purpletext=false;
@@ -291,25 +294,54 @@ public class GameScreen_Prob extends GameScreen {
 				   }
 				   
 				   float survival=zero+one+two+three+four;
-				   if (displaywhat.equals("everything")){
-					   acalc_grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
-					   acalc_redfont.draw(batch, " "+present_float(destroy*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
-					   acalc_bluefont.draw(batch, " "+present_float(capture*100.0f)+"%", mine.rect.x-20, mine.rect.y-50, 81, 1, true);
-				   }
-				   else if (displaywhat.equals("destroy")){
-					   acalc_redfont.draw(batch, " "+present_float(destroy*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
-				   }
-				   else if (displaywhat.equals("capture")){
-					   acalc_bluefont.draw(batch, " "+present_float(capture*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
+				   if (!option_turns_to_hit_display.equals("Below")){
+				   
+					   if (displaywhat.equals("everything")){
+						   acalc_grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
+						   acalc_redfont.draw(batch, " "+present_float(destroy*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
+						   acalc_bluefont.draw(batch, " "+present_float(capture*100.0f)+"%", mine.rect.x-20, mine.rect.y-50, 81, 1, true);
+					   }
+					   else if (displaywhat.equals("destroy")){
+						   acalc_redfont.draw(batch, " "+present_float(destroy*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
+					   }
+					   else if (displaywhat.equals("capture")){
+						   acalc_bluefont.draw(batch, " "+present_float(capture*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
+					   }
+					   else if (displaywhat.equals("nothing")){
+						   
+					   }
+					   else{
+						   acalc_grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
+					   }
 				   }
 				   else{
-					   acalc_grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
+					   acalc_greenfont.draw(batch, mine.turns_to_hit+" TTH", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
+					   if (displaywhat.equals("everything")){
+						   acalc_grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
+						   acalc_redfont.draw(batch, " "+present_float(destroy*100.0f)+"%", mine.rect.x-20, mine.rect.y-50, 81, 1, true);
+						   acalc_bluefont.draw(batch, " "+present_float(capture*100.0f)+"%", mine.rect.x-20, mine.rect.y-65, 81, 1, true);
+					   }
+					   else if (displaywhat.equals("destroy")){
+						   acalc_redfont.draw(batch, " "+present_float(destroy*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
+					   }
+					   else if (displaywhat.equals("capture")){
+						   acalc_bluefont.draw(batch, " "+present_float(capture*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
+					   }
+					   else if (displaywhat.equals("nothing")){
+						   
+					   }
+					   else{
+						   acalc_grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
+					   }
 				   }
 			   }
 		   }
 	   }
 	   
 	   void autocalc_and_display_dummy(){
+		   if (option_acalc.equals("Off")){
+			   autocalc_and_display("nothing");
+		   }
 		   if (option_acalc.equals("Normal")){
 			   autocalc_and_display("survive");
 		   }
@@ -400,7 +432,7 @@ public class GameScreen_Prob extends GameScreen {
 	   
 	   void draw_the_HUD(){
 		   boolean torrit=false;
-		      
+		   boolean mien=false;
 		      for (Turret turret:turrets){
 		    	  if (turret.rect.contains(tp_x, tp_y)){
 		    		  torrit=true;
@@ -419,7 +451,25 @@ public class GameScreen_Prob extends GameScreen {
 		      }
 		      
 		      if (!torrit){
-		    	level_specific_HUD();
+		    	  
+		    	  if (option_turns_to_hit_display.equals("Normal") && current_status.equals("targeting")){
+			    	  for (Mine mine:mines){
+			    		  if (mine.rect.contains(tp_x,tp_y) && screen_proper.overlaps(mine.rect)){
+			    			  mien=true;
+			    			  font.draw(batch, "==MINE==", 90, 455, 140, 1, true);
+			    			  if (mine.turns_to_hit==1){
+				    			  font.draw(batch, mine.turns_to_hit+" turn to hit", 90, 437, 140, 1, true);
+			    			  }
+			    			  else{
+				    			  font.draw(batch, mine.turns_to_hit+" turns to hit", 90, 437, 140, 1, true);
+			    			  }
+			    		  }
+			    	  }
+		    	  }
+		    	  
+		    	  if (!mien){
+		    		  level_specific_HUD();
+		    	  }
 		      }
 	   }
 	   
@@ -588,6 +638,7 @@ public class GameScreen_Prob extends GameScreen {
 			turret_three.current_t=turret_three.normal_t;
 			turret_four.current_t=turret_four.normal_t;
 			the_selected_mine=null;
+			
 	   }
 	   
 	   
@@ -792,6 +843,10 @@ public class GameScreen_Prob extends GameScreen {
 	   public void probgame_render(float delta){
 		   gamey_render_predraw(delta); //Handle everything which happens before the actual drawing.
 			
+		   for (Mine mine:mines){
+			   float t=(mine.rect.y-(shield_r.y+shield_r.height))/mine.vert_vel;
+				mine.turns_to_hit=(int)t/2 + 1;
+			}
 		   
 			batch.begin();
 			

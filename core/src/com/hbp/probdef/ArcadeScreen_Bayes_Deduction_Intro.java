@@ -261,7 +261,7 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends ArcadeScreen_Bayes {
 				show_the_text=true;
 				the_text="You've destroyed things with turrets; now let's destroy things-with-turrets. Click the leftmost ship to target it.";
 				if (vane_one.targeted){
-					the_text="The right shocker currently has a pentagon zap, so it won't work on ships with triangle turrets; click it to cycle zaps.";
+					the_text="The right shocker has a pentagon zap, so it won't work on ships with triangle turrets; click it to cycle zaps.";
 					if (vane_two.current_energy.equals("triangle")){
 						the_text="Now click on one of the triangle ships, to target it with that shocker.";
 					}
