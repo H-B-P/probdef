@@ -728,7 +728,12 @@ public class GameScreen extends SpaceScreen {
 		   Iterator<RT_Kaboom> iterk = explosions.iterator();
 		   while(iterk.hasNext()) {
 		    	  RT_Kaboom boom = iterk.next();
-		    	  if(total_time - boom.birthtime > 0.25) iterk.remove();
+		    	  if (option_flicker){
+		    		  if(total_time - boom.birthtime > 0.25) iterk.remove();
+		    	  }
+		    	  else{
+		    		  if(total_time - boom.birthtime > 0.5f*option_gamespeed) iterk.remove();
+		    	  }
 		      }
 	   }
 	   
@@ -974,7 +979,7 @@ public class GameScreen extends SpaceScreen {
 				//batch.draw(enemyship_front_c_t, enemyship.rect.x, enemyship.rect.y);
 				//batch.draw(enemyship_front_b_t, enemyship.rect.x, enemyship.rect.y+30, 60, 30, 0, 0, 60, 30, false, true);
 
-			   if (enemyship.flicker){
+			   if (enemyship.flicker && option_flicker){
 				   batch.draw(enemyshipshield_flicker_t, enemyship.shield_r.x, enemyship.shield_r.y);
 			   }
 			   else{
@@ -1048,25 +1053,31 @@ public class GameScreen extends SpaceScreen {
 	   void draw_obscurities(){
 		   for (EnemyShip enemyship: enemyships){
 			   if (enemyship.obscured){
+				   
 				   if (total_time>enemyship.obscuritytime){
 					   enemyship.obscuritytime=total_time+0.08f;
 					   enemyship.obscurityno=((enemyship.obscurityno+MathUtils.random(0,2))%4)+1;
 				   }
 				   
-				   if (enemyship.obscurityno==1){
-					   batch.draw(obscurity_one_t, enemyship.rect.x, enemyship.rect.y);
-				   }
-				   else if (enemyship.obscurityno==2){
-					   batch.draw(obscurity_two_t, enemyship.rect.x, enemyship.rect.y);
-				   }
-				   else if (enemyship.obscurityno==3){
-					   batch.draw(obscurity_three_t, enemyship.rect.x, enemyship.rect.y);
-				   }
-				   else if (enemyship.obscurityno==4){
-					   batch.draw(obscurity_four_t, enemyship.rect.x, enemyship.rect.y);
+				   if (!option_flicker){
+					   batch.draw(obscurity_t, enemyship.rect.x, enemyship.rect.y);
 				   }
 				   else{
-					   batch.draw(obscurity_t, enemyship.rect.x, enemyship.rect.y);
+					   if (enemyship.obscurityno==1){
+						   batch.draw(obscurity_one_t, enemyship.rect.x, enemyship.rect.y);
+					   }
+					   else if (enemyship.obscurityno==2){
+						   batch.draw(obscurity_two_t, enemyship.rect.x, enemyship.rect.y);
+					   }
+					   else if (enemyship.obscurityno==3){
+						   batch.draw(obscurity_three_t, enemyship.rect.x, enemyship.rect.y);
+					   }
+					   else if (enemyship.obscurityno==4){
+						   batch.draw(obscurity_four_t, enemyship.rect.x, enemyship.rect.y);
+					   }
+					   else{
+						   batch.draw(obscurity_t, enemyship.rect.x, enemyship.rect.y);
+					   }
 				   }
 			   }
 		   }

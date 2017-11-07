@@ -527,7 +527,9 @@ public class GameScreen_Prob extends GameScreen {
 				        shields-=4;
 				        minehitshield.play(option_sfx_volume*0.4f);
 				        minesplode.play(option_sfx_volume);
-				        shipshield_t=shipshield_flicker_t;
+				        if (option_flicker){
+				        	shipshield_t=shipshield_flicker_t;
+				        }
 					}
 					mines.removeValue(mine,true);
 			     }

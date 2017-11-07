@@ -186,7 +186,7 @@ public class TitleScreen extends MetaScreen {
 		
 		if (OPTIONS_r.contains(tp_x,tp_y)){
 			batch.draw(TRIM_t, OPTIONS_r.x, OPTIONS_r.y);
-			blackfont.draw(batch,"Change the autocalc display settings, the turns-to-hit display settings, and the audio settings.", 10, 75, 300,1, true);
+			blackfont.draw(batch,"Change the display settings, the audio settings, the game speed, and the accessibility features.", 10, 75, 300,1, true);
 		}
 		
 		if (CREDITS_r.contains(tp_x,tp_y)){

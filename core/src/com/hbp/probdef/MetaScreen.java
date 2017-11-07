@@ -50,6 +50,7 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	String option_acalc;
 	String option_screensize;
 	String option_turns_to_hit_display;
+	boolean option_flicker;
 	float option_gamespeed;
 	
 	public MetaScreen(final ProbDef gam, boolean play_the_sound) {
@@ -90,6 +91,10 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 		    prefs.putFloat("Game Speed", 1.0f);
 			prefs.flush();
 		}
+		if (!prefs.contains("Flickering")){
+			prefs.putString("Flickering", "On");
+			prefs.flush();
+		}
 		
 		
 		if (!prefs.contains("Book_Combine")){
@@ -121,6 +126,8 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 		
 		
 		update_options();
+		
+		System.out.println(option_flicker);
 		
 		game=gam;
 		camera = new OrthographicCamera();
@@ -165,7 +172,12 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 		option_screensize=prefs.getString("Screen Size");
 		option_turns_to_hit_display=prefs.getString("TTH Display");
 		option_gamespeed=prefs.getFloat("Game Speed");
-		
+		if ((prefs.getString("Flickering")).equals("On")){
+			option_flicker=true;
+		}
+		else{
+			option_flicker=false;
+		}
 		if (bother_adjusting){
 			set_screensize();
 		}

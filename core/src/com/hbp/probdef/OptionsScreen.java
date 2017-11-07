@@ -26,6 +26,7 @@ public class OptionsScreen extends MetaScreen {
 	private SelectorBox screenSizeSelectorBox;
 	private SelectorBox tthSelectorBox;
 	private SelectorBox_Percentage gamespeedSelectorBox;
+	private SelectorBox flickeringSelectorBox;
 	
 	private Array<SelectorBox> selectorboxes;
 	
@@ -80,13 +81,14 @@ public class OptionsScreen extends MetaScreen {
 		selectorboxes.add(sfxVolumeSelectorBox);
 		
 		gamespeedSelectorBox=new SelectorBox_Percentage("Game Speed",90,180);
-		gamespeedSelectorBox.max=500;
+		gamespeedSelectorBox.max=300;
 		gamespeedSelectorBox.min=50;
 		gamespeedSelectorBox.interval=50;
 		selectorboxes.add(gamespeedSelectorBox);
 		
+		flickeringSelectorBox=new SelectorBox_Flickering("Flickering", 90, 105);
+	    selectorboxes.add(flickeringSelectorBox);
 		
-	    
 		EBOX_t= new Texture(Gdx.files.internal("explainybox.png"));
 		
 		TITLE_t=new Texture(Gdx.files.internal("TITLE_OPTIONS.png"));
@@ -176,11 +178,15 @@ public class OptionsScreen extends MetaScreen {
 		}
 		
 		if (tthSelectorBox.rect.contains(tp_x,tp_y)){
-			blackfont.draw(batch, "How we display the turns until a mine hits. Normal displays on mouseover, Below displays below the mine, Off doesn't display.", 15, 83, 290,1, true);
+			blackfont.draw(batch, "How we display turns until a mine hits. Normal displays in-HUD on mouseover, Below displays below the mine, Off doesn't display.", 15, 83, 290,1, true);
 		}
 		
 		if (gamespeedSelectorBox.rect.contains(tp_x,tp_y)){
 			blackfont.draw(batch, "Speed up the game to get through firing animations faster, or slow it down to savor the suspense / make it run more smoothly.", 15, 83, 290,1, true);
+		}
+		
+		if (flickeringSelectorBox.rect.contains(tp_x,tp_y)){
+			blackfont.draw(batch, "Disable/Enable all animations which could be referred to as 'flickering'. Potentially useful for people with epilepsy.", 15, 83, 290,1, true);
 		}
 		
 		batch.draw(poncho_t, -640, -960);

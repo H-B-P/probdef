@@ -896,12 +896,14 @@ public class GameScreen_Bayes extends GameScreen {
 	
 	void check_for_dot_shipshield_collisions(){
 		for (RT_Dot dot: dots){
-			if (dot.target_mine==null && dot.rect.overlaps(shield_r)){
+			if (dot.target_mine==null && (dot.rect.overlaps(shield_r)|| dot.rect.y<shield_r.y)){
 				dots.removeValue(dot, true);
 				if (dot.type.equals("destroy")|| dot.type.equals("capture")){
 					deshield.play(option_sfx_volume);
 					level_specific_deshield(dot);
-					shipshield_t=shipshield_flicker_t;
+					if (option_flicker){
+						shipshield_t=shipshield_flicker_t;
+					}
 				}
 			}
 		}
