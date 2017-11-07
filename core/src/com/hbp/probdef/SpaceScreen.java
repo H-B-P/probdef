@@ -110,7 +110,7 @@ public class SpaceScreen extends MetaScreen {
 		
 		meta_render(); //Call MetaScreen's rendering function before anything.
 		
-		total_time+=delta*TIMESPEED; //Increment time. This is time in-game, not time for the player.
+		total_time+=delta*option_gamespeed*TIMESPEED; //Increment time. This is time in-game, not time for the player.
 		
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f); //Make the background at the base of everything black.
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //Prevent objects from sticking around between frames.

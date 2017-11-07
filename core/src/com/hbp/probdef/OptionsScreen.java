@@ -20,11 +20,12 @@ public class OptionsScreen extends MetaScreen {
 	
 	private Music bgm;
 	
-	private SelectorBox musicVolumeSelectorBox;
-	private SelectorBox sfxVolumeSelectorBox;
+	private SelectorBox_Percentage musicVolumeSelectorBox;
+	private SelectorBox_Percentage sfxVolumeSelectorBox;
 	private SelectorBox acalcSelectorBox;
 	private SelectorBox screenSizeSelectorBox;
 	private SelectorBox tthSelectorBox;
+	private SelectorBox_Percentage gamespeedSelectorBox;
 	
 	private Array<SelectorBox> selectorboxes;
 	
@@ -78,7 +79,11 @@ public class OptionsScreen extends MetaScreen {
 		sfxVolumeSelectorBox=new SelectorBox_Percentage("SFX Volume",170,255);
 		selectorboxes.add(sfxVolumeSelectorBox);
 		
-		
+		gamespeedSelectorBox=new SelectorBox_Percentage("Game Speed",90,180);
+		gamespeedSelectorBox.max=500;
+		gamespeedSelectorBox.min=50;
+		gamespeedSelectorBox.interval=50;
+		selectorboxes.add(gamespeedSelectorBox);
 		
 		
 	    
@@ -174,6 +179,9 @@ public class OptionsScreen extends MetaScreen {
 			blackfont.draw(batch, "How we display the turns until a mine hits. Normal displays on mouseover, Below displays below the mine, Off doesn't display.", 15, 83, 290,1, true);
 		}
 		
+		if (gamespeedSelectorBox.rect.contains(tp_x,tp_y)){
+			blackfont.draw(batch, "Speed up the game to get through firing animations faster, or slow it down to savor the suspense / make it run more smoothly.", 15, 83, 290,1, true);
+		}
 		
 		batch.draw(poncho_t, -640, -960);
 		

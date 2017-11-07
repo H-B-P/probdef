@@ -553,7 +553,7 @@ public class GameScreen extends SpaceScreen {
 	//---Functions directly called by the render---
 	
 	   void gamey_render_predraw(float delta){
-			effective_delta=(float) (delta*TIMESPEED); //If time is running slow, the delta to feed into motion calculations will be lower.
+			effective_delta=(float) (delta*TIMESPEED*option_gamespeed); //If time is running slow, the delta to feed into motion calculations will be lower.
 			
 			   level_specific_timeline(); //Do things which are done in a given level.
 			   
@@ -791,10 +791,10 @@ public class GameScreen extends SpaceScreen {
 		   }
 	   }
 	   
-	   void move_iterable_objects(float delta){
+	   void move_iterable_objects(float del){
 		   for (EnemyShip enemyship:enemyships){
-			   enemyship.rect.x+=enemyship.horz_vel*delta;
-			   enemyship.rect.y-=enemyship.vert_vel*delta;
+			   enemyship.rect.x+=enemyship.horz_vel*del;
+			   enemyship.rect.y-=enemyship.vert_vel*del;
 			   
 			   enemyship.rect.y=Math.max(enemyship.rect.y,enemyship.ylim);
 			   
@@ -807,8 +807,8 @@ public class GameScreen extends SpaceScreen {
 		   
 		   
 		   for (Mine mine:mines){
-			   mine.rect.x += mine.horz_vel * delta;
-			   mine.rect.y -= mine.vert_vel * delta;
+			   mine.rect.x += mine.horz_vel * del;
+			   mine.rect.y -= mine.vert_vel * del;
 			     
 			   mine.shield_one.x=mine.rect.x-5;
 			   mine.shield_one.y=mine.rect.y-5;
@@ -821,8 +821,8 @@ public class GameScreen extends SpaceScreen {
 		   }
 
 		   for(RT_Dot dot: dots) {
-		          dot.rect.x+=dot.horz_vel*delta;
-		          dot.rect.y+=dot.vert_vel*delta;
+		          dot.rect.x+=dot.horz_vel*del;
+		          dot.rect.y+=dot.vert_vel*del;
 		   }
 	   }
 	   

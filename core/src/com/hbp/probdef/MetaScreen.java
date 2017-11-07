@@ -50,6 +50,7 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	String option_acalc;
 	String option_screensize;
 	String option_turns_to_hit_display;
+	float option_gamespeed;
 	
 	public MetaScreen(final ProbDef gam, boolean play_the_sound) {
 		
@@ -85,6 +86,11 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 			prefs.putString("TTH Display", "Normal");
 			prefs.flush();
 		}
+		if (!prefs.contains("Game Speed")){
+		    prefs.putFloat("Game Speed", 1.0f);
+			prefs.flush();
+		}
+		
 		
 		if (!prefs.contains("Book_Combine")){
 			prefs.putInteger("Book_Combine", 0);
@@ -158,6 +164,7 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 		option_acalc=prefs.getString("Autocalc");
 		option_screensize=prefs.getString("Screen Size");
 		option_turns_to_hit_display=prefs.getString("TTH Display");
+		option_gamespeed=prefs.getFloat("Game Speed");
 		
 		if (bother_adjusting){
 			set_screensize();
