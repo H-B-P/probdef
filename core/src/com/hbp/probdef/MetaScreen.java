@@ -52,6 +52,7 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	String option_turns_to_hit_display;
 	boolean option_flicker;
 	float option_gamespeed;
+	String option_background;
 	
 	public MetaScreen(final ProbDef gam, boolean play_the_sound) {
 		
@@ -88,11 +89,15 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 			prefs.flush();
 		}
 		if (!prefs.contains("Game Speed")){
-		    prefs.putFloat("Game Speed", 1.0f);
+		    prefs.putFloat("Game Speed", 2.0f);
 			prefs.flush();
 		}
 		if (!prefs.contains("Flickering")){
 			prefs.putString("Flickering", "On");
+			prefs.flush();
+		}
+		if (!prefs.contains("Background")){
+			prefs.putString("Background", "Crude");
 			prefs.flush();
 		}
 		
@@ -172,6 +177,7 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 		option_screensize=prefs.getString("Screen Size");
 		option_turns_to_hit_display=prefs.getString("TTH Display");
 		option_gamespeed=prefs.getFloat("Game Speed");
+		option_background=prefs.getString("Background");
 		if ((prefs.getString("Flickering")).equals("On")){
 			option_flicker=true;
 		}

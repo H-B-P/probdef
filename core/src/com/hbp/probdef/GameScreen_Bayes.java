@@ -88,6 +88,8 @@ public class GameScreen_Bayes extends GameScreen {
 		super(gam);
 		game=gam;
 		
+		bayesian=true;
+		
 		current_status="waiting";
 		
 		attention_button_trim_t=green_button_trim_t;
@@ -912,7 +914,7 @@ public class GameScreen_Bayes extends GameScreen {
 	void check_for_mine_enemyshipshield_collisions(){
 			   for (Mine mine: mines){
 				   for (EnemyShip enemyship:enemyships){
-					if(mine.rect.overlaps(enemyship.shield_r)) {
+					if(mine.rect.overlaps(enemyship.shield_r) || mine.rect.y>enemyship.shield_r.y) {
 						enemyship.flicker=true;
 						minecount-=1;
 						if (!mine.shootproof){

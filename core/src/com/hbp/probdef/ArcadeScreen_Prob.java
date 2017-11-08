@@ -21,7 +21,7 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 	int wave_number_total;
 	
 	int extra_mines;
-	
+		
 	boolean CAMPAIGN;
 	
 	public ArcadeScreen_Prob(final ProbDef gam, boolean camp) {
@@ -73,16 +73,16 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 	
 	void four_wave (int start_second, int normal_ops){
 		if (seconds==start_second){
-			spawn_formation_mine(-3,normal_ops);
+			spawn_formation_mine(-2,normal_ops);
 		}
 		if (seconds==(start_second+2)){
-			spawn_formation_mine(-1,normal_ops);
+			spawn_formation_mine(2,normal_ops);
 		}
 		if (seconds==(start_second+4)){
-			spawn_formation_mine(1,normal_ops);
+			spawn_formation_mine(-2,normal_ops);
 		}
 		if (seconds==(start_second+6)){
-			spawn_formation_mine(3,normal_ops);
+			spawn_formation_mine(2,normal_ops);
 		}
 	}
 	

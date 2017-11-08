@@ -27,6 +27,7 @@ public class OptionsScreen extends MetaScreen {
 	private SelectorBox tthSelectorBox;
 	private SelectorBox_Percentage gamespeedSelectorBox;
 	private SelectorBox flickeringSelectorBox;
+	private SelectorBox backgroundSelectorBox;
 	
 	private Array<SelectorBox> selectorboxes;
 	
@@ -80,8 +81,8 @@ public class OptionsScreen extends MetaScreen {
 		sfxVolumeSelectorBox=new SelectorBox_Percentage("SFX Volume",170,255);
 		selectorboxes.add(sfxVolumeSelectorBox);
 		
-		gamespeedSelectorBox=new SelectorBox_Percentage("Game Speed",90,180);
-		gamespeedSelectorBox.max=300;
+		gamespeedSelectorBox=new SelectorBox_Percentage("Game Speed",10,180);
+		gamespeedSelectorBox.max=500;
 		gamespeedSelectorBox.min=50;
 		gamespeedSelectorBox.interval=50;
 		selectorboxes.add(gamespeedSelectorBox);
@@ -89,6 +90,9 @@ public class OptionsScreen extends MetaScreen {
 		flickeringSelectorBox=new SelectorBox_Flickering("Flickering", 90, 105);
 	    selectorboxes.add(flickeringSelectorBox);
 		
+	    backgroundSelectorBox=new SelectorBox_Background("Background",170, 180 );
+	    selectorboxes.add(backgroundSelectorBox);
+	    
 		EBOX_t= new Texture(Gdx.files.internal("explainybox.png"));
 		
 		TITLE_t=new Texture(Gdx.files.internal("TITLE_OPTIONS.png"));
@@ -187,6 +191,10 @@ public class OptionsScreen extends MetaScreen {
 		
 		if (flickeringSelectorBox.rect.contains(tp_x,tp_y)){
 			blackfont.draw(batch, "Disable/Enable all animations which could be referred to as 'flickering'. Potentially useful for people with epilepsy.", 15, 83, 290,1, true);
+		}
+		
+		if (backgroundSelectorBox.rect.contains(tp_x,tp_y)){
+			blackfont.draw(batch, "Void is pure black background, Crude is scrolling stars with parallax, Pretty is currently not implemented.", 15, 83, 290,1, true);
 		}
 		
 		batch.draw(poncho_t, -640, -960);

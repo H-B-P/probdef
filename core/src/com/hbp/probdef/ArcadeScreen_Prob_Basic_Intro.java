@@ -93,6 +93,11 @@ public class ArcadeScreen_Prob_Basic_Intro extends ArcadeScreen_Prob {
 			   }
 			   
 		   }
+		   if (seconds==18 && TIMESPEED==0){
+			   show_the_text=true;
+			   purpletext=true;
+			   the_text="(protip: every wave consists of four rows of mines, and the last two rows are always a repeat of the first two)";
+		   }
 		   
 		   
 	}

@@ -210,9 +210,13 @@ public class GameScreen extends SpaceScreen {
 	float volley_ending_time;
 	float zappy_ending_time;
 	
+	int extra_twos;
+	
 	SpriteBatch batch;
 	
 	boolean exit_on_shieldfail;
+	
+	boolean bayesian;
 	
 	public GameScreen(final ProbDef gam) {
 		
@@ -273,6 +277,12 @@ public class GameScreen extends SpaceScreen {
 	    obscurities_move=true;
 	    
 	    batch=new SpriteBatch();
+	    
+	    bayesian=false;
+	    
+	    extra_twos=(int)Math.ceil((double)(option_gamespeed-1f));
+	    
+	    total_time-=2*extra_twos;
 	    
 	}
 	
@@ -631,8 +641,8 @@ public class GameScreen extends SpaceScreen {
 		void check_for_dot_mine_collisions(){
 			for (RT_Dot dot:dots){
 			   if (dot.target_mine!=null){
-				   if (dot.rect.overlaps(dot.target_mine.rect) && dot.target_mine.actually_there){
-					    	 
+				   //if (dot.rect.overlaps(dot.target_mine.rect) && dot.target_mine.actually_there){
+					if (dot.target_mine.actually_there && (dot.rect.overlaps(dot.target_mine.rect) ||(!bayesian && dot.rect.y>dot.target_mine.rect.y) || (bayesian && dot.rect.y<dot.target_mine.rect.y))){	 
 					   if (dot.type.equals("destroy") && !dot.target_mine.destroyproof){
 						    	 dot.target_mine.actually_there=false;
 							     	spawnExplosion(dot.target_mine.rect.x,dot.target_mine.rect.y);

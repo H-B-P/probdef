@@ -50,6 +50,8 @@ public class GameScreen_Prob extends GameScreen {
 		super(gam);
 		game=gam;
 		
+		bayesian=false;
+		
 		batch= new SpriteBatch();
 	      
 	      
@@ -520,7 +522,8 @@ public class GameScreen_Prob extends GameScreen {
 	   
 	   private void check_for_shipshield_mine_collisions(){
 		   for (Mine mine: mines){
-				if(mine.rect.overlaps(shield_r)) {
+				//if(mine.rect.overlaps(shield_r)) {
+			   if(mine.rect.overlaps(shield_r) || mine.rect.y<shield_r.y) {
 					minecount-=1;
 					if (!mine.shootproof){
 				     	spawnExplosion(mine.rect.x,mine.rect.y);

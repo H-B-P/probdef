@@ -116,8 +116,15 @@ public class BookScreen_Bayes extends GameScreen_Bayes {
 			}
 		}
 		
-		if (page==maxpages && time_to_move_on && seconds%2==1){
-			batch.draw(green_button_trim_t, menu_button_r.x, menu_button_r.y);
+		if (option_flicker){
+			if (page==maxpages && time_to_move_on && seconds%2==1){
+				batch.draw(green_button_trim_t, menu_button_r.x, menu_button_r.y);
+			}
+		}
+		else{
+			if (page==maxpages && time_to_move_on){
+				batch.draw(green_button_trim_t, menu_button_r.x, menu_button_r.y);
+			}
 		}
 		
 		batch.end();

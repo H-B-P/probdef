@@ -79,6 +79,7 @@ public class BookScreen_Prob extends GameScreen_Prob {
 		
 		pages_done=prefs.getInteger(bookname);
 		
+		page_time=-extra_twos*2;
 		
 		time_to_move_on=false;
 		
@@ -119,8 +120,15 @@ public class BookScreen_Prob extends GameScreen_Prob {
 			}
 		}
 		
-		if (page==maxpages && time_to_move_on && seconds%2==1){
-			batch.draw(orange_button_trim_t, menu_button_r.x, menu_button_r.y);
+		if (option_flicker){
+			if (page==maxpages && time_to_move_on && seconds%2==1){
+				batch.draw(orange_button_trim_t, menu_button_r.x, menu_button_r.y);
+			}
+		}
+		else{
+			if (page==maxpages && time_to_move_on){
+				batch.draw(orange_button_trim_t, menu_button_r.x, menu_button_r.y);
+			}
 		}
 		
 		batch.end();
@@ -153,6 +161,7 @@ public class BookScreen_Prob extends GameScreen_Prob {
 	}
 	
 	void new_page(){
+		//page_time=-2*extra_twos;
 		page_time=0;
 		seconds=0;
 		

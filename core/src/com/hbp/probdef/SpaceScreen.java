@@ -29,6 +29,10 @@ public class SpaceScreen extends MetaScreen {
 	public Texture starry_background_layer_one_t;
 	public Texture starry_background_layer_two_t;
 	
+	public Texture pretty_background_t;
+	
+	int pretty_background_height;
+	
 	public Texture statusbar_t;
 	
 	Texture ship_normal_t;
@@ -49,6 +53,8 @@ public class SpaceScreen extends MetaScreen {
 	
 	public int starspeed_one;
 	public int starspeed_two;
+	
+	public int pretty_speed;
 	
 	public double TIMESPEED;
 	
@@ -78,6 +84,10 @@ public class SpaceScreen extends MetaScreen {
 		starry_background_layer_one_t=new Texture(Gdx.files.internal("BG1.png"));
 	    starry_background_layer_two_t=new Texture(Gdx.files.internal("BG2.png"));
 		
+	    pretty_background_t=new Texture(Gdx.files.internal("Pretty_Background.png"));
+	    
+	    pretty_background_height=pretty_background_t.getHeight();
+	    
 	    ship_normal_t=new Texture(Gdx.files.internal("fullship_GREEN.png"));
 	    ship_invisible_t=new Texture(Gdx.files.internal("fullship_INVISIBLE.png"));
 	    ship_t=ship_normal_t;
@@ -92,6 +102,10 @@ public class SpaceScreen extends MetaScreen {
 		
 		starspeed_one=2;
 		starspeed_two=7;
+		
+		pretty_speed=10;
+		
+		
 		
 		shield_r=new Rectangle();
 		shield_r.x=20;
@@ -119,9 +133,12 @@ public class SpaceScreen extends MetaScreen {
 		
 		spacey_batch.setProjectionMatrix(camera.combined);
 		
-		
+		if (option_background.equals("Crude")){
 	      draw_spacey_background(); //draws starry backgrounds which loop at different speeds to give the illusion of parallax.
-	      
+		}
+		if (option_background.equals("Pretty")){
+			draw_pretty_background();
+		}
 	      spacey_batch.draw(ship_t, 0, ship_posn); //draw the ship!
 	      
 		spacey_batch.end();
@@ -133,7 +150,12 @@ public class SpaceScreen extends MetaScreen {
 	      spacey_batch.draw(starry_background_layer_two_t, 0f, 1100-(float)((total_time*starspeed_two)%2200));
 	      spacey_batch.draw(starry_background_layer_two_t, 0f, 1100-(float)((total_time*starspeed_two+1100)%2200));
 	}
-	
+	void draw_pretty_background(){
+		spacey_batch.draw(pretty_background_t, 0f, pretty_background_height-(float)((total_time*pretty_speed)%(pretty_background_height*2)));
+		spacey_batch.draw(pretty_background_t, 0f, pretty_background_height-(float)((total_time*pretty_speed+pretty_background_height)%(pretty_background_height*2)));
+		spacey_batch.draw(pretty_background_t, 0f, pretty_background_height-(float)((total_time*pretty_speed+pretty_background_height*2)%(pretty_background_height*2)));
+
+	}
 	@Override
 	public void render(float delta) {
 		//Gdx.gl.glClearColor(0, 0, 0.2f, 1);
