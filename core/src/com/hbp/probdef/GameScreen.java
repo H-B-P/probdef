@@ -162,6 +162,9 @@ public class GameScreen extends SpaceScreen {
    
    Array<Vane> vanes;
    
+   Array<Texture> textures;
+   Array<Sound> sounds;
+   
    //--Rectangles--
     
    Rectangle menu_button_r;
@@ -241,6 +244,9 @@ public class GameScreen extends SpaceScreen {
 	    enemyships=new Array<EnemyShip>();
 	    vanes=new Array<Vane>();
 	    
+	    textures=new Array<Texture>();
+	    sounds=new Array<Sound>();
+	    
 	    the_text="";
 	    the_other_text="";
 	    
@@ -306,11 +312,14 @@ public class GameScreen extends SpaceScreen {
 	void load_in_textures(){
 		
 		complete_box_t=new Texture(Gdx.files.internal("level_complete.png"));
+		textures.add(complete_box_t);
 		
 		//-Dots for dotted lines-
 		
 		orange_dot_t=new Texture(Gdx.files.internal("orange_dot.png"));
+		textures.add(orange_dot_t);
 		green_dot_t=new Texture(Gdx.files.internal("green_dot.png"));
+		textures.add(green_dot_t);
 		
 		//-Vanes et al-
 		
@@ -319,11 +328,23 @@ public class GameScreen extends SpaceScreen {
 		vane_outline_t=new Texture(Gdx.files.internal("vanes/vane_outline.png"));
 		vane_trim_t=new Texture(Gdx.files.internal("vanes/vane_trim.png"));
 		
+		textures.add(vane_t);
+		textures.add(vane_silhouette_t);
+		textures.add(vane_outline_t);
+		textures.add(vane_trim_t);
+		
 		vane_energy_circle_t= new Texture(Gdx.files.internal("vanes/vanes_energy_circle.png"));
 		vane_energy_triangle_t= new Texture(Gdx.files.internal("vanes/vanes_energy_triangle.png"));
 		vane_energy_square_t= new Texture(Gdx.files.internal("vanes/vanes_energy_square.png"));
 		vane_energy_pentagon_t= new Texture(Gdx.files.internal("vanes/vanes_energy_pentagon.png"));
 		vane_energy_hexagon_t= new Texture(Gdx.files.internal("vanes/vanes_energy_hexagon.png"));
+		
+		textures.add(vane_energy_circle_t);
+		textures.add(vane_energy_triangle_t);
+		textures.add(vane_energy_square_t);
+		textures.add(vane_energy_pentagon_t);
+		textures.add(vane_energy_hexagon_t);
+
 		
 		vane_crosshairs_circle_t= new Texture(Gdx.files.internal("vanes/vanes_target_circle.png"));
 		vane_crosshairs_triangle_t= new Texture(Gdx.files.internal("vanes/vanes_target_triangle.png"));
@@ -331,62 +352,112 @@ public class GameScreen extends SpaceScreen {
 		vane_crosshairs_pentagon_t= new Texture(Gdx.files.internal("vanes/vanes_target_pentagon.png"));
 		vane_crosshairs_hexagon_t= new Texture(Gdx.files.internal("vanes/vanes_target_hexagon.png"));
 		
+		textures.add(vane_crosshairs_circle_t);
+		textures.add(vane_crosshairs_triangle_t);
+		textures.add(vane_crosshairs_square_t);
+		textures.add(vane_crosshairs_pentagon_t);
+		textures.add(vane_crosshairs_hexagon_t);
 		
 		//-Enemyship-
 		
 		enemyship_t=new Texture(Gdx.files.internal("enemyship_alt.png"));
 		
+		textures.add(enemyship_t);
+		
 		enemyshipshield_normal_t=new Texture(Gdx.files.internal("enemy_ship_shield.png"));
 		enemyshipshield_flicker_t=new Texture(Gdx.files.internal("enemy_ship_shield_flicker.png"));
 		enemyshipshield_t=enemyshipshield_normal_t;
+		
+		textures.add(enemyshipshield_normal_t);
+		textures.add(enemyshipshield_flicker_t);
 		
 		enemyship_engine_a_t=new Texture(Gdx.files.internal("ship_bases/engine_a.png"));
 		enemyship_engine_b_t=new Texture(Gdx.files.internal("ship_bases/engine_b.png"));
 		enemyship_engine_c_t=new Texture(Gdx.files.internal("ship_bases/engine_c.png"));
 		enemyship_engine_d_t=new Texture(Gdx.files.internal("ship_bases/engine_d.png"));
 		enemyship_engine_e_t=new Texture(Gdx.files.internal("ship_bases/engine_e.png"));
-
+		
+		textures.add(enemyship_engine_a_t);
+		textures.add(enemyship_engine_b_t);
+		textures.add(enemyship_engine_c_t);
+		textures.add(enemyship_engine_d_t);
+		textures.add(enemyship_engine_e_t);
+		
 		enemyship_front_a_t=new Texture(Gdx.files.internal("ship_bases/front_a.png"));
 		enemyship_front_b_t=new Texture(Gdx.files.internal("ship_bases/front_b.png"));
 		enemyship_front_c_t=new Texture(Gdx.files.internal("ship_bases/front_c.png"));
-
+		
+		textures.add(enemyship_front_a_t);
+		textures.add(enemyship_front_b_t);
+		textures.add(enemyship_front_c_t);
+		
 		enemyship_glowy_front_a_t=new Texture(Gdx.files.internal("ship_bases/front_a_trim.png"));
 		enemyship_glowy_front_b_t=new Texture(Gdx.files.internal("ship_bases/front_b_trim.png"));
 		enemyship_glowy_front_c_t=new Texture(Gdx.files.internal("ship_bases/front_c_trim.png"));
 		
+		textures.add(enemyship_glowy_front_a_t);
+		textures.add(enemyship_glowy_front_b_t);
+		textures.add(enemyship_glowy_front_c_t);
 		
 		//-Dots-
 		
 		destroy_dot_t=new Texture(Gdx.files.internal("shot_destroy.png"));
 	    capture_dot_t=new Texture(Gdx.files.internal("shot_capture.png"));
 		
+	    textures.add(destroy_dot_t);
+	    textures.add(capture_dot_t);
+	    
 		//-Buttons-
 		
 		menu_button_t=new Texture(Gdx.files.internal("ingame_button_menu.png"));
 		fire_button_t=new Texture(Gdx.files.internal("ingame_button_fire.png"));
-
+		
+		textures.add(menu_button_t);
+		textures.add(fire_button_t);
+		
 	    blue_button_trim_t=new Texture(Gdx.files.internal("ingame_blue_button_trim.png"));
 	    orange_button_trim_t=new Texture(Gdx.files.internal("ingame_orange_button_trim.png"));
 	    green_button_trim_t=new Texture(Gdx.files.internal("ingame_green_button_trim.png"));
 	    purple_button_trim_t=new Texture(Gdx.files.internal("ingame_purple_button_trim.png"));
+	    
+	    textures.add(blue_button_trim_t);
+	    textures.add(orange_button_trim_t);
+	    textures.add(green_button_trim_t);
+	    textures.add(purple_button_trim_t);
+	    
 	    
 	    //-Textboxes-
 	    
 	    textbox_one_t=new Texture(Gdx.files.internal("textbox_1.png"));
 	    textbox_two_t=new Texture(Gdx.files.internal("textbox_2.png"));
 	    
+	    textures.add(textbox_one_t);
+	    textures.add(textbox_two_t);
+	    
 		//-Mines and so on-
 	    
 		mine_t=new Texture(Gdx.files.internal("mine.png"));
 		titaniummine_t=new Texture(Gdx.files.internal("mine_titanium.png"));
-		  
+		
+		textures.add(mine_t);
+		textures.add(titaniummine_t);
+		
 		mine_shield_one_t= new Texture(Gdx.files.internal("shield_layer_one.png"));
 		mine_shield_two_t= new Texture(Gdx.files.internal("shield_layer_two.png"));
 		mine_shield_three_t= new Texture(Gdx.files.internal("shield_layer_three.png"));
 		mine_shield_four_t= new Texture(Gdx.files.internal("shield_layer_four.png"));
 		
+		textures.add(mine_shield_one_t);
+		textures.add(mine_shield_two_t);
+		textures.add(mine_shield_three_t);
+		textures.add(mine_shield_four_t);
+		
 		explosion_t = new Texture(Gdx.files.internal("explosion.png"));
 		detaining_t=new Texture(Gdx.files.internal("mine_capturing_circle.png"));
+		
+		textures.add(explosion_t);
+		textures.add(detaining_t);
+
 		
 		//-Turrets and Turret accessories-
 		
@@ -395,6 +466,12 @@ public class GameScreen extends SpaceScreen {
 	    scratch_four= new Texture(Gdx.files.internal("turrets/chickenscratch_4.png"));
 	    scratch_five= new Texture(Gdx.files.internal("turrets/chickenscratch_5.png"));
 		
+		textures.add(scratch_two);
+		textures.add(scratch_three);
+		textures.add(scratch_four);
+		textures.add(scratch_five);
+
+	    
 		//-Obscurities-
 	    
 	    obscurity_t=new Texture(Gdx.files.internal("obscurity.png"));
@@ -402,6 +479,12 @@ public class GameScreen extends SpaceScreen {
 	    obscurity_two_t=new Texture(Gdx.files.internal("obscurity_2.png"));
 	    obscurity_three_t=new Texture(Gdx.files.internal("obscurity_3.png"));
 	    obscurity_four_t=new Texture(Gdx.files.internal("obscurity_4.png"));
+	    
+	    textures.add(obscurity_t);
+	    textures.add(obscurity_one_t);
+	    textures.add(obscurity_two_t);
+	    textures.add(obscurity_three_t);
+	    textures.add(obscurity_four_t);
 	}
 	
 	
@@ -415,6 +498,16 @@ public class GameScreen extends SpaceScreen {
 	    laser=Gdx.audio.newSound(Gdx.files.internal("sfx_scronched/laser.wav"));
 	    mistaken=Gdx.audio.newSound(Gdx.files.internal("sfx_scronched/wrong.wav"));
 	    shock=Gdx.audio.newSound(Gdx.files.internal("sfx_scronched/shock.mp3"));
+	    
+	    sounds.add(minesplode);
+	    sounds.add(minehitshield);
+	    sounds.add(deshield);
+	    sounds.add(capture);
+	    sounds.add(fire);
+	    sounds.add(fire_failed);
+	    sounds.add(laser);
+	    sounds.add(mistaken);
+	    sounds.add(shock);
 	}
 	
 	void load_in_fonts(){
@@ -1224,6 +1317,13 @@ public class GameScreen extends SpaceScreen {
 		spacey_dispose();
 		bgm.stop();
 		bgm.dispose();
+		
+		for (Texture texture: textures){
+			texture.dispose();
+		}
+		for (Sound sound:sounds){
+			sound.dispose();
+		}
 	}
 	
 	@Override

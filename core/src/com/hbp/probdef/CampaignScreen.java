@@ -348,42 +348,42 @@ public class CampaignScreen extends MetaScreen {
 				dispose();
 			}
 			
-			if (one_done &&two_r.contains(tp_x,tp_y)){
+			else if (one_done &&two_r.contains(tp_x,tp_y)){
 				game.setScreen(new ArcadeScreen_Prob_Basic_Circles(game,true));
 				dispose();
 			}
 			
-			if (two_done && three_r.contains(tp_x,tp_y)){
+			else if (two_done && three_r.contains(tp_x,tp_y)){
 				game.setScreen(new ArcadeScreen_Prob_Basic_Reversed(game,true));
 				dispose();
 			}
 			
-			if (three_done && four_r.contains(tp_x,tp_y)){
+			else if (three_done && four_r.contains(tp_x,tp_y)){
 				game.setScreen(new ArcadeScreen_Prob_Decoy_Intro(game,true));
 				dispose();
 			}
 			
-			if (four_done && five_r.contains(tp_x,tp_y)){
+			else if (four_done && five_r.contains(tp_x,tp_y)){
 				game.setScreen(new ArcadeScreen_Prob_Decoy_PerfectTest(game,true));
 				dispose();
 			}
 			
-			if (five_done && seven_r.contains(tp_x,tp_y)){
+			else if (five_done && seven_r.contains(tp_x,tp_y)){
 				game.setScreen(new ArcadeScreen_Bayes_Deduction_Intro(game,true));
 				dispose();
 			}
 			
-			if (seven_done && eight_r.contains(tp_x,tp_y)){
+			else if (seven_done && eight_r.contains(tp_x,tp_y)){
 				game.setScreen(new ArcadeScreen_Bayes_Deduction_Blatant(game,true));
 				dispose();
 			}
 			
-			if (eight_done && nine_r.contains(tp_x,tp_y)){
+			else if (eight_done && nine_r.contains(tp_x,tp_y)){
 				game.setScreen(new ArcadeScreen_Bayes_Deduction_Finale(game,true));
 				dispose();
 			}
 			
-			if (menu_r.contains(tp_x,tp_y)){
+			else if (menu_r.contains(tp_x,tp_y)){
 				game.setScreen(new TitleScreen(game, true));
 	            dispose();
 			}
