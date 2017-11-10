@@ -46,11 +46,6 @@ public class ArcadeScreen_Prob_Basic_Reversed extends ArcadeScreen_Prob {
 	void level_specific_events(){
 	
 		basic_set(2);
-		
-		if (minecount==0){
-			game.setScreen(new SelectScreen_Arcade(game, true));
-			dispose();
-		}
 	
 	}
 	

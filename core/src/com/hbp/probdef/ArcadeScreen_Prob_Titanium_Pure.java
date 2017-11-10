@@ -2,18 +2,18 @@ package com.hbp.probdef;
 
 import com.hbp.probdef.ProbDef;
 
-public class ArcadeScreen_Prob_Titanium_Barbell extends ArcadeScreen_Prob_Titanium {
+public class ArcadeScreen_Prob_Titanium_Pure extends ArcadeScreen_Prob_Titanium {
 	
 	final ProbDef game;
 
 	
-	public ArcadeScreen_Prob_Titanium_Barbell(final ProbDef gam, boolean camp) {
+	public ArcadeScreen_Prob_Titanium_Pure(final ProbDef gam, boolean camp) {
 		
 		super(gam, camp);
 		
 		game = gam;
 		
-	    minecount=60;
+	    minecount=40;
 	    
 	    wave_number_total=6;
 	    
@@ -23,10 +23,10 @@ public class ArcadeScreen_Prob_Titanium_Barbell extends ArcadeScreen_Prob_Titani
 	@Override
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("circle");
-		   turret_two=new Turret_Standard("circle");
-		   turret_three=new Turret_Standard("pentagon");
-		   turret_four=new Turret_Standard("pentagon");
+		   turret_one=new Turret_Standard("triangle");
+		   turret_two=new Turret_Standard("square");
+		   turret_three=new Turret_Standard("square");
+		   turret_four=new Turret_Standard("circle");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -39,14 +39,8 @@ public class ArcadeScreen_Prob_Titanium_Barbell extends ArcadeScreen_Prob_Titani
 	
 	void level_specific_events(){
 		
-		mixed_set(2);
+		titanium_set(2);
 		
-		
-		
-		if (minecount==0){
-			game.setScreen(new SelectScreen_Arcade(game, true));
-			  dispose();
-		}
 	}
 	
 	@Override
@@ -57,7 +51,7 @@ public class ArcadeScreen_Prob_Titanium_Barbell extends ArcadeScreen_Prob_Titani
 		   purpletext=false;
 		   if (seconds<5){
 			   show_the_text=true;
-			   the_text="This level contains both ordinary and titanium mines. Prioritize appropriately.";
+			   the_text="Titanium mines cannot be destroyed; only captured.";
 		   }
 	}
 

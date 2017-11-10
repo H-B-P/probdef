@@ -44,12 +44,6 @@ public class ArcadeScreen_Prob_Basic_Survive extends ArcadeScreen_Prob {
 		
 		basic_set(2);
 		
-		
-		
-		if (minecount==0){
-			game.setScreen(new SelectScreen_Arcade(game, true));
-			  dispose();
-		}
 	}
 	
 	@Override

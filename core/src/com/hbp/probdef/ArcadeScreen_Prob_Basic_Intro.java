@@ -14,7 +14,9 @@ public class ArcadeScreen_Prob_Basic_Intro extends ArcadeScreen_Prob {
 		
 		game = gam;
 		
-	    minecount=60;
+	    minecount=40;
+	    
+	    wave_number_total=4;
 	}
 	
 	@Override
@@ -60,12 +62,8 @@ public class ArcadeScreen_Prob_Basic_Intro extends ArcadeScreen_Prob {
 	
 	void level_specific_events(){
 		
-		basic_set(2);
+		basic_set_shortened(2);
 		
-		if (minecount==0){
-			game.setScreen(new SelectScreen_Arcade(game, true));
-			  dispose();
-		}
 	}
 	
 	@Override

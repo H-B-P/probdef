@@ -117,11 +117,6 @@ public class ArcadeScreen_Prob_Decoy_PerfectTest extends ArcadeScreen_Prob {
 			spawnDecoyProbablistic(3,45,decoyfreq);
 		}
 		
-		if (minecount==0){
-			game.setScreen(new SelectScreen_Arcade(game, true));
-			  dispose();
-		}
-		
 		
 	}
 	

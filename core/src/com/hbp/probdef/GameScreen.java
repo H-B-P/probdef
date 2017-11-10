@@ -200,9 +200,7 @@ public class GameScreen extends SpaceScreen {
 	boolean purpletext;
 	
 	boolean other_purpletext;
-	
-	boolean obscurities_move;
-	
+		
 	//--Time--
 	
 	float effective_delta;
@@ -217,6 +215,11 @@ public class GameScreen extends SpaceScreen {
 	boolean exit_on_shieldfail;
 	
 	boolean bayesian;
+	
+	float timeout_time;
+	boolean timeouting_rn;
+	boolean timeouting;
+	Texture complete_box_t;
 	
 	public GameScreen(final ProbDef gam) {
 		
@@ -273,9 +276,7 @@ public class GameScreen extends SpaceScreen {
 	    attention_button_trim_t=blue_button_trim_t;
 	    
 	    big_explosion_t=new Texture(Gdx.files.internal("big_explosion.png"));
-	    
-	    obscurities_move=true;
-	    
+	    	    
 	    batch=new SpriteBatch();
 	    
 	    bayesian=false;
@@ -284,6 +285,9 @@ public class GameScreen extends SpaceScreen {
 	    
 	    total_time-=2*extra_twos;
 	    
+	    timeout_time=90000000000f;
+	    timeouting=false;
+	    timeouting_rn=false;
 	}
 	
 	void set_score_name(){
@@ -300,6 +304,8 @@ public class GameScreen extends SpaceScreen {
 	//---Loading in resources which will be useful in all game modes---
 	
 	void load_in_textures(){
+		
+		complete_box_t=new Texture(Gdx.files.internal("level_complete.png"));
 		
 		//-Dots for dotted lines-
 		

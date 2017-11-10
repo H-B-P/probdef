@@ -18,6 +18,7 @@ public class SelectorBox_Percentage extends SelectorBox {
 		   if (current_nature_int<max){
 			   current_nature_int+=interval;
 		   }
+		   current_nature_int=Math.min(current_nature_int, max);
 		   update_pref_num();
 	   }
 	   
@@ -26,6 +27,7 @@ public class SelectorBox_Percentage extends SelectorBox {
 		   if (current_nature_int>min){
 			   current_nature_int-=interval;
 		   }
+		   current_nature_int=Math.max(current_nature_int, min);
 		   update_pref_num();
 	   }
 	   

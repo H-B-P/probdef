@@ -43,12 +43,6 @@ public class ArcadeScreen_Prob_Basic_Circles extends ArcadeScreen_Prob {
 		
 		basic_set(2);
 		
-		if (minecount==0){
-			game.setScreen(new SelectScreen_Arcade(game, true));
-			  dispose();
-		}
-		
-		
 	}
 	
 	@Override
@@ -75,19 +69,31 @@ public class ArcadeScreen_Prob_Basic_Circles extends ArcadeScreen_Prob {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   purpletext=false;
-		   if (turret_one.targeted||turret_two.targeted||turret_three.targeted||turret_four.targeted){
-			   infuriatingly_specific_bool=true;
-		   }
-		   if (seconds<5){
+		   if (seconds==4 && TIMESPEED==0){
 			   show_the_text=true;
 			   the_text="Circle turrets fire only 50% of the time, but when they do, they always capture.";
 		   }
-		   if (seconds<5 && (infuriatingly_specific_bool)){
+		   if (seconds==4 && TIMESPEED==0 && (turret_one.targeted||turret_two.targeted||turret_three.targeted||turret_four.targeted)){
 			   show_the_text=true;
 			   the_text="They work well alongside hexagon turrets,\n which never fail.";
 		   }
 		   
-		   
+		   if (seconds==6 && TIMESPEED==0 && CAMPAIGN){
+			   show_the_text=true;
+			   the_text="By the way: if you took damage last level, you may have noticed that you have ten shields again.";
+			   if (turret_one.targeted){
+				   the_text="This is because shields regenerate between levels. Conversely, the mines you collected stay with you.";
+			   }
+			   if (turret_two.targeted){
+				   purpletext=true;
+				   the_text="(so if you're finding this boringly easy so far, consider risking your shields more in order to collect more mines)";
+			   }
+			   if (turret_three.targeted || turret_four.targeted || infuriatingly_specific_bool){
+				   purpletext=true;
+				   the_text="(like, by not using turrets with high destroy rates and low capture rates when you don't need to)";
+				   infuriatingly_specific_bool=true;
+			   }
+		   }
 	}
 	
 	

@@ -54,9 +54,16 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	float option_gamespeed;
 	String option_background;
 	
+	String hardcoded_opt_packagename;
+	String hardcoded_opt_platform;
+	
 	public MetaScreen(final ProbDef gam, boolean play_the_sound) {
 		
 		
+		hardcoded_opt_packagename="Combination";
+		//hardcoded_opt_packagename="Inference";
+		
+		hardcoded_opt_platform="Web";
 		
 		ANDROID=false;// If this is true, we're running on an Android device. If not, it's a PC or HTML thing.
 		//Necessary because of slight differences in gameplay depending on whether people use a mouse or a finger.

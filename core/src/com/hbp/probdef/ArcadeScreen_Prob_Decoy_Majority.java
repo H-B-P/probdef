@@ -16,13 +16,13 @@ public class ArcadeScreen_Prob_Decoy_Majority extends ArcadeScreen_Prob {
 		
 		game = gam;
 	      
-	    minecount=40;
+	    minecount=50;
 	    
 	    score=0;
 	    
 	    decoyfreq=80;
 	    
-	    wave_number_total=4;
+	    wave_number_total=5;
 	    
 	    ordinary_minetype="decoy";
 	}
@@ -51,15 +51,6 @@ public class ArcadeScreen_Prob_Decoy_Majority extends ArcadeScreen_Prob {
 	void level_specific_events(){
 		
 		decoy_set(2);
-		
-		
-		
-		
-		if (minecount==0){
-			game.setScreen(new SelectScreen_Arcade(game, true));
-			  dispose();
-		}
-		
 		
 	}
 	

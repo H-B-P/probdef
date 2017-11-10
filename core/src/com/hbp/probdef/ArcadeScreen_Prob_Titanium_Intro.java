@@ -13,20 +13,18 @@ public class ArcadeScreen_Prob_Titanium_Intro extends ArcadeScreen_Prob_Titanium
 		
 		game = gam;
 		
-	    minecount=40;
+	    minecount=60;
 	    
 	    wave_number_total=6;
-	    
-	    ordinary_minetype="titanium";
 	}
 	
 	@Override
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("triangle");
-		   turret_two=new Turret_Standard("square");
-		   turret_three=new Turret_Standard("square");
-		   turret_four=new Turret_Standard("circle");
+		   turret_one=new Turret_Standard("circle");
+		   turret_two=new Turret_Standard("circle");
+		   turret_three=new Turret_Standard("pentagon");
+		   turret_four=new Turret_Standard("pentagon");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -39,14 +37,8 @@ public class ArcadeScreen_Prob_Titanium_Intro extends ArcadeScreen_Prob_Titanium
 	
 	void level_specific_events(){
 		
-		titanium_set(2);
+		mixed_set(2);
 		
-		
-		
-		if (minecount==0){
-			game.setScreen(new SelectScreen_Arcade(game, true));
-			  dispose();
-		}
 	}
 	
 	@Override
@@ -57,7 +49,7 @@ public class ArcadeScreen_Prob_Titanium_Intro extends ArcadeScreen_Prob_Titanium
 		   purpletext=false;
 		   if (seconds<5){
 			   show_the_text=true;
-			   the_text="Titanium mines cannot be destroyed; only captured.";
+			   the_text="This level contains both ordinary and titanium mines. Prioritize appropriately.";
 		   }
 	}
 

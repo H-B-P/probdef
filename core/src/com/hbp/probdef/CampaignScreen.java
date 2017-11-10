@@ -36,7 +36,7 @@ public class CampaignScreen extends MetaScreen {
 	Rectangle three_r;
 	Rectangle four_r;
 	Rectangle five_r;
-	Rectangle six_r;
+	
 	Rectangle seven_r;
 	Rectangle eight_r;
 	Rectangle nine_r;
@@ -46,7 +46,7 @@ public class CampaignScreen extends MetaScreen {
 	boolean three_done;
 	boolean four_done;
 	boolean five_done;
-	boolean six_done;
+	
 	boolean seven_done;
 	boolean eight_done;
 	boolean nine_done;
@@ -56,7 +56,7 @@ public class CampaignScreen extends MetaScreen {
 	int three_captured;
 	int four_captured;
 	int five_captured;
-	int six_captured;
+	
 	int seven_spent;
 	int eight_spent;
 	int nine_spent;
@@ -121,8 +121,6 @@ public class CampaignScreen extends MetaScreen {
 		four_captured=prefs.getInteger("four_captured");
 		five_done=prefs.getBoolean("five_done");
 		five_captured=prefs.getInteger("five_captured");
-		six_done=prefs.getBoolean("six_done");
-		six_captured=prefs.getInteger("six_captured");
 		
 		seven_done=prefs.getBoolean("seven_done");
 		seven_spent=prefs.getInteger("seven_spent");
@@ -157,40 +155,40 @@ public class CampaignScreen extends MetaScreen {
 		
 		
 		one_r = new Rectangle();
-		one_r.x=15;
+		one_r.x=90;
 		one_r.y=320;
 		one_r.height=60;
 		one_r.width=140;
 		
 		two_r = new Rectangle();
-		two_r.x=165;
-		two_r.y=320;
+		two_r.x=15;
+		two_r.y=245;
 		two_r.height=60;
 		two_r.width=140;
 		
 		three_r = new Rectangle();
-		three_r.x=15;
+		three_r.x=165;
 		three_r.y=245;
 		three_r.height=60;
 		three_r.width=140;
 		
 		four_r = new Rectangle();
-		four_r.x=165;
-		four_r.y=245;
+		four_r.x=15;
+		four_r.y=170;
 		four_r.height=60;
 		four_r.width=140;
 		
 		five_r = new Rectangle();
-		five_r.x=15;
+		five_r.x=165;
 		five_r.y=170;
 		five_r.height=60;
 		five_r.width=140;
 		
-		six_r = new Rectangle();
-		six_r.x=165;
-		six_r.y=170;
-		six_r.height=60;
-		six_r.width=140;
+		//six_r = new Rectangle();
+		//six_r.x=165;
+		//six_r.y=170;
+		//six_r.height=60;
+		//six_r.width=140;
 		
 		seven_r = new Rectangle();
 		seven_r.x=15;
@@ -301,16 +299,6 @@ public class CampaignScreen extends MetaScreen {
 	    if (five_done){blackfont.draw(batch, "mines: "+(one_captured+two_captured+three_captured+four_captured+five_captured), five_r.x, five_r.y-2, five_r.width, 1, true);}
 	    
 	    
-	    batch.draw(button_blank_t, six_r.x, six_r.y);
-	    buttony_font.draw(batch, "Groups", six_r.x+10, six_r.y+38, 120, 1, true);
-	    
-	    if (six_r.contains(tp_x,tp_y)){
-	    	batch.draw(dull_trim_t, six_r.x, six_r.y);
-	    }
-	    if (!five_done){
-	    	batch.draw(button_dead_t, six_r.x, six_r.y);
-	    }
-	    if (six_done){blackfont.draw(batch, "mines: "+(one_captured+two_captured+three_captured+four_captured+five_captured+six_captured), six_r.x, six_r.y-2, six_r.width, 1, true);}
 	    
 	    
 	    batch.draw(button_blank_t, seven_r.x, seven_r.y);
@@ -319,10 +307,10 @@ public class CampaignScreen extends MetaScreen {
 	    if (seven_r.contains(tp_x,tp_y)){
 	    	batch.draw(dull_trim_t, seven_r.x, seven_r.y);
 	    }
-	    if (!six_done){
+	    if (!five_done){
 	    	batch.draw(button_dead_t, seven_r.x, seven_r.y);
 	    }
-	    if (seven_done){blackfont.draw(batch, "mines: "+(one_captured+two_captured+three_captured+four_captured+five_captured+six_captured-seven_spent), seven_r.x, seven_r.y-2, seven_r.width, 1, true);}
+	    if (seven_done){blackfont.draw(batch, "mines: "+(one_captured+two_captured+three_captured+four_captured+five_captured-seven_spent), seven_r.x, seven_r.y-2, seven_r.width, 1, true);}
 	    
 	    
 	    batch.draw(button_blank_t, eight_r.x, eight_r.y);
@@ -334,7 +322,7 @@ public class CampaignScreen extends MetaScreen {
 	    if (!seven_done){
 	    	batch.draw(button_dead_t, eight_r.x, eight_r.y);
 	    }
-	    if (eight_done){blackfont.draw(batch, "mines: "+(one_captured+two_captured+three_captured+four_captured+five_captured+six_captured-seven_spent-eight_spent), eight_r.x, eight_r.y-2, eight_r.width, 1, true);}
+	    if (eight_done){blackfont.draw(batch, "mines: "+(one_captured+two_captured+three_captured+four_captured+five_captured-seven_spent-eight_spent), eight_r.x, eight_r.y-2, eight_r.width, 1, true);}
 	    
 	    
 	    batch.draw(button_blank_t, nine_r.x, nine_r.y);
@@ -346,7 +334,7 @@ public class CampaignScreen extends MetaScreen {
 	    if (!eight_done){
 	    	batch.draw(button_dead_t, nine_r.x, nine_r.y);
 	    }
-	    if (nine_done){blackfont.draw(batch, "final mines: "+(one_captured+two_captured+three_captured+four_captured+five_captured+six_captured-seven_spent-eight_spent-nine_spent), nine_r.x-30, nine_r.y-2, nine_r.width+60, 1, true);}
+	    if (nine_done){blackfont.draw(batch, "final mines: "+(one_captured+two_captured+three_captured+four_captured+five_captured-seven_spent-eight_spent-nine_spent), nine_r.x-30, nine_r.y-2, nine_r.width+60, 1, true);}
 	    
 	    
 		batch.draw(poncho_t, -640, -960);
@@ -380,12 +368,7 @@ public class CampaignScreen extends MetaScreen {
 				dispose();
 			}
 			
-			if (five_done && six_r.contains(tp_x,tp_y)){
-				game.setScreen(new ArcadeScreen_Prob_Decoy_Groups(game,true));
-				dispose();
-			}
-			
-			if (six_done && seven_r.contains(tp_x,tp_y)){
+			if (five_done && seven_r.contains(tp_x,tp_y)){
 				game.setScreen(new ArcadeScreen_Bayes_Deduction_Intro(game,true));
 				dispose();
 			}

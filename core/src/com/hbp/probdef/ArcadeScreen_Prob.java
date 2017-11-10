@@ -50,6 +50,8 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 	    }
 	    
 	    extra_mines=0;
+	    
+	    timeouting=true;
 	}
 	
 	@Override
@@ -367,6 +369,25 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 		sixteen_wave_boring(sec+14*5,3);
 	}
 	
+	void basic_set_shortened(int sec){
+		
+		wave_number_update(sec-1,1);
+		
+		four_wave(sec, 2);
+		
+		wave_number_update(sec+14-1,2);
+		
+		eight_wave_alternating(sec+14, 2);
+		
+		wave_number_update(sec+14*2-1,3);
+		
+		random_twelve_wave(sec+14*3, 2);
+		
+		wave_number_update(sec+14*5-1,4);
+		
+		sixteen_wave_boring(sec+14*5,3);
+	}
+	
 	void decoy_set(int sec){
 		
 		wave_number_update(sec-1,1);
@@ -379,11 +400,15 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 		
 		wave_number_update(sec+14+16-1,3);
 		
-		eight_wave_pair(sec+14+16, 2);
+		ten_wave_freeway(sec+16+14,3);
 		
-		wave_number_update(sec+14+16+14-1,4);
+		wave_number_update(sec+14+16*2-1,4);
 		
-		twelve_wave_boxy(sec+14+16+14,3);
+		eight_wave_pair(sec+14+16*2, 2);
+		
+		wave_number_update(sec+14+16*2+14-1,5);
+		
+		twelve_wave_boxy(sec+14+16*2+14,3);
 	}
 	
 	

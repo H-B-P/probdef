@@ -40,9 +40,7 @@ public class GameScreen_Prob extends GameScreen {
    
    int currently_active_turret_no; //this is one hell of an overburdened variable and probably needs refactoring.
    //When 0, means no turret has targeted or had the chance to. When 5, means all turrets have had a chance to target.
-   
-	
-	
+   	
 	
 	
 	public GameScreen_Prob(final ProbDef gam) {
@@ -82,17 +80,25 @@ public class GameScreen_Prob extends GameScreen {
 	//--Level-specific_setup--
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("triangle");
-		   turret_two=new Turret_Standard("square");
-		   turret_three=new Turret_Standard("pentagon");
-		   turret_four=new Turret_Standard("hexagon");
+		if (hardcoded_opt_packagename.equals("Combination")){
+			turret_one=new Turret_Standard("circle");
+			turret_two=new Turret_Standard("triangle");
+			turret_three=new Turret_Standard("square");
+			turret_four=new Turret_Standard("pentagon");
+		}
+		else{
+			turret_one=new Turret_Standard("triangle");
+			turret_two=new Turret_Standard("square");
+			turret_three=new Turret_Standard("pentagon");
+			turret_four=new Turret_Standard("hexagon");
 		   
-		   turrets_standard.add((Turret_Standard) turret_one);
-		   turrets_standard.add((Turret_Standard) turret_two);
-		   turrets_standard.add((Turret_Standard) turret_three);
-		   turrets_standard.add((Turret_Standard) turret_four);
+		}
+	   turrets_standard.add((Turret_Standard) turret_one);
+	   turrets_standard.add((Turret_Standard) turret_two);
+	   turrets_standard.add((Turret_Standard) turret_three);
+	   turrets_standard.add((Turret_Standard) turret_four);
 		   
-	   }
+	}
 	   
 	//--What actually happens in the level?--
 	
@@ -169,20 +175,39 @@ public class GameScreen_Prob extends GameScreen {
 			   }
 			   if (total_time>10 && total_time<11 && TIMESPEED==0){
 				   show_the_text=true;
-				   if (currently_active_turret_no==1){
-					   the_text="Triangle Turrets fail 30% of the time, capture 30% of the time, and destroy 40% of the time.";
+				   if(hardcoded_opt_packagename.equals("Combination")){
+					   if (currently_active_turret_no==1){
+						   the_text="Circle Turrets fail 50% of the time, and capture 50% of the time.";
+					   }
+					   else if (currently_active_turret_no==2){
+						   the_text="Triangle Turrets fail 30% of the time, capture 30% of the time, and destroy 40% of the time.";
+					   }
+					   else if (currently_active_turret_no==3){
+						   the_text="Square Turrets fail 20% of the time, capture 20% of the time, and destroy 60% of the time.";
+					   }
+					   else if (currently_active_turret_no==4){
+						   the_text="Pentagon Turrets fail 10% of the time, capture 10% of the time, and destroy 80% of the time.";
+					   }
+					   else if (currently_active_turret_no==5){
+						   the_text="You can remind yourself of these probabilities at any time by hovering your mouse over a turret.";
+					   }
 				   }
-				   else if (currently_active_turret_no==2){
-					   the_text="Square Turrets fail 20% of the time, capture 20% of the time, and destroy 60% of the time.";
-				   }
-				   else if (currently_active_turret_no==3){
-					   the_text="Pentagon Turrets fail 10% of the time, capture 10% of the time, and destroy 80% of the time.";
-				   }
-				   else if (currently_active_turret_no==4){
-					   the_text="Hexagon Turrets will always successfully destroy a mine, and never fail or capture.";
-				   }
-				   else if (currently_active_turret_no==5){
-					   the_text="You can remind yourself of these probabilities at any time by hovering your mouse over a turret.";
+				   else{
+					   if (currently_active_turret_no==1){
+						   the_text="Triangle Turrets fail 30% of the time, capture 30% of the time, and destroy 40% of the time.";
+					   }
+					   else if (currently_active_turret_no==2){
+						   the_text="Square Turrets fail 20% of the time, capture 20% of the time, and destroy 60% of the time.";
+					   }
+					   else if (currently_active_turret_no==3){
+						   the_text="Pentagon Turrets fail 10% of the time, capture 10% of the time, and destroy 80% of the time.";
+					   }
+					   else if (currently_active_turret_no==4){
+						   the_text="Hexagon Turrets will always successfully destroy a mine, and never fail or capture.";
+					   }
+					   else if (currently_active_turret_no==5){
+						   the_text="You can remind yourself of these probabilities at any time by hovering your mouse over a turret.";
+					   }
 				   }
 			   }
 			   if (total_time>16 && total_time<17 && TIMESPEED==0){
@@ -874,6 +899,10 @@ public class GameScreen_Prob extends GameScreen {
 			
 			gamey_render_draw_interface();
 			
+			if (timeouting_rn){
+				batch.draw(complete_box_t, 80, 200);
+			}
+			
 			batch.end();
 			
 			//Do appropriate things!
@@ -911,14 +940,23 @@ public class GameScreen_Prob extends GameScreen {
 			}
 			
 			
+			if (minecount==0 && explosions.size==0 && timeouting && !timeouting_rn){
+				timeouting_rn=true;
+				timeout_time=total_time+5;
+			}
+			
 			
 			if (shields<=0 && exit_on_shieldfail){
 				exit_level();
 			}
-			else if (minecount==0 && explosions.size==0){
+			else if (minecount==0 && explosions.size==0 && !timeouting){
 				update_score_on_exit();
 				exit_level();
 			} 
+			else if (timeouting && timeouting_rn && total_time>timeout_time){
+				update_score_on_exit();
+				exit_level();
+			}
 			else if(Gdx.input.justTouched()){
 				if (menu_button_r.contains(tp_x, tp_y)){
 					exit_level();

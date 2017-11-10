@@ -112,11 +112,6 @@ public class ArcadeScreen_Prob_Decoy_Groups extends ArcadeScreen_Prob {
 			spawn_four_group(45);
 		}
 		
-		if (minecount==0){
-			game.setScreen(new SelectScreen_Arcade(game, true));
-			  dispose();
-		}
-		
 		
 	}
 	

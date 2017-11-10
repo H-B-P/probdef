@@ -17,15 +17,14 @@ public class ArcadeScreen_Prob_Titanium_Spread extends ArcadeScreen_Prob_Titaniu
 	    
 	    wave_number_total=6;
 	    
-	    ordinary_minetype="titanium";
 	}
 	
 	@Override
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("circle");
+		   turret_one=new Turret_Standard("triangle");
 		   turret_two=new Turret_Standard("triangle");
-		   turret_three=new Turret_Standard("triangle");
+		   turret_three=new Turret_Standard("circle");
 		   turret_four=new Turret_Standard("pentagon");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
@@ -41,12 +40,6 @@ public class ArcadeScreen_Prob_Titanium_Spread extends ArcadeScreen_Prob_Titaniu
 		
 		mixed_set(2);
 		
-		
-		
-		if (minecount==0){
-			game.setScreen(new SelectScreen_Arcade(game, true));
-			  dispose();
-		}
 	}
 	
 	@Override

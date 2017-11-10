@@ -18,9 +18,9 @@ public class ArcadeScreen_Prob_Decoy_Intro extends ArcadeScreen_Prob {
 	    
 	    ordinary_minetype="decoy";
 	    
-	    minecount=42;
+	    minecount=52;
 	    
-	    wave_number_total=4;
+	    wave_number_total=5;
 	    
 		extra_mines=prefs.getInteger("one_captured")+prefs.getInteger("two_captured")+prefs.getInteger("three_captured");
 	}
@@ -70,22 +70,16 @@ public class ArcadeScreen_Prob_Decoy_Intro extends ArcadeScreen_Prob {
 		
 		//The intro
 		
-		if (seconds==4){
+		if (seconds==6){
 			spawnDecoyMine(0,200);
 		}
-		if (seconds==6){
+		if (seconds==8){
 			spawnDecoyMine(0,95);
 		}
 		
 		//and then . . .
 		
-		decoy_set(10);
-		
-		if (minecount==0){
-			game.setScreen(new SelectScreen_Arcade(game, true));
-			  dispose();
-		}
-		
+		decoy_set(12);
 		
 	}
 	
@@ -95,22 +89,22 @@ public class ArcadeScreen_Prob_Decoy_Intro extends ArcadeScreen_Prob {
 		show_the_text=false;
 		   suppress_freezes=false;
 		   purpletext=false;
-		   if (total_time<5){
+		   if (total_time<7){
 				show_the_text=true;
 				the_text="Decoy mines look ordinary, but vanish harmlessly when they touch the ship's shield.";
 			}
-			if ((total_time>6 && total_time<8) || (seconds==8 && TIMESPEED==0)){
+			if ((total_time>8 && total_time<10) || (seconds==10 && TIMESPEED==0)){
 				show_the_text=true;
-				the_text="They don't exist, so turrets won't successfully fire on them. Every shot you try fails.";
+				the_text="Decoys don't exist, so turrets won't successfully fire on them. Every shot you try fails.";
 				
 			}
-			if (seconds==8 && (turret_one.targeted || turret_two.targeted || turret_three.targeted || turret_four.targeted)){
+			if (seconds==10 && (turret_one.targeted || turret_two.targeted || turret_three.targeted || turret_four.targeted)){
 				show_the_text=true;
 				the_text="The autocalculator assumes every mine is real and calculates odds based on that.";
 			}
 			
 			
-			if (seconds>10 && seconds<13){
+			if (seconds>12 && seconds<15){
 				show_the_text=true;
 				if (turret_one.targeted||turret_two.targeted||turret_three.targeted||turret_four.targeted){
 					   infuriatingly_specific_bool=true;
