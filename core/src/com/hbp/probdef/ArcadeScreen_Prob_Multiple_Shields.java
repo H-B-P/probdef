@@ -2,29 +2,29 @@ package com.hbp.probdef;
 
 import com.hbp.probdef.ProbDef;
 
-public class ArcadeScreen_Prob_Titanium_Intro extends ArcadeScreen_Prob_Titanium {
+public class ArcadeScreen_Prob_Multiple_Shields extends ArcadeScreen_Prob_Multiple {
 	
 	final ProbDef game;
 
 	
-	public ArcadeScreen_Prob_Titanium_Intro(final ProbDef gam, boolean camp) {
+	public ArcadeScreen_Prob_Multiple_Shields(final ProbDef gam, boolean camp) {
 		
 		super(gam, camp);
 		
 		game = gam;
 		
-	    minecount=60;
+	    minecount=30;
 	    
-	    wave_number_total=6;
+	    wave_number_total=5;
 	}
 	
 	@Override
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("circle");
+		   turret_one=new Turret_Standard("pentagon");
 		   turret_two=new Turret_Standard("circle");
-		   turret_three=new Turret_Standard("pentagon");
-		   turret_four=new Turret_Standard("pentagon");
+		   turret_three=new Turret_Standard("triangle");
+		   turret_four=new Turret_Standard("square");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -37,12 +37,7 @@ public class ArcadeScreen_Prob_Titanium_Intro extends ArcadeScreen_Prob_Titanium
 	
 	void level_specific_events(){
 		
-		if (CAMPAIGN){
-			mixed_set(2,2);
-		}
-		else{
-			mixed_set(2,3);
-		}
+		shieldy_intro_set(2);
 		
 	}
 	
@@ -54,7 +49,7 @@ public class ArcadeScreen_Prob_Titanium_Intro extends ArcadeScreen_Prob_Titanium
 		   purpletext=false;
 		   if (seconds<5){
 			   show_the_text=true;
-			   the_text="This level contains both ordinary and titanium mines. Prioritize appropriately.";
+			   the_text="Some mines have shields.\nHitting a shield layer with either a capture or a destroy attack will remove it.";
 		   }
 	}
 

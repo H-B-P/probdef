@@ -16,6 +16,7 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends ArcadeScreen_Bayes {
 		
 		if (CAMPAIGN){
 			minecount=prefs.getInteger("one_captured")+prefs.getInteger("two_captured")+prefs.getInteger("three_captured")+prefs.getInteger("four_captured")+prefs.getInteger("five_captured");
+			minecount=Math.max(minecount, 0);
 		}
 		else{
 			minecount=30;

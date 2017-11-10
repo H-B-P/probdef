@@ -276,55 +276,31 @@ public class ArcadeScreen_Prob_Titanium extends ArcadeScreen_Prob {
 		eight_wave_alternating(sec+16+18*4, 4);
 	}
 	
-	void mixed_set(int sec){
-		
-//		wave_number_update(sec-1,1);
-//		
-//		random_eight_two_wave(sec, 3);
-//		
-//		wave_number_update(sec+16-1,2);
-//
-//		random_eight_four_wave(sec+16, 3);
-//		
-//		wave_number_update(sec+16*2-1,3);
-//		
-//		random_ten_two_wave(sec+16*2, 3);
-//		
-//		wave_number_update(sec+16*3-1,4);
-//		
-//		random_ten_four_wave(sec+16*3, 3);
-//		
-//		wave_number_update(sec+18*4-1,5);
-//		
-//		random_twelve_two_wave(sec+16*4, 3);
-//		
-//		wave_number_update(sec+16*5-1,6);
-//		
-//		random_twelve_four_wave(sec+16*5, 3);
+	void mixed_set(int sec, int k_ops){
 		
 		wave_number_update(sec-1,1);
 		
-		random_eight_two_wave(sec, 2);
+		random_eight_two_wave(sec, k_ops);
 		
 		wave_number_update(sec+16-1,2);
 
-		random_eight_four_wave(sec+16, 2);
+		random_eight_four_wave(sec+16, k_ops);
 		
 		wave_number_update(sec+16*2-1,3);
 		
-		random_ten_two_wave(sec+16*2, 2);
+		random_ten_two_wave(sec+16*2, k_ops);
 		
 		wave_number_update(sec+16*3-1,4);
 		
-		random_ten_four_wave(sec+16*3, 2);
+		random_ten_four_wave(sec+16*3, k_ops);
 		
-		wave_number_update(sec+18*4-1,5);
+		wave_number_update(sec+16*4-1,5);
 		
-		random_twelve_two_wave(sec+16*4, 2);
+		random_twelve_two_wave(sec+16*4, k_ops);
 		
 		wave_number_update(sec+16*5-1,6);
 		
-		random_twelve_four_wave(sec+16*5, 2);
+		random_twelve_four_wave(sec+16*5, k_ops);
 	}
 	
 	@Override

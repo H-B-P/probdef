@@ -310,7 +310,7 @@ public class CampaignScreen extends MetaScreen {
 	    if (!five_done){
 	    	batch.draw(button_dead_t, seven_r.x, seven_r.y);
 	    }
-	    if (seven_done){blackfont.draw(batch, "mines: "+(one_captured+two_captured+three_captured+four_captured+five_captured-seven_spent), seven_r.x, seven_r.y-2, seven_r.width, 1, true);}
+	    if (seven_done){blackfont.draw(batch, "mines: "+Math.max(one_captured+two_captured+three_captured+four_captured+five_captured-seven_spent,0), seven_r.x, seven_r.y-2, seven_r.width, 1, true);}
 	    
 	    
 	    batch.draw(button_blank_t, eight_r.x, eight_r.y);
@@ -322,7 +322,7 @@ public class CampaignScreen extends MetaScreen {
 	    if (!seven_done){
 	    	batch.draw(button_dead_t, eight_r.x, eight_r.y);
 	    }
-	    if (eight_done){blackfont.draw(batch, "mines: "+(one_captured+two_captured+three_captured+four_captured+five_captured-seven_spent-eight_spent), eight_r.x, eight_r.y-2, eight_r.width, 1, true);}
+	    if (eight_done){blackfont.draw(batch, "mines: "+Math.max(one_captured+two_captured+three_captured+four_captured+five_captured-seven_spent-eight_spent,0), eight_r.x, eight_r.y-2, eight_r.width, 1, true);}
 	    
 	    
 	    batch.draw(button_blank_t, nine_r.x, nine_r.y);
@@ -334,7 +334,7 @@ public class CampaignScreen extends MetaScreen {
 	    if (!eight_done){
 	    	batch.draw(button_dead_t, nine_r.x, nine_r.y);
 	    }
-	    if (nine_done){blackfont.draw(batch, "final mines: "+(one_captured+two_captured+three_captured+four_captured+five_captured-seven_spent-eight_spent-nine_spent), nine_r.x-30, nine_r.y-2, nine_r.width+60, 1, true);}
+	    if (nine_done){blackfont.draw(batch, "final mines: "+Math.max(one_captured+two_captured+three_captured+four_captured+five_captured-seven_spent-eight_spent-nine_spent,0), nine_r.x-30, nine_r.y-2, nine_r.width+60, 1, true);}
 	    
 	    
 		batch.draw(poncho_t, -640, -960);

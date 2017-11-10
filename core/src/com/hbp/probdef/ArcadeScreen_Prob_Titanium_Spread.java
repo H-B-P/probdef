@@ -38,7 +38,12 @@ public class ArcadeScreen_Prob_Titanium_Spread extends ArcadeScreen_Prob_Titaniu
 	
 	void level_specific_events(){
 		
-		mixed_set(2);
+		if (CAMPAIGN){
+			mixed_set(2,2);
+		}
+		else{
+			mixed_set(2,3);
+		}
 		
 	}
 	

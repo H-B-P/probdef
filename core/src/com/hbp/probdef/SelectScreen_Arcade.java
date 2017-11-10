@@ -287,13 +287,13 @@ public class SelectScreen_Arcade extends SelectScreen {
 				five_s="";//"Titanium Decoys";
 				five_double_liner=true;
 			}
-			if(TOPIC.equals("Shields")){
+			if(TOPIC.equals("Multiple")){
 				NUMBER_OF_LEVELS=6;
 				banner_t=banner_blank_t;
-				banner_s="Shields";
-				one_s="";//"Intro I";
+				banner_s="Multiple";
+				one_s="Shields";
 				one_double_liner=false;
-				two_s="";//"Intro II";
+				two_s="Multishot";
 				two_double_liner=false;
 				three_s="";//"Doubles";
 				three_double_liner=false;
@@ -391,10 +391,10 @@ public class SelectScreen_Arcade extends SelectScreen {
 			
 			
 			else if (TOPIC.equals("Titanium")){
-				TOPIC="Shields";
+				TOPIC="Multiple";
 			}
 			
-			else if (TOPIC.equals("Shields")){
+			else if (TOPIC.equals("Multiple")){
 				TOPIC="Challenge";
 			}
 			
@@ -430,15 +430,16 @@ public class SelectScreen_Arcade extends SelectScreen {
 				TOPIC="Decoys";
 			}
 			
-			else if (TOPIC.equals("Shields")){
+			else if (TOPIC.equals("Multiple")){
 				TOPIC="Titanium";
 			}
 			else if (TOPIC.equals("Challenge")){
-				TOPIC="Shields";
+				TOPIC="Multiple";
 			}
 			else if (TOPIC.equals("Conditional")){
 				TOPIC="Challenge";
 			}
+			
 			
 			else if (TOPIC.equals("Dukkha")){
 				TOPIC="Deduction";
@@ -496,6 +497,8 @@ public class SelectScreen_Arcade extends SelectScreen {
 				   dispose();
 			   }
 		   }
+		   
+		   
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Titanium")){
 			   if (one_r.contains(tp_x,tp_y)){
 				   game.setScreen(new ArcadeScreen_Prob_Titanium_Intro(game, false));
@@ -510,6 +513,15 @@ public class SelectScreen_Arcade extends SelectScreen {
 				   dispose();
 			   }
 		   }
+		   
+		   if (Gdx.input.justTouched()&& TOPIC.equals("Multiple")){
+			   if (one_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Prob_Multiple_Shields(game, false));
+				   dispose();
+			   }
+		   }
+		   
+		   
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Deduction")){
 			   if (one_r.contains(tp_x,tp_y)){
 				   game.setScreen(new ArcadeScreen_Bayes_Deduction_Intro(game, false));

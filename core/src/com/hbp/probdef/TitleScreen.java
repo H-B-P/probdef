@@ -129,10 +129,6 @@ public class TitleScreen extends MetaScreen {
 		
 	}
 	
-	void explainybox_explain(){
-		
-	}
-	
 	@Override
 	public void render(float delta) {
 		

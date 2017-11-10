@@ -2,7 +2,7 @@ package com.hbp.probdef;
 
 /*~SUMMARY~
  * 
- * This is the root of gameplay that's based on standard turrets (i.e. not Bayes). Unmodified, it doubles as the tutorial.
+ * This is the root of gameplay that's based on standard turrets (i.e. not Bayes). Unextended, it doubles as the tutorial.
  */
 
 import java.util.Iterator;
@@ -940,11 +940,20 @@ public class GameScreen_Prob extends GameScreen {
 			}
 			
 			
+			
+			
+			
+			
+			
+			
 			if (minecount==0 && explosions.size==0 && timeouting && !timeouting_rn){
 				timeouting_rn=true;
 				timeout_time=total_time+5;
 			}
 			
+			
+			
+			//---Handle all the exits!---
 			
 			if (shields<=0 && exit_on_shieldfail){
 				exit_level();
@@ -959,6 +968,9 @@ public class GameScreen_Prob extends GameScreen {
 			}
 			else if(Gdx.input.justTouched()){
 				if (menu_button_r.contains(tp_x, tp_y)){
+					if (timeouting && timeouting_rn){
+						update_score_on_exit();
+					}
 					exit_level();
 				}
 			}
