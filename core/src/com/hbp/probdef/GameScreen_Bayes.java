@@ -111,6 +111,8 @@ public class GameScreen_Bayes extends GameScreen {
 		suppress_phasing=false;
 		suppress_autocalc=false;
 		suppress_exits=false;
+		
+		timeouting=true;
 	}
 	
 	void vane_setup(){
@@ -378,7 +380,7 @@ public class GameScreen_Bayes extends GameScreen {
 	
 	void level_specific_HUD(){
 		font.draw(batch, "CIRC/TRI/PENT", 90, 473, 140, 1, true);
-		font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
+		font.draw(batch, "WAVE: "+Math.min(shipwave, total_shipwaves)+"/"+total_shipwaves, 90, 455, 140, 1, true);
 		font.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
 		font.draw(batch, "SCORE: "+ score, 90, 419, 140, 1, true);
 	}
@@ -1094,6 +1096,10 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		gamey_render_draw_interface();
 		
+		if (timeouting_rn){
+			batch.draw(complete_box_t, 80, 200);
+		}
+		
 		batch.end();
 		
 		//Do appropriate things!
@@ -1139,16 +1145,23 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		//handle exits
 		
+		if (timeouting && !timeouting_rn && shipwave>=total_shipwaves && enemyships.size==0 && explosions.size==0 && !suppress_exits){
+			timeouting_rn=true;
+			timeout_time=total_time+5;
+		}
+		
+		
 		if (shields<=0 && exit_on_shieldfail){
 			exit_level();
 		}
 		
-		if (shipwave>=total_shipwaves && enemyships.size==0 && explosions.size==0 && !suppress_exits){
+		
+		else if (timeouting && timeouting_rn && total_time>timeout_time){
 			update_score_on_exit();
 			exit_level();
 		}
 		
-		if(Gdx.input.justTouched()){
+		else if(Gdx.input.justTouched()){
 			if (menu_button_r.contains(tp_x, tp_y)){
 				exit_level();
 			}

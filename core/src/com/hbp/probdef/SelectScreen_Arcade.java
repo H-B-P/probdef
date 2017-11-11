@@ -189,8 +189,12 @@ public class SelectScreen_Arcade extends SelectScreen {
 	   
 	   
 	   public void adjustToTopic(){
-			
+		   if (hardcoded_opt_packagename.equals("Combination")){
+			   prefs.putString("probdef_arcade_combination_top", TOPIC);
+		   }
+		   else{
 			prefs.putString("probdef_arcade_top", TOPIC);
+		   }
 			prefs.flush();
 			if(TOPIC.equals("Basic")){
 				NUMBER_OF_LEVELS=5;

@@ -19,10 +19,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SelectScreen extends MetaScreen {
-    final ProbDef game;
-	
-	private Music bgm;
-	
+    final ProbDef game;	
 	
 	private Rectangle nxt_r;
 	private Texture nxt_t;	

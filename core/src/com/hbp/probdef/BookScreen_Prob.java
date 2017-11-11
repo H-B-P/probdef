@@ -121,7 +121,7 @@ public class BookScreen_Prob extends GameScreen_Prob {
 		}
 		
 		if (option_flicker){
-			if (page==maxpages && time_to_move_on && seconds%2==1){
+			if (page==maxpages && time_to_move_on && (seconds/2)%2==1){
 				batch.draw(orange_button_trim_t, menu_button_r.x, menu_button_r.y);
 			}
 		}

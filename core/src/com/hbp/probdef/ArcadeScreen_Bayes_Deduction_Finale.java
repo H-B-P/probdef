@@ -6,6 +6,10 @@ public class ArcadeScreen_Bayes_Deduction_Finale extends ArcadeScreen_Bayes {
 	
 	final ProbDef game;
 	
+	
+	boolean succeeded_yet;
+	float success_time;
+	
 	public ArcadeScreen_Bayes_Deduction_Finale(final ProbDef gam, boolean camp) {
 		
 		super(gam, camp);
@@ -21,6 +25,14 @@ public class ArcadeScreen_Bayes_Deduction_Finale extends ArcadeScreen_Bayes {
 		}
 		
 		original_minecount=minecount;
+		
+		if (CAMPAIGN){
+			timeouting=false;
+		}
+		succeeded_yet=false;
+		
+		success_time=0;
+		success_time=90000000000000000000000000000000f;
 		
 	}
 	
@@ -157,13 +169,13 @@ public class ArcadeScreen_Bayes_Deduction_Finale extends ArcadeScreen_Bayes {
 	void level_specific_HUD(){
 		if (CAMPAIGN){
 			font.draw(batch, "CIRC/TRI/PENT", 90, 473, 140, 1, true);
-			font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
+			font.draw(batch, "WAVE: "+Math.min(shipwave, total_shipwaves)+"/"+total_shipwaves, 90, 455, 140, 1, true);
 			font.draw(batch, "SHIELDS: "+shields, 90, 437, 140, 1, true);
 			font.draw(batch, "MINES: "+ minecount, 90, 419, 140, 1, true);
 		}
 		else{
 			font.draw(batch, "CIRC/TRI/PENT", 90, 473, 140, 1, true);
-			font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
+			font.draw(batch, "WAVE: "+Math.min(shipwave, total_shipwaves)+"/"+total_shipwaves, 90, 455, 140, 1, true);
 			font.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
 			font.draw(batch, "SCORE: "+ score, 90, 419, 140, 1, true);
 		}
@@ -188,5 +200,50 @@ public class ArcadeScreen_Bayes_Deduction_Finale extends ArcadeScreen_Bayes {
 		font.draw(batch, "CIRCLE: "+ship_three_percentfreq_one+"%", 90, 455, 140, 1, true);
 		font.draw(batch, "TRIANGLE: "+ship_three_percentfreq_two+"%", 90, 437, 140, 1, true);
 		font.draw(batch, "PENTAGON: "+ship_three_percentfreq_three+"%", 90, 419, 140, 1, true);
+	}
+	
+	@Override
+	
+	public void render(float delta){
+		bayesgame_render(delta);
+		
+		if (CAMPAIGN){
+			if (!succeeded_yet && shipwave>=total_shipwaves && enemyships.size==0 && explosions.size==0){
+				succeeded_yet=true;
+				success_time=total_time;
+				update_score_on_exit();
+			}
+			
+			batch.begin();
+			
+			if (total_time>success_time+2){
+				batch.draw(textbox_one_t, 20, 300);
+				blackfont.draw(batch, "Congratulations, you finished the Campaign! Now, look through the Library to learn the math behind what you did.", 30, 373, 260, 1, true);
+			}
+			
+			if (total_time>success_time+8){
+				batch.draw(textbox_one_t, 20, 200);
+				purplefont.draw(batch, "(or head over to the arcade and check out the levels that were too weird to be part of the campaign)", 30, 273, 260, 1, true);
+			}
+			
+			if (total_time>success_time+14){
+				batch.draw(textbox_one_t, 20, 100);
+				purplefont.draw(batch, "(or replay the campaign if you want, or turn the computer off and go for a walk, idk it's your life)", 30, 173, 260, 1, true);
+			}
+			
+			if (total_time>success_time+20){
+				if (option_flicker){
+					if ((seconds/2)%2==1){
+						batch.draw(green_button_trim_t, menu_button_r.x, menu_button_r.y);
+					}
+				}
+				else{
+						batch.draw(green_button_trim_t, menu_button_r.x, menu_button_r.y);
+				}
+			}
+			
+			batch.end();
+		}
+		
 	}
 }

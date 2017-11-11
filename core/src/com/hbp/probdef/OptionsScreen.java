@@ -18,8 +18,6 @@ public class OptionsScreen extends MetaScreen {
 	
 	final ProbDef game;
 	
-	private Music bgm;
-	
 	private SelectorBox_Percentage musicVolumeSelectorBox;
 	private SelectorBox_Percentage sfxVolumeSelectorBox;
 	private SelectorBox acalcSelectorBox;

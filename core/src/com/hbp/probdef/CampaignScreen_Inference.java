@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.utils.Array;
 
-public class CampaignScreen extends MetaScreen {
+public class CampaignScreen_Inference extends MetaScreen {
 	
 	final ProbDef game;
 	
@@ -68,7 +68,7 @@ public class CampaignScreen extends MetaScreen {
 	BitmapFont buttony_font;
 
 	
-	public CampaignScreen(final ProbDef gam, boolean play_the_sound) {
+	public CampaignScreen_Inference(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		

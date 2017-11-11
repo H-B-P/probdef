@@ -34,7 +34,7 @@ public class ArcadeScreen_Bayes extends GameScreen_Bayes {
 	
 	void exit_level(){
 		if (CAMPAIGN){
-			game.setScreen(new CampaignScreen(game, true));
+			game.setScreen(new CampaignScreen_Inference(game, true));
 		}
 		else{
 			game.setScreen(new SelectScreen_Arcade(game, true));

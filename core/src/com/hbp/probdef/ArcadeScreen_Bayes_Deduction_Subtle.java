@@ -114,7 +114,7 @@ public class ArcadeScreen_Bayes_Deduction_Subtle extends ArcadeScreen_Bayes {
 	
 	void level_specific_HUD(){
 		font.draw(batch, "TRI/SQ/PENT", 90, 473, 140, 1, true);
-		font.draw(batch, "WAVE: "+shipwave+"/"+total_shipwaves, 90, 455, 140, 1, true);
+		font.draw(batch, "WAVE: "+Math.min(shipwave, total_shipwaves)+"/"+total_shipwaves, 90, 455, 140, 1, true);
 		font.draw(batch, "MINES: "+minecount, 90, 437, 140, 1, true);
 		font.draw(batch, "SCORE: "+ score, 90, 419, 140, 1, true);
 	}

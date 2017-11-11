@@ -58,7 +58,7 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 	
 	void exit_level(){
 		if (CAMPAIGN){
-			game.setScreen(new CampaignScreen(game, true));
+			game.setScreen(new CampaignScreen_Inference(game, true));
 			dispose();
 		}
 		else{
@@ -348,25 +348,25 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 		
 		four_wave(sec, 2);
 		
-		wave_number_update(sec+14-1,2);
+		wave_number_update(sec+16-1,2);
 		
-		random_six_wave(sec+14, 2);
+		random_six_wave(sec+16, 2);
 		
-		wave_number_update(sec+14*2-1,3);
+		wave_number_update(sec+16*2-1,3);
 
-		random_ten_wave(sec+14*2, 2);
+		random_ten_wave(sec+16*2, 2);
 		
-		wave_number_update(sec+14*3-1,4);
+		wave_number_update(sec+16*3-1,4);
 		
-		random_weird_twelve_wave(sec+14*3, 2);
+		random_weird_twelve_wave(sec+16*3, 2);
 		
-		wave_number_update(sec+14*4-1,5);
+		wave_number_update(sec+16*4-1,5);
 		
-		random_dull_twelve_wave(sec+14*4, 2);
+		random_dull_twelve_wave(sec+16*4, 2);
 		
-		wave_number_update(sec+14*5-1,6);
+		wave_number_update(sec+16*5-1,6);
 		
-		sixteen_wave_boring(sec+14*5,3);
+		sixteen_wave_boring(sec+16*5,3);
 	}
 	
 	void basic_set_shortened(int sec){
@@ -375,17 +375,17 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 		
 		four_wave(sec, 2);
 		
-		wave_number_update(sec+14-1,2);
+		wave_number_update(sec+16-1,2);
 		
-		eight_wave_alternating(sec+14, 2);
+		eight_wave_alternating(sec+16, 2);
 		
-		wave_number_update(sec+14*2-1,3);
+		wave_number_update(sec+16*2-1,3);
 		
-		random_twelve_wave(sec+14*3, 2);
+		random_twelve_wave(sec+16*2, 2);
 		
-		wave_number_update(sec+14*5-1,4);
+		wave_number_update(sec+16*3-1,4);
 		
-		sixteen_wave_boring(sec+14*5,3);
+		sixteen_wave_boring(sec+16*3,3);
 	}
 	
 	void decoy_set(int sec){
@@ -394,17 +394,17 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 		
 		eight_wave_alternating(sec, 2);
 		
-		wave_number_update(sec+14-1,2);
+		wave_number_update(sec+16-1,2);
 
-		twelve_wave_boring(sec+14, 3);
+		twelve_wave_boring(sec+16, 3);
 		
-		wave_number_update(sec+14+16-1,3);
+		wave_number_update(sec+16+18-1,3);
 		
-		ten_wave_freeway(sec+16+14,3);
+		ten_wave_freeway(sec+16+18,3);
 		
-		wave_number_update(sec+14+16*2-1,4);
+		wave_number_update(sec+16+18*2-1,4);
 		
-		eight_wave_pair(sec+14+16*2, 2);
+		eight_wave_pair(sec+16+18*2, 2);
 		
 		wave_number_update(sec+14+16*2+14-1,5);
 		

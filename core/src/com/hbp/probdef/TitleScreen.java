@@ -16,9 +16,7 @@ import com.hbp.probdef.ProbDef;
 public class TitleScreen extends MetaScreen {
 	
 	final ProbDef game;
-	
-	private Music bgm;
-	
+		
 	private Rectangle LIBRARY_r;
 	private Texture LIBRARY_t;
 	
@@ -216,7 +214,7 @@ public class TitleScreen extends MetaScreen {
 				}
 				
 				if (CAMPAIGN_r.contains(tp_x,tp_y)){
-					game.setScreen(new CampaignScreen(game, true));
+					game.setScreen(new CampaignScreen_Inference(game, true));
 		            dispose();
 				}
 				

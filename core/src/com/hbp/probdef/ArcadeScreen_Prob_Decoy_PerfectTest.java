@@ -83,35 +83,35 @@ public class ArcadeScreen_Prob_Decoy_PerfectTest extends ArcadeScreen_Prob {
 			spawnDecoyProbablistic(1,95,decoyfreq);
 		}
 		
-		wave_number_update(13,2);
+		wave_number_update(17,2);
 		
 		
-		if (seconds==16 || seconds==18 || seconds==20 || seconds==14){
+		if (seconds==18 || seconds==20 || seconds==22 || seconds==24){
 			spawnDecoyProbablistic(-2,65,decoyfreq);
 			spawnDecoyProbablistic(0,65,decoyfreq);
 			spawnDecoyProbablistic(2,65,decoyfreq);
 		}
 		
-		wave_number_update(27,3);
+		wave_number_update(33,3);
 		
-		if (seconds==30 || seconds==32 ||seconds==34 || seconds==28){
+		if (seconds==34 || seconds==36 ||seconds==38 || seconds==40){
 			spawnDecoyProbablistic(-3,45,decoyfreq);
 			spawnDecoyProbablistic(-1,45,decoyfreq);
 			spawnDecoyProbablistic(1,45,decoyfreq);
 			spawnDecoyProbablistic(3,45,decoyfreq);
 		}
 		
-		wave_number_update(41,4);
+		wave_number_update(49,4);
 		
 		
-		if (seconds==42 || seconds==46 ){
+		if (seconds==50 || seconds==54 ){
 			spawnDecoyProbablistic(-3,45,decoyfreq);
 			spawnDecoyProbablistic(-1,65,decoyfreq);
 			spawnDecoyProbablistic(1,65,decoyfreq);
 			spawnDecoyProbablistic(3,45,decoyfreq);
 		}
 		
-		if (seconds==44 || seconds==48){
+		if (seconds==52 || seconds==56){
 			spawnDecoyProbablistic(-3,45,decoyfreq);
 			spawnDecoyProbablistic(0,65,decoyfreq);
 			spawnDecoyProbablistic(3,45,decoyfreq);
@@ -136,7 +136,7 @@ public class ArcadeScreen_Prob_Decoy_PerfectTest extends ArcadeScreen_Prob {
 		   if (total_time<5 && infuriatingly_specific_bool){
 				show_the_text=true;
 				purpletext=true;
-				the_text="(hexagons always work on real mines, so if a hex fails, the mine that made it fail has to be a decoy)";
+				the_text="(hexagons always work on real mines, so if a hexagon fails, the mine that made it fail must be a decoy)";
 				//the_text="To compensate for this advantage, this level has far higher mine density. Good luck!";
 			}
 		   

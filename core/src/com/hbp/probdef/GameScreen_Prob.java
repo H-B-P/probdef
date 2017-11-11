@@ -492,6 +492,18 @@ public class GameScreen_Prob extends GameScreen {
 			    			  }
 			    		  }
 			    	  }
+			    	  if (!mien){
+			    		  if (the_selected_mine!=null){
+			    			  mien=true;
+			    			  font.draw(batch, "==MINE==", 90, 455, 140, 1, true);
+			    			  if (the_selected_mine.turns_to_hit==1){
+				    			  font.draw(batch, the_selected_mine.turns_to_hit+" turn to hit", 90, 437, 140, 1, true);
+			    			  }
+			    			  else{
+				    			  font.draw(batch, the_selected_mine.turns_to_hit+" turns to hit", 90, 437, 140, 1, true);
+			    			  }
+			    		  }
+			    	  }
 		    	  }
 		    	  
 		    	  if (!mien){

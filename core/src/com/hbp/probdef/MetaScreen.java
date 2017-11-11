@@ -11,6 +11,7 @@ package com.hbp.probdef;
  */
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -21,12 +22,15 @@ import com.badlogic.gdx.Preferences;
 
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.audio.Music;
 
 public class MetaScreen implements Screen { //Regarding implementing vs extending, I want all screens to be playable for debugging and education purposes.
 	//In other words, if you want to see what MetaScreen or SpaceyScreen do, you can just load them up and see them in action.
 	
 	final ProbDef game;
 	OrthographicCamera camera;
+	
+	public Music bgm;
 	
 	public boolean ANDROID; // this variable is Very Important
 	
@@ -60,8 +64,8 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	public MetaScreen(final ProbDef gam, boolean play_the_sound) {
 		
 		
-		hardcoded_opt_packagename="Combination";
-		//hardcoded_opt_packagename="Inference";
+		//hardcoded_opt_packagename="Combination";
+		hardcoded_opt_packagename="Inference";
 		
 		hardcoded_opt_platform="Web";
 		
@@ -108,6 +112,14 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 			prefs.flush();
 		}
 		
+		if (!prefs.contains("prev_sfx_vol")){
+			prefs.putFloat("prev_sfx_vol", 0f);
+		}
+		if (!prefs.contains("prev_music_vol")){
+			prefs.putFloat("prev_music_vol", 0f);
+		}
+		
+		
 		
 		if (!prefs.contains("Book_Combine")){
 			prefs.putInteger("Book_Combine", 0);
@@ -138,6 +150,10 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 		
 		
 		update_options();
+		
+		
+		//set up a dummy bgm on general principles?
+		//bgm=Gdx.audio.newMusic(Gdx.files.internal("Menu.mp3"));
 		
 		System.out.println(option_flicker);
 		
@@ -219,11 +235,44 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 		}
 	}
 	
+	//---People apparently really want to change volume in-level so ok---
+	
+	void check_for_optionchanges(){
+		if (Gdx.input.isKeyPressed(Input.Keys.O)){
+			if (Gdx.input.isKeyJustPressed(Input.Keys.M)){
+				if (option_music_volume>0.001f){
+					prefs.putFloat("prev_music_vol", option_music_volume);
+					option_music_volume=0f;
+					prefs.putFloat("Music Volume", option_music_volume);
+					bgm.setVolume(option_music_volume);
+				}
+				else{
+					option_music_volume=prefs.getFloat("prev_music_vol");
+					prefs.putFloat("Music Volume", option_music_volume);
+					bgm.setVolume(option_music_volume);
+				}
+				
+			}
+			if (Gdx.input.isKeyJustPressed(Input.Keys.N)){
+				if (option_sfx_volume>0.001f){
+					prefs.putFloat("prev_sfx_vol", option_sfx_volume);
+					option_sfx_volume=0f;
+					prefs.putFloat("SFX Volume", option_sfx_volume);
+				}
+				else{
+					option_sfx_volume=prefs.getFloat("prev_sfx_vol");
+					prefs.putFloat("SFX Volume", option_sfx_volume);
+				}
+				
+			}
+		}
+	}
+	
 	//This function contains the things every screen has to do every step.
 	
 	public void meta_render() {
 		
-		//Comment out the above line if you want to try stretching the screen and confirming this would work on Android.
+		check_for_optionchanges();
 		
 		camera.update();
 		

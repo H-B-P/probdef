@@ -6,6 +6,8 @@ package com.hbp.probdef;
  * This is the foundation of every level which involves actual gameplay.
  * 
  * It sets up the looping backgrounds, the ship, the shield, and miscellaneous time-based variables.
+ * 
+ * I intend to use this wholesale for other SomethingDef games, even non-turnbased ones.
  */
 
 import com.badlogic.gdx.Gdx;
@@ -22,10 +24,7 @@ import com.hbp.probdef.ProbDef;
 public class SpaceScreen extends MetaScreen {
 	
 	final ProbDef game;
-	
-	public Music bgm;
-	
-	
+		
 	public Texture starry_background_layer_one_t;
 	public Texture starry_background_layer_two_t;
 	
@@ -100,8 +99,8 @@ public class SpaceScreen extends MetaScreen {
 	    
 		ship_posn=-390;
 		
-		starspeed_one=2;
-		starspeed_two=7;
+		starspeed_one=3;
+		starspeed_two=8;
 		
 		pretty_speed=10;
 		
