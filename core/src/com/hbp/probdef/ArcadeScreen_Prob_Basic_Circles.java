@@ -88,11 +88,6 @@ public class ArcadeScreen_Prob_Basic_Circles extends ArcadeScreen_Prob {
 				   purpletext=true;
 				   the_text="(so if you're finding this boringly easy so far, consider risking your shields more in order to collect more mines)";
 			   }
-			   if (turret_three.targeted || turret_four.targeted || infuriatingly_specific_bool){
-				   purpletext=true;
-				   the_text="(like, by not using turrets with high destroy rates and low capture rates when you don't need to)";
-				   infuriatingly_specific_bool=true;
-			   }
 		   }
 	}
 	

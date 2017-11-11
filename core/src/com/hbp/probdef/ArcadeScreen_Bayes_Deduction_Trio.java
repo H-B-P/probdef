@@ -2,7 +2,7 @@ package com.hbp.probdef;
 
 import com.hbp.probdef.ProbDef;
 
-public class ArcadeScreen_Bayes_Deduction_Finale extends ArcadeScreen_Bayes {
+public class ArcadeScreen_Bayes_Deduction_Trio extends ArcadeScreen_Bayes {
 	
 	final ProbDef game;
 	
@@ -10,14 +10,14 @@ public class ArcadeScreen_Bayes_Deduction_Finale extends ArcadeScreen_Bayes {
 	boolean succeeded_yet;
 	float success_time;
 	
-	public ArcadeScreen_Bayes_Deduction_Finale(final ProbDef gam, boolean camp) {
+	public ArcadeScreen_Bayes_Deduction_Trio(final ProbDef gam, boolean camp) {
 		
 		super(gam, camp);
 		
 		game = gam;
 		
 		if (CAMPAIGN){
-			minecount=prefs.getInteger("one_captured")+prefs.getInteger("two_captured")+prefs.getInteger("three_captured")+prefs.getInteger("four_captured")+prefs.getInteger("five_captured")-prefs.getInteger("seven_spent")-prefs.getInteger("eight_spent");
+			minecount=prefs.getInteger("one_captured")+prefs.getInteger("two_captured")+prefs.getInteger("four_captured")+prefs.getInteger("five_captured")-prefs.getInteger("seven_spent");
 			minecount=Math.max(minecount, 0);
 		}
 		else{
@@ -49,23 +49,34 @@ public class ArcadeScreen_Bayes_Deduction_Finale extends ArcadeScreen_Bayes {
 		if (shipwave==1){
 			if (round==1 && current_status.equals("targeting")){
 				show_the_text=true;
-				the_text="Sometimes, evidence is less definitive.";
+				the_text="Sometimes, evidence can be definitive; other times, it cannot.";
 				if (minecount<15){
 					purpletext=true;
 					the_text="(hey jsyk you should probably replay some earlier levels and get a bigger stash of mines before trying this one)";
 				}
+				else if (CAMPAIGN){
+					the_text="This is the final level of the campaign. Good luck.";
+				}
 				if (vane_one.targeted||vane_two.targeted){
-					the_text="Ships in this area have circle, triangle and pentagon turrets. These behave more similarly.";
+					the_text="Ships in this area have circle, triangle and pentagon turrets.";
 					if (minecount<15){
 						purpletext=true;
 						the_text="(or you can keep going if you want just don't say I didn't warn you)";
 					}
+					else if (CAMPAIGN){
+						purpletext=true;
+						the_text="(hope you brought enough mines!)";
+					}
 				}
 				if (vane_one.targeted && vane_two.targeted){
-					the_text="As a result, being confident in your reasoning becomes more difficult.";
+					the_text="A destroyshot can prove a turret isn't a circle, but no behavior reliably seperates pentagons from triangles.";
 					if (minecount<15){
 						purpletext=true;
 						the_text="(or you can keep going if you want just don't say I didn't warn you)";
+					}
+					else if (CAMPAIGN){
+						purpletext=true;
+						the_text="(hope you brought enough mines!)";
 					}
 				}
 			}

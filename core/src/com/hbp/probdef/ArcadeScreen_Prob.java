@@ -406,9 +406,9 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 		
 		eight_wave_pair(sec+16+18*2, 2);
 		
-		wave_number_update(sec+14+16*2+14-1,5);
+		wave_number_update(sec+16+18*2+16-1,5);
 		
-		twelve_wave_boxy(sec+14+16*2+14,3);
+		twelve_wave_boxy(sec+16+18*2+16,3);
 	}
 	
 	

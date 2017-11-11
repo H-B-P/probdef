@@ -152,7 +152,7 @@ public class GameScreen_Prob extends GameScreen {
 				   if(TIMESPEED==0){
 					   show_the_text=true;
 					   if (!turret_one.targeted){
-						   the_text="Mines threaten your ship. Every two seconds, time freezes. Click on a mine while time is frozen to target it.";
+						   the_text="Mines threaten your ship. Every second, time freezes. Click on a mine while time is frozen to target it.";
 					   }
 					   else{
 						   the_text="Keep clicking on mines until every turret is targeted.";

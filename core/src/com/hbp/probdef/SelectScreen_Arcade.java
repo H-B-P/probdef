@@ -111,66 +111,40 @@ public class SelectScreen_Arcade extends SelectScreen {
 	   @Override
 	   
 	   void set_up_level_button_positions(int how_many){
-		   if (how_many==5|| how_many==3){
-				
-			   one_r = new Rectangle();
-				one_r.x=90;
-				one_r.y=230;
-				one_r.height=60;
-				one_r.width=140;
+		   
+		    one_r = new Rectangle();
+			one_r.x=10;
+			one_r.y=230;
+			one_r.height=60;
+			one_r.width=140;
+		   
+			two_r = new Rectangle();
+			two_r.x=170;
+			two_r.y=230;
+			two_r.height=60;
+			two_r.width=140;
+			
+			 three_r = new Rectangle();
+			three_r.x=10;
+			three_r.y=140;
+			three_r.height=60;
+			three_r.width=140;
 			   
-				two_r = new Rectangle();
-				two_r.x=10;
-				two_r.y=140;
-				two_r.height=60;
-				two_r.width=140;
+			four_r = new Rectangle();
+			four_r.x=170;
+			four_r.y=140;
+			four_r.height=60;
+			four_r.width=140;
 				
-				three_r = new Rectangle();
-				three_r.x=170;
-				three_r.y=140;
-				three_r.height=60;
-				three_r.width=140;
-				
-		   }
-		   if (how_many==5){
-				four_r = new Rectangle();
-				four_r.x=10;
-				four_r.y=50;
-				four_r.height=60;
-				four_r.width=140;
-				
+			if (how_many==5){
+			
 				five_r = new Rectangle();
-				five_r.x=170;
+				five_r.x=90;
 				five_r.y=50;
 				five_r.height=60;
 				five_r.width=140;
 			}
-		   if (how_many==6){
-				
-			   one_r = new Rectangle();
-				one_r.x=10;
-				one_r.y=230;
-				one_r.height=60;
-				one_r.width=140;
-				
-				two_r = new Rectangle();
-				two_r.x=170;
-				two_r.y=230;
-				two_r.height=60;
-				two_r.width=140;
-			   
-				three_r = new Rectangle();
-				three_r.x=10;
-				three_r.y=140;
-				three_r.height=60;
-				three_r.width=140;
-				
-				four_r = new Rectangle();
-				four_r.x=170;
-				four_r.y=140;
-				four_r.height=60;
-				four_r.width=140;
-				
+			else if (how_many==6){
 				five_r = new Rectangle();
 				five_r.x=10;
 				five_r.y=50;
@@ -183,6 +157,79 @@ public class SelectScreen_Arcade extends SelectScreen {
 				six_r.height=60;
 				six_r.width=140;
 			}
+		   
+//		   if (how_many==5|| how_many==3){
+//				
+//			   one_r = new Rectangle();
+//				one_r.x=10;
+//				one_r.y=230;
+//				one_r.height=60;
+//				one_r.width=140;
+//			   
+//				two_r = new Rectangle();
+//				two_r.x=10;
+//				two_r.y=230;
+//				two_r.height=60;
+//				two_r.width=140;
+//				
+//				three_r = new Rectangle();
+//				three_r.x=10;
+//				three_r.y=140;
+//				three_r.height=60;
+//				three_r.width=140;
+//				
+//		   }
+//		   if (how_many==5){
+//				four_r = new Rectangle();
+//				four_r.x=10;
+//				four_r.y=50;
+//				four_r.height=60;
+//				four_r.width=140;
+//				
+//				five_r = new Rectangle();
+//				five_r.x=170;
+//				five_r.y=50;
+//				five_r.height=60;
+//				five_r.width=140;
+//			}
+//		   if (how_many==6){
+//				
+//			   one_r = new Rectangle();
+//				one_r.x=10;
+//				one_r.y=230;
+//				one_r.height=60;
+//				one_r.width=140;
+//				
+//				two_r = new Rectangle();
+//				two_r.x=170;
+//				two_r.y=230;
+//				two_r.height=60;
+//				two_r.width=140;
+//			   
+//				three_r = new Rectangle();
+//				three_r.x=10;
+//				three_r.y=140;
+//				three_r.height=60;
+//				three_r.width=140;
+//				
+//				four_r = new Rectangle();
+//				four_r.x=170;
+//				four_r.y=140;
+//				four_r.height=60;
+//				four_r.width=140;
+//				
+//				five_r = new Rectangle();
+//				five_r.x=10;
+//				five_r.y=50;
+//				five_r.height=60;
+//				five_r.width=140;
+//				
+//				six_r = new Rectangle();
+//				six_r.x=170;
+//				six_r.y=50;
+//				six_r.height=60;
+//				six_r.width=140;
+//			}
 	   }
 	   
 	   @Override
@@ -209,24 +256,24 @@ public class SelectScreen_Arcade extends SelectScreen {
 				two_double_liner=false;
 				score_two=prefs.getInteger("Score_Basic_Circles");
 				
-				three_s="Reversed";
+				three_s="Capture";
 				three_double_liner=false;
-				score_three=prefs.getInteger("Score_Basic_Reversed");
+				score_three=prefs.getInteger("Score_Basic_Capture");
 				
-				four_s="Capture";
+				four_s="Survive";
 				four_double_liner=false;
-				score_four=prefs.getInteger("Score_Basic_Capture");
+				score_four=prefs.getInteger("Score_Basic_Survive");
 				
-				five_s="Survive";
+				five_s="Reversed";
 				five_double_liner=false;
-				score_five=prefs.getInteger("Score_Basic_Survive");
+				score_five=prefs.getInteger("Score_Basic_Reversed");
 			}
 			if(TOPIC.equals("Decoys")){
 				NUMBER_OF_LEVELS=5;
 				banner_t=banner_blank_t;
 				banner_s="Decoys";
 				
-				one_s="Intro";
+				one_s="Decoys";
 				one_double_liner=false;
 				score_one=prefs.getInteger("Score_Decoy_Intro");
 				
@@ -236,34 +283,36 @@ public class SelectScreen_Arcade extends SelectScreen {
 				two_double_liner=false;
 				score_two=prefs.getInteger("Score_Decoy_PerfectTest");
 				
-				three_s="Groups";
-				three_double_liner=false;
-				score_three=prefs.getInteger("Score_Decoy_Groups");
 				
-				four_s="Minority Decoy";
+				
+				three_s="Minority Decoy";
+				three_double_liner=true;
+				score_three=prefs.getInteger("Score_Decoy_Minority");
+				
+				four_s="Majority Decoy";
 				four_double_liner=true;
-				score_four=prefs.getInteger("Score_Decoy_Minority");
+				score_four=prefs.getInteger("Score_Decoy_Majority");
 				
-				five_s="Majority Decoy";
-				five_double_liner=true;
-				score_five=prefs.getInteger("Score_Decoy_Majority");
+				five_s="Groups";
+				five_double_liner=false;
+				score_five=prefs.getInteger("Score_Decoy_Groups");
 			}
 			if(TOPIC.equals("Deduction")){
 				NUMBER_OF_LEVELS=5;
 				banner_t=banner_blank_t;
 				banner_s="Deduction";
 				
-				one_s="Intro";
+				one_s="Deduction";
 				one_double_liner=false;
 				score_one=prefs.getInteger("Score_Deduction_Intro");
 				
-				two_s="Blatant Evidence";
-				two_double_liner=true;
-				score_two=prefs.getInteger("Score_Deduction_Blatant");
+				two_s="Trio";
+				two_double_liner=false;
+				score_two=prefs.getInteger("Score_Deduction_Finale");
 				
-				three_s="Finale";
-				three_double_liner=false;
-				score_three=prefs.getInteger("Score_Deduction_Finale");
+				three_s="Blatant Evidence";
+				three_double_liner=true;
+				score_three=prefs.getInteger("Score_Deduction_Blatant");
 				
 				four_s="Subtle Evidence";
 				four_double_liner=true;
@@ -305,7 +354,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 				four_double_liner=true;
 				five_s="";//"Binary";
 				five_double_liner=true;
-				six_s="";//"Shields and Decoys";
+				six_s="";//"Polarised";
 				six_double_liner=true;
 			}
 			if(TOPIC.equals("Challenge")){
@@ -316,9 +365,9 @@ public class SelectScreen_Arcade extends SelectScreen {
 				one_double_liner=false;
 				two_s="";//"Shielded Titanium";
 				two_double_liner=false;
-				three_s="";//" ";
+				three_s="";//"Finale";
 				three_double_liner=false;
-				four_s="";//" ";
+				four_s="";//"Different Tradeoff";
 				four_double_liner=true;
 				five_s="";//"Combination";
 				five_double_liner=true;
@@ -467,15 +516,15 @@ public class SelectScreen_Arcade extends SelectScreen {
 				   dispose();
 			   }
 			   if (three_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Prob_Basic_Reversed(game, false));
-				   dispose();
-			   }
-			   if (four_r.contains(tp_x,tp_y)){
 				   game.setScreen(new ArcadeScreen_Prob_Basic_Capture(game, false));
 				   dispose();
 			   }
-			   if (five_r.contains(tp_x,tp_y)){
+			   if (four_r.contains(tp_x,tp_y)){
 				   game.setScreen(new ArcadeScreen_Prob_Basic_Survive(game, false));
+				   dispose();
+			   }
+			   if (five_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Prob_Basic_Reversed(game, false));
 				   dispose();
 			   }
 		   }
@@ -489,15 +538,15 @@ public class SelectScreen_Arcade extends SelectScreen {
 				   dispose();
 			   }
 			   if (three_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Prob_Decoy_Groups(game, false));
-				   dispose();
-			   }
-			   if (four_r.contains(tp_x,tp_y)){
 				   game.setScreen(new ArcadeScreen_Prob_Decoy_Minority(game, false));
 				   dispose();
 			   }
-			   if (five_r.contains(tp_x,tp_y)){
+			   if (four_r.contains(tp_x,tp_y)){
 				   game.setScreen(new ArcadeScreen_Prob_Decoy_Majority(game, false));
+				   dispose();
+			   }
+			   if (five_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Prob_Decoy_Groups(game, false));
 				   dispose();
 			   }
 		   }
@@ -532,11 +581,11 @@ public class SelectScreen_Arcade extends SelectScreen {
 				   dispose();
 			   }
 			   if (two_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Bayes_Deduction_Blatant(game, false));
+				   game.setScreen(new ArcadeScreen_Bayes_Deduction_Trio(game, false));
 				   dispose();
 			   }
 			   if (three_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Bayes_Deduction_Finale(game, false));
+				   game.setScreen(new ArcadeScreen_Bayes_Deduction_Blatant(game, false));
 				   dispose();
 			   }
 			   if (four_r.contains(tp_x,tp_y)){

@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.hbp.probdef.ProbDef;
 
-public class TitleScreen extends MetaScreen {
+public class Old_TitleScreen extends MetaScreen {
 	
 	final ProbDef game;
 		
@@ -46,7 +46,7 @@ public class TitleScreen extends MetaScreen {
 	
 	private SpriteBatch batch;
 	
-	public TitleScreen(final ProbDef gam, boolean play_the_sound) {
+	public Old_TitleScreen(final ProbDef gam, boolean play_the_sound) {
 		
 		super(gam, play_the_sound);
 		
@@ -60,8 +60,8 @@ public class TitleScreen extends MetaScreen {
 		
 		
 		TUTORIAL_r = new Rectangle();
-		TUTORIAL_r.x=10;
-		TUTORIAL_r.y=300;
+		TUTORIAL_r.x=90;
+		TUTORIAL_r.y=330;
 		TUTORIAL_r.height=60;
 		TUTORIAL_r.width=140;
 		TUTORIAL_t = new Texture(Gdx.files.internal("abutton_tutorial.png"));
@@ -71,23 +71,15 @@ public class TitleScreen extends MetaScreen {
 		
 		
 		CAMPAIGN_r = new Rectangle();
-		CAMPAIGN_r.x=170;
-		CAMPAIGN_r.y=300;
+		CAMPAIGN_r.x=10;
+		CAMPAIGN_r.y=255;
 		CAMPAIGN_r.height=60;
 		CAMPAIGN_r.width=140;
 		CAMPAIGN_t = new Texture(Gdx.files.internal("abutton_campaign.png"));
 		
-		LIBRARY_r = new Rectangle();
-		LIBRARY_r.x=10;
-		LIBRARY_r.y=210;
-		LIBRARY_r.height=60;
-		LIBRARY_r.width=140;
-		LIBRARY_t = new Texture(Gdx.files.internal("abutton_library.png"));
-		
-		
 		ARCADE_r = new Rectangle();
 		ARCADE_r.x=170;
-		ARCADE_r.y=210;
+		ARCADE_r.y=255;
 		ARCADE_r.height=60;
 		ARCADE_r.width=140;
 		ARCADE_t = new Texture(Gdx.files.internal("abutton_arcade.png"));
@@ -95,6 +87,12 @@ public class TitleScreen extends MetaScreen {
 		
 		
 		
+		LIBRARY_r = new Rectangle();
+		LIBRARY_r.x=90;
+		LIBRARY_r.y=180;
+		LIBRARY_r.height=60;
+		LIBRARY_r.width=140;
+		LIBRARY_t = new Texture(Gdx.files.internal("abutton_library.png"));
 		
 		
 		
@@ -102,14 +100,14 @@ public class TitleScreen extends MetaScreen {
 		
 		OPTIONS_r = new Rectangle();
 		OPTIONS_r.x=10;
-		OPTIONS_r.y=120;
+		OPTIONS_r.y=105;
 		OPTIONS_r.height=60;
 		OPTIONS_r.width=140;
 		OPTIONS_t = new Texture(Gdx.files.internal("abutton_options.png"));
 		
 		CREDITS_r = new Rectangle();
 		CREDITS_r.x=170;
-		CREDITS_r.y=120;
+		CREDITS_r.y=105;
 		CREDITS_r.height=60;
 		CREDITS_r.width=140;
 		CREDITS_t = new Texture(Gdx.files.internal("abutton_credits.png"));
@@ -167,22 +165,22 @@ public class TitleScreen extends MetaScreen {
 		
 		if (ARCADE_r.contains(tp_x,tp_y)){
 			batch.draw(TRIM_t, ARCADE_r.x, ARCADE_r.y);
-			blackfont.draw(batch, "Explore a collection of scenarios with no lose condition.\nTry to improve your highscores.", 10, 75, 300,1, true);
+			blackfont.draw(batch, "Play through a collection of scenarios with no lose condition.\nTry to improve your highscores.", 10, 75, 300,1, true);
 		}
 		
 		if (CAMPAIGN_r.contains(tp_x,tp_y)){
 			batch.draw(TRIM_t, CAMPAIGN_r.x, CAMPAIGN_r.y);
-			blackfont.draw(batch, "Play through a series of levels which build on the premise.\nYou should probably try this before Library or Arcade.", 10, 83, 300,1, true);
+			blackfont.draw(batch, "Survive a series of levels with mounting difficulty, accumulating and expending limited resources.\nTry not to explode.", 10, 83, 300,1, true);
 		}
 		
 		if (LIBRARY_r.contains(tp_x,tp_y)){
 			batch.draw(TRIM_t, LIBRARY_r.x, LIBRARY_r.y);
-			blackfont.draw(batch, "Use an archive of interactive explanations to understand the math behind the gameplay.\nBring pen and paper.", 10, 83, 300,1, true);
+			blackfont.draw(batch, "Use an archive of explorable explanations to understand the math behind the gameplay.\nBring pen and paper.", 10, 83, 300,1, true);
 		}
 		
 		if (OPTIONS_r.contains(tp_x,tp_y)){
 			batch.draw(TRIM_t, OPTIONS_r.x, OPTIONS_r.y);
-			blackfont.draw(batch,"Adjust the display settings, the audio settings, the game speed, and the accessibility features.", 10, 75, 300,1, true);
+			blackfont.draw(batch,"Change the display settings, the audio settings, the game speed, and the accessibility features.", 10, 75, 300,1, true);
 		}
 		
 		if (CREDITS_r.contains(tp_x,tp_y)){

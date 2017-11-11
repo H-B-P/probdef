@@ -28,7 +28,7 @@ public class ArcadeScreen_Prob_Decoy_PerfectTest extends ArcadeScreen_Prob {
 	    
 	    wave_number_total=4;
 	    
-		extra_mines=prefs.getInteger("one_captured")+prefs.getInteger("two_captured")+prefs.getInteger("three_captured")+prefs.getInteger("four_captured");
+		extra_mines=prefs.getInteger("one_captured")+prefs.getInteger("two_captured")+prefs.getInteger("four_captured");
 	}
 	
 	void set_score_name(){

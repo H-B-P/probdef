@@ -22,7 +22,7 @@ public class ArcadeScreen_Prob_Decoy_Intro extends ArcadeScreen_Prob {
 	    
 	    wave_number_total=5;
 	    
-		extra_mines=prefs.getInteger("one_captured")+prefs.getInteger("two_captured")+prefs.getInteger("three_captured");
+		extra_mines=prefs.getInteger("one_captured")+prefs.getInteger("two_captured");
 	}
 	
 	void set_score_name(){

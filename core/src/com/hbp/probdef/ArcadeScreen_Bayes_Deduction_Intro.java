@@ -15,7 +15,7 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends ArcadeScreen_Bayes {
 		game = gam;
 		
 		if (CAMPAIGN){
-			minecount=prefs.getInteger("one_captured")+prefs.getInteger("two_captured")+prefs.getInteger("three_captured")+prefs.getInteger("four_captured")+prefs.getInteger("five_captured");
+			minecount=prefs.getInteger("one_captured")+prefs.getInteger("two_captured")+prefs.getInteger("four_captured")+prefs.getInteger("five_captured");
 			minecount=Math.max(minecount, 0);
 		}
 		else{
@@ -243,11 +243,6 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends ArcadeScreen_Bayes {
 		if (shipwave==10){
 			ship_two_spawn_random(-1, true);
 			ship_one_spawn_random(1, true);
-		}
-		
-		if (shipwave>total_shipwaves){
-			game.setScreen(new SelectScreen_Arcade(game, true));
-			  dispose();
 		}
 	}
 	
