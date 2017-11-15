@@ -385,6 +385,25 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 		
 		wave_number_update(sec+16*3-1,4);
 		
+		sixteen_wave_boring(sec+16*3,2);
+	}
+	
+	void basic_set_shortened_slow_end(int sec){
+		
+		wave_number_update(sec-1,1);
+		
+		four_wave(sec, 2);
+		
+		wave_number_update(sec+16-1,2);
+		
+		eight_wave_alternating(sec+16, 2);
+		
+		wave_number_update(sec+16*2-1,3);
+		
+		random_twelve_wave(sec+16*2, 2);
+		
+		wave_number_update(sec+16*3-1,4);
+		
 		sixteen_wave_boring(sec+16*3,3);
 	}
 	

@@ -37,8 +37,12 @@ public class ArcadeScreen_Prob_Multiple_Shields extends ArcadeScreen_Prob_Multip
 	
 	void level_specific_events(){
 		
-		shieldy_intro_set(2);
-		
+		if (CAMPAIGN){
+			shieldy_intro_set(2, false);
+		}
+		else{
+			shieldy_intro_set(2, true);
+		}
 	}
 	
 	@Override

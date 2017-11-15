@@ -49,10 +49,7 @@ public class ArcadeScreen_Prob_Titanium_Pure extends ArcadeScreen_Prob_Titanium 
 		show_the_text=false;
 		   suppress_freezes=false;
 		   purpletext=false;
-		   if (seconds<5){
-			   show_the_text=true;
-			   the_text="Titanium mines cannot be destroyed; only captured.";
-		   }
+		   
 	}
 
 	@Override

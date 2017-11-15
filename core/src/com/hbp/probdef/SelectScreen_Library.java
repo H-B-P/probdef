@@ -98,7 +98,7 @@ public class SelectScreen_Library extends SelectScreen {
 	   
 		public void go_forward(){
 			
-			arrowsound.play();
+			arrowsound.play(option_sfx_volume);
 			if (TOPIC.equals("Probability")){
 				TOPIC="Bayes";
 			}
@@ -111,7 +111,7 @@ public class SelectScreen_Library extends SelectScreen {
 	   
 		public void go_back(){
 			
-			arrowsound.play();
+			arrowsound.play(option_sfx_volume);
 			if (TOPIC.equals("Bayes")){
 				TOPIC="Probability";
 			}

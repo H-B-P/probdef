@@ -280,7 +280,7 @@ public class ArcadeScreen_Prob_Titanium extends ArcadeScreen_Prob {
 		
 		wave_number_update(sec-1,1);
 		
-		random_eight_two_wave(sec, k_ops);
+		eight_two_wave_centre(sec, k_ops);
 		
 		wave_number_update(sec+16-1,2);
 

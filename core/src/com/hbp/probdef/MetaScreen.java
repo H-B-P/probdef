@@ -32,7 +32,6 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	
 	public Music bgm;
 	
-	public boolean ANDROID; // this variable is Very Important
 	
 	private Sound hellosound;
 	public Sound arrowsound;
@@ -64,16 +63,17 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	public MetaScreen(final ProbDef gam, boolean play_the_sound) {
 		
 		
-		//hardcoded_opt_packagename="Combination";
-		hardcoded_opt_packagename="Inference";
+		hardcoded_opt_packagename="Combination";
+		//hardcoded_opt_packagename="Inference";
 		
 		hardcoded_opt_platform="Web";
 		
-		ANDROID=false;// If this is true, we're running on an Android device. If not, it's a PC or HTML thing.
-		//Necessary because of slight differences in gameplay depending on whether people use a mouse or a finger.
-		//(for example, you can't hover over things when all you have is a finger)
-		
-		prefs = Gdx.app.getPreferences("galen_preferences_II");
+		if (hardcoded_opt_packagename.equals("Combination")){
+			prefs = Gdx.app.getPreferences("Combination_Preferences");
+		}
+		else{
+			prefs = Gdx.app.getPreferences("galen_preferences_II");
+		}
 		
 		
 		
@@ -213,25 +213,23 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	}
 	
 	void set_screensize(){
-		if (!ANDROID){
-			if(option_screensize.equals("Small")){
-				Gdx.graphics.setWindowedMode(160, 240);
-			}
-			else if (option_screensize.equals("Normal")){
-				Gdx.graphics.setWindowedMode(320, 480);
-			}
-			else if (option_screensize.equals("Large")){
-				Gdx.graphics.setWindowedMode(480, 720);
-			}
-			else if (option_screensize.equals("Huge")){
-				Gdx.graphics.setWindowedMode(640, 960);
-			}
-			else if (option_screensize.equals("Giant")){
-				Gdx.graphics.setWindowedMode(960, 1440);
-			}
-			else{
-				Gdx.graphics.setWindowedMode(320, 480); //At 1:1 scale, the expected screen is 320px wide and 480px tall.
-			}
+		if(option_screensize.equals("Small")){
+			Gdx.graphics.setWindowedMode(160, 240);
+		}
+		else if (option_screensize.equals("Normal")){
+			Gdx.graphics.setWindowedMode(320, 480);
+		}
+		else if (option_screensize.equals("Large")){
+			Gdx.graphics.setWindowedMode(480, 720);
+		}
+		else if (option_screensize.equals("Huge")){
+			Gdx.graphics.setWindowedMode(640, 960);
+		}
+		else if (option_screensize.equals("Giant")){
+			Gdx.graphics.setWindowedMode(960, 1440);
+		}
+		else{
+			Gdx.graphics.setWindowedMode(320, 480); //At 1:1 scale, the expected screen is 320px wide and 480px tall.
 		}
 	}
 	

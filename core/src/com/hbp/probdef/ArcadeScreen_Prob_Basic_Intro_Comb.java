@@ -3,12 +3,12 @@ package com.hbp.probdef;
 
 import com.hbp.probdef.ProbDef;
 
-public class ArcadeScreen_Prob_Basic_Intro extends ArcadeScreen_Prob {
+public class ArcadeScreen_Prob_Basic_Intro_Comb extends ArcadeScreen_Prob {
 	
 	final ProbDef game;
 
 	
-	public ArcadeScreen_Prob_Basic_Intro(final ProbDef gam, boolean camp) {
+	public ArcadeScreen_Prob_Basic_Intro_Comb(final ProbDef gam, boolean camp) {
 		
 		super(gam, camp);
 		
@@ -47,12 +47,18 @@ public class ArcadeScreen_Prob_Basic_Intro extends ArcadeScreen_Prob {
 	
 	void level_specific_turret_setup(){
 		
-		
+		if (hardcoded_opt_packagename.equals("Combination")){
+			turret_one=new Turret_Standard("circle");
+			   turret_two=new Turret_Standard("square");
+			   turret_three=new Turret_Standard("triangle");
+			   turret_four=new Turret_Standard("pentagon");
+		}
+		else{
 		   turret_one=new Turret_Standard("triangle");
 		   turret_two=new Turret_Standard("triangle");
 		   turret_three=new Turret_Standard("square");
 		   turret_four=new Turret_Standard("pentagon");
-		
+		}
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
 		   turrets_standard.add((Turret_Standard) turret_three);
@@ -64,12 +70,7 @@ public class ArcadeScreen_Prob_Basic_Intro extends ArcadeScreen_Prob {
 	
 	void level_specific_events(){
 		
-		if (CAMPAIGN){
-			basic_set_shortened(2);
-		}
-		else{
 			basic_set_shortened_slow_end(2);
-		}
 		
 	}
 	
@@ -87,7 +88,8 @@ public class ArcadeScreen_Prob_Basic_Intro extends ArcadeScreen_Prob {
 			   if (CAMPAIGN){
 				   the_text="You start with ten shields. If a mine hits, you lose four shields. If your shields hit zero, you fail the level.";
 				   if (infuriatingly_specific_bool){
-					   the_text="Try to end each level with as many captured mines as possible. You'll need them later.";
+					   purpletext=true;
+					   the_text="(btw in this campaign there's no reason to prefer capturing mines, we just toss them out the airlock after we catch them)";
 				   }
 			   }
 			   else{

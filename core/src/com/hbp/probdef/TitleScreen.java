@@ -216,7 +216,12 @@ public class TitleScreen extends MetaScreen {
 				}
 				
 				if (CAMPAIGN_r.contains(tp_x,tp_y)){
-					game.setScreen(new CampaignScreen_Inference(game, true));
+					if (hardcoded_opt_packagename.equals("Combination")){
+						game.setScreen(new CampaignScreen_Combination(game, true));
+					}
+					else{
+						game.setScreen(new CampaignScreen_Inference(game, true));
+					}
 		            dispose();
 				}
 				

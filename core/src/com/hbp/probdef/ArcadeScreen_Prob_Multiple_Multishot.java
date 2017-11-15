@@ -2,30 +2,35 @@ package com.hbp.probdef;
 
 import com.hbp.probdef.ProbDef;
 
-public class ArcadeScreen_Prob_Titanium_Intro extends ArcadeScreen_Prob_Titanium {
+public class ArcadeScreen_Prob_Multiple_Multishot extends ArcadeScreen_Prob_Multiple {
 	
 	final ProbDef game;
 
 	
-	public ArcadeScreen_Prob_Titanium_Intro(final ProbDef gam, boolean camp) {
+	public ArcadeScreen_Prob_Multiple_Multishot(final ProbDef gam, boolean camp) {
 		
 		super(gam, camp);
 		
 		game = gam;
 		
-	    minecount=60;
+	    minecount=40;
 	    
-	    wave_number_total=6;
+	    wave_number_total=4;
 	}
 	
 	@Override
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("circle");
-		   turret_two=new Turret_Standard("circle");
-		   turret_three=new Turret_Standard("pentagon");
-		   turret_four=new Turret_Standard("pentagon");
+		   //turret_one=new Turret_Standard("triangle", 3);
+		   //turret_two=new Turret_Standard("triangle", 1);
+		   //turret_three=new Turret_Standard("triangle", 2);
+		   //turret_four=new Turret_Standard("triangle", 2);
 		   
+			turret_one=new Turret_Standard("square", 4);
+		   turret_two=new Turret_Standard("square", 2);
+		   turret_three=new Turret_Standard("square", 1);
+		   turret_four=new Turret_Standard("square", 1);
+		
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
 		   turrets_standard.add((Turret_Standard) turret_three);
@@ -37,13 +42,7 @@ public class ArcadeScreen_Prob_Titanium_Intro extends ArcadeScreen_Prob_Titanium
 	
 	void level_specific_events(){
 		
-		if (CAMPAIGN){
-			mixed_set(2,2);
-		}
-		else{
-			mixed_set(2,3);
-		}
-		
+		square_multishot_set(2);
 	}
 	
 	@Override
@@ -53,9 +52,6 @@ public class ArcadeScreen_Prob_Titanium_Intro extends ArcadeScreen_Prob_Titanium
 		   suppress_freezes=false;
 		   purpletext=false;
 		   if (seconds<5){
-			   show_the_text=true;
-			   the_text="Titanium mines cannot be destroyed; only captured.";
-
 		   }
 	}
 

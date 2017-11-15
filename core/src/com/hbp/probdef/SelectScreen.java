@@ -476,7 +476,7 @@ public class SelectScreen extends MetaScreen {
 	
 	void go_forward(){
 		
-		arrowsound.play();
+		arrowsound.play(option_sfx_volume);
 		if (TOPIC.equals("example_1")){
 			TOPIC="example_2";
 			
@@ -489,7 +489,7 @@ public class SelectScreen extends MetaScreen {
 	
 	void go_back(){
 		
-		arrowsound.play();
+		arrowsound.play(option_sfx_volume);
 		if (TOPIC.equals("example_2")){
 			TOPIC="example_1";
 			
