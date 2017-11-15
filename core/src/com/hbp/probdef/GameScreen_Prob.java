@@ -433,6 +433,11 @@ public class GameScreen_Prob extends GameScreen {
 		   mines.add(mine);
 	   }
 	   
+	   void spawnShieldedTitaniumMine(int xposn, float m_speed, int shields) {
+		   Mine mine= new Mine(xposn, m_speed, "titanium", shields);
+		   mines.add(mine);
+	   }
+	   
 	   void spawnDecoyProbablistic(int xposn, float m_speed, int percentage_chance_of_decoy){
 		   if (Math.random()*100.0<percentage_chance_of_decoy){
 			   spawnDecoyMine(xposn, m_speed);

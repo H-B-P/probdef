@@ -366,21 +366,19 @@ public class SelectScreen_Arcade extends SelectScreen {
 				//six_double_liner=false;
 			}
 			if(TOPIC.equals("Challenge")){
-				NUMBER_OF_LEVELS=6;
+				NUMBER_OF_LEVELS=5;
 				banner_t=banner_blank_t;
 				banner_s="Challenge";
 				one_s="Shields & Titanium";
 				one_double_liner=true;
-				two_s="";//"Shielded Titanium";
-				two_double_liner=false;
+				two_s="Shielded Titanium";
+				two_double_liner=true;
 				three_s="";//"Finale";
 				three_double_liner=false;
-				four_s="";//"Alternative Tradeoff";
+				four_s="";//"Combination";
 				four_double_liner=true;
-				five_s="";//"Combination";
+				five_s="";//"Synthesis";
 				five_double_liner=true;
-				six_s="";//"Synthesis";
-				six_double_liner=true;
 			}
 			
 			if(TOPIC.equals("Dukkha")){
@@ -572,6 +570,17 @@ public class SelectScreen_Arcade extends SelectScreen {
 			   }
 			   else if (five_r.contains(tp_x,tp_y)){
 				   game.setScreen(new ArcadeScreen_Prob_Multiple_Polarised(game, false));
+				   dispose();
+			   }
+		   }
+		   
+		   if (Gdx.input.justTouched()&& TOPIC.equals("Challenge")){
+			   if (one_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Prob_Challenge_OR(game, false));
+				   dispose();
+			   }
+			   if (two_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Prob_Challenge_AND(game, false));
 				   dispose();
 			   }
 		   }
