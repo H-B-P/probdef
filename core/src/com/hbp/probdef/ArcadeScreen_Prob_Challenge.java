@@ -283,8 +283,127 @@ public class ArcadeScreen_Prob_Challenge extends ArcadeScreen_Prob {
 	
 	//I'm thinking ten waves, and I'm thinking they're finales of every level the player faced so far, plus some extras?
 	
-	void finale_set(){
+	
+	void twelve_four_wave_early(int start_second, int normal_ops){
+		if (seconds==start_second || (seconds==start_second+4)){
+			
+			spawnTitaniumMine(-3, 180/(normal_ops+1));
+			spawnTitaniumMine(3, 180/(normal_ops+1));
+		}
+		if (seconds==(start_second+2) || (seconds==start_second+6)){
+			spawnMine(-3, 180/(normal_ops+1));
+			spawnMine(-1, 180/(normal_ops+1));
+			spawnMine(1, 180/(normal_ops+1));
+			spawnMine(3, 180/(normal_ops+1));
+			
+		}
+	}
+	
+	void twelve_four_wave_late(int start_second, int normal_ops){
+		if (seconds==start_second || (seconds==start_second+4)){
+			
+			spawnMine(-3, 180/(normal_ops+1));
+			spawnMine(3, 180/(normal_ops+1));
+		}
+		if (seconds==(start_second+2) || (seconds==start_second+6)){
+			spawnMine(-3, 180/(normal_ops+1));
+			spawnTitaniumMine(-1, 180/(normal_ops+1));
+			spawnTitaniumMine(1, 180/(normal_ops+1));
+			spawnMine(3, 180/(normal_ops+1));
+			
+		}
+	}
+	
+	void shieldy_twelve_wave_even(int start_second, int normal_ops, int shields){
+		if (seconds==start_second || (seconds==start_second+4)){
+			spawnShieldMine(-2,180/(normal_ops+1),shields);
+			spawnShieldMine(0,180/(normal_ops+1),shields);
+			spawnShieldMine(2,180/(normal_ops+1),shields);
+		}
+		if (seconds==(start_second+2) || (seconds==start_second+6)){
+			spawnShieldMine(-2,180/(normal_ops+1),shields);
+			spawnShieldMine(0,180/(normal_ops+1),shields);
+			spawnShieldMine(2,180/(normal_ops+1),shields);
+		}
+	}
+	
+	void shieldy_twelve_wave_askew(int start_second, int normal_ops, int shields){
+		if (seconds==start_second || (seconds==start_second+4)){
+			spawnShieldMine(-2,180/(normal_ops+1),shields-1);
+			spawnShieldMine(0,180/(normal_ops+1),shields);
+			spawnShieldMine(2,180/(normal_ops+1),shields+1);
+		}
+		if (seconds==(start_second+2) || (seconds==start_second+6)){
+			spawnShieldMine(-2,180/(normal_ops+1),shields-1);
+			spawnShieldMine(0,180/(normal_ops+1),shields);
+			spawnShieldMine(2,180/(normal_ops+1),shields+1);
+		}
+	}
+	
+	void finale_twelve_wave(int start_second, int normal_ops, int shields){
+		if (seconds==start_second || (seconds==start_second+4)){
+			spawnMine(-3,180/(normal_ops+1));
+			spawnShieldedTitaniumMine(3,180/(normal_ops+1),shields);
+		}
+		if (seconds==(start_second+2) || (seconds==start_second+6)){
+			spawnMine(-3,180/(normal_ops+1));
+			spawnTitaniumMine(-1,180/(normal_ops+1));
+			spawnTitaniumMine(1,180/(normal_ops+1));
+			spawnTitaniumMine(3,180/(normal_ops+1));
+		}
+	}
+	
+	void finale_sixteen_wave(int start_second, int normal_ops, int shields){
+		if (seconds==start_second || (seconds==start_second+4)){
+			spawnMine(-3,180/(normal_ops+1));
+			spawnTitaniumMine(-1,180/(normal_ops+1));
+			spawnShieldMine(1,180/(normal_ops+1), shields);
+			spawnShieldedTitaniumMine(3,180/(normal_ops+1),shields);
+		}
+		if (seconds==(start_second+2) || (seconds==start_second+6)){
+			spawnMine(-3,180/(normal_ops+1));
+			spawnTitaniumMine(-1,180/(normal_ops+1));
+			spawnShieldMine(1,180/(normal_ops+1), shields);
+			spawnShieldedTitaniumMine(3,180/(normal_ops+1),shields);
+		}
+	}
+	
+	//16+12+12+12+12+8=72
+	
+	//add a 16 and 12 to fini!
+	
+	void finale_set(int sec){
+		wave_number_update(sec-1,1);
 		
+		sixteen_wave_boring(sec,2);
+		
+		wave_number_update(sec+20-1,2);
+		
+		twelve_four_wave_early(sec+20,2);
+		
+		wave_number_update(sec+20*2-1,3);
+		
+		twelve_four_wave_late(sec+20*2,2);
+		
+		wave_number_update(sec+20*3-1,4);
+		
+		shieldy_twelve_wave_askew(sec+20*3, 3, 2);
+
+		wave_number_update(sec+20*4-1,5);
+		
+		OR_twelve_wave_boring(20*4, 2,1);
+		
+		wave_number_update(sec+20*5-1,6);
+
+		AND_eight_wave_paired(sec+20*5, 2,2);
+		
+		wave_number_update(sec+20*6-1,7);
+		
+		finale_twelve_wave(sec+20*6, 2,2);
+		
+		wave_number_update(sec+20*7-1,8);
+		
+		finale_sixteen_wave(sec+20*7, 2,1);
 	}
 	
 	

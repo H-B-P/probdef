@@ -373,7 +373,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 				one_double_liner=true;
 				two_s="Shielded Titanium";
 				two_double_liner=true;
-				three_s="";//"Finale";
+				three_s="Finale";
 				three_double_liner=false;
 				four_s="";//"Combination";
 				four_double_liner=true;
@@ -581,6 +581,10 @@ public class SelectScreen_Arcade extends SelectScreen {
 			   }
 			   if (two_r.contains(tp_x,tp_y)){
 				   game.setScreen(new ArcadeScreen_Prob_Challenge_AND(game, false));
+				   dispose();
+			   }
+			   if (three_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Prob_Challenge_Finale(game, false));
 				   dispose();
 			   }
 		   }

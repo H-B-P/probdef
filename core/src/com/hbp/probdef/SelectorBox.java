@@ -23,7 +23,9 @@ public class SelectorBox {
 		
 		identity=ident;
 		
-		prefs = Gdx.app.getPreferences("galen_preferences_II");
+		//prefs = Gdx.app.getPreferences("galen_preferences_II");
+		
+		prefs = Gdx.app.getPreferences("Combination_Preferences");
 		
 		current_nature_string="broken";
 		

@@ -13,7 +13,6 @@ import com.badlogic.gdx.Game;
 
 public class ProbDef extends Game {
 	
-	
 	public void create() {
 		
 		this.setScreen(new TitleScreen(this, false)); //Hand off to title screen.

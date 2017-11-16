@@ -2,29 +2,29 @@ package com.hbp.probdef;
 
 import com.hbp.probdef.ProbDef;
 
-public class ArcadeScreen_Prob_Challenge_AND extends ArcadeScreen_Prob_Challenge {
+public class ArcadeScreen_Prob_Challenge_Finale extends ArcadeScreen_Prob_Challenge {
 	
 	final ProbDef game;
 
 	
-	public ArcadeScreen_Prob_Challenge_AND(final ProbDef gam, boolean camp) {
+	public ArcadeScreen_Prob_Challenge_Finale(final ProbDef gam, boolean camp) {
 		
 		super(gam, camp);
 		
 		game = gam;
 		
-	    minecount=30;
+	    minecount=100;
 	    
-	    wave_number_total=5;
+	    wave_number_total=8;
 	}
 	
 	@Override
 	
 	void level_specific_turret_setup(){
 		   turret_one=new Turret_Standard("pentagon",2);
-		   turret_two=new Turret_Standard("square", 3);
-		   turret_three=new Turret_Standard("triangle",1);
-		   turret_four=new Turret_Standard("circle",2);
+		   turret_two=new Turret_Standard("triangle", 2);
+		   turret_three=new Turret_Standard("square", 3);
+		   turret_four=new Turret_Standard("circle",3);
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -37,7 +37,7 @@ public class ArcadeScreen_Prob_Challenge_AND extends ArcadeScreen_Prob_Challenge
 	
 	void level_specific_events(){
 		
-		challenge_AND_set(2);
+		finale_set(2);
 	}
 	
 	@Override
