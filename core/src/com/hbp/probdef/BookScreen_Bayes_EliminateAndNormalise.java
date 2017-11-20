@@ -19,7 +19,7 @@ public class BookScreen_Bayes_EliminateAndNormalise extends BookScreen_Bayes {
 		
 		game = gam;
 		
-		maxpages=8;
+		maxpages=9;
 		
 		green_arrow_t=new Texture(Gdx.files.internal("simple_green_arrow.png"));
 		tiny_black_arrow_t=new Texture(Gdx.files.internal("tiny_black_arrow.png"));
@@ -265,6 +265,7 @@ public class BookScreen_Bayes_EliminateAndNormalise extends BookScreen_Bayes {
 		   time_to_move_on=false;
 		   purpletext=false;
 		other_purpletext=false;
+		writing_symbol_visible=false;
 		
 		vane_one.does_it_work=true;
 		vane_two.does_it_work=true;
@@ -339,25 +340,31 @@ public class BookScreen_Bayes_EliminateAndNormalise extends BookScreen_Bayes {
 		   }
 		   
 		   if (page==8){
+			   writing_symbol_visible=true;
 			   if (shipwave==1 && round==1 && current_status.equals("targeting")){
 				   show_the_text=true;
 				   the_text="Test your understanding here: predict in advance what the autocalc will display immediately after a failed pentagon zap to each ship.";
 				   vane_one.current_energy="pentagon";
 				   vane_two.current_energy="pentagon";
-				   if (vane_one.targeted || vane_two.targeted){
-					   purpletext=true;
-					   the_text="(if you're wondering how we can know it'll fail: we're blatantly lying to the autocalc, all ships in this book are always triangles)";
-				   }
-				   if (vane_one.targeted && vane_two.targeted){
-					   purpletext=true;
-					   the_text="(but it'll still update perfectly on its bad priors, so yeah just roll with it and pretend you don't know what's under the obscurities)";
-				   }
+				   
 			   }
 			   if (shipwave==1 && round==2 && current_status.equals("targeting")){
 				   show_the_text=true;
 				   the_text="In case that went by too fast: that was 60%/40%/0% for the left ship, 33.33%/66.67%/0% for the right ship.\nDid you predict that?";
 			   }
 			   if (shipwave>1){
+				   time_to_move_on=true;
+			   }
+		   }
+		   if (page==9){
+			   purpletext=true;
+			   
+			   other_purpletext=true;
+			   show_the_text=true;
+			   show_the_other_text=true;
+				   the_other_text="(if you're wondering how we knew pentagon zaps would fail: we're blatantly lying to the autocalc, all ships in this book are always triangles)";
+				   the_text="(but it still updated perfectly on its bad initial probabilities, so yeah just roll with it)";
+			   if (seconds>6){
 				   time_to_move_on=true;
 			   }
 		   }

@@ -97,6 +97,7 @@ public class BookScreen_Prob_Combine extends BookScreen_Prob {
 		   suppress_freezes=false;
 		   time_to_move_on=false;
 		   purpletext=false;
+		   writing_symbol_visible=false;
 		
 		if (page==1){
 			
@@ -165,6 +166,8 @@ public class BookScreen_Prob_Combine extends BookScreen_Prob {
 				the_text="Before targeting, try to calculate what the probability of remaining will be when you target all four turrets.";
 			}
 			if (seconds==4 && TIMESPEED==0){
+				writing_symbol_visible=true;
+
 				show_the_text=true;
 				if (!gotcha){
 					//purpletext=true;

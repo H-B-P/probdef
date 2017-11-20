@@ -31,6 +31,12 @@ public class GameScreen extends SpaceScreen {
 	
 	final ProbDef game;
 	
+	boolean indicate;
+	   
+	
+	   boolean writing_symbol_visible;
+	   Texture writey_symbol_t;
+	
 	//--Textures--
 	Texture orange_dot_t;
 	Texture green_dot_t;
@@ -310,6 +316,9 @@ public class GameScreen extends SpaceScreen {
 	//---Loading in resources which will be useful in all game modes---
 	
 	void load_in_textures(){
+		
+	      writey_symbol_t=new Texture(Gdx.files.internal("writing_symbol.png"));
+
 		
 		complete_box_t=new Texture(Gdx.files.internal("level_complete.png"));
 		textures.add(complete_box_t);

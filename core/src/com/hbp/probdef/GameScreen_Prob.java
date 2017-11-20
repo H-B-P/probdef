@@ -41,7 +41,10 @@ public class GameScreen_Prob extends GameScreen {
    int currently_active_turret_no; //this is one hell of an overburdened variable and probably needs refactoring.
    //When 0, means no turret has targeted or had the chance to. When 5, means all turrets have had a chance to target.
    	
-	
+   private Texture indicate_turrets_t;
+   private Texture indicate_mines_t;
+   
+   
 	
 	public GameScreen_Prob(final ProbDef gam) {
 		
@@ -52,8 +55,11 @@ public class GameScreen_Prob extends GameScreen {
 		
 		batch= new SpriteBatch();
 	      
+		indicate=false;
+	      indicate_turrets_t=new Texture(Gdx.files.internal("indicate_turrets.png"));
+	      indicate_mines_t=new Texture(Gdx.files.internal("indicate_mines.png"));
 	      
-
+	      writing_symbol_visible=false;
 	      
 	      captured=0;
 	      destroyed=0;
@@ -62,7 +68,8 @@ public class GameScreen_Prob extends GameScreen {
 	      minecount=20;
 	      shields=100;
 	      
-
+	      timeouting=true;
+	      
 	      turret_setup();
 	      
 	      infuriatingly_specific_bool=false; //so infuriating
@@ -148,8 +155,10 @@ public class GameScreen_Prob extends GameScreen {
 		   show_the_text=false;
 		   suppress_freezes=false;
 		   purpletext=false;
+		   indicate=false;
 			   if (total_time<5){   
 				   if(TIMESPEED==0){
+					   indicate=true;
 					   show_the_text=true;
 					   if (!turret_one.targeted){
 						   the_text="Mines threaten your ship. Every second, time freezes. Click on a mine while time is frozen to target it.";
@@ -169,7 +178,7 @@ public class GameScreen_Prob extends GameScreen {
 					   }
 					   if (currently_active_turret_no==5){
 						   purpletext=false;
-						   the_text="Once you're done targeting, click the fire button at the top of the screen to launch a volley.";
+						   the_text="Once you're done targeting, click the fire button at the top of the screen to launch a volley of attacks.";
 					   }
 				   }
 			   }
@@ -229,7 +238,7 @@ public class GameScreen_Prob extends GameScreen {
 			   }
 			   if (total_time>22 && total_time<23){
 				   show_the_text=true;
-				   the_text="Mines won't always have the same speed, so prioritise.";//Add explanation of viewy thing here.
+				   the_text="Mines won't always have the same speed, so prioritise.\nHover over a mine to see how many turns it will take to hit.";
 			   }
 			   
 			   if (total_time>30 && total_time<31){
@@ -323,10 +332,38 @@ public class GameScreen_Prob extends GameScreen {
 				   float survival=zero+one+two+three+four;
 				   if (!option_turns_to_hit_display.equals("Below")){
 				   
-					   if (displaywhat.equals("everything")){
+					   if (displaywhat.equals("result")){
 						   acalc_grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
 						   acalc_redfont.draw(batch, " "+present_float(destroy*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
 						   acalc_bluefont.draw(batch, " "+present_float(capture*100.0f)+"%", mine.rect.x-20, mine.rect.y-50, 81, 1, true);
+					   }
+					   else if (displaywhat.equals("shields")){
+						   if (mine.shields==0){
+							   acalc_grayfont.draw(batch, "0:"+present_float(zero*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
+						   }
+						   else if (mine.shields==1){
+							   acalc_grayfont.draw(batch, "1:"+present_float(one*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
+							   acalc_grayfont.draw(batch, "0:"+present_float(zero*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
+
+						   }
+						   else if (mine.shields==2){
+							   acalc_grayfont.draw(batch, "2:"+present_float(two*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
+							   acalc_grayfont.draw(batch, "1:"+present_float(one*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
+							   acalc_grayfont.draw(batch, "0:"+present_float(zero*100.0f)+"%", mine.rect.x-20, mine.rect.y-50, 81, 1, true);
+						   }
+						   else if (mine.shields==3){
+							   acalc_grayfont.draw(batch, "3:"+present_float(three*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
+							   acalc_grayfont.draw(batch, "2:"+present_float(two*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
+							   acalc_grayfont.draw(batch, "1:"+present_float(one*100.0f)+"%", mine.rect.x-20, mine.rect.y-50, 81, 1, true);
+							   acalc_grayfont.draw(batch, "0:"+present_float(zero*100.0f)+"%", mine.rect.x-20, mine.rect.y-65, 81, 1, true);
+						   }
+						   else if (mine.shields==4){
+							   acalc_grayfont.draw(batch, "4:"+present_float(four*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
+							   acalc_grayfont.draw(batch, "3:"+present_float(three*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
+							   acalc_grayfont.draw(batch, "2:"+present_float(two*100.0f)+"%", mine.rect.x-20, mine.rect.y-50, 81, 1, true);
+							   acalc_grayfont.draw(batch, "1:"+present_float(one*100.0f)+"%", mine.rect.x-20, mine.rect.y-65, 81, 1, true);
+							   acalc_grayfont.draw(batch, "0:"+present_float(zero*100.0f)+"%", mine.rect.x-20, mine.rect.y-80, 81, 1, true);
+						   }
 					   }
 					   else if (displaywhat.equals("destroy")){
 						   acalc_redfont.draw(batch, " "+present_float(destroy*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
@@ -343,10 +380,38 @@ public class GameScreen_Prob extends GameScreen {
 				   }
 				   else{
 					   acalc_greenfont.draw(batch, mine.turns_to_hit+" TTH", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
-					   if (displaywhat.equals("everything")){
+					   if (displaywhat.equals("result")){
 						   acalc_grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
 						   acalc_redfont.draw(batch, " "+present_float(destroy*100.0f)+"%", mine.rect.x-20, mine.rect.y-50, 81, 1, true);
 						   acalc_bluefont.draw(batch, " "+present_float(capture*100.0f)+"%", mine.rect.x-20, mine.rect.y-65, 81, 1, true);
+					   }
+					   else if (displaywhat.equals("shields")){
+						   if (mine.shields==0){
+							   acalc_grayfont.draw(batch, "0:"+present_float(zero*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
+						   }
+						   else if (mine.shields==1){
+							   acalc_grayfont.draw(batch, "1:"+present_float(one*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
+							   acalc_grayfont.draw(batch, "0:"+present_float(zero*100.0f)+"%", mine.rect.x-20, mine.rect.y-50, 81, 1, true);
+
+						   }
+						   else if (mine.shields==2){
+							   acalc_grayfont.draw(batch, "2:"+present_float(two*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
+							   acalc_grayfont.draw(batch, "1:"+present_float(one*100.0f)+"%", mine.rect.x-20, mine.rect.y-50, 81, 1, true);
+							   acalc_grayfont.draw(batch, "0:"+present_float(zero*100.0f)+"%", mine.rect.x-20, mine.rect.y-65, 81, 1, true);
+						   }
+						   else if (mine.shields==3){
+							   acalc_grayfont.draw(batch, "3:"+present_float(three*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
+							   acalc_grayfont.draw(batch, "2:"+present_float(two*100.0f)+"%", mine.rect.x-20, mine.rect.y-50, 81, 1, true);
+							   acalc_grayfont.draw(batch, "1:"+present_float(one*100.0f)+"%", mine.rect.x-20, mine.rect.y-65, 81, 1, true);
+							   acalc_grayfont.draw(batch, "0:"+present_float(zero*100.0f)+"%", mine.rect.x-20, mine.rect.y-80, 81, 1, true);
+						   }
+						   else if (mine.shields==4){
+							   acalc_grayfont.draw(batch, "4:"+present_float(four*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
+							   acalc_grayfont.draw(batch, "3:"+present_float(three*100.0f)+"%", mine.rect.x-20, mine.rect.y-50, 81, 1, true);
+							   acalc_grayfont.draw(batch, "2:"+present_float(two*100.0f)+"%", mine.rect.x-20, mine.rect.y-65, 81, 1, true);
+							   acalc_grayfont.draw(batch, "1:"+present_float(one*100.0f)+"%", mine.rect.x-20, mine.rect.y-80, 81, 1, true);
+							   acalc_grayfont.draw(batch, "0:"+present_float(zero*100.0f)+"%", mine.rect.x-20, mine.rect.y-95, 81, 1, true);
+						   }
 					   }
 					   else if (displaywhat.equals("destroy")){
 						   acalc_redfont.draw(batch, " "+present_float(destroy*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
@@ -372,8 +437,11 @@ public class GameScreen_Prob extends GameScreen {
 		   if (option_acalc.equals("Normal")){
 			   autocalc_and_display("survive");
 		   }
-		   if (option_acalc.equals("Detail")){
-			   autocalc_and_display("everything");
+		   if (option_acalc.equals("Detail") || option_acalc.contains("Result")){
+			   autocalc_and_display("result");
+		   }
+		   if (option_acalc.contains("Shield")){
+			   autocalc_and_display("shields");
 		   }
 		   
 	   }
@@ -593,6 +661,7 @@ public class GameScreen_Prob extends GameScreen {
 					number_to_turret();
 				}
 				System.out.println(seconds+" s");
+				
 				level_specific_events();
 				
 				
@@ -920,6 +989,15 @@ public class GameScreen_Prob extends GameScreen {
 				batch.draw(complete_box_t, 80, 200);
 			}
 			
+			if (indicate){
+				   batch.draw(indicate_turrets_t, 50, 5);
+				   batch.draw(indicate_mines_t, 100, 375);
+			}
+			
+			if (writing_symbol_visible){
+				   batch.draw(writey_symbol_t, 10, 330);
+			}
+			
 			batch.end();
 			
 			//Do appropriate things!
@@ -975,10 +1053,6 @@ public class GameScreen_Prob extends GameScreen {
 			if (shields<=0 && exit_on_shieldfail){
 				exit_level();
 			}
-			else if (minecount==0 && explosions.size==0 && !timeouting){
-				update_score_on_exit();
-				exit_level();
-			} 
 			else if (timeouting && timeouting_rn && total_time>timeout_time){
 				update_score_on_exit();
 				exit_level();

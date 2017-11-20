@@ -22,6 +22,12 @@ public class ArcadeScreen_Prob_Titanium_Pure extends ArcadeScreen_Prob_Titanium 
 	
 	@Override
 	
+	void set_score_name(){
+		score_name="Score_Titanium_Pure";
+	}
+	
+	@Override
+	
 	void level_specific_turret_setup(){
 		   turret_one=new Turret_Standard("triangle");
 		   turret_two=new Turret_Standard("square");

@@ -22,15 +22,12 @@ public class ArcadeScreen_Prob_Basic_Intro_Comb extends ArcadeScreen_Prob {
 	@Override
 	
 	void set_score_name(){
-		score_name="Score_Basic_Intro";
+		score_name="Score_Basic_Intro_Comb";
 	}
 	
 	@Override
 	void update_score_on_exit(){
 		if (CAMPAIGN){
-			if (prefs.getInteger("one_captured")<captured){
-				prefs.putInteger("one_captured",captured);
-			}
 			prefs.putBoolean("one_done",true);
 			prefs.flush();
 		}
@@ -70,7 +67,7 @@ public class ArcadeScreen_Prob_Basic_Intro_Comb extends ArcadeScreen_Prob {
 	
 	void level_specific_events(){
 		
-			basic_set_shortened_slow_end(2);
+			basic_set_shortened(2);
 		
 	}
 	
@@ -86,10 +83,10 @@ public class ArcadeScreen_Prob_Basic_Intro_Comb extends ArcadeScreen_Prob {
 		   if (seconds<5){
 			   show_the_text=true;
 			   if (CAMPAIGN){
-				   the_text="You start with ten shields. If a mine hits, you lose four shields. If your shields hit zero, you fail the level.";
+				   the_text="You start with a fixed number of shields. If a mine hits, you lose four shields. If shields hit zero, you fail the level.";
 				   if (infuriatingly_specific_bool){
 					   purpletext=true;
-					   the_text="(btw in this campaign there's no reason to prefer capturing mines, we just toss them out the airlock after we catch them)";
+					   the_text="(btw in this campaign there's no reason to prefer capturing mines, we just toss them out the airlock when we leave)";
 				   }
 			   }
 			   else{
@@ -108,9 +105,6 @@ public class ArcadeScreen_Prob_Basic_Intro_Comb extends ArcadeScreen_Prob {
 		   
 		   
 	}
-	
-	//void 
-
 	@Override
 	public void dispose() {
 		probgame_dispose();

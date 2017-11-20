@@ -20,6 +20,12 @@ public class ArcadeScreen_Prob_Multiple_Polarised extends ArcadeScreen_Prob_Mult
 	
 	@Override
 	
+	void set_score_name(){
+		score_name="Score_Multiple_Polarised";
+	}
+	
+	@Override
+	
 	void level_specific_turret_setup(){
 		   turret_one=new Turret_Standard("pentagon",2);
 		   turret_two=new Turret_Standard("pentagon", 2);

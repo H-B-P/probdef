@@ -196,14 +196,6 @@ public class ArcadeScreen_Prob_Multiple extends ArcadeScreen_Prob {
 		
 	}
 	
-	
-	@Override
-	void level_specific_HUD(){
-		
-		font.draw(batch, "WAVE: "+wave_number+"/"+wave_number_total, 90, 455, 140, 1, true);
-		font.draw(batch, "SCORE: "+ score, 90, 437, 140, 1, true);
-	   }
-
 	@Override
 	public void dispose() {
 		probgame_dispose();

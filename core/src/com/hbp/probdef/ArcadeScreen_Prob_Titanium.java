@@ -17,6 +17,10 @@ public class ArcadeScreen_Prob_Titanium extends ArcadeScreen_Prob {
 		
 		game = gam;
 		
+		if (CAMPAIGN){
+			shields=30;
+		}
+		
 	}
 	
 	void eight_two_wave_centre(int start_second, int normal_ops){
@@ -303,12 +307,6 @@ public class ArcadeScreen_Prob_Titanium extends ArcadeScreen_Prob {
 		random_twelve_four_wave(sec+16*5, k_ops);
 	}
 	
-	@Override
-	void level_specific_HUD(){
-		
-		font.draw(batch, "WAVE: "+wave_number+"/"+wave_number_total, 90, 455, 140, 1, true);
-		font.draw(batch, "SCORE: "+ score, 90, 437, 140, 1, true);
-	   }
 
 	@Override
 	public void dispose() {

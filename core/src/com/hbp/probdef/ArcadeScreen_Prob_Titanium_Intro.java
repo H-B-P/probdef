@@ -18,6 +18,12 @@ public class ArcadeScreen_Prob_Titanium_Intro extends ArcadeScreen_Prob_Titanium
 	    wave_number_total=6;
 	}
 	
+@Override
+	
+	void set_score_name(){
+		score_name="Score_Titanium_Intro";
+	}
+	
 	@Override
 	
 	void level_specific_turret_setup(){
@@ -32,6 +38,21 @@ public class ArcadeScreen_Prob_Titanium_Intro extends ArcadeScreen_Prob_Titanium
 		   turrets_standard.add((Turret_Standard) turret_four);
 		   
 	   }
+	
+	@Override
+	void update_score_on_exit(){
+		if (CAMPAIGN){
+			prefs.putBoolean("two_done",true);
+			prefs.flush();
+		}
+		else{
+			if (score>old_score){
+				prefs.putInteger(score_name,score);
+				prefs.flush();
+			}
+		}
+		
+	}
 	
 	@Override
 	

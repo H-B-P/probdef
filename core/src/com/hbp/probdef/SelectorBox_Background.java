@@ -2,8 +2,8 @@ package com.hbp.probdef;
 
 public class SelectorBox_Background extends SelectorBox {
 	
-	   public SelectorBox_Background(String ident, float x, float y){
-		   super(ident, x, y, false);
+	   public SelectorBox_Background(String ident, String prefs_name, float x, float y){
+		   super(ident, prefs_name, x, y, false);
 		   
 	   }
 	   

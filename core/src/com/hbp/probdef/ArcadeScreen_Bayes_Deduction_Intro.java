@@ -251,19 +251,25 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends ArcadeScreen_Bayes {
 	void level_specific_timeline(){
 		show_the_text=false;
 		purpletext=false;
-		
+		indicate=false;
 		if (shipwave==1){
 			if (round==1 && current_status.equals("targeting")){
 				show_the_text=true;
+				indicate=true;
 				the_text="You've destroyed things with turrets; now let's destroy things-with-turrets. Click the leftmost ship to target it.";
 				if (vane_one.targeted){
-					the_text="The right shocker has a pentagon zap, so it won't work on ships with triangle turrets; click it to cycle zaps.";
+					the_text="The right shocker has a pentagon zap, so it won't work on ships with triangle turrets; click on it to cycle zaps.";
 					if (vane_two.current_energy.equals("triangle")){
 						the_text="Now click on one of the triangle ships, to target it with that shocker.";
 					}
 				}
 				if (vane_one.targeted&&vane_two.targeted){
-					the_text="As with turrets, you can click the fire button to fire, or click on a shocker to retarget it before firing.";
+					if (vane_two.current_energy.equals("triangle")){
+						the_text="As with turrets, you can click the fire button to fire, or click on a shocker to retarget it before firing.";
+					}
+					else{
+						the_text="No, that's not right. Click the right shocker - at the bottom right corner of your screen - to retarget it.";
+					}
 				}
 			}
 			if ((round==1 && (current_status.equals("firing") || current_status.equals("zapping") || current_status.equals("waiting")))||(round==2 &&current_status.equals("targeting"))){

@@ -20,6 +20,12 @@ public class ArcadeScreen_Prob_Multiple_Shuffled extends ArcadeScreen_Prob_Multi
 	
 	@Override
 	
+	void set_score_name(){
+		score_name="Score_Multiple_Shuffled";
+	}
+	
+	@Override
+	
 	void level_specific_turret_setup(){
 		   turret_one=new Turret_Standard("triangle",3);
 		   turret_two=new Turret_Standard("circle", 2);

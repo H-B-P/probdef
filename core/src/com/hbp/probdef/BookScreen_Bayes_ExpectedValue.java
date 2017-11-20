@@ -212,10 +212,12 @@ public class BookScreen_Bayes_ExpectedValue extends BookScreen_Bayes {
 		   time_to_move_on=false;
 		   purpletext=false;
 		other_purpletext=false;
+		indicate=false;
 		   
 		   if (page==1){
 			   if(shipwave==1){
 					if (round==1 && current_status.equals("targeting")){
+						indicate=true;
 						show_the_text=true;
 						the_text="You've destroyed things with turrets; now let's destroy things-with-turrets. Click the leftmost ship to target it.";
 						if (vane_one.targeted){
@@ -225,7 +227,12 @@ public class BookScreen_Bayes_ExpectedValue extends BookScreen_Bayes {
 							}
 						}
 						if (vane_one.targeted&&vane_two.targeted){
-							the_text="As with turrets, you can click the fire button to fire, or click on a shocker to retarget it before firing.";
+							if (vane_two.current_energy.equals("circle")){
+								the_text="As with turrets, you can click the fire button to fire, or click on a shocker to retarget it before firing.";
+							}
+							else{
+								the_text="No, that's not right. Click the right shocker - at the bottom right corner of your screen - to retarget it.";
+							}
 						}
 					}
 					if ((round==1 && (current_status.equals("firing") || current_status.equals("zapping") || current_status.equals("waiting")))||(round==2 &&current_status.equals("targeting"))){

@@ -279,10 +279,7 @@ public class ArcadeScreen_Prob_Challenge extends ArcadeScreen_Prob {
 		wave_number_update(sec+20*4-1,5);
 		
 		AND_eight_wave_paired(sec+20*4, 3, 2);
-	}
-	
-	//I'm thinking ten waves, and I'm thinking they're finales of every level the player faced so far, plus some extras?
-	
+	}	
 	
 	void twelve_four_wave_early(int start_second, int normal_ops){
 		if (seconds==start_second || (seconds==start_second+4)){
@@ -372,47 +369,40 @@ public class ArcadeScreen_Prob_Challenge extends ArcadeScreen_Prob {
 	
 	//add a 16 and 12 to fini!
 	
-	void finale_set(int sec){
+	void finale_set(int sec, int kspd){
 		wave_number_update(sec-1,1);
 		
-		sixteen_wave_boring(sec,2);
+		sixteen_wave_boring(sec,kspd);
 		
 		wave_number_update(sec+20-1,2);
 		
-		twelve_four_wave_early(sec+20,2);
+		twelve_four_wave_early(sec+20,kspd);
 		
 		wave_number_update(sec+20*2-1,3);
 		
-		twelve_four_wave_late(sec+20*2,2);
+		twelve_four_wave_late(sec+20*2,kspd);
 		
 		wave_number_update(sec+20*3-1,4);
 		
-		shieldy_twelve_wave_askew(sec+20*3, 3, 2);
+		shieldy_twelve_wave_askew(sec+20*3, kspd+1, 2);
 
 		wave_number_update(sec+20*4-1,5);
 		
-		OR_twelve_wave_boring(20*4, 2,1);
+		OR_twelve_wave_boring(20*4, kspd,1);
 		
 		wave_number_update(sec+20*5-1,6);
 
-		AND_eight_wave_paired(sec+20*5, 2,2);
+		AND_eight_wave_paired(sec+20*5, kspd,2);
 		
 		wave_number_update(sec+20*6-1,7);
 		
-		finale_twelve_wave(sec+20*6, 2,2);
+		finale_twelve_wave(sec+20*6, kspd,2);
 		
 		wave_number_update(sec+20*7-1,8);
 		
 		finale_sixteen_wave(sec+20*7, 2,1);
 	}
 	
-	
-	@Override
-	void level_specific_HUD(){
-		
-		font.draw(batch, "WAVE: "+wave_number+"/"+wave_number_total, 90, 455, 140, 1, true);
-		font.draw(batch, "SCORE: "+ score, 90, 437, 140, 1, true);
-	   }
 
 	@Override
 	public void dispose() {

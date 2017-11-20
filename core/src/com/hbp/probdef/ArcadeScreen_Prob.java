@@ -34,7 +34,14 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 		
 		captured=0;
 	    destroyed=0;
-	    shields=10;
+	    
+	    if (hardcoded_opt_packagename.equals("Combination")){
+	    	shields=20;
+	    }
+	    else{
+	    	shields=10;
+	    }
+	    
 	    score=0;
 	    
 	    ordinary_minetype="generic";
@@ -58,8 +65,15 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 	
 	void exit_level(){
 		if (CAMPAIGN){
-			game.setScreen(new CampaignScreen_Inference(game, true));
-			dispose();
+			if (hardcoded_opt_packagename.equals("Combination")){
+				game.setScreen(new CampaignScreen_Combination(game, true));
+				dispose();
+			}
+			else{
+				game.setScreen(new CampaignScreen_Inference(game, true));
+				dispose();
+			}
+			
 		}
 		else{
 			game.setScreen(new SelectScreen_Arcade(game, true));
@@ -444,15 +458,28 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 			font.draw(batch, "SCORE: "+ score, 90, 437, 140, 1, true);
 		}
 		if (CAMPAIGN){
-			font.draw(batch, "WAVE: "+wave_number+"/"+wave_number_total, 90, 464, 140, 1, true);
-			font.draw(batch, "SHIELDS: " + shields, 90, 446, 140, 1, true);
-			font.draw(batch, "CAPTURED: " + (captured+extra_mines), 90, 428, 140, 1, true);
+			if (hardcoded_opt_packagename.equals("Combination")){
+				font.draw(batch, "WAVE: "+wave_number+"/"+wave_number_total, 90, 455, 140, 1, true);
+				font.draw(batch, "SHIELDS: "+ shields, 90, 437, 140, 1, true);
+			}
+			else{
+				font.draw(batch, "WAVE: "+wave_number+"/"+wave_number_total, 90, 464, 140, 1, true);
+				font.draw(batch, "SHIELDS: " + shields, 90, 446, 140, 1, true);
+				font.draw(batch, "CAPTURED: " + (captured+extra_mines), 90, 428, 140, 1, true);
+			}
+			
 		}
 	}
 	
 	@Override
 	void calculate_score(){
-		score=captured+shields+10;
+		if (hardcoded_opt_packagename.equals("Combination")){
+			score=captured+shields;
+		}
+		else{
+			score=captured+shields+10;
+		}
+		
 		score=Math.max(score, 0);
 	}
 

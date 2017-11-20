@@ -60,18 +60,22 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	String hardcoded_opt_packagename;
 	String hardcoded_opt_platform;
 	
+	String pname;
+	
 	public MetaScreen(final ProbDef gam, boolean play_the_sound) {
 		
 		
-		hardcoded_opt_packagename="Combination";
-		//hardcoded_opt_packagename="Inference";
+		//hardcoded_opt_packagename="Combination";
+		hardcoded_opt_packagename="Inference";
 		
 		hardcoded_opt_platform="Web";
 		
 		if (hardcoded_opt_packagename.equals("Combination")){
+			pname="Combination_Preferences";
 			prefs = Gdx.app.getPreferences("Combination_Preferences");
 		}
 		else{
+			pname="galen_preferences_II";
 			prefs = Gdx.app.getPreferences("galen_preferences_II");
 		}
 		

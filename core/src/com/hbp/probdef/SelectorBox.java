@@ -18,14 +18,20 @@ public class SelectorBox {
 	
 	boolean is_it_numeric;
 	
-	SelectorBox(String ident, float x, float y, boolean num){
+	String pnam;
+	
+	SelectorBox(String ident, String prefs_name, float x, float y, boolean num){
 		is_it_numeric=num;
 		
 		identity=ident;
 		
+		pnam=prefs_name;
+		
 		//prefs = Gdx.app.getPreferences("galen_preferences_II");
 		
-		prefs = Gdx.app.getPreferences("Combination_Preferences");
+		//prefs = Gdx.app.getPreferences("Combination_Preferences");
+		
+		prefs = Gdx.app.getPreferences(prefs_name);
 		
 		current_nature_string="broken";
 		

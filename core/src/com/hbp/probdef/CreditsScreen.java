@@ -45,8 +45,13 @@ public class CreditsScreen extends MetaScreen {
 				
 		TITLE_t=new Texture(Gdx.files.internal("TITLE_CREDITS.png"));
 		
-		creds_t=new Texture(Gdx.files.internal("creds3.png"));
 		
+		if (hardcoded_opt_packagename.equals("Combination")){
+			creds_t=new Texture(Gdx.files.internal("creds4.png"));
+		}
+		else{
+			creds_t=new Texture(Gdx.files.internal("creds3.png"));
+		}
 		menu_r = new Rectangle();
 		menu_r.x=170;
 		menu_r.y=400;

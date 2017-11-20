@@ -211,7 +211,7 @@ public class BookScreen_Prob_Tree extends BookScreen_Prob {
 		   suppress_freezes=false;
 		   time_to_move_on=false;
 		   purpletext=false;
-		
+		writing_symbol_visible=false;
 		if (page==1){
 			
 			turret_three.does_it_work=false;
@@ -219,7 +219,7 @@ public class BookScreen_Prob_Tree extends BookScreen_Prob {
 			
 			if (seconds==4 && TIMESPEED==0){
 				show_the_text=true;
-				the_text="Let's say we want to know the odds of this mine being captured.";
+				the_text="The blue text shows the odds of this mine being captured.";
 				if (turret_one.targeted){
 					the_text="The probability that the triangle captures it is 30%.";
 				}
@@ -230,7 +230,7 @@ public class BookScreen_Prob_Tree extends BookScreen_Prob {
 			}
 			if (seconds==6 && TIMESPEED==0){
 				show_the_text=true;
-				the_text="Let's say we want to know the odds of this mine being destroyed.";
+				the_text="The red text the odds of this mine being destroyed.";
 				if (turret_one.targeted){
 					the_text="The probability that the triangle destroys it is 40%.";
 				}
@@ -293,6 +293,7 @@ public class BookScreen_Prob_Tree extends BookScreen_Prob {
 			turret_four.does_it_work=false;
 			if (page_time<4||(seconds==4 && TIMESPEED==0 && turret_one.targeted==false)){
 				show_the_text=true;
+				writing_symbol_visible=true;
 				the_text="Before targeting, use a probability tree to calculate the probability that this mine will be destroyed when targeted with these turrets.";
 			}
 			if (page_time>6){
@@ -301,6 +302,7 @@ public class BookScreen_Prob_Tree extends BookScreen_Prob {
 		}
 		if (page==6){
 			if (page_time<4||(seconds==4 && TIMESPEED==0 && turret_one.targeted==false)){
+				writing_symbol_visible=true;
 				show_the_text=true;
 				the_text="Extend the tree and use it to find the probability this mine will be captured when all four turrets are targeted.";
 			}

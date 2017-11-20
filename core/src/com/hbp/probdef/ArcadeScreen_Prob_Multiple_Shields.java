@@ -20,6 +20,12 @@ public class ArcadeScreen_Prob_Multiple_Shields extends ArcadeScreen_Prob_Multip
 	
 	@Override
 	
+	void set_score_name(){
+		score_name="Score_Multiple_Shields";
+	}
+	
+	@Override
+	
 	void level_specific_turret_setup(){
 		   turret_one=new Turret_Standard("pentagon");
 		   turret_two=new Turret_Standard("circle");
@@ -32,6 +38,21 @@ public class ArcadeScreen_Prob_Multiple_Shields extends ArcadeScreen_Prob_Multip
 		   turrets_standard.add((Turret_Standard) turret_four);
 		   
 	   }
+	
+	@Override
+	void update_score_on_exit(){
+		if (CAMPAIGN){
+			prefs.putBoolean("four_done",true);
+			prefs.flush();
+		}
+		else{
+			if (score>old_score){
+				prefs.putInteger(score_name,score);
+				prefs.flush();
+			}
+		}
+		
+	}
 	
 	@Override
 	

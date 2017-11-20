@@ -116,7 +116,14 @@ public class TitleScreen extends MetaScreen {
 		
 		EBOX_t= new Texture(Gdx.files.internal("explainybox.png"));
 		
-		PROBDEF_t=new Texture(Gdx.files.internal("PROBDEF.png"));
+		if (hardcoded_opt_packagename.equals("Combination")){
+			PROBDEF_t=new Texture(Gdx.files.internal("PROBDEF_Combination.png"));
+		}
+		else{
+			PROBDEF_t=new Texture(Gdx.files.internal("PROBDEF.png"));
+		}
+		
+		
 		
 		TRIM_t = new Texture(Gdx.files.internal("abutton_trim_boring.png"));
 		
@@ -162,7 +169,13 @@ public class TitleScreen extends MetaScreen {
 		
 		if (TUTORIAL_r.contains(tp_x,tp_y)){
 			batch.draw(TRIM_t, TUTORIAL_r.x, TUTORIAL_r.y);
-			blackfont.draw(batch, "Learn the controls and the basic game mechanics.\nDo this first.", 10, 75, 300,1, true);
+			if (hardcoded_opt_packagename.equals("Combination")){
+				blackfont.draw(batch, "Learn the controls and the basic game mechanics. Do this first.", 10, 83, 300,1, true);
+				purplefont.draw(batch, "(unless you played the first ProbDef, in which case skip it)", 10, 48, 300,1, true);
+			}
+			else{
+				blackfont.draw(batch, "Learn the controls and the basic game mechanics.\nDo this first.", 10, 75, 300,1, true);
+			}
 		}
 		
 		if (ARCADE_r.contains(tp_x,tp_y)){

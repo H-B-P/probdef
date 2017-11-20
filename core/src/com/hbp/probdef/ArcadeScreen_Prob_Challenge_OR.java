@@ -16,6 +16,12 @@ public class ArcadeScreen_Prob_Challenge_OR extends ArcadeScreen_Prob_Challenge 
 	    minecount=70;
 	    
 	    wave_number_total=7;
+	    
+	    if (CAMPAIGN){shields=25;}
+	}
+	
+	void set_score_name(){
+		score_name="Score_Challenge_OR";
 	}
 	
 	@Override
@@ -34,10 +40,30 @@ public class ArcadeScreen_Prob_Challenge_OR extends ArcadeScreen_Prob_Challenge 
 	   }
 	
 	@Override
+	void update_score_on_exit(){
+		if (CAMPAIGN){
+			prefs.putBoolean("seven_done",true);
+			prefs.flush();
+		}
+		else{
+			if (score>old_score){
+				prefs.putInteger(score_name,score);
+				prefs.flush();
+			}
+		}
+		
+	}
+	
+	@Override
 	
 	void level_specific_events(){
+		if (CAMPAIGN){
+			challenge_OR_set(2, false);
+		}
+		else{
+			challenge_OR_set(2, true);
+		}
 		
-		challenge_OR_set(2, true);
 	}
 	
 	@Override

@@ -24,6 +24,8 @@ public class ArcadeScreen_Bayes_Deduction_Blatant extends ArcadeScreen_Bayes {
 		score=30;
 	}
 	
+	@Override
+	
 	void set_score_name(){
 		score_name="Score_Deduction_Blatant";
 	}

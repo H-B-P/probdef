@@ -28,6 +28,9 @@ public class GameScreen_Bayes extends GameScreen {
 	
 	final ProbDef game;
 	
+	 Texture indicate_ships_t;
+	 Texture indicate_shockers_t;
+	
 	Vane vane_one;
 	Vane vane_two;
 	
@@ -87,6 +90,9 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		super(gam);
 		game=gam;
+		
+		indicate_shockers_t=new Texture(Gdx.files.internal("indicate_shockers.png"));
+		//indicate_ships_t=new Texture(Gdx.files.internal("indicate_ships.png"));
 		
 		bayesian=true;
 		
@@ -1098,6 +1104,15 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		if (timeouting_rn){
 			batch.draw(complete_box_t, 80, 200);
+		}
+		
+		if (indicate){
+			   batch.draw(indicate_shockers_t, 105, 40);
+			   //batch.draw(indicate_ships_t, 100, 375);
+		}
+		
+		if (writing_symbol_visible){
+			   batch.draw(writey_symbol_t, 10, 330);
 		}
 		
 		batch.end();

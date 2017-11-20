@@ -64,6 +64,22 @@ public class SelectScreen_Arcade extends SelectScreen {
 		   names.add("Score_Deduction_Subtle");
 		   names.add("Score_Deduction_NAF");
 		   
+		   names.add("Score_Basic_Intro_Comb");
+		   
+		   names.add("Score_Titanium_Intro");
+		   names.add("Score_Titanium_Tradeoff");
+		   names.add("Score_Titanium_Pure");
+		   
+		   names.add("Score_Multiple_Shields");
+		   names.add("Score_Multiple_Multishot");
+		   names.add("Score_Multiple_Doubles");
+		   names.add("Score_Multiple_Shuffled");
+		   names.add("Score_Multiple_Polarised");
+		   
+		   names.add("Score_Challenge_OR");
+		   names.add("Score_Challenge_AND");
+		   names.add("Score_Challenge_Finale");
+		   
 		   for (String name:names){
 			   if (!prefs.contains(name)){
 				   prefs.putInteger(name, 0);
@@ -159,6 +175,17 @@ public class SelectScreen_Arcade extends SelectScreen {
 			if (TOPIC.equals("Basic") && hardcoded_opt_packagename.equals("Combination")){
 				one_r.x=90;
 				one_r.y=230;
+			}
+			
+			if (TOPIC.equals("Titanium") || TOPIC.equals("Challenge")){
+				one_r.x=90;
+				one_r.y=230;
+				
+				two_r.x=90;
+				two_r.y=140;
+				
+				three_r.x=90;
+				three_r.y=50;
 			}
 		   
 //		   if (how_many==5|| how_many==3){
@@ -281,7 +308,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 				banner_t=banner_blank_t;
 				banner_s="Decoys";
 				
-				one_s="Decoys";
+				one_s="Intro";
 				one_double_liner=false;
 				score_one=prefs.getInteger("Score_Decoy_Intro");
 				
@@ -310,7 +337,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 				banner_t=banner_blank_t;
 				banner_s="Deduction";
 				
-				one_s="Deduction";
+				one_s="Intro";
 				one_double_liner=false;
 				score_one=prefs.getInteger("Score_Deduction_Intro");
 				
@@ -334,51 +361,73 @@ public class SelectScreen_Arcade extends SelectScreen {
 			
 			
 			if(TOPIC.equals("Titanium")){
-				NUMBER_OF_LEVELS=5;
+				NUMBER_OF_LEVELS=3;
 				banner_t=banner_blank_t;
 				banner_s="Titanium";
-				one_s="Titanium";
+				
+				one_s="Intro";
 				one_double_liner=false;
+				score_one=prefs.getInteger("Score_Titanium_Intro");
+				
 				two_s="Tradeoff";
 				two_double_liner=false;
-				three_s="Titanium, Decoys";
+				score_two=prefs.getInteger("Score_Titanium_Tradeoff");
+				
+				three_s="Pure Titanium";
 				three_double_liner=true;
-				four_s="Titanium Decoys";//"Titanium, Decoys";
-				four_double_liner=true;
-				five_s="Pure Titanium";//"Titanium Decoys";
-				five_double_liner=true;
+				score_three=prefs.getInteger("Score_Titanium_Pure");
+				
 			}
 			if(TOPIC.equals("Multiple")){
 				NUMBER_OF_LEVELS=5;
 				banner_t=banner_blank_t;
 				banner_s="Multiple";
-				one_s="Shields";
-				one_double_liner=false;
-				two_s="Multishot";
-				two_double_liner=false;
+				
+				one_s="Intro (Shields)";
+				one_double_liner=true;
+				score_one=prefs.getInteger("Score_Multiple_Shields");
+				
+				two_s="Intro (Multishot)";
+				two_double_liner=true;
+				score_two=prefs.getInteger("Score_Multiple_Multishot");
+				
 				three_s="Doubles";
 				three_double_liner=false;
+				score_three=prefs.getInteger("Score_Multiple_Doubles");
+				
 				four_s="Shuffled";
 				four_double_liner=false;
+				score_four=prefs.getInteger("Score_Multiple_Shuffled");
+				
 				five_s="Polarised";
 				five_double_liner=false;
+				score_five=prefs.getInteger("Score_Multiple_Polarised");
+				
+				
 				//six_s="Binary";
 				//six_double_liner=false;
 			}
 			if(TOPIC.equals("Challenge")){
-				NUMBER_OF_LEVELS=5;
+				NUMBER_OF_LEVELS=3;
 				banner_t=banner_blank_t;
 				banner_s="Challenge";
+				
 				one_s="Shields & Titanium";
 				one_double_liner=true;
+				score_one=prefs.getInteger("Score_Challenge_OR");
+				
+				
 				two_s="Shielded Titanium";
 				two_double_liner=true;
+				score_two=prefs.getInteger("Score_Challenge_AND");
+				
+				
 				three_s="Finale";
 				three_double_liner=false;
-				four_s="";//"Combination";
-				four_double_liner=true;
-				five_s="";//"Synthesis";
-				five_double_liner=true;
+				score_three=prefs.getInteger("Score_Challenge_Finale");
+				
+				
+				
 			}
 			
 			if(TOPIC.equals("Dukkha")){

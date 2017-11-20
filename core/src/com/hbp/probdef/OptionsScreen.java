@@ -67,28 +67,28 @@ public class OptionsScreen extends MetaScreen {
 	    //screenSizeSelectorBox=new SelectorBox_Size("Screen Size",170,330);
 		//selectorboxes.add(screenSizeSelectorBox);
 		
-	    acalcSelectorBox=new SelectorBox_Acalc("Autocalc",10, 330);
+	    acalcSelectorBox=new SelectorBox_Acalc("Autocalc", pname,10, 330);
 		selectorboxes.add(acalcSelectorBox);
 	    
-		tthSelectorBox=new SelectorBox_TTH_Display("TTH Display",170, 330);
+		tthSelectorBox=new SelectorBox_TTH_Display("TTH Display",pname,170, 330);
 		selectorboxes.add(tthSelectorBox);
 		
-	    musicVolumeSelectorBox=new SelectorBox_Percentage("Music Volume",10,255);
+	    musicVolumeSelectorBox=new SelectorBox_Percentage("Music Volume",pname,10,255);
 		selectorboxes.add(musicVolumeSelectorBox);
 		
-		sfxVolumeSelectorBox=new SelectorBox_Percentage("SFX Volume",170,255);
+		sfxVolumeSelectorBox=new SelectorBox_Percentage("SFX Volume",pname,170,255);
 		selectorboxes.add(sfxVolumeSelectorBox);
 		
-		gamespeedSelectorBox=new SelectorBox_Percentage("Game Speed",10,180);
+		gamespeedSelectorBox=new SelectorBox_Percentage("Game Speed",pname,10,180);
 		gamespeedSelectorBox.max=500;
 		gamespeedSelectorBox.min=50;
 		gamespeedSelectorBox.interval=50;
 		selectorboxes.add(gamespeedSelectorBox);
 		
-		flickeringSelectorBox=new SelectorBox_Flickering("Flickering", 90, 105);
+		flickeringSelectorBox=new SelectorBox_Flickering("Flickering", pname, 90, 105);
 	    selectorboxes.add(flickeringSelectorBox);
 		
-	    backgroundSelectorBox=new SelectorBox_Background("Background",170, 180 );
+	    backgroundSelectorBox=new SelectorBox_Background("Background",pname,170, 180 );
 	    selectorboxes.add(backgroundSelectorBox);
 	    
 		EBOX_t= new Texture(Gdx.files.internal("explainybox.png"));
@@ -151,7 +151,12 @@ public class OptionsScreen extends MetaScreen {
 	    	if (selectorbox.rect_forward.contains(tp_x,tp_y)){batch.draw(Sbox_trim_t, selectorbox.rect_forward.x, selectorbox.rect_forward.y);}
 	    	if (selectorbox.rect_back.contains(tp_x,tp_y)){batch.draw(Sbox_trim_t, selectorbox.rect_back.x, selectorbox.rect_back.y);}
 	    	blackfont.draw(batch, selectorbox.identity, selectorbox.rect.x, selectorbox.rect.y+53, 140,1,true);
-	    	blackfont.draw(batch, selectorbox.displayableString(), selectorbox.rect.x+40, selectorbox.rect.y+25, 60,1,true);
+	    	if (selectorbox.displayableString().length()>10){
+		    	blackfont.draw(batch, selectorbox.displayableString(), selectorbox.rect.x+40, selectorbox.rect.y+34, 60,1,true);
+	    	}
+	    	else{
+		    	blackfont.draw(batch, selectorbox.displayableString(), selectorbox.rect.x+40, selectorbox.rect.y+25, 60,1,true);
+	    	}
 	    }
 		
 	    
@@ -176,7 +181,12 @@ public class OptionsScreen extends MetaScreen {
 		//	purplefont.draw(batch, "(if you're playing the web version browser options work better tbh)", 15, 46, 290,1, true);
 		//}
 		if (acalcSelectorBox.rect.contains(tp_x,tp_y)){
-			blackfont.draw(batch, "Leave the autocalc Off if you want a challenge, or set it to Detail if you want more info and don't mind cluttering the screen.", 15, 83, 290,1, true);
+			if (hardcoded_opt_packagename.equals("Combination")){
+				blackfont.draw(batch, "Leave the autocalc Off if you want a challenge, or set it to a Detail if you want more info and don't mind cluttering the screen.", 15, 83, 290,1, true);
+			}
+			else{
+				blackfont.draw(batch, "Leave the autocalc Off if you want a challenge, or set it to Detail if you want more info and don't mind cluttering the screen.", 15, 83, 290,1, true);
+			}
 		}
 		
 		if (tthSelectorBox.rect.contains(tp_x,tp_y)){

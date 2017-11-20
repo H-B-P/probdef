@@ -5,8 +5,8 @@ public class SelectorBox_Size extends SelectorBox {
 	int max;
 	int min;
 	
-	   public SelectorBox_Size(String ident, float x, float y){
-		   super(ident, x, y, false);
+	   public SelectorBox_Size(String ident, String prefs_name, float x, float y){
+		   super(ident, prefs_name, x, y, false);
 		   
 	   }
 	   

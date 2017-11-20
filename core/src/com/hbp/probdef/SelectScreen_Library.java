@@ -14,7 +14,13 @@ public class SelectScreen_Library extends SelectScreen {
 			title_t=new Texture(Gdx.files.internal("TITLE_LIBRARY.png"));
 			
 			first_topic="Probability";
-			last_topic="Bayes";
+			last_topic="Probability";
+			if (hardcoded_opt_packagename.equals("Inference")){
+				last_topic="Bayes";
+			}
+			if (hardcoded_opt_packagename.equals("Combination")){
+				last_topic="Pascal";
+			}
 			
 			
 			if (prefs.contains("probdef_library_topic")){
@@ -50,7 +56,12 @@ public class SelectScreen_Library extends SelectScreen {
 			
 			prefs.putString("probdef_library_topic", TOPIC);
 			if(TOPIC.equals("Probability")){
-				NUMBER_OF_LEVELS=3;
+				if (hardcoded_opt_packagename.equals("Inference")){
+					NUMBER_OF_LEVELS=3;
+				}
+				else{
+					NUMBER_OF_LEVELS=2;
+				}
 				banner_t=banner_blank_t;
 				banner_s="Probability";
 				one_s="Combining Events";
@@ -100,10 +111,12 @@ public class SelectScreen_Library extends SelectScreen {
 			
 			arrowsound.play(option_sfx_volume);
 			if (TOPIC.equals("Probability")){
-				TOPIC="Bayes";
-			}
-			else if (TOPIC.equals("Bayes")){
-				TOPIC="Pascal";
+				if (hardcoded_opt_packagename.equals("Combination")){
+					TOPIC="Pascal";
+				}
+				else{
+					TOPIC="Bayes";
+				}
 			}
 		}
 		
@@ -115,15 +128,14 @@ public class SelectScreen_Library extends SelectScreen {
 			if (TOPIC.equals("Bayes")){
 				TOPIC="Probability";
 			}
-			else if (TOPIC.equals("Pascal")){
-				TOPIC="Bayes";
+			if (TOPIC.equals("Pascal")){
+				TOPIC="Probability";
 			}
 		}
 	   
 	   @Override
 	   
 	   void set_up_level_button_positions(int how_many){
-		   if (how_many==3){
 				
 			   one_r = new Rectangle();
 				one_r.x=90;
@@ -142,7 +154,6 @@ public class SelectScreen_Library extends SelectScreen {
 				three_r.y=50;
 				three_r.height=60;
 				three_r.width=140;
-			}
 	   }
 	   
 	   @Override
@@ -157,7 +168,7 @@ public class SelectScreen_Library extends SelectScreen {
 				   game.setScreen(new BookScreen_Prob_Tree(game));
 				   dispose();
 			   }
-			   if (three_r.contains(tp_x,tp_y)){
+			   if (three_r.contains(tp_x,tp_y) && hardcoded_opt_packagename.equals("Inference")){
 				   game.setScreen(new BookScreen_Prob_HypothesisTests(game));
 				   dispose();
 			   }

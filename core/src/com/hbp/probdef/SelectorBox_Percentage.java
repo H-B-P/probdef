@@ -5,8 +5,8 @@ public class SelectorBox_Percentage extends SelectorBox {
 	int max;
 	int min;
 	
-	   public SelectorBox_Percentage(String ident, float x, float y){
-		   super(ident, x, y, true);
+	   public SelectorBox_Percentage(String ident, String prefs_name, float x, float y){
+		   super(ident, prefs_name, x, y, true);
 		   
 		   interval=20;
 		   max=100;

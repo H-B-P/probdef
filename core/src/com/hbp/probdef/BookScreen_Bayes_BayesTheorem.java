@@ -278,7 +278,7 @@ public class BookScreen_Bayes_BayesTheorem extends BookScreen_Bayes {
 		   purpletext=false;
 		   vane_two.does_it_work=true;
 		other_purpletext=false;
-		   
+		   writing_symbol_visible=false;
 		   if (page==1){
 			   if(shipwave<2 && round<2){
 				   vane_two.does_it_work=false;
@@ -358,6 +358,7 @@ public class BookScreen_Bayes_BayesTheorem extends BookScreen_Bayes {
 			   }
 		   }
 		   if (page==9){
+			   writing_symbol_visible=true;
 			   vane_two.does_it_work=false;
 			   if (shipwave==1 && round==1 && current_status.equals("targeting")){
 				   
@@ -383,6 +384,7 @@ public class BookScreen_Bayes_BayesTheorem extends BookScreen_Bayes {
 		   }
 
 		   if (page==10){
+			   writing_symbol_visible=true;
 			   vane_two.does_it_work=false;
 			   if (shipwave==1 && round==1 && current_status.equals("targeting")){
 				   show_the_text=true;

@@ -98,7 +98,7 @@ public class BookScreen_Prob_MoreTrees extends BookScreen_Prob {
 			}
 		}
 		if (page==6){
-			if (seconds==2){
+			if (seconds==6){
 				spawnShieldMine(0,95,2);
 			}
 		}
@@ -118,13 +118,12 @@ public class BookScreen_Prob_MoreTrees extends BookScreen_Prob {
 		   purpletext=false;
 		
 		if (page==1){
-			if (page_time<3){
-				show_the_text=true;
-				the_text="Some mines have shields. Each shield can absorb one shot before disappearing.";
-			}
 			if (seconds==4 && TIMESPEED==0){
 				show_the_text=true;
-				the_text="To destroy or capture them, all their shields must be dropped.";
+				the_text="Some mines have shields. Each shield can absorb one shot before disappearing.";
+				if (turret_one.targeted || turret_two.targeted|| turret_three.targeted || turret_four.targeted){
+					the_text="To destroy or capture them, all their shields must be dropped.";
+				}
 			}
 			if (seconds==8 && TIMESPEED==0){
 				purpletext=true;
@@ -233,16 +232,16 @@ public class BookScreen_Prob_MoreTrees extends BookScreen_Prob {
 			}
 		}
 		if (page==6){
-			if (seconds<4){
+			if (seconds<7){
 				show_the_text=true;
 				the_text="If you want a challenge, predict what the autocalc will say when we target all four turrets on THIS mine.";
 			}
-			if (seconds==4 && TIMESPEED==0){
+			if (seconds==8 && TIMESPEED==0){
 				show_the_text=true;
 				purpletext=true;
 				the_text="(or just skip ahead, this is even more optional than most things in life are)";
 			}
-			if (page_time>6){
+			if (page_time>10){
 				time_to_move_on=true;
 			}
 		}

@@ -53,17 +53,17 @@ public class BookScreen_Prob_HypothesisTests extends BookScreen_Prob {
 	
 	void level_specific_events(){
 		if (page==1){
-			if (seconds==4){
+			if (seconds==10){
 				spawnDecoyMine(0,200);
 			}
-			if (seconds==6){
+			if (seconds==12){
 				spawnDecoyMine(0,35);
 			}
-			if (seconds==10){
+			if (seconds==16){
 				spawnMine(-2,65);
 				spawnMine(2,65);
 			}
-			if (seconds==12){
+			if (seconds==18){
 				spawnMine(-2,65);
 				spawnMine(2,65);
 			}
@@ -110,30 +110,30 @@ public class BookScreen_Prob_HypothesisTests extends BookScreen_Prob {
 		
 		if (page==1){
 			
-			if (page_time<4){
+			if (page_time<10){
 				show_the_text=true;
 				the_text="Decoy mines look ordinary, but vanish harmlessly when they touch the ship's shield.";
 			}
-			if ((page_time>6 && page_time<8) || (seconds==8 && TIMESPEED==0)){
+			if ((page_time>12 && page_time<14) || (seconds==14 && TIMESPEED==0)){
 				show_the_text=true;
 				the_text="They don't exist, so turrets won't successfully fire on them. Every shot you try fails.";
 				
 			}
-			if (seconds==8 && (turret_one.targeted || turret_two.targeted || turret_three.targeted || turret_four.targeted)){
+			if (seconds==14 && (turret_one.targeted || turret_two.targeted || turret_three.targeted || turret_four.targeted)){
 				show_the_text=true;
 				the_text="The autocalculator assumes every mine is real and calculates odds based on that.";
 			}
-			if ((seconds==12 && TIMESPEED==0)){
+			if ((seconds==18 && TIMESPEED==0)){
 				show_the_text=true;
 				the_text="Eventually, a decoy will defy enough odds that you can assume it's fake, and focus on real threats.";
 				
 			}
-			if (page_time>18){
+			if (page_time>24){
 				show_the_text=true;
 				purpletext=true;
-				the_text="(from here on out all decoys are generated randomly, so memorising which mines are fake won't work)";
+				the_text="(btw: from here on out all decoys are generated randomly, so memorising which mines are fake won't work)";
 			}
-			if (page_time>20){
+			if (page_time>26){
 				time_to_move_on=true;
 			}
 		}

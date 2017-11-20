@@ -20,6 +20,12 @@ public class ArcadeScreen_Prob_Multiple_Binary extends ArcadeScreen_Prob_Multipl
 	
 	@Override
 	
+	void set_score_name(){
+		score_name="Score_Multiple_Binary";
+	}
+	
+	@Override
+	
 	void level_specific_turret_setup(){
 		   turret_one=new Turret_Standard("circle", 5);
 		   turret_two=new Turret_Standard("circle", 3);

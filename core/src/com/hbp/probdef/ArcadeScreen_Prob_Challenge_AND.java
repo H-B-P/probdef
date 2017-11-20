@@ -16,6 +16,12 @@ public class ArcadeScreen_Prob_Challenge_AND extends ArcadeScreen_Prob_Challenge
 	    minecount=30;
 	    
 	    wave_number_total=5;
+	    
+	    if (CAMPAIGN){shields=25;}
+	}
+	
+	void set_score_name(){
+		score_name="Score_Challenge_AND";
 	}
 	
 	@Override
@@ -32,6 +38,21 @@ public class ArcadeScreen_Prob_Challenge_AND extends ArcadeScreen_Prob_Challenge
 		   turrets_standard.add((Turret_Standard) turret_four);
 		   
 	   }
+	
+	@Override
+	void update_score_on_exit(){
+		if (CAMPAIGN){
+			prefs.putBoolean("six_done",true);
+			prefs.flush();
+		}
+		else{
+			if (score>old_score){
+				prefs.putInteger(score_name,score);
+				prefs.flush();
+			}
+		}
+		
+	}
 	
 	@Override
 	

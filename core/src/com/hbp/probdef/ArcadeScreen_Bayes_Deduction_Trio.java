@@ -36,6 +36,8 @@ public class ArcadeScreen_Bayes_Deduction_Trio extends ArcadeScreen_Bayes {
 		
 	}
 	
+	@Override
+	
 	void set_score_name(){
 		score_name="Score_Deduction_Finale";
 	}

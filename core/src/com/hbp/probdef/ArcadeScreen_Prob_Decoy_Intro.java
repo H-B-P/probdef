@@ -25,6 +25,8 @@ public class ArcadeScreen_Prob_Decoy_Intro extends ArcadeScreen_Prob {
 		extra_mines=prefs.getInteger("one_captured")+prefs.getInteger("two_captured");
 	}
 	
+	@Override
+	
 	void set_score_name(){
 		score_name="Score_Decoy_Intro";
 	}
@@ -115,7 +117,7 @@ public class ArcadeScreen_Prob_Decoy_Intro extends ArcadeScreen_Prob {
 				}
 				else{
 					purpletext=true;
-					the_text="(from here on out all decoys are generated randomly, so memorising which mines are fake won't work)";
+					the_text="(btw: from here on out all decoys are generated randomly, so memorising which mines are fake won't work)";
 				}
 			}		   
 	}
