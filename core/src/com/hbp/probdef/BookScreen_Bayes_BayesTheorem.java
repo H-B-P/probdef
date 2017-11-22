@@ -23,7 +23,7 @@ public class BookScreen_Bayes_BayesTheorem extends BookScreen_Bayes {
 		
 		game = gam;
 		
-		maxpages=11;
+		maxpages=10;
 		
 		minecount=999;
 		
@@ -401,9 +401,16 @@ public class BookScreen_Bayes_BayesTheorem extends BookScreen_Bayes {
 				   the_text="Did you get that right? If so, well done!";
 			   }
 			   if (shipwave>1){
+				   show_the_text=true;
+				   purpletext=true;
+				   suppress_phasing=true;
+				   the_text="(welp, that's it for this book, and also for the Library; hope you had a nice time and feel appropriately Educated)";
 				   time_to_move_on=true;
-				   vane_two.does_it_work=true;
 			   }
+			   //if (shipwave>1){
+				//   time_to_move_on=true;
+				//   vane_two.does_it_work=true;
+			   //}
 		   }
 		   if (page==11){
 			   if (shipwave==1 && current_status.equals("bowling")){

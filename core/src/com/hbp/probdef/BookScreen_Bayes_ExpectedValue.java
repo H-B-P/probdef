@@ -231,7 +231,7 @@ public class BookScreen_Bayes_ExpectedValue extends BookScreen_Bayes {
 								the_text="As with turrets, you can click the fire button to fire, or click on a shocker to retarget it before firing.";
 							}
 							else{
-								the_text="No, that's not right. Click the right shocker - at the bottom right corner of your screen - to retarget it.";
+								the_text="The shapes don't match. Click the right shocker - at the bottom right corner of your screen - to retarget it.";
 							}
 						}
 					}
