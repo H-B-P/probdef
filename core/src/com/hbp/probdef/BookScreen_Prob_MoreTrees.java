@@ -47,7 +47,7 @@ public class BookScreen_Prob_MoreTrees extends BookScreen_Prob {
 		   turret_one=new Turret_Standard("triangle");
 		   turret_two=new Turret_Standard("pentagon");
 		   turret_three=new Turret_Standard("square");
-		   turret_four=new Turret_Standard("circle");
+		   turret_four=new Turret_Standard("triangle");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -61,20 +61,17 @@ public class BookScreen_Prob_MoreTrees extends BookScreen_Prob {
 	void level_specific_events(){
 		if (page==1){
 			if (seconds==2){
-				spawnShieldMine(-2,65,1);
-				spawnShieldMine(0,65,2);
+				spawnShieldMine(0,65,1);
 			}
 			if (seconds==6){
 				spawnShieldMine(0, 95, 1);
 			}
 			if (seconds==8){
 				spawnShieldMine(-1, 95, 1);
-				spawnShieldMine(1, 65, 2);
+				spawnShieldMine(1, 65, 1);
 			}
 			if (seconds==12){
-				spawnShieldMine(-2, 45, 1);
-				spawnShieldMine(0, 45, 2);
-				spawnShieldMine(2, 45, 3);
+				spawnShieldMine(0, 45, 3);
 			}
 		}
 		if (page==2){
@@ -118,6 +115,8 @@ public class BookScreen_Prob_MoreTrees extends BookScreen_Prob {
 		   purpletext=false;
 		
 		if (page==1){
+			turret_three.does_it_work=false;
+			turret_four.does_it_work=false;
 			if (seconds==4 && TIMESPEED==0){
 				show_the_text=true;
 				the_text="Some mines have shields. Each shield can absorb one shot before disappearing.";

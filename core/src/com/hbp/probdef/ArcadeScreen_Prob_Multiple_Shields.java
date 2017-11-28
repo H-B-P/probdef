@@ -74,7 +74,7 @@ public class ArcadeScreen_Prob_Multiple_Shields extends ArcadeScreen_Prob_Multip
 		   purpletext=false;
 		   if (seconds<5){
 			   show_the_text=true;
-			   the_text="Some mines have shields.\nHitting a shield layer with either a capture or a destroy attack will remove it.";
+			   the_text="Some mines have shields.\nHitting a shield layer with any kind of attack will remove the shield and block the attack.";
 		   }
 	}
 

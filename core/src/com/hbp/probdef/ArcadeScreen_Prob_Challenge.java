@@ -274,7 +274,7 @@ public class ArcadeScreen_Prob_Challenge extends ArcadeScreen_Prob {
 		
 		wave_number_update(sec+20*3-1,4);
 		
-		AND_eight_wave_askew(sec+20*3, 4, 2);
+		AND_eight_wave_askew(sec+20*3, 3, 2);
 		
 		wave_number_update(sec+20*4-1,5);
 		
@@ -400,7 +400,7 @@ public class ArcadeScreen_Prob_Challenge extends ArcadeScreen_Prob {
 		
 		wave_number_update(sec+20*7-1,8);
 		
-		finale_sixteen_wave(sec+20*7, 2,1);
+		finale_sixteen_wave(sec+20*7, kspd,1);
 	}
 	
 

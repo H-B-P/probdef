@@ -86,7 +86,7 @@ public class ArcadeScreen_Prob_Basic_Intro_Comb extends ArcadeScreen_Prob {
 				   the_text="You start with a fixed number of shields. If a mine hits, you lose four shields. If shields hit zero, you fail the level.";
 				   if (infuriatingly_specific_bool){
 					   purpletext=true;
-					   the_text="(btw in this campaign there's no reason to prefer capturing mines, we just toss them out the airlock when we leave)";
+					   the_text="(btw in this campaign there's no reason to prefer capturing mines, we just toss them out the airlock when we're done)";
 				   }
 			   }
 			   else{
@@ -101,6 +101,14 @@ public class ArcadeScreen_Prob_Basic_Intro_Comb extends ArcadeScreen_Prob {
 			   show_the_text=true;
 			   purpletext=true;
 			   the_text="(protip: every wave consists of four rows of mines, and the last two rows are always a repeat of the first two)";
+		   }
+		   if (seconds==36 && TIMESPEED==0){
+			   show_the_text=true;
+			   purpletext=true;
+			   the_text="(one more thing: you got given that many shields for a reason)";
+			   if (turret_one.targeted||turret_two.targeted||turret_three.targeted||turret_four.targeted){
+				   the_text="(don't expect to finish a level with all or even most of them intact)";
+			   }
 		   }
 		   
 		   

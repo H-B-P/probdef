@@ -17,7 +17,7 @@ public class ArcadeScreen_Prob_Challenge_OR extends ArcadeScreen_Prob_Challenge 
 	    
 	    wave_number_total=7;
 	    
-	    if (CAMPAIGN){shields=25;}
+	    if (CAMPAIGN){shields=30;}
 	}
 	
 	void set_score_name(){
@@ -42,7 +42,7 @@ public class ArcadeScreen_Prob_Challenge_OR extends ArcadeScreen_Prob_Challenge 
 	@Override
 	void update_score_on_exit(){
 		if (CAMPAIGN){
-			prefs.putBoolean("seven_done",true);
+			prefs.putBoolean("six_done",true);
 			prefs.flush();
 		}
 		else{
@@ -73,6 +73,9 @@ public class ArcadeScreen_Prob_Challenge_OR extends ArcadeScreen_Prob_Challenge 
 		   suppress_freezes=false;
 		   purpletext=false;
 		   if (seconds<5){
+			   purpletext=true;
+			   show_the_text=true;
+			   the_text="(you know, nobody said you couldn't have shields and titanium in the same level)";
 		   }
 	}
 

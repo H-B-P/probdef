@@ -96,7 +96,7 @@ public class SelectScreen_Library extends SelectScreen {
 				one_double_liner=true;
 				two_s="A Shortcut";
 				two_double_liner=false;
-				three_s="";//"Pascal's Triangle";
+				three_s="Pascal's Triangle";
 				three_double_liner=true;
 				four_s="";
 				five_s="";
@@ -197,7 +197,8 @@ public class SelectScreen_Library extends SelectScreen {
 				   dispose();
 			   }
 			   if (three_r.contains(tp_x,tp_y)){
-				   
+				   game.setScreen(new BookScreen_Prob_Triangle(game));
+				   dispose();
 			   }
 		   }
 	   }

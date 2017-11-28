@@ -17,6 +17,8 @@ public class ArcadeScreen_Prob_Titanium_Tradeoff extends ArcadeScreen_Prob_Titan
 	    
 	    wave_number_total=6;
 	    
+	    if (CAMPAIGN){shields=30;}
+	    
 	}
 	
 	

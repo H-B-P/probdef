@@ -65,7 +65,7 @@ public class ArcadeScreen_Prob_Basic_Intro extends ArcadeScreen_Prob {
 	void level_specific_events(){
 		
 		if (CAMPAIGN){
-			basic_set_shortened(2);
+			basic_set_shortened_slow_end(2);
 		}
 		else{
 			basic_set_shortened_slow_end(2);

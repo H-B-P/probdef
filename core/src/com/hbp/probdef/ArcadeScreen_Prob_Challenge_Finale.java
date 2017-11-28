@@ -24,7 +24,7 @@ public class ArcadeScreen_Prob_Challenge_Finale extends ArcadeScreen_Prob_Challe
 	    succeeded_yet=false;
 	    
 	    if (CAMPAIGN){
-	    	shields=30;
+	    	shields=40;
 	    	timeouting=false;
 	    }
 	    
@@ -70,7 +70,7 @@ public class ArcadeScreen_Prob_Challenge_Finale extends ArcadeScreen_Prob_Challe
 	void level_specific_events(){
 		
 		if (CAMPAIGN){
-			finale_set(2,3);
+			finale_set(2,2);
 		}
 		else{
 			finale_set(2,3);
@@ -134,7 +134,7 @@ public class ArcadeScreen_Prob_Challenge_Finale extends ArcadeScreen_Prob_Challe
 		   if (seconds<5){
 			   if (CAMPAIGN){
 				   show_the_text=true;
-					the_text="This is the final level. Good luck.";
+					the_text="This is the final level.\nGood luck.";
 				}
 		   }
 	}

@@ -17,9 +17,7 @@ public class ArcadeScreen_Prob_Titanium extends ArcadeScreen_Prob {
 		
 		game = gam;
 		
-		if (CAMPAIGN){
-			shields=30;
-		}
+		
 		
 	}
 	
