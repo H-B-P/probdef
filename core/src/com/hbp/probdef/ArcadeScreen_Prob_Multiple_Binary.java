@@ -27,10 +27,10 @@ public class ArcadeScreen_Prob_Multiple_Binary extends ArcadeScreen_Prob_Multipl
 	@Override
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("circle", 5);
-		   turret_two=new Turret_Standard("circle", 3);
+		   turret_one=new Turret_Standard("circle", 2);
+		   turret_two=new Turret_Standard("circle", 4);
 		   turret_three=new Turret_Standard("circle", 3);
-		   turret_four=new Turret_Standard("circle", 1);
+		   turret_four=new Turret_Standard("circle", 3);
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);

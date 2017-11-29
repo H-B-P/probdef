@@ -105,7 +105,7 @@ public class ArcadeScreen_Prob_Basic_Intro_Comb extends ArcadeScreen_Prob {
 		   if (seconds==36 && TIMESPEED==0){
 			   show_the_text=true;
 			   purpletext=true;
-			   the_text="(one more thing: you got given that many shields for a reason)";
+			   the_text="(one more thing: you're given this many shields for a reason)";
 			   if (turret_one.targeted||turret_two.targeted||turret_three.targeted||turret_four.targeted){
 				   the_text="(don't expect to finish a level with all or even most of them intact)";
 			   }

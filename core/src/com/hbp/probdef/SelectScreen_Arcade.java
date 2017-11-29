@@ -73,6 +73,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 		   names.add("Score_Multiple_Shields");
 		   names.add("Score_Multiple_Multishot");
 		   names.add("Score_Multiple_Doubles");
+		   names.add("Score_Multiple_Binary");
 		   names.add("Score_Multiple_Shuffled");
 		   names.add("Score_Multiple_Polarised");
 		   
@@ -379,7 +380,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 				
 			}
 			if(TOPIC.equals("Multiple")){
-				NUMBER_OF_LEVELS=5;
+				NUMBER_OF_LEVELS=6;
 				banner_t=banner_blank_t;
 				banner_s="Multiple";
 				
@@ -395,17 +396,20 @@ public class SelectScreen_Arcade extends SelectScreen {
 				three_double_liner=false;
 				score_three=prefs.getInteger("Score_Multiple_Doubles");
 				
-				four_s="Shuffled";
+				four_s="Binary";
 				four_double_liner=false;
-				score_four=prefs.getInteger("Score_Multiple_Shuffled");
+				score_four=prefs.getInteger("Score_Multiple_Binary");
+				
+				
 				
 				five_s="Polarised";
 				five_double_liner=false;
 				score_five=prefs.getInteger("Score_Multiple_Polarised");
 				
+				six_s="Shuffled";
+				six_double_liner=false;
+				score_six=prefs.getInteger("Score_Multiple_Shuffled");
 				
-				//six_s="Binary";
-				//six_double_liner=false;
 			}
 			if(TOPIC.equals("Challenge")){
 				NUMBER_OF_LEVELS=3;
@@ -614,11 +618,15 @@ public class SelectScreen_Arcade extends SelectScreen {
 				   dispose();
 			   }
 			   else if (four_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Prob_Multiple_Shuffled(game, false));
+				   game.setScreen(new ArcadeScreen_Prob_Multiple_Binary(game, false));
 				   dispose();
 			   }
 			   else if (five_r.contains(tp_x,tp_y)){
 				   game.setScreen(new ArcadeScreen_Prob_Multiple_Polarised(game, false));
+				   dispose();
+			   }
+			   else if (six_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Prob_Multiple_Shuffled(game, false));
 				   dispose();
 			   }
 		   }
