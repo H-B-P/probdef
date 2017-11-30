@@ -5,14 +5,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.hbp.probdef.ProbDef;
 import com.badlogic.gdx.graphics.Texture;
-public class BookScreen_Prob_MoreTrees extends BookScreen_Prob {
+public class BookScreen_Prob_ListingOutcomes extends BookScreen_Prob {
 	
 	final ProbDef game;
 	
 	private SpriteBatch batch;
 	
 	
-	public BookScreen_Prob_MoreTrees(final ProbDef gam) {
+	public BookScreen_Prob_ListingOutcomes(final ProbDef gam) {
 		
 		super(gam);
 		
@@ -23,7 +23,12 @@ public class BookScreen_Prob_MoreTrees extends BookScreen_Prob {
 		batch=new SpriteBatch();
 		
 	}
-
+	
+	@Override
+	void set_book_name(){
+		bookname="Book_ListingOutcomes";
+	}
+	
 	@Override
 	public void render(float delta) {
 		generic_book_render(delta);

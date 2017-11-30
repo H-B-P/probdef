@@ -64,7 +64,7 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	
 	public MetaScreen(final ProbDef gam, boolean play_the_sound) {
 		
-		
+		//hardcoded_opt_packagename="Bayesian";
 		hardcoded_opt_packagename="Combination";
 		//hardcoded_opt_packagename="Inference";
 		
@@ -151,6 +151,19 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 			prefs.flush();
 		}
 		
+		
+		if (!prefs.contains("Book_ListingOutcomes")){
+			prefs.putInteger("Book_ListingOutcomes", 0);
+			prefs.flush();
+		}
+		if (!prefs.contains("Book_Shortcut")){
+		    prefs.putInteger("Book_Shortcut", 0);
+			prefs.flush();
+		}
+		if (!prefs.contains("Book_Triangle")){
+			prefs.putInteger("Book_Triangle", 0);
+			prefs.flush();
+		}
 		
 		
 		update_options();

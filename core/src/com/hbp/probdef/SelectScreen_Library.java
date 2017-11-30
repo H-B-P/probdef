@@ -189,7 +189,7 @@ public class SelectScreen_Library extends SelectScreen {
 		   }
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Pascal")){
 			   if (one_r.contains(tp_x,tp_y)){
-				   game.setScreen(new BookScreen_Prob_MoreTrees(game));
+				   game.setScreen(new BookScreen_Prob_ListingOutcomes(game));
 				   dispose();
 			   }
 			   if (two_r.contains(tp_x,tp_y)){

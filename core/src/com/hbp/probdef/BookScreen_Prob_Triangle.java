@@ -65,7 +65,12 @@ public class BookScreen_Prob_Triangle extends BookScreen_Prob {
 		
 		combination_equation_t=new Texture(Gdx.files.internal("combination_equation.png"));
 	}
-
+	
+	@Override
+	void set_book_name(){
+		bookname="Book_Triangle";
+	}
+	
 	@Override
 	public void render(float delta) {
 		generic_book_render(delta);
