@@ -106,9 +106,10 @@ public class BookScreen_Prob_Shortcut extends BookScreen_Prob {
 		   suppress_freezes=false;
 		   time_to_move_on=false;
 		   purpletext=false;
+		   writing_symbol_visible=false;
 		
 		if (page==1){
-			if (page_time<3){
+			if (page_time<7){
 				show_the_text=true;
 				the_text="Multishot turrets fire several shots per volley. They're good for handling shielded mines.";
 			}
@@ -175,6 +176,7 @@ public class BookScreen_Prob_Shortcut extends BookScreen_Prob {
 			turret_four.does_it_work=false;
 			if (seconds==4 && TIMESPEED==0){
 				show_the_text=true;
+				writing_symbol_visible=true;
 				the_text="Predict what the autocalc will say when five shots are targeted at a mine with one shield.";
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_one.targeted){
@@ -189,6 +191,7 @@ public class BookScreen_Prob_Shortcut extends BookScreen_Prob {
 		if (page==4){
 			if (seconds==4 && TIMESPEED==0){
 				show_the_text=true;
+				writing_symbol_visible=true;
 				the_text="Predict what the autocalc will say when six shots are targeted at a mine with one shield.";
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_one.targeted){

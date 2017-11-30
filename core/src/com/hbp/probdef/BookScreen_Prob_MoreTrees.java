@@ -113,6 +113,7 @@ public class BookScreen_Prob_MoreTrees extends BookScreen_Prob {
 		   suppress_freezes=false;
 		   time_to_move_on=false;
 		   purpletext=false;
+		   writing_symbol_visible=false;
 		
 		if (page==1){
 			turret_three.does_it_work=false;
@@ -220,6 +221,7 @@ public class BookScreen_Prob_MoreTrees extends BookScreen_Prob {
 		if (page==5){
 			if (seconds<4 || (seconds==4 && TIMESPEED==0)){
 				show_the_text=true;
+				writing_symbol_visible=true;
 				the_text="Try using this reasoning to predict what the autocalc will say when we target all four turrets on this mine.";
 			}
 			if (seconds==4 && TIMESPEED==0 && turret_one.targeted && turret_two.targeted && turret_three.targeted && turret_four.targeted){
@@ -233,15 +235,20 @@ public class BookScreen_Prob_MoreTrees extends BookScreen_Prob {
 		if (page==6){
 			if (seconds<7){
 				show_the_text=true;
+				writing_symbol_visible=true;
 				the_text="If you want a challenge, predict what the autocalc will say when we target all four turrets on THIS mine.";
 			}
 			if (seconds==8 && TIMESPEED==0){
 				show_the_text=true;
+				writing_symbol_visible=true;
 				purpletext=true;
 				the_text="(or just skip ahead, this is even more optional than most things in life are)";
 			}
 			if (page_time>10){
 				time_to_move_on=true;
+			}
+			else{
+				writing_symbol_visible=true;
 			}
 		}
 	}
