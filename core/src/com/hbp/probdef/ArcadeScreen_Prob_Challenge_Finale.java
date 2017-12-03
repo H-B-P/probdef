@@ -24,7 +24,7 @@ public class ArcadeScreen_Prob_Challenge_Finale extends ArcadeScreen_Prob_Challe
 	    succeeded_yet=false;
 	    
 	    if (CAMPAIGN){
-	    	shields=40;
+	    	//shields=40;
 	    	timeouting=false;
 	    }
 	    

@@ -36,10 +36,10 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 	    destroyed=0;
 	    
 	    if (hardcoded_opt_packagename.equals("Combination")){
-	    	shields=20;
+	    	shields=5;
 	    }
 	    else{
-	    	shields=10;
+	    	shields=3;
 	    }
 	    
 	    score=0;
@@ -474,10 +474,10 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 	@Override
 	void calculate_score(){
 		if (hardcoded_opt_packagename.equals("Combination")){
-			score=captured+shields;
+			score=captured+shields*4;
 		}
 		else{
-			score=captured+shields+10;
+			score=captured+shields*4+8;
 		}
 		
 		score=Math.max(score, 0);

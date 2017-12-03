@@ -647,7 +647,7 @@ public class GameScreen_Prob extends GameScreen {
 					minecount-=1;
 					if (!mine.shootproof){
 				     	spawnExplosion(mine.rect.x,mine.rect.y);
-				        shields-=4;
+				        shields-=1;
 				        minehitshield.play(option_sfx_volume*0.4f);
 				        minesplode.play(option_sfx_volume);
 				        if (option_flicker){

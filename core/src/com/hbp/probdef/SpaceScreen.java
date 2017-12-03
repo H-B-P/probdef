@@ -91,7 +91,7 @@ public class SpaceScreen extends MetaScreen {
 	    ship_invisible_t=new Texture(Gdx.files.internal("fullship_INVISIBLE.png"));
 	    ship_t=ship_normal_t;
 	    
-	    shipshield_normal_t=new Texture(Gdx.files.internal("shield_GREEN.png"));
+	    shipshield_normal_t=new Texture(Gdx.files.internal("shield_PURPLE.png"));
 	    shipshield_flicker_t=new Texture(Gdx.files.internal("shield_flicker.png"));
 	    shipshield_t=shipshield_normal_t;
 	    

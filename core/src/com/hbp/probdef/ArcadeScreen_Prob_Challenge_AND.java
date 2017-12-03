@@ -17,7 +17,7 @@ public class ArcadeScreen_Prob_Challenge_AND extends ArcadeScreen_Prob_Challenge
 	    
 	    wave_number_total=5;
 	    
-	    if (CAMPAIGN){shields=30;}
+	    //if (CAMPAIGN){shields=30;}
 	}
 	
 	void set_score_name(){

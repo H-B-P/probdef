@@ -62,7 +62,7 @@ public class ArcadeScreen_Prob_Basic_Survive extends ArcadeScreen_Prob {
 	
 	@Override
 	void calculate_score(){
-		score=shields+30;
+		score=shields*4+28;
 		score=Math.max(score, 0);
 	}
 

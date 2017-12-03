@@ -17,7 +17,7 @@ public class ArcadeScreen_Prob_Titanium_Intro extends ArcadeScreen_Prob_Titanium
 	    
 	    wave_number_total=6;
 	    
-	    if (CAMPAIGN){shields=25;}
+	    //if (CAMPAIGN){shields=25;}
 	}
 	
 @Override
