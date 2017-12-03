@@ -1236,7 +1236,7 @@ public class GameScreen extends SpaceScreen {
 		      if (should_firing_button_be_lit_up()){
 		    	  batch.draw(attention_button_trim_t,fire_button_r.x,fire_button_r.y);
 			   }
-		      if (fire_button_r.contains(tp_x, tp_y)){
+		      if (fire_button_r.contains(tp_x, tp_y) && current_status.equals("targeting")){
 		    	  batch.draw(blue_button_trim_t,fire_button_r.x,fire_button_r.y);
 		      }
 		      

@@ -262,7 +262,7 @@ public class ArcadeScreen_Prob_Challenge extends ArcadeScreen_Prob {
 	void challenge_AND_set(int sec){
 		wave_number_update(sec-1,1);
 		
-		AND_four_wave(sec, 1, 1);
+		AND_four_wave(sec, 2, 2);
 		
 		wave_number_update(sec+20-1,2);
 		

@@ -556,7 +556,12 @@ public class GameScreen_Prob extends GameScreen {
 			    	  for (Mine mine:mines){
 			    		  if (mine.rect.contains(tp_x,tp_y) && screen_proper.overlaps(mine.rect)){
 			    			  mien=true;
-			    			  font.draw(batch, "==MINE==", 90, 455, 140, 1, true);
+			    			  if (!mine.destroyproof){
+			    				  font.draw(batch, "==MINE==", 90, 455, 140, 1, true);
+			    			  }
+			    			  else{
+			    				  font.draw(batch, "==T MINE==", 90, 455, 140, 1, true);
+			    			  }
 			    			  if (mine.turns_to_hit==1){
 				    			  font.draw(batch, mine.turns_to_hit+" turn to hit", 90, 437, 140, 1, true);
 			    			  }
@@ -568,7 +573,12 @@ public class GameScreen_Prob extends GameScreen {
 			    	  if (!mien){
 			    		  if (the_selected_mine!=null){
 			    			  mien=true;
-			    			  font.draw(batch, "==MINE==", 90, 455, 140, 1, true);
+			    			  if (!the_selected_mine.destroyproof){
+			    				  font.draw(batch, "==MINE==", 90, 455, 140, 1, true);
+			    			  }
+			    			  else{
+			    				  font.draw(batch, "==T-MINE==", 90, 455, 140, 1, true);
+			    			  }
 			    			  if (the_selected_mine.turns_to_hit==1){
 				    			  font.draw(batch, the_selected_mine.turns_to_hit+" turn to hit", 90, 437, 140, 1, true);
 			    			  }
