@@ -81,6 +81,24 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 		}
 	}
 	
+	@Override
+	
+	void draw_shields(){
+		if (CAMPAIGN){
+			if (shields>0){
+				batch.draw(shipshield_t, shield_r.x, shield_r.y);
+			   }
+			   for (int i=0; i<(shields-1); i++){
+				   batch.draw(backupshield_t, 160+i*33-(shields-1)*33/2, shield_r.y-6);
+			}
+		}
+		else{
+			batch.draw(shipshield_t, shield_r.x, shield_r.y);
+			batch.draw(shipshield_t, shield_r.x, shield_r.y-6);
+		}
+		   
+	   }
+	
 	void wave_number_update(int target_seconds, int target_wave_number){
 		if (seconds>=target_seconds && wave_number<target_wave_number){
 			wave_number=target_wave_number;

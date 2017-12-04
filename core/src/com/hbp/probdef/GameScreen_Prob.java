@@ -690,27 +690,29 @@ public class GameScreen_Prob extends GameScreen {
 	   
 	   private Mine pick_a_mine(){
 		   for(Mine mine: mines) {
-			   if (mine.rect.contains(tp_x, tp_y) && tp_y<440){
-				   return mine;
-			   }
-			   if (mine.shields>=1){
-				   if (mine.shield_one.contains(tp_x,tp_y)){
+			   if (mine.rect.overlaps(screen_proper)){
+				   if (mine.rect.contains(tp_x, tp_y) && tp_y<440){
 					   return mine;
 				   }
-			   }
-			   if (mine.shields>=2){
-				   if (mine.shield_two.contains(tp_x,tp_y)){
-					   return mine;
+				   if (mine.shields>=1){
+					   if (mine.shield_one.contains(tp_x,tp_y)){
+						   return mine;
+					   }
 				   }
-			   }
-			   if (mine.shields>=3){
-				   if (mine.shield_three.contains(tp_x,tp_y)){
-					   return mine;
+				   if (mine.shields>=2){
+					   if (mine.shield_two.contains(tp_x,tp_y)){
+						   return mine;
+					   }
 				   }
-			   }
-			   if (mine.shields>=4){
-				   if (mine.shield_four.contains(tp_x,tp_y)){
-					   return mine;
+				   if (mine.shields>=3){
+					   if (mine.shield_three.contains(tp_x,tp_y)){
+						   return mine;
+					   }
+				   }
+				   if (mine.shields>=4){
+					   if (mine.shield_four.contains(tp_x,tp_y)){
+						   return mine;
+					   }
 				   }
 			   }
 		   }

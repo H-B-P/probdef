@@ -214,17 +214,15 @@ public class BookScreen_Prob_Triangle extends BookScreen_Prob {
 		}
 		
 		if (page==3){
-			System.out.println("got this far!");
 			show_the_text=true;
-			the_text="When a turret fires once, there are two outcomes: either it fails or it fires.";
+			the_text="When one shot is taken, there are two outcomes: either it fails or it fires.";
 			if (page_time>4){
 				time_to_move_on=true;
 			}
-			System.out.println("got this far!");
 		}
 		if (page==4){
 			show_the_text=true;
-			the_text="When a turret fires twice, start with the two outcomes you get with one shot.";
+			the_text="When two shots are taken, start with the two outcomes you get with one shot.";
 			if (page_time>4){
 				time_to_move_on=true;
 			}
@@ -245,7 +243,7 @@ public class BookScreen_Prob_Triangle extends BookScreen_Prob {
 		}
 		if (page==7){
 			show_the_text=true;
-			the_text="When a turret fires three times, start with the four outcomes you get with two shots.";
+			the_text="When three shots are taken, start with the four outcomes you get with two shots.";
 			if (page_time>4){
 				time_to_move_on=true;
 			}
@@ -266,7 +264,7 @@ public class BookScreen_Prob_Triangle extends BookScreen_Prob {
 		}
 		if (page==10){
 			show_the_text=true;
-			the_text="When a turret fires four times, start with the eight outcomes you get with three shots.";
+			the_text="When four shots are taken, start with the eight outcomes you get with three shots.";
 			if (page_time>4){
 				time_to_move_on=true;
 			}
@@ -287,7 +285,7 @@ public class BookScreen_Prob_Triangle extends BookScreen_Prob {
 		}
 		if (page==13){
 			show_the_text=true;
-			the_text="When a turret fires five times, start with the sixteen outcomes you get with four shots.";
+			the_text="When five shots are taken, start with the sixteen outcomes you get with four shots.";
 			if (page_time>4){
 				time_to_move_on=true;
 			}

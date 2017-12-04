@@ -38,6 +38,9 @@ public class GameScreen extends SpaceScreen {
 	   Texture writey_symbol_t;
 	
 	//--Textures--
+	   
+	Texture backupshield_t;
+	   
 	Texture orange_dot_t;
 	Texture green_dot_t;
 
@@ -318,8 +321,11 @@ public class GameScreen extends SpaceScreen {
 	void load_in_textures(){
 		
 	      writey_symbol_t=new Texture(Gdx.files.internal("writing_symbol.png"));
-
-		
+	      textures.add(writey_symbol_t);
+	      
+	      backupshield_t=new Texture(Gdx.files.internal("backup_shield.png"));
+		textures.add(backupshield_t);
+	      
 		complete_box_t=new Texture(Gdx.files.internal("level_complete.png"));
 		textures.add(complete_box_t);
 		
@@ -695,7 +701,8 @@ public class GameScreen extends SpaceScreen {
 			draw_explosions();
 			
 			if (current_status.equals("bowling")){
-				batch.draw(shipshield_t, shield_r.x, shield_r.y);
+				draw_shields();
+				
 			}
 			
 			draw_mines();
@@ -713,7 +720,7 @@ public class GameScreen extends SpaceScreen {
 			draw_obscurities();
 			
 			if (!current_status.equals("bowling")){
-				batch.draw(shipshield_t, shield_r.x, shield_r.y);
+				draw_shields();
 			}
 			
 		}
@@ -1104,6 +1111,12 @@ public class GameScreen extends SpaceScreen {
 				   batch.draw(enemyshipshield_normal_t, enemyship.shield_r.x, enemyship.shield_r.y);
 			   }
 		   }
+	   }
+	   
+	   void draw_shields(){
+			batch.draw(shipshield_t, shield_r.x, shield_r.y);
+			batch.draw(shipshield_t, shield_r.x, shield_r.y-6);
+
 	   }
 	   
 	   void draw_explosions(){
