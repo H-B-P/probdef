@@ -85,7 +85,7 @@ public class ArcadeScreen_Prob_Basic_Intro extends ArcadeScreen_Prob {
 		   if (seconds<5){
 			   show_the_text=true;
 			   if (CAMPAIGN){
-				   the_text="You start with three shields. If a mine hits, you lose one. If you run out of shields, you fail the level.";
+				   the_text="You start with three shields. If a mine hits, you lose one. If you lose all your shields, you fail the level.";
 				   if (infuriatingly_specific_bool){
 					   the_text="Try to end each level with as many captured mines as possible. You'll need them later.";
 				   }

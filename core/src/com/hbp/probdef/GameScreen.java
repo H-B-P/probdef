@@ -40,6 +40,7 @@ public class GameScreen extends SpaceScreen {
 	//--Textures--
 	   
 	Texture backupshield_t;
+	Texture backupshield_long_t;
 	   
 	Texture orange_dot_t;
 	Texture green_dot_t;
@@ -231,8 +232,9 @@ public class GameScreen extends SpaceScreen {
 	float timeout_time;
 	boolean timeouting_rn;
 	boolean timeouting;
-	Texture complete_box_t;
-	
+	Texture complete_box_t;	
+	Texture failed_box_t;
+
 	public GameScreen(final ProbDef gam) {
 		
 		super(gam, true);
@@ -324,10 +326,14 @@ public class GameScreen extends SpaceScreen {
 	      textures.add(writey_symbol_t);
 	      
 	      backupshield_t=new Texture(Gdx.files.internal("backup_shield.png"));
+	      backupshield_long_t=new Texture(Gdx.files.internal("backup_shield_long.png"));
 		textures.add(backupshield_t);
+		textures.add(backupshield_long_t);
 	      
 		complete_box_t=new Texture(Gdx.files.internal("level_complete.png"));
+		failed_box_t=new Texture(Gdx.files.internal("level_failed.png"));
 		textures.add(complete_box_t);
+		textures.add(failed_box_t);
 		
 		//-Dots for dotted lines-
 		

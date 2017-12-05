@@ -2,12 +2,12 @@ package com.hbp.probdef;
 
 import com.hbp.probdef.ProbDef;
 
-public class ArcadeScreen_Prob_Titanium_Tradeoff extends ArcadeScreen_Prob_Titanium {
+public class ArcadeScreen_Prob_Titanium_Simplified extends ArcadeScreen_Prob_Titanium {
 	
 	final ProbDef game;
 
 	
-	public ArcadeScreen_Prob_Titanium_Tradeoff(final ProbDef gam, boolean camp) {
+	public ArcadeScreen_Prob_Titanium_Simplified(final ProbDef gam, boolean camp) {
 		
 		super(gam, camp);
 		
@@ -17,24 +17,22 @@ public class ArcadeScreen_Prob_Titanium_Tradeoff extends ArcadeScreen_Prob_Titan
 	    
 	    wave_number_total=6;
 	    
-	    //if (CAMPAIGN){shields=30;}
-	    
+	    //if (CAMPAIGN){shields=25;}
 	}
-	
 	
 	@Override
 	
 	void set_score_name(){
-		score_name="Score_Titanium_Tradeoff";
+		score_name="Score_Titanium_Simplified";
 	}
 	
 	@Override
 	
 	void level_specific_turret_setup(){
 		   turret_one=new Turret_Standard("circle");
-		   turret_two=new Turret_Standard("pentagon");
-		   turret_three=new Turret_Standard("triangle");
-		   turret_four=new Turret_Standard("triangle");
+		   turret_two=new Turret_Standard("circle");
+		   turret_three=new Turret_Standard("pentagon");
+		   turret_four=new Turret_Standard("pentagon");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -46,7 +44,7 @@ public class ArcadeScreen_Prob_Titanium_Tradeoff extends ArcadeScreen_Prob_Titan
 	@Override
 	void update_score_on_exit(){
 		if (CAMPAIGN){
-			prefs.putBoolean("three_done",true);
+			prefs.putBoolean("two_done",true);
 			prefs.flush();
 		}
 		else{
@@ -77,10 +75,7 @@ public class ArcadeScreen_Prob_Titanium_Tradeoff extends ArcadeScreen_Prob_Titan
 		show_the_text=false;
 		   suppress_freezes=false;
 		   purpletext=false;
-		   if (seconds<5){
-			   show_the_text=true;
-			   the_text="Choices in this level are not as clear-cut as before. Choose wisely.";
-		   }
+		   
 	}
 
 	@Override

@@ -158,7 +158,7 @@ public class BookScreen_Prob_HypothesisTests extends BookScreen_Prob {
 			if (seconds==4 && TIMESPEED==0 && turret_four.targeted){
 				show_the_text=true;
 				purpletext=true;
-				the_text="(you ready to do some Scientific Investigation and Test some Hypotheses?)";
+				the_text="(you ready to test some hypotheses?)";
 			}
 			if (page_time>14){
 				time_to_move_on=true;

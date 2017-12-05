@@ -294,12 +294,12 @@ public class CampaignScreen_Combination extends MetaScreen {
 			}
 			
 			else if (one_done &&two_r.contains(tp_x,tp_y)){
-				game.setScreen(new ArcadeScreen_Prob_Titanium_Intro(game,true));
+				game.setScreen(new ArcadeScreen_Prob_Titanium_Simplified(game,true));
 				dispose();
 			}
 			
 			else if (two_done && three_r.contains(tp_x,tp_y)){
-				game.setScreen(new ArcadeScreen_Prob_Titanium_Tradeoff(game,true));
+				game.setScreen(new ArcadeScreen_Prob_Titanium_Intro(game,true));
 				dispose();
 			}
 			

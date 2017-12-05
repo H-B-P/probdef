@@ -20,7 +20,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 				last_topic="Deduction";
 			}
 			if (hardcoded_opt_packagename.equals("Combination")){
-				first_topic="Basic";
+				first_topic="Titanium";
 				last_topic="Challenge";
 			}
 			
@@ -67,7 +67,7 @@ public class SelectScreen_Arcade extends SelectScreen {
 		   names.add("Score_Basic_Intro_Comb");
 		   
 		   names.add("Score_Titanium_Intro");
-		   names.add("Score_Titanium_Tradeoff");
+		   names.add("Score_Titanium_Simplified");
 		   names.add("Score_Titanium_Pure");
 		   
 		   names.add("Score_Multiple_Shields");
@@ -366,13 +366,13 @@ public class SelectScreen_Arcade extends SelectScreen {
 				banner_t=banner_blank_t;
 				banner_s="Titanium";
 				
-				one_s="Intro";
-				one_double_liner=false;
+				one_s="Intro (Titanium)";
+				one_double_liner=true;
 				score_one=prefs.getInteger("Score_Titanium_Intro");
 				
-				two_s="Tradeoff";
+				two_s="Simplified";
 				two_double_liner=false;
-				score_two=prefs.getInteger("Score_Titanium_Tradeoff");
+				score_two=prefs.getInteger("Score_Titanium_Simplified");
 				
 				three_s="Pure Titanium";
 				three_double_liner=true;
@@ -591,11 +591,11 @@ public class SelectScreen_Arcade extends SelectScreen {
 		   
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Titanium")){
 			   if (one_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Prob_Titanium_Intro(game, false));
+				   game.setScreen(new ArcadeScreen_Prob_Titanium_Simplified(game, false));
 				   dispose();
 			   }
 			   if (two_r.contains(tp_x,tp_y)){
-				   game.setScreen(new ArcadeScreen_Prob_Titanium_Tradeoff(game, false));
+				   game.setScreen(new ArcadeScreen_Prob_Titanium_Intro(game, false));
 				   dispose();
 			   }
 			   if (five_r.contains(tp_x,tp_y)){

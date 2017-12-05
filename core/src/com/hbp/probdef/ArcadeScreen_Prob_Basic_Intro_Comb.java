@@ -14,9 +14,9 @@ public class ArcadeScreen_Prob_Basic_Intro_Comb extends ArcadeScreen_Prob {
 		
 		game = gam;
 		
-	    minecount=40;
+	    minecount=28;
 	    
-	    wave_number_total=4;
+	    wave_number_total=3;
 	}
 	
 	@Override
@@ -44,18 +44,11 @@ public class ArcadeScreen_Prob_Basic_Intro_Comb extends ArcadeScreen_Prob {
 	
 	void level_specific_turret_setup(){
 		
-		if (hardcoded_opt_packagename.equals("Combination")){
 			turret_one=new Turret_Standard("circle");
 			   turret_two=new Turret_Standard("square");
 			   turret_three=new Turret_Standard("triangle");
 			   turret_four=new Turret_Standard("pentagon");
-		}
-		else{
-		   turret_one=new Turret_Standard("triangle");
-		   turret_two=new Turret_Standard("triangle");
-		   turret_three=new Turret_Standard("square");
-		   turret_four=new Turret_Standard("pentagon");
-		}
+		
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
 		   turrets_standard.add((Turret_Standard) turret_three);
@@ -67,7 +60,7 @@ public class ArcadeScreen_Prob_Basic_Intro_Comb extends ArcadeScreen_Prob {
 	
 	void level_specific_events(){
 		
-			basic_set_shortened(2);
+			basic_set_veryshort(2);
 		
 	}
 	
@@ -80,13 +73,25 @@ public class ArcadeScreen_Prob_Basic_Intro_Comb extends ArcadeScreen_Prob {
 		   if (turret_one.targeted||turret_two.targeted||turret_three.targeted||turret_four.targeted){
 			   infuriatingly_specific_bool=true;
 		   }
-		   if (seconds<5){
+		   if (seconds==4 && TIMESPEED==0){
 			   show_the_text=true;
 			   if (CAMPAIGN){
-				   the_text="You start with a fixed number of shields. If a mine hits, you lose four shields. If shields hit zero, you fail the level.";
-				   if (infuriatingly_specific_bool){
+				   the_text="You have five shields.\nIf a mine hits, you lose one shield. If you lose all your shields, you fail the level.";
+				   if (turret_one.targeted){
+					   the_text="The number of shields you start a level with is five plus half the shields you ended the previous level with.";
+				   }
+				   if (turret_one.targeted && turret_two.targeted){
 					   purpletext=true;
-					   the_text="(btw in this campaign there's no reason to prefer capturing mines, we just toss them out the airlock when we're done)";
+					   the_text="(since there was no level before this one, that's five plus half of zero here)";
+				   }
+				   if (turret_one.targeted && turret_two.targeted && turret_three.targeted){
+					   purpletext=false;
+					   the_text="This implies that you should aim to end each level with as many shields as you can, to make later levels easier.";
+				   }
+				   if (turret_one.targeted && turret_two.targeted && turret_three.targeted && turret_four.targeted){
+					   purpletext=true;
+					   the_text="(and also for bragging rights)";
+					   //the_text="(btw in this campaign there's no reason to prefer capturing mines, we just toss them out the airlock when we're done)";
 				   }
 			   }
 			   else{
@@ -107,7 +112,7 @@ public class ArcadeScreen_Prob_Basic_Intro_Comb extends ArcadeScreen_Prob {
 			   purpletext=true;
 			   the_text="(one more thing: you're given this many shields for a reason)";
 			   if (turret_one.targeted||turret_two.targeted||turret_three.targeted||turret_four.targeted){
-				   the_text="(don't expect to finish a level with all or even most of them intact)";
+				   the_text="(don't expect to finish a level with all of them intact)";
 			   }
 		   }
 		   

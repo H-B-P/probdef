@@ -577,7 +577,7 @@ public class GameScreen_Prob extends GameScreen {
 			    				  font.draw(batch, "==MINE==", 90, 455, 140, 1, true);
 			    			  }
 			    			  else{
-			    				  font.draw(batch, "==T-MINE==", 90, 455, 140, 1, true);
+			    				  font.draw(batch, "==T MINE==", 90, 455, 140, 1, true);
 			    			  }
 			    			  if (the_selected_mine.turns_to_hit==1){
 				    			  font.draw(batch, the_selected_mine.turns_to_hit+" turn to hit", 90, 437, 140, 1, true);
@@ -998,7 +998,13 @@ public class GameScreen_Prob extends GameScreen {
 			gamey_render_draw_interface();
 			
 			if (timeouting_rn){
-				batch.draw(complete_box_t, 80, 200);
+				if (shields>0){
+					batch.draw(complete_box_t, 80, 200);
+				}
+				else{
+					batch.draw(failed_box_t, 80, 200);
+				}
+				
 			}
 			
 			if (indicate){
@@ -1055,18 +1061,23 @@ public class GameScreen_Prob extends GameScreen {
 			
 			if (minecount==0 && explosions.size==0 && timeouting && !timeouting_rn){
 				timeouting_rn=true;
-				timeout_time=total_time+5;
+				timeout_time=player_time+3;
 			}
 			
-			
+			if (shields<=0 && !timeouting_rn){
+				timeouting_rn=true;
+				timeout_time=player_time+3;
+			}
 			
 			//---Handle all the exits!---
 			
-			if (shields<=0 && exit_on_shieldfail){
-				exit_level();
-			}
-			else if (timeouting && timeouting_rn && total_time>timeout_time){
-				update_score_on_exit();
+			//if (shields<=0 && exit_on_shieldfail){
+			//	exit_level();
+			//}
+			if (timeouting_rn && player_time>timeout_time){
+				if (shields>0){
+					update_score_on_exit();
+				}
 				exit_level();
 			}
 			else if(Gdx.input.justTouched()){

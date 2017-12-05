@@ -1103,7 +1103,12 @@ public class GameScreen_Bayes extends GameScreen {
 		gamey_render_draw_interface();
 		
 		if (timeouting_rn){
-			batch.draw(complete_box_t, 80, 200);
+			if (shields>0){
+				batch.draw(complete_box_t, 80, 200);
+			}
+			else{
+				batch.draw(failed_box_t, 80, 200);
+			}
 		}
 		
 		if (indicate){
@@ -1162,22 +1167,30 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		if (timeouting && !timeouting_rn && shipwave>=total_shipwaves && enemyships.size==0 && explosions.size==0 && !suppress_exits){
 			timeouting_rn=true;
-			timeout_time=total_time+5;
+			timeout_time=player_time+3;
 		}
 		
+		if (shields<=0 && !timeouting_rn){
+			timeouting_rn=true;
+			timeout_time=player_time+3;
+		}
 		
-		if (shields<=0 && exit_on_shieldfail){
+		//---Handle all the exits!---
+		
+		//if (shields<=0 && exit_on_shieldfail){
+		//	exit_level();
+		//}
+		if (timeouting_rn && player_time>timeout_time){
+			if (shields>0){
+				update_score_on_exit();
+			}
 			exit_level();
 		}
-		
-		
-		else if (timeouting && timeouting_rn && total_time>timeout_time){
-			update_score_on_exit();
-			exit_level();
-		}
-		
 		else if(Gdx.input.justTouched()){
 			if (menu_button_r.contains(tp_x, tp_y)){
+				if (timeouting && timeouting_rn){
+					update_score_on_exit();
+				}
 				exit_level();
 			}
 		}

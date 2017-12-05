@@ -47,6 +47,7 @@ public class SpaceScreen extends MetaScreen {
 	public BitmapFont font;
 	
 	public float total_time;
+	public float player_time;
 	public int seconds;
 	public int ship_posn;
 	
@@ -79,6 +80,7 @@ public class SpaceScreen extends MetaScreen {
 		font.setColor(Color.BLACK);
 		
 		total_time=0;
+		player_time=0;
 		
 		starry_background_layer_one_t=new Texture(Gdx.files.internal("BG1.png"));
 	    starry_background_layer_two_t=new Texture(Gdx.files.internal("BG2.png"));
@@ -124,6 +126,7 @@ public class SpaceScreen extends MetaScreen {
 		meta_render(); //Call MetaScreen's rendering function before anything.
 		
 		total_time+=delta*option_gamespeed*TIMESPEED; //Increment time. This is time in-game, not time for the player.
+		player_time+=delta;
 		
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f); //Make the background at the base of everything black.
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //Prevent objects from sticking around between frames.

@@ -17,10 +17,12 @@ public class ArcadeScreen_Prob_Titanium_Intro extends ArcadeScreen_Prob_Titanium
 	    
 	    wave_number_total=6;
 	    
-	    //if (CAMPAIGN){shields=25;}
+	    //if (CAMPAIGN){shields=30;}
+	    
 	}
 	
-@Override
+	
+	@Override
 	
 	void set_score_name(){
 		score_name="Score_Titanium_Intro";
@@ -30,9 +32,9 @@ public class ArcadeScreen_Prob_Titanium_Intro extends ArcadeScreen_Prob_Titanium
 	
 	void level_specific_turret_setup(){
 		   turret_one=new Turret_Standard("circle");
-		   turret_two=new Turret_Standard("circle");
-		   turret_three=new Turret_Standard("pentagon");
-		   turret_four=new Turret_Standard("pentagon");
+		   turret_two=new Turret_Standard("pentagon");
+		   turret_three=new Turret_Standard("triangle");
+		   turret_four=new Turret_Standard("triangle");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);
 		   turrets_standard.add((Turret_Standard) turret_two);
@@ -44,7 +46,7 @@ public class ArcadeScreen_Prob_Titanium_Intro extends ArcadeScreen_Prob_Titanium
 	@Override
 	void update_score_on_exit(){
 		if (CAMPAIGN){
-			prefs.putBoolean("two_done",true);
+			prefs.putBoolean("three_done",true);
 			prefs.flush();
 		}
 		else{
@@ -75,10 +77,12 @@ public class ArcadeScreen_Prob_Titanium_Intro extends ArcadeScreen_Prob_Titanium
 		show_the_text=false;
 		   suppress_freezes=false;
 		   purpletext=false;
-		   if (seconds<5){
+		   if (seconds<5 && TIMESPEED==0){
 			   show_the_text=true;
 			   the_text="Titanium mines cannot be destroyed; only captured.";
-
+			   if (turret_one.targeted||turret_two.targeted || turret_three.targeted || turret_four.targeted){
+				   the_text="This can lead to some interesting tradeoffs when deciding which mines to prioritise.";
+			   }
 		   }
 	}
 

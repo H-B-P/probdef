@@ -29,7 +29,7 @@ public class ArcadeScreen_Prob_Multiple_Shields extends ArcadeScreen_Prob_Multip
 	void level_specific_turret_setup(){
 		   turret_one=new Turret_Standard("pentagon");
 		   turret_two=new Turret_Standard("circle");
-		   turret_three=new Turret_Standard("triangle");
+		   turret_three=new Turret_Standard("square");
 		   turret_four=new Turret_Standard("square");
 		   
 		   turrets_standard.add((Turret_Standard) turret_one);

@@ -434,7 +434,7 @@ public class BookScreen_Bayes_BayesTheorem extends BookScreen_Bayes {
 				   show_the_text=true;
 				   purpletext=true;
 				   suppress_phasing=true;
-				   the_text="(welp, that's it for this book, and also for the Library; hope you had a nice time and feel appropriately Educated)";
+				   the_text="(welp, that's it for this book, and also for the Library; hope you had a nice time and feel appropriately educated)";
 				   time_to_move_on=true;
 			   }
 			   

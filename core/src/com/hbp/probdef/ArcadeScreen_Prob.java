@@ -85,12 +85,21 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 	
 	void draw_shields(){
 		if (CAMPAIGN){
+			
 			if (shields>0){
 				batch.draw(shipshield_t, shield_r.x, shield_r.y);
-			   }
-			   for (int i=0; i<(shields-1); i++){
-				   batch.draw(backupshield_t, 160+i*33-(shields-1)*33/2, shield_r.y-6);
 			}
+			if (hardcoded_opt_packagename.equals("Inference")){
+				for (int i=0; i<(shields-1); i++){
+					   batch.draw(backupshield_long_t, 162+i*133-(shields-1)*133/2, shield_r.y-9);
+				}
+			}
+			else{
+				for (int i=0; i<(shields-1); i++){
+					   batch.draw(backupshield_t, 162+i*33-(shields-1)*33/2, shield_r.y-9);
+				}
+			}
+			
 		}
 		else{
 			batch.draw(shipshield_t, shield_r.x, shield_r.y);
@@ -418,6 +427,21 @@ public class ArcadeScreen_Prob extends GameScreen_Prob {
 		wave_number_update(sec+16*3-1,4);
 		
 		sixteen_wave_boring(sec+16*3,2);
+	}
+	
+	void basic_set_veryshort(int sec){
+		
+		wave_number_update(sec-1,1);
+		
+		four_wave(sec, 2);
+		
+		wave_number_update(sec+16-1,2);
+		
+		eight_wave_alternating(sec+16, 2);
+		
+		wave_number_update(sec+16*2-1,3);
+		
+		sixteen_wave_boring(sec+16*2,2);
 	}
 	
 	void basic_set_shortened_slow_end(int sec){
