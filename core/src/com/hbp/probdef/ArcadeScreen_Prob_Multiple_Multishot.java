@@ -16,6 +16,10 @@ public class ArcadeScreen_Prob_Multiple_Multishot extends ArcadeScreen_Prob_Mult
 	    minecount=40;
 	    
 	    wave_number_total=4;
+	    
+	    if (CAMPAIGN){
+	    	shields=5+(1+prefs.getInteger("three_remain"))/2;
+	    }
 	}
 	
 	@Override
@@ -43,7 +47,10 @@ public class ArcadeScreen_Prob_Multiple_Multishot extends ArcadeScreen_Prob_Mult
 	@Override
 	void update_score_on_exit(){
 		if (CAMPAIGN){
-			prefs.putBoolean("five_done",true);
+			prefs.putBoolean("four_done",true);
+			if (shields>prefs.getInteger("four_remain")){
+				prefs.putInteger("four_remain", shields);
+			}
 			prefs.flush();
 		}
 		else{

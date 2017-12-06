@@ -333,9 +333,16 @@ public class GameScreen_Prob extends GameScreen {
 				   if (!option_turns_to_hit_display.equals("Below")){
 				   
 					   if (displaywhat.equals("result")){
-						   acalc_grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
-						   acalc_redfont.draw(batch, " "+present_float(destroy*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
-						   acalc_bluefont.draw(batch, " "+present_float(capture*100.0f)+"%", mine.rect.x-20, mine.rect.y-50, 81, 1, true);
+						   if (mine.destroyproof){
+							   acalc_grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
+							   acalc_bluefont.draw(batch, " "+present_float(capture*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
+						   }
+						   else{
+							   acalc_grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
+							   acalc_redfont.draw(batch, " "+present_float(destroy*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
+							   acalc_bluefont.draw(batch, " "+present_float(capture*100.0f)+"%", mine.rect.x-20, mine.rect.y-50, 81, 1, true);
+						   }
+						   
 					   }
 					   else if (displaywhat.equals("shields")){
 						   if (mine.shields==0){
@@ -381,6 +388,10 @@ public class GameScreen_Prob extends GameScreen {
 				   else{
 					   acalc_greenfont.draw(batch, mine.turns_to_hit+" TTH", mine.rect.x-20, mine.rect.y-20, 81, 1, true);
 					   if (displaywhat.equals("result")){
+						   if (mine.destroyproof){
+							   acalc_grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
+							   acalc_bluefont.draw(batch, " "+present_float(capture*100.0f)+"%", mine.rect.x-20, mine.rect.y-50, 81, 1, true);
+						   }
 						   acalc_grayfont.draw(batch, " "+present_float(survival*100.0f)+"%", mine.rect.x-20, mine.rect.y-35, 81, 1, true);
 						   acalc_redfont.draw(batch, " "+present_float(destroy*100.0f)+"%", mine.rect.x-20, mine.rect.y-50, 81, 1, true);
 						   acalc_bluefont.draw(batch, " "+present_float(capture*100.0f)+"%", mine.rect.x-20, mine.rect.y-65, 81, 1, true);

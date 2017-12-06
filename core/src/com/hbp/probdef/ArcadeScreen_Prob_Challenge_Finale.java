@@ -24,7 +24,7 @@ public class ArcadeScreen_Prob_Challenge_Finale extends ArcadeScreen_Prob_Challe
 	    succeeded_yet=false;
 	    
 	    if (CAMPAIGN){
-	    	//shields=40;
+	    	shields=5+(1+prefs.getInteger("six_remain"))/2;
 	    	timeouting=false;
 	    }
 	    
@@ -53,7 +53,10 @@ public class ArcadeScreen_Prob_Challenge_Finale extends ArcadeScreen_Prob_Challe
 	@Override
 	void update_score_on_exit(){
 		if (CAMPAIGN){
-			prefs.putBoolean("eight_done",true);
+			prefs.putBoolean("seven_done",true);
+			if (shields>prefs.getInteger("seven_remain")){
+				prefs.putInteger("seven_remain", shields);
+			}
 			prefs.flush();
 		}
 		else{

@@ -17,7 +17,9 @@ public class ArcadeScreen_Prob_Challenge_AND extends ArcadeScreen_Prob_Challenge
 	    
 	    wave_number_total=5;
 	    
-	    //if (CAMPAIGN){shields=30;}
+	    if (CAMPAIGN){
+	    	shields=5+(1+prefs.getInteger("five_remain"))/2;
+	    }
 	}
 	
 	void set_score_name(){
@@ -42,7 +44,10 @@ public class ArcadeScreen_Prob_Challenge_AND extends ArcadeScreen_Prob_Challenge
 	@Override
 	void update_score_on_exit(){
 		if (CAMPAIGN){
-			prefs.putBoolean("seven_done",true);
+			prefs.putBoolean("six_done",true);
+			if (shields>prefs.getInteger("six_remain")){
+				prefs.putInteger("six_remain", shields);
+			}
 			prefs.flush();
 		}
 		else{

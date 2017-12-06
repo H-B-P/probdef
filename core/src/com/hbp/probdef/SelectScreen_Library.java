@@ -56,20 +56,22 @@ public class SelectScreen_Library extends SelectScreen {
 			
 			prefs.putString("probdef_library_topic", TOPIC);
 			if(TOPIC.equals("Probability")){
-				if (hardcoded_opt_packagename.equals("Inference")){
+				
 					NUMBER_OF_LEVELS=3;
-				}
-				else{
-					NUMBER_OF_LEVELS=2;
-				}
 				banner_t=banner_blank_t;
 				banner_s="Probability";
 				one_s="Combining Events";
 				one_double_liner=true;
 				two_s="Probability Trees";
 				two_double_liner=true;
-				three_s="Hypothesis Testing";
-				three_double_liner=true;
+				if (hardcoded_opt_packagename.equals("Inference")){
+					three_s="Hypothesis Testing";
+					three_double_liner=true;
+				}
+				else{
+					three_s="The Naive Approach";
+					three_double_liner=true;
+				}
 				four_s="";
 				five_s="";
 				six_s="";
@@ -168,9 +170,17 @@ public class SelectScreen_Library extends SelectScreen {
 				   game.setScreen(new BookScreen_Prob_Tree(game));
 				   dispose();
 			   }
-			   if (three_r.contains(tp_x,tp_y) && hardcoded_opt_packagename.equals("Inference")){
-				   game.setScreen(new BookScreen_Prob_HypothesisTests(game));
-				   dispose();
+			   if (three_r.contains(tp_x,tp_y)){
+				   
+				   if(hardcoded_opt_packagename.equals("Inference")){
+					   game.setScreen(new BookScreen_Prob_HypothesisTests(game));
+					   dispose();
+				   }
+				   else{
+					   game.setScreen(new BookScreen_Prob_Naive(game));
+					   dispose();
+				   }
+				   
 			   }
 		   }
 		   if (Gdx.input.justTouched()&& TOPIC.equals("Bayes")){

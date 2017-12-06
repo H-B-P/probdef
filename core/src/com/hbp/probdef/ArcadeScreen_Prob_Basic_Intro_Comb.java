@@ -29,6 +29,9 @@ public class ArcadeScreen_Prob_Basic_Intro_Comb extends ArcadeScreen_Prob {
 	void update_score_on_exit(){
 		if (CAMPAIGN){
 			prefs.putBoolean("one_done",true);
+			if (shields>prefs.getInteger("one_remain")){
+				prefs.putInteger("one_remain", shields);
+			}
 			prefs.flush();
 		}
 		else{

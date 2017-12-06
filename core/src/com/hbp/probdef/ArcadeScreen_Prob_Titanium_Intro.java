@@ -17,6 +17,10 @@ public class ArcadeScreen_Prob_Titanium_Intro extends ArcadeScreen_Prob_Titanium
 	    
 	    wave_number_total=6;
 	    
+	    if (CAMPAIGN){
+	    	shields=5+(1+prefs.getInteger("two_remain"))/2;
+	    }
+	    
 	    //if (CAMPAIGN){shields=30;}
 	    
 	}
@@ -31,8 +35,8 @@ public class ArcadeScreen_Prob_Titanium_Intro extends ArcadeScreen_Prob_Titanium
 	@Override
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("circle");
-		   turret_two=new Turret_Standard("pentagon");
+		   turret_one=new Turret_Standard("pentagon");
+		   turret_two=new Turret_Standard("circle");
 		   turret_three=new Turret_Standard("triangle");
 		   turret_four=new Turret_Standard("triangle");
 		   
@@ -47,6 +51,9 @@ public class ArcadeScreen_Prob_Titanium_Intro extends ArcadeScreen_Prob_Titanium
 	void update_score_on_exit(){
 		if (CAMPAIGN){
 			prefs.putBoolean("three_done",true);
+			if (shields>prefs.getInteger("three_remain")){
+				prefs.putInteger("three_remain", shields);
+			}
 			prefs.flush();
 		}
 		else{

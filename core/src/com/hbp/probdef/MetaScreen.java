@@ -137,6 +137,10 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 			prefs.putInteger("Book_HypothesisTests", 0);
 			prefs.flush();
 		}
+		if (!prefs.contains("Book_Naive")){
+			prefs.putInteger("Book_Naive", 0);
+			prefs.flush();
+		}
 		
 		if (!prefs.contains("Book_ExpectedValue")){
 			prefs.putInteger("Book_ExpectedValue", 0);

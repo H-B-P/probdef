@@ -16,6 +16,10 @@ public class ArcadeScreen_Prob_Multiple_Shields extends ArcadeScreen_Prob_Multip
 	    minecount=30;
 	    
 	    wave_number_total=5;
+	    
+	    if (CAMPAIGN){
+	    	shields=5+(prefs.getInteger("one_remain")+1)/2;
+	    }
 	}
 	
 	@Override
@@ -27,8 +31,8 @@ public class ArcadeScreen_Prob_Multiple_Shields extends ArcadeScreen_Prob_Multip
 	@Override
 	
 	void level_specific_turret_setup(){
-		   turret_one=new Turret_Standard("pentagon");
-		   turret_two=new Turret_Standard("circle");
+		   turret_one=new Turret_Standard("circle");
+		   turret_two=new Turret_Standard("pentagon");
 		   turret_three=new Turret_Standard("square");
 		   turret_four=new Turret_Standard("square");
 		   
@@ -42,7 +46,11 @@ public class ArcadeScreen_Prob_Multiple_Shields extends ArcadeScreen_Prob_Multip
 	@Override
 	void update_score_on_exit(){
 		if (CAMPAIGN){
-			prefs.putBoolean("four_done",true);
+			prefs.putBoolean("two_done",true);
+			
+			if (shields>prefs.getInteger("two_remain")){
+				prefs.putInteger("two_remain", shields);
+			}
 			prefs.flush();
 		}
 		else{

@@ -38,7 +38,6 @@ public class CampaignScreen_Combination extends MetaScreen {
 	Rectangle five_r;
 	Rectangle six_r;
 	Rectangle seven_r;
-	Rectangle eight_r;
 	
 	boolean one_done;
 	boolean two_done;
@@ -47,10 +46,16 @@ public class CampaignScreen_Combination extends MetaScreen {
 	boolean five_done;
 	boolean six_done;
 	boolean seven_done;
-	boolean eight_done;
+	
+	int one_rem;
+	int two_rem;
+	int three_rem;
+	int four_rem;
+	int five_rem;
+	int six_rem;
+	int seven_rem;
 
 	
-	Texture final_score_box_t;
 	
 	private SpriteBatch batch;
 	
@@ -84,8 +89,27 @@ public class CampaignScreen_Combination extends MetaScreen {
 		if (!prefs.contains("seven_done")){
 			prefs.putBoolean("seven_done",false);
 		}
-		if (!prefs.contains("eight_done")){
-			prefs.putBoolean("eight_done",false);
+		
+		if (!prefs.contains("one_remain")){
+			prefs.putInteger("one_remain",0);
+		}
+		if (!prefs.contains("two_remain")){
+			prefs.putInteger("two_remain",0);
+		}
+		if (!prefs.contains("three_remain")){
+			prefs.putInteger("three_remain",0);
+		}
+		if (!prefs.contains("four_remain")){
+			prefs.putInteger("four_remain",0);
+		}
+		if (!prefs.contains("five_remain")){
+			prefs.putInteger("five_remain",0);
+		}
+		if (!prefs.contains("six_remain")){
+			prefs.putInteger("six_remain",0);
+		}
+		if (!prefs.contains("seven_remain")){
+			prefs.putInteger("seven_remain",0);
 		}
 		
 
@@ -96,7 +120,15 @@ public class CampaignScreen_Combination extends MetaScreen {
 		five_done=prefs.getBoolean("five_done");
 		six_done=prefs.getBoolean("six_done");
 		seven_done=prefs.getBoolean("seven_done");
-		eight_done=prefs.getBoolean("eight_done");
+		
+		one_rem=prefs.getInteger("one_remain");
+		two_rem=prefs.getInteger("two_remain");
+		three_rem=prefs.getInteger("three_remain");
+		four_rem=prefs.getInteger("four_remain");
+		five_rem=prefs.getInteger("five_remain");
+		six_rem=prefs.getInteger("six_remain");
+		seven_rem=prefs.getInteger("seven_remain");
+		
 		
 		bgm=Gdx.audio.newMusic(Gdx.files.internal("Menu.mp3"));
 		bgm.setLooping(true);
@@ -141,34 +173,28 @@ public class CampaignScreen_Combination extends MetaScreen {
 		three_r.width=140;
 		
 		four_r = new Rectangle();
-		four_r.x=15;
+		four_r.x=90;
 		four_r.y=170;
 		four_r.height=60;
 		four_r.width=140;
 		
 		five_r = new Rectangle();
-		five_r.x=165;
-		five_r.y=170;
+		five_r.x=15;
+		five_r.y=95;
 		five_r.height=60;
 		five_r.width=140;
 		
 		six_r = new Rectangle();
-		six_r.x=15;
+		six_r.x=165;
 		six_r.y=95;
 		six_r.height=60;
 		six_r.width=140;
 		
 		seven_r = new Rectangle();
-		seven_r.x=165;
-		seven_r.y=95;
+		seven_r.x=90;
+		seven_r.y=20;
 		seven_r.height=60;
 		seven_r.width=140;
-		
-		eight_r = new Rectangle();
-		eight_r.x=90;
-		eight_r.y=20;
-		eight_r.height=60;
-		eight_r.width=140;
 		
 		
 		game = gam;
@@ -206,10 +232,14 @@ public class CampaignScreen_Combination extends MetaScreen {
 	    
 	    if (one_r.contains(tp_x,tp_y)){
 	    	batch.draw(dull_trim_t, one_r.x, one_r.y);
-	    }	    
+	    }
+	    
+	    if (one_done){blackfont.draw(batch, "shields: "+one_rem,one_r.x, one_r.y-2, one_r.width, 1, true);}
+	    
+	    
 	    
 	    batch.draw(button_blank_t, two_r.x, two_r.y);
-	    buttony_font.draw(batch, "Titanium", two_r.x+10, two_r.y+38, 120, 1, true);
+	    buttony_font.draw(batch, "Shields", two_r.x+10, two_r.y+38, 120, 1, true);
 	    
 	    if (two_r.contains(tp_x,tp_y)){
 	    	batch.draw(dull_trim_t, two_r.x, two_r.y);
@@ -217,10 +247,13 @@ public class CampaignScreen_Combination extends MetaScreen {
 	    if (!one_done){
 	    	batch.draw(button_dead_t, two_r.x, two_r.y);
 	    }
-	    	    
+	    
+	    if (two_done){blackfont.draw(batch, "shields: "+two_rem,two_r.x, two_r.y-2, two_r.width, 1, true);}
+	    
+	    
 	    
 	    batch.draw(button_blank_t, three_r.x, three_r.y);
-	    buttony_font.draw(batch, "Tradeoff", three_r.x+10, three_r.y+38, 120, 1, true);
+	    buttony_font.draw(batch, "Titanium", three_r.x+10, three_r.y+38, 120, 1, true);
 	    
 	    if (three_r.contains(tp_x,tp_y)){
 	    	batch.draw(dull_trim_t, three_r.x, three_r.y);
@@ -229,9 +262,12 @@ public class CampaignScreen_Combination extends MetaScreen {
 	    	batch.draw(button_dead_t, three_r.x, three_r.y);
 	    }
 	    
+	    if (three_done){blackfont.draw(batch, "shields: "+three_rem, three_r.x, three_r.y-2, three_r.width, 1, true);}
+	    
+	    
 	    
 	    batch.draw(button_blank_t, four_r.x, four_r.y);
-	    buttony_font.draw(batch, "Shields", four_r.x+10, four_r.y+38, 120, 1, true);
+	    buttony_font.draw(batch, "Multishot", four_r.x+10, four_r.y+38, 120, 1, true);
 	    
 	    if (four_r.contains(tp_x,tp_y)){
 	    	batch.draw(dull_trim_t, four_r.x, four_r.y);
@@ -240,9 +276,12 @@ public class CampaignScreen_Combination extends MetaScreen {
 	    	batch.draw(button_dead_t, four_r.x, four_r.y);
 	    }
 	    
+	    if (four_done){blackfont.draw(batch, "shields: "+four_rem, four_r.x, four_r.y-2, four_r.width, 1, true);}
+	    
+	    
 	    
 	    batch.draw(button_blank_t, five_r.x, five_r.y);
-	    buttony_font.draw(batch, "Multishot", five_r.x+10, five_r.y+38, 120, 1, true);
+	    buttony_font.draw(batch, "Shields,\nTitanium", five_r.x+10, five_r.y+38+12, 120, 1, true);
 	    
 	    if (five_r.contains(tp_x,tp_y)){
 	    	batch.draw(dull_trim_t, five_r.x, five_r.y);
@@ -251,8 +290,12 @@ public class CampaignScreen_Combination extends MetaScreen {
 	    	batch.draw(button_dead_t, five_r.x, five_r.y);
 	    }	    
 	    
+	    if (five_done){blackfont.draw(batch, "shields: "+five_rem, five_r.x, five_r.y-2, five_r.width, 1, true);}
+	    
+	    
+	    
 	    batch.draw(button_blank_t, six_r.x, six_r.y);
-	    buttony_font.draw(batch, "Shields,\nTitanium", six_r.x+10, six_r.y+38+12, 120, 1, true);
+	    buttony_font.draw(batch, "Shielded\nTitanium", six_r.x+10, six_r.y+38+12, 120, 1, true);
 	    
 	    if (six_r.contains(tp_x,tp_y)){
 	    	batch.draw(dull_trim_t, six_r.x, six_r.y);
@@ -261,9 +304,13 @@ public class CampaignScreen_Combination extends MetaScreen {
 	    	batch.draw(button_dead_t, six_r.x, six_r.y);
 	    }
 	    
+	    if (six_done){blackfont.draw(batch, "shields: "+six_rem, six_r.x, six_r.y-2, six_r.width, 1, true);}
+	    
+	    
+	    
 	    
 	    batch.draw(button_blank_t, seven_r.x, seven_r.y);
-	    buttony_font.draw(batch, "Shielded\nTitanium", seven_r.x+10, seven_r.y+38+12, 120, 1, true);
+	    buttony_font.draw(batch, "Finale", seven_r.x+10, seven_r.y+38, 120, 1, true);
 	    
 	    if (seven_r.contains(tp_x,tp_y)){
 	    	batch.draw(dull_trim_t, seven_r.x, seven_r.y);
@@ -272,15 +319,8 @@ public class CampaignScreen_Combination extends MetaScreen {
 	    	batch.draw(button_dead_t, seven_r.x, seven_r.y);
 	    }	    
 	    
-	    batch.draw(button_blank_t, eight_r.x, eight_r.y);
-	    buttony_font.draw(batch, "Finale", eight_r.x+10, eight_r.y+38, 120, 1, true);
-	    
-	    if (eight_r.contains(tp_x,tp_y)){
-	    	batch.draw(dull_trim_t, eight_r.x, eight_r.y);
-	    }
-	    if (!seven_done){
-	    	batch.draw(button_dead_t, eight_r.x, eight_r.y);
-	    }	    
+	    if (seven_done){blackfont.draw(batch, "final shields: "+seven_rem, seven_r.x, seven_r.y-2, seven_r.width, 1, true);}
+	    	    
 	    
 		batch.draw(poncho_t, -640, -960);
 		
@@ -294,7 +334,7 @@ public class CampaignScreen_Combination extends MetaScreen {
 			}
 			
 			else if (one_done &&two_r.contains(tp_x,tp_y)){
-				game.setScreen(new ArcadeScreen_Prob_Titanium_Simplified(game,true));
+				game.setScreen(new ArcadeScreen_Prob_Multiple_Shields(game,true));
 				dispose();
 			}
 			
@@ -304,26 +344,21 @@ public class CampaignScreen_Combination extends MetaScreen {
 			}
 			
 			else if (three_done && four_r.contains(tp_x,tp_y)){
-				game.setScreen(new ArcadeScreen_Prob_Multiple_Shields(game,true));
-				dispose();
-			}
-			
-			else if (four_done && five_r.contains(tp_x,tp_y)){
 				game.setScreen(new ArcadeScreen_Prob_Multiple_Multishot(game,true));
 				dispose();
 			}
 			
-			else if (five_done && six_r.contains(tp_x,tp_y)){
+			else if (four_done && five_r.contains(tp_x,tp_y)){
 				game.setScreen(new ArcadeScreen_Prob_Challenge_OR(game,true));
 				dispose();
 			}
 			
-			else if (six_done && seven_r.contains(tp_x,tp_y)){
+			else if (five_done && six_r.contains(tp_x,tp_y)){
 				game.setScreen(new ArcadeScreen_Prob_Challenge_AND(game,true));
 				dispose();
 			}
 			
-			else if (seven_done && eight_r.contains(tp_x,tp_y)){
+			else if (six_done && seven_r.contains(tp_x,tp_y)){
 				game.setScreen(new ArcadeScreen_Prob_Challenge_Finale(game,true));
 				dispose();
 			}

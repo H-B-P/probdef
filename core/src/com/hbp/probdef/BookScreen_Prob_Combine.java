@@ -121,12 +121,12 @@ public class BookScreen_Prob_Combine extends BookScreen_Prob {
 				show_the_text=true;
 				the_text="The probability of two independent events both happening is found by multiplying their probabilities.";
 				if (turret_one.targeted && turret_two.targeted){
-					the_text="In this case, that means 20% of 30%: 6%.";
+					the_text="Here, that's 20% of 30%: 6%.";
 				}
 			}
 			if (page_time>6 && TIMESPEED>0){
 				show_the_text=true;
-				the_text="Or, equivalently, 0.3*0.2: 0.06.\nOr, also equivalently, 3/10*2/10: 6/100.";
+				the_text="Here, that's 20% of 30%: 6%.\nOr, equivalently, 0.3*0.2: 0.06.\nOr, also equivalently, 3/10*2/10: 6/100.";
 			}
 			if (page_time>8){
 				time_to_move_on=true;
@@ -152,7 +152,7 @@ public class BookScreen_Prob_Combine extends BookScreen_Prob {
 			}
 			if (page_time>4 && TIMESPEED>0){
 				show_the_text=true;
-				the_text="Likewise, 0.3*0.2*0.2 = 0.012, and 3/10*2/10*2/10 = 12/1000.";
+				the_text="20% of 30% is 6%,\nand 20% of 6% is 1.2%.\nLikewise, 0.3*0.2*0.2 = 0.012, and 3/10*2/10*2/10 = 12/1000.";
 			}
 			if (page_time>6){
 				time_to_move_on=true;
