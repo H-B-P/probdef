@@ -21,6 +21,8 @@ public class ArcadeScreen_Bayes_Deduction_Blatant extends ArcadeScreen_Bayes {
 		
 		original_minecount=minecount;
 		
+		total_shipwaves=10;
+		
 		score=30;
 	}
 	

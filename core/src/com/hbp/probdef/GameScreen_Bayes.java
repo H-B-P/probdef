@@ -102,7 +102,6 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		shields=10;
 		
-		total_shipwaves=10;
 		
 		minecount=40;
 		

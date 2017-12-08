@@ -64,8 +64,8 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 	
 	public MetaScreen(final ProbDef gam, boolean play_the_sound) {
 		
-		//hardcoded_opt_packagename="Bayesian";
-		hardcoded_opt_packagename="Combination";
+		hardcoded_opt_packagename="Bayesian";
+		//hardcoded_opt_packagename="Combination";
 		//hardcoded_opt_packagename="Inference";
 		
 		hardcoded_opt_platform="Web";

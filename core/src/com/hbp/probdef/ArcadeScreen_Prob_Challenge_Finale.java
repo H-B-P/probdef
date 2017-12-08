@@ -90,7 +90,6 @@ public class ArcadeScreen_Prob_Challenge_Finale extends ArcadeScreen_Prob_Challe
 		if (CAMPAIGN){
 			if (!succeeded_yet && minecount==0 && explosions.size==0){
 				succeeded_yet=true;
-				System.out.println("WE DID IT");
 				success_time=total_time;
 				update_score_on_exit();
 			}
