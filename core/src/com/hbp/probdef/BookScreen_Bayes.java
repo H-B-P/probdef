@@ -44,6 +44,11 @@ public class BookScreen_Bayes extends GameScreen_Bayes {
 		
 		super(gam);
 		
+		enemyship_engine_a_t=new Texture(Gdx.files.internal("ship_bases/engine_zigzag_a.png"));
+		enemyship_engine_b_t=new Texture(Gdx.files.internal("ship_bases/engine_zigzag_b.png"));
+		enemyship_engine_c_t=new Texture(Gdx.files.internal("ship_bases/engine_zigzag_c.png"));
+		
+		
 		game = gam;
 		
 		page=1;

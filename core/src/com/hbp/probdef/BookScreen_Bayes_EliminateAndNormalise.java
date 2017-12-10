@@ -33,16 +33,16 @@ public class BookScreen_Bayes_EliminateAndNormalise extends BookScreen_Bayes {
 	@Override
 	
 	void level_specific_ship_aesthetics(){
-		ship_one_engines='e';
-		ship_one_front='b';
-		ship_one_back='a';
+		ship_one_engines='a';
+		ship_one_front='c';
+		ship_one_back='c';
 		
-		ship_two_engines='e';
-		ship_two_front='b';
-		ship_two_back='b';
+		ship_two_engines='b';
+		ship_two_front='c';
+		ship_two_back='c';
 		
-		ship_three_engines='e';
-		ship_three_front='b';
+		ship_three_engines='c';
+		ship_three_front='c';
 		ship_three_back='c';
 		
 	}
