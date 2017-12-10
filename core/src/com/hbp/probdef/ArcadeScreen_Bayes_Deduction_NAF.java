@@ -45,17 +45,17 @@ public class ArcadeScreen_Bayes_Deduction_NAF extends ArcadeScreen_Bayes {
 	@Override
 	
 	void level_specific_ship_aesthetics(){
-		ship_one_engines='d';
+		ship_one_engines='a';
 		ship_one_front='c';
-		ship_one_back='a';
+		ship_one_back='b';
 		
 		ship_two_engines='b';
 		ship_two_front='c';
 		ship_two_back='b';
 		
-		ship_three_engines='d';
+		ship_three_engines='c';
 		ship_three_front='c';
-		ship_three_back='c';
+		ship_three_back='b';
 		
 	}
 	

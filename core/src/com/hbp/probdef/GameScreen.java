@@ -405,7 +405,7 @@ public class GameScreen extends SpaceScreen {
 		textures.add(enemyship_engine_e_t);
 		
 		enemyship_front_a_t=new Texture(Gdx.files.internal("ship_bases/front_a.png"));
-		enemyship_front_b_t=new Texture(Gdx.files.internal("ship_bases/front_b.png"));
+		enemyship_front_b_t=new Texture(Gdx.files.internal("ship_bases/front_y.png"));
 		enemyship_front_c_t=new Texture(Gdx.files.internal("ship_bases/front_c.png"));
 		
 		textures.add(enemyship_front_a_t);

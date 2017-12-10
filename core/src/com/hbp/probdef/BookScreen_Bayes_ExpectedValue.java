@@ -21,6 +21,8 @@ public class BookScreen_Bayes_ExpectedValue extends BookScreen_Bayes {
 		
 		maxpages=11;
 		
+		number_of_turret_types=3;
+		
 		first_decision_clever=false;
 		second_decision_clever=false;
 	}
@@ -152,8 +154,9 @@ public class BookScreen_Bayes_ExpectedValue extends BookScreen_Bayes {
 	}
 	@Override
 	void level_specific_HUD(){
-		font.draw(batch, "CIRC/TRI/PENT", 90, 455, 140, 1, true);
-		font.draw(batch, "SHIELDS: "+shields, 90, 437, 140, 1, true);
+		font.draw(batch, "CIRC/TRI/PENT", 90, 473, 140, 1, true);
+		font.draw(batch, "SHIELDS: "+shields, 90, 455, 140, 1, true);
+	   font.draw(batch, "PAGE: "+ page + "/"+maxpages, 90, 428, 140, 1, true);
 	   }
 	
 	@Override

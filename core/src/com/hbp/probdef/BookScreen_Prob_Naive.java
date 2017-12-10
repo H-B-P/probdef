@@ -85,10 +85,6 @@ public class BookScreen_Prob_Naive extends BookScreen_Prob {
 			}
 		}
 	}
-	@Override
-	void level_specific_HUD(){
-		   
-	   }
 	
 	@Override
 	

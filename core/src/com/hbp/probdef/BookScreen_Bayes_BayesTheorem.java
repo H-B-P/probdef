@@ -209,9 +209,10 @@ public class BookScreen_Bayes_BayesTheorem extends BookScreen_Bayes {
 	}
 	@Override
 	void level_specific_HUD(){
-		font.draw(batch, "CIRC/TRI/PENT", 90, 455, 140, 1, true);
-		font.draw(batch, "SHIELDS: "+shields, 90, 437, 140, 1, true);
-	   }
+		font.draw(batch, "CIRC/TRI/PENT", 90, 473, 140, 1, true);
+		font.draw(batch, "SHIELDS: "+shields, 90, 455, 140, 1, true);
+	   font.draw(batch, "PAGE: "+ page + "/"+maxpages, 90, 428, 140, 1, true);
+	}
 	
 	@Override
 	void level_specific_ST_ONE_HUD(){

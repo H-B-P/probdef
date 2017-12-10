@@ -13,9 +13,7 @@ import com.hbp.probdef.ProbDef;
 public class BookScreen_Prob extends GameScreen_Prob {
 	
 	final ProbDef game;
-	
-	private SpriteBatch batch;
-	
+		
 	int page;
 	
 	double page_time;
@@ -251,6 +249,11 @@ public class BookScreen_Prob extends GameScreen_Prob {
 					the_text="Example text 2";
 			   }
 		}
+	}
+	
+	@Override
+	void level_specific_HUD(){
+	   font.draw(batch, "PAGE: "+page+"/"+maxpages, 90, 446, 140, 1, true);
 	}
 	
 	@Override

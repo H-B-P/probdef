@@ -119,6 +119,9 @@ public class TitleScreen extends MetaScreen {
 		if (hardcoded_opt_packagename.equals("Combination")){
 			PROBDEF_t=new Texture(Gdx.files.internal("PROBDEF_Combination.png"));
 		}
+		else if (hardcoded_opt_packagename.equals("Bayesian")){
+			PROBDEF_t=new Texture(Gdx.files.internal("PROBDEF_Bayesian.png"));
+		}
 		else{
 			PROBDEF_t=new Texture(Gdx.files.internal("PROBDEF.png"));
 		}
@@ -173,6 +176,10 @@ public class TitleScreen extends MetaScreen {
 				blackfont.draw(batch, "Learn the controls and the basic game mechanics. Do this first.", 10, 83, 300,1, true);
 				purplefont.draw(batch, "(unless you played the first ProbDef, in which case skip it)", 10, 48, 300,1, true);
 			}
+			else if (hardcoded_opt_packagename.equals("Bayesian")){
+				blackfont.draw(batch, "Learn the controls and the basic game mechanics. Do this first.", 10, 83, 300,1, true);
+				purplefont.draw(batch, "(unless you finished the first ProbDef, in which case skip it)", 10, 48, 300,1, true);
+			}
 			else{
 				blackfont.draw(batch, "Learn the controls and the basic game mechanics.\nDo this first.", 10, 75, 300,1, true);
 			}
@@ -219,7 +226,12 @@ public class TitleScreen extends MetaScreen {
 				}
 				
 				if (TUTORIAL_r.contains(tp_x,tp_y)){
-					game.setScreen(new GameScreen_Prob(game));
+					if (hardcoded_opt_packagename.equals("Bayesian")){
+						game.setScreen(new GameScreen_Bayes(game));
+					}
+					else{
+						game.setScreen(new GameScreen_Prob(game));
+					}
 		            dispose();
 				}
 				
@@ -231,6 +243,9 @@ public class TitleScreen extends MetaScreen {
 				if (CAMPAIGN_r.contains(tp_x,tp_y)){
 					if (hardcoded_opt_packagename.equals("Combination")){
 						game.setScreen(new CampaignScreen_Combination(game, true));
+					}
+					else if (hardcoded_opt_packagename.equals("Bayesian")){
+						game.setScreen(new CampaignScreen_Inference(game, true));
 					}
 					else{
 						game.setScreen(new CampaignScreen_Inference(game, true));

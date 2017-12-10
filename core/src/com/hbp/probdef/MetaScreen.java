@@ -74,6 +74,10 @@ public class MetaScreen implements Screen { //Regarding implementing vs extendin
 			pname="Combination_Preferences";
 			prefs = Gdx.app.getPreferences("Combination_Preferences");
 		}
+		else if (hardcoded_opt_packagename.equals("Bayesian")){
+			pname="Bayesian_Preferences";
+			prefs = Gdx.app.getPreferences("Bayesian_Preferences");
+		}
 		else{
 			pname="galen_preferences_II";
 			prefs = Gdx.app.getPreferences("galen_preferences_II");

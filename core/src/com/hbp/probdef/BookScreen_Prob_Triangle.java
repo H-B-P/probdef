@@ -151,10 +151,7 @@ public class BookScreen_Prob_Triangle extends BookScreen_Prob {
 	void level_specific_events(){
 		
 	}
-	@Override
-	void level_specific_HUD(){
-		   
-	   }
+	
 	
 	@Override
 	void draw_textbox(String text){

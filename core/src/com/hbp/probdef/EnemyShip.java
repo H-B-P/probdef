@@ -18,6 +18,8 @@ public class EnemyShip {
 	   float assignedprob_one;
 	   float assignedprob_two;
 	   float assignedprob_three;
+	   float assignedprob_four;
+	   float assignedprob_five;
 	   
 	   Rectangle shield_r;
 	   boolean flicker;

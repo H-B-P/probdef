@@ -21,7 +21,7 @@ public class SelectorBox_Acalc extends SelectorBox {
 					   current_nature_string="Detail, Result";
 				   }
 			   }
-			   else{
+			   else if (pnam.equals("galen_preferences_II")){
 				   if (current_nature_string.equals("Normal")){
 					   current_nature_string="Detail";
 				   }

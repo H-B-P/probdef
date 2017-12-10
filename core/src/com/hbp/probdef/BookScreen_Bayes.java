@@ -66,6 +66,8 @@ public class BookScreen_Bayes extends GameScreen_Bayes {
 		
 		maxpages=2;
 		
+		number_of_turret_types=3;
+		
 		prv_trim_blue_t=new Texture(Gdx.files.internal("pobutton_left_trim.png"));
 		nxt_trim_blue_t=new Texture(Gdx.files.internal("pobutton_right_trim.png"));
 		
@@ -75,6 +77,8 @@ public class BookScreen_Bayes extends GameScreen_Bayes {
 		
 		time_to_move_on=false;
 		suppress_exits=true;
+		
+		shields=10;
 		
 		set_book_name();
 		
@@ -220,6 +224,8 @@ public class BookScreen_Bayes extends GameScreen_Bayes {
 		}
 	}
 	
+	
+	
 	@Override
 	
 	void level_specific_timeline(){
@@ -268,6 +274,16 @@ public class BookScreen_Bayes extends GameScreen_Bayes {
 			
 			
 			
+		}
+	}
+
+	@Override
+	
+	void level_specific_probability_display(){
+		for (EnemyShip enemyship:enemyships){
+			if (enemyship.obscured){
+				acalc_greenfont.draw(batch, "C: "+present_float(enemyship.assignedprob_one*100.0f)+"%\nT: "+present_float(enemyship.assignedprob_two*100.0f)+"%\nP: "+present_float(enemyship.assignedprob_three*100.0f)+"%", enemyship.rect.x-20, enemyship.rect.y-30, 100, 1, true);
+			}
 		}
 	}
 	

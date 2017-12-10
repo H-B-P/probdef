@@ -22,6 +22,8 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends ArcadeScreen_Bayes {
 			minecount=30;
 		}
 		original_minecount=minecount;
+
+		number_of_turret_types=2;
 		
 		specific_start_time=9000000000000000000000f;
 		
@@ -64,12 +66,12 @@ public class ArcadeScreen_Bayes_Deduction_Intro extends ArcadeScreen_Bayes {
 		ship_one_back='a';
 		
 		ship_two_engines='b';
-		ship_two_front='c';
+		ship_two_front='a';
 		ship_two_back='a';
 		
 		ship_three_engines='c';
 		ship_three_front='a';
-		ship_three_back='c';
+		ship_three_back='a';
 		
 	}
 	

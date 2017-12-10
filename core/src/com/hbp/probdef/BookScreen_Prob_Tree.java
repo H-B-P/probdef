@@ -154,10 +154,7 @@ public class BookScreen_Prob_Tree extends BookScreen_Prob {
 			}
 		}
 	}
-	@Override
-	void level_specific_HUD(){
-		   
-	   }
+	
 	@Override
 	void draw_textbox(String text){
 		   

@@ -21,7 +21,6 @@ public class ArcadeScreen_Bayes_Deduction_Blatant extends ArcadeScreen_Bayes {
 		
 		original_minecount=minecount;
 		
-		total_shipwaves=10;
 		
 		score=30;
 	}
@@ -63,17 +62,17 @@ public class ArcadeScreen_Bayes_Deduction_Blatant extends ArcadeScreen_Bayes {
 	@Override
 	
 	void level_specific_ship_aesthetics(){
-		ship_one_engines='b';
-		ship_one_front='a';
-		ship_one_back='b';
+		ship_one_engines='a';
+		ship_one_front='b';
+		ship_one_back='a';
 		
-		ship_two_engines='c';
-		ship_two_front='a';
-		ship_two_back='b';
+		ship_two_engines='b';
+		ship_two_front='b';
+		ship_two_back='a';
 		
-		ship_three_engines='a';
-		ship_three_front='a';
-		ship_three_back='b';
+		ship_three_engines='c';
+		ship_three_front='b';
+		ship_three_back='a';
 		
 	}
 	

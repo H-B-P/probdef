@@ -67,11 +67,19 @@ public class OptionsScreen extends MetaScreen {
 	    //screenSizeSelectorBox=new SelectorBox_Size("Screen Size",170,330);
 		//selectorboxes.add(screenSizeSelectorBox);
 		
-	    acalcSelectorBox=new SelectorBox_Acalc("Autocalc", pname,10, 330);
-		selectorboxes.add(acalcSelectorBox);
+	    if (hardcoded_opt_packagename.equals("Bayesian")){
+	    	acalcSelectorBox=new SelectorBox_Acalc("Autocalc", pname,90, 330);
+			selectorboxes.add(acalcSelectorBox);
+	    }
+	    else{
+	    	acalcSelectorBox=new SelectorBox_Acalc("Autocalc", pname,10, 330);
+			selectorboxes.add(acalcSelectorBox);
+		    
+			tthSelectorBox=new SelectorBox_TTH_Display("TTH Display",pname,170, 330);
+			selectorboxes.add(tthSelectorBox);
+	    }
 	    
-		tthSelectorBox=new SelectorBox_TTH_Display("TTH Display",pname,170, 330);
-		selectorboxes.add(tthSelectorBox);
+	    
 		
 	    musicVolumeSelectorBox=new SelectorBox_Percentage("Music Volume",pname,10,255);
 		selectorboxes.add(musicVolumeSelectorBox);
@@ -189,9 +197,13 @@ public class OptionsScreen extends MetaScreen {
 			}
 		}
 		
-		if (tthSelectorBox.rect.contains(tp_x,tp_y)){
-			blackfont.draw(batch, "How we display turns until a mine hits. Normal displays in-HUD on mouseover, Below displays below the mine, Off doesn't display.", 15, 83, 290,1, true);
+		if (!hardcoded_opt_packagename.equals("Bayesian")){
+			if (tthSelectorBox.rect.contains(tp_x,tp_y)){
+				blackfont.draw(batch, "How we display turns until a mine hits. Normal displays in-HUD on mouseover, Below displays below the mine, Off doesn't display.", 15, 83, 290,1, true);
+			}
 		}
+		
+		
 		
 		if (gamespeedSelectorBox.rect.contains(tp_x,tp_y)){
 			blackfont.draw(batch, "Speed up the game to get through firing animations faster, or slow it down to savor the suspense / make it run more smoothly.", 15, 83, 290,1, true);

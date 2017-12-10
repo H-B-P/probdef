@@ -85,10 +85,7 @@ public class BookScreen_Prob_HypothesisTests extends BookScreen_Prob {
 			}
 		}
 	}
-	@Override
-	void level_specific_HUD(){
-		   
-	   }
+	
 	@Override
 	void draw_textbox(String text){
 		if (page==2 && turret_three.targeted && !turret_four.targeted){

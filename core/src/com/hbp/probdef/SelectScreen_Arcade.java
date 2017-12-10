@@ -23,6 +23,10 @@ public class SelectScreen_Arcade extends SelectScreen {
 				first_topic="Titanium";
 				last_topic="Challenge";
 			}
+			if (hardcoded_opt_packagename.equals("Bayesian")){
+				first_topic="DeductionII";
+				last_topic="Zendo";
+			}
 			
 			System.out.println("-----");
 			System.out.println(prefs.contains("probdef_arcade_top"));
@@ -99,6 +103,13 @@ public class SelectScreen_Arcade extends SelectScreen {
 					prefs.flush();
 			   }
 			   TOPIC=prefs.getString("probdef_arcade_combination_top");
+		   }
+		   else if (hardcoded_opt_packagename.equals("Bayesian")){
+			   if (!prefs.contains("probdef_arcade_bayesian_top")){
+				   prefs.putString("probdef_arcade_bayesian_top", "DeductionII");
+					prefs.flush();
+			   }
+			   TOPIC=prefs.getString("probdef_arcade_bayesian_top");
 		   }
 		   else{
 			   if (!prefs.contains("probdef_arcade_top")){
@@ -189,78 +200,23 @@ public class SelectScreen_Arcade extends SelectScreen {
 				three_r.y=50;
 			}
 		   
-//		   if (how_many==5|| how_many==3){
-//				
-//			   one_r = new Rectangle();
-//				one_r.x=10;
-//				one_r.y=230;
-//				one_r.height=60;
-//				one_r.width=140;
-//			   
-//				two_r = new Rectangle();
-//				two_r.x=10;
-//				two_r.y=230;
-//				two_r.height=60;
-//				two_r.width=140;
-//				
-//				three_r = new Rectangle();
-//				three_r.x=10;
-//				three_r.y=140;
-//				three_r.height=60;
-//				three_r.width=140;
-//				
-//		   }
-//		   if (how_many==5){
-//				four_r = new Rectangle();
-//				four_r.x=10;
-//				four_r.y=50;
-//				four_r.height=60;
-//				four_r.width=140;
-//				
-//				five_r = new Rectangle();
-//				five_r.x=170;
-//				five_r.y=50;
-//				five_r.height=60;
-//				five_r.width=140;
-//			}
-//		   if (how_many==6){
-//				
-//			   one_r = new Rectangle();
-//				one_r.x=10;
-//				one_r.y=230;
-//				one_r.height=60;
-//				one_r.width=140;
-//				
-//				two_r = new Rectangle();
-//				two_r.x=170;
-//				two_r.y=230;
-//				two_r.height=60;
-//				two_r.width=140;
-//			   
-//				three_r = new Rectangle();
-//				three_r.x=10;
-//				three_r.y=140;
-//				three_r.height=60;
-//				three_r.width=140;
-//				
-//				four_r = new Rectangle();
-//				four_r.x=170;
-//				four_r.y=140;
-//				four_r.height=60;
-//				four_r.width=140;
-//				
-//				five_r = new Rectangle();
-//				five_r.x=10;
-//				five_r.y=50;
-//				five_r.height=60;
-//				five_r.width=140;
-//				
-//				six_r = new Rectangle();
-//				six_r.x=170;
-//				six_r.y=50;
-//				six_r.height=60;
-//				six_r.width=140;
-//			}
+		   if (TOPIC.equals("DeductionII") || TOPIC.equals("Induction") || TOPIC.equals("Zendo")){
+				
+			   one_r.x=90;
+				one_r.y=230;
+			    
+				two_r.x=10;
+				two_r.y=140;
+				
+				three_r.x=170;
+				three_r.y=140;
+				
+				four_r.x=10;
+				four_r.y=50;
+				
+				five_r.x=170;
+				five_r.y=50;
+			}
 	   }
 	   
 	   @Override
@@ -269,6 +225,9 @@ public class SelectScreen_Arcade extends SelectScreen {
 	   public void adjustToTopic(){
 		   if (hardcoded_opt_packagename.equals("Combination")){
 			   prefs.putString("probdef_arcade_combination_top", TOPIC);
+		   }
+		   else if (hardcoded_opt_packagename.equals("Bayesian")){
+			   prefs.putString("probdef_arcade_bayesian_top", TOPIC);
 		   }
 		   else{
 			prefs.putString("probdef_arcade_top", TOPIC);
@@ -434,10 +393,53 @@ public class SelectScreen_Arcade extends SelectScreen {
 				
 			}
 			
+			if(TOPIC.equals("DeductionII")){
+				NUMBER_OF_LEVELS=5;
+				banner_t=banner_blank_t;
+				banner_s="Deduction";
+				
+				one_s="Intro";
+				one_double_liner=false;
+				score_one=prefs.getInteger("Score_DeductionII_Intro");
+				
+				two_s="Blatant Evidence";
+				two_double_liner=true;
+				score_two=prefs.getInteger("Score_DeductionII_Blatant");
+				
+				three_s="Subtle Evidence";
+				three_double_liner=true;
+				score_three=prefs.getInteger("Score_DeductionII_Subtle");
+				
+				four_s="Near & Far I";
+				four_double_liner=false;
+				score_four=prefs.getInteger("Score_DeductionII_NAF_I");
+				
+				five_s="Near & Far II";
+				five_double_liner=false;
+				score_five=prefs.getInteger("Score_DeductionII_NAF_II");
+			}
+			
 			if(TOPIC.equals("Dukkha")){
 				NUMBER_OF_LEVELS=6;
 				banner_t=banner_blank_t;
 				banner_s="Dukkha";
+				one_s="";//"Flawed Priors";
+				one_double_liner=false;
+				two_s="";//"Incomplete Priors";
+				two_double_liner=false;
+				three_s="";//"Unreliable Vanes";
+				three_double_liner=false;
+				four_s="";//"Impaired Vanes";
+				four_double_liner=false;
+				five_s="";//"Red Shield";
+				five_double_liner=false;
+				six_s="";//"Blue Shield";
+				six_double_liner=false;
+			}
+			if(TOPIC.equals("Chorus")){
+				NUMBER_OF_LEVELS=6;
+				banner_t=banner_blank_t;
+				banner_s="Chorus";
 				one_s="";//"Flawed Priors";
 				one_double_liner=false;
 				two_s="";//"Incomplete Priors";
@@ -466,7 +468,21 @@ public class SelectScreen_Arcade extends SelectScreen {
 				five_s="";
 				five_double_liner=false;
 			}
-			
+			if(TOPIC.equals("Zendo")){
+				NUMBER_OF_LEVELS=5;
+				banner_t=banner_blank_t;
+				banner_s="Zendo";
+				one_s="";
+				one_double_liner=false;
+				two_s="";
+				two_double_liner=false;
+				three_s="";
+				three_double_liner=false;
+				four_s="";
+				four_double_liner=false;
+				five_s="";
+				five_double_liner=false;
+			}
 		}
 	   
 	   @Override
@@ -486,6 +502,22 @@ public class SelectScreen_Arcade extends SelectScreen {
 				else if (TOPIC.equals("Multiple")){
 					TOPIC="Challenge";
 				}
+			}
+			else if (hardcoded_opt_packagename.equals("Bayesian")){
+				if (TOPIC.equals("DeductionII")){
+					TOPIC="Dukkha";
+				}
+				else if (TOPIC.equals("Dukkha")){
+					TOPIC="Chorus";
+				}
+				
+				else if (TOPIC.equals("Chorus")){
+					TOPIC="Induction";
+				}
+				else if (TOPIC.equals("Induction")){
+					TOPIC="Zendo";
+				}
+				
 			}
 			else{
 				if (TOPIC.equals("Basic")){
@@ -517,6 +549,24 @@ public class SelectScreen_Arcade extends SelectScreen {
 					TOPIC="Multiple";
 				}
 			}
+			
+			else if (hardcoded_opt_packagename.equals("Bayesian")){
+				if (TOPIC.equals("Dukkha")){
+					TOPIC="DeductionII";
+				}
+				else if (TOPIC.equals("Chorus")){
+					TOPIC="Dukkha";
+				}
+				
+				else if (TOPIC.equals("Induction")){
+					TOPIC="Chorus";
+				}
+				else if (TOPIC.equals("Zendo")){
+					TOPIC="Induction";
+				}
+				
+			}
+			
 			else{
 				if (TOPIC.equals("Decoys")){
 					TOPIC="Basic";

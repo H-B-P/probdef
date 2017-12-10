@@ -50,13 +50,13 @@ public class ArcadeScreen_Bayes_Deduction_Subtle extends ArcadeScreen_Bayes {
 		ship_one_front='c';
 		ship_one_back='a';
 		
-		ship_two_engines='d';
+		ship_two_engines='b';
 		ship_two_front='c';
-		ship_two_back='b';
+		ship_two_back='a';
 		
-		ship_three_engines='b';
+		ship_three_engines='c';
 		ship_three_front='c';
-		ship_three_back='c';
+		ship_three_back='a';
 		
 	}
 	

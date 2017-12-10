@@ -98,10 +98,6 @@ public class BookScreen_Prob_Shortcut extends BookScreen_Prob {
 			}
 		}
 	}
-	@Override
-	void level_specific_HUD(){
-		   
-	   }
 	
 	
 	@Override
