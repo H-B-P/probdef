@@ -21,7 +21,6 @@ public class ArcadeScreen_Bayesian extends GameScreen_Bayes {
 		number_of_turret_types=3;
 		
 		CAMPAIGN=camp;
-		
 		if (CAMPAIGN){
 	    	exit_on_shieldfail=true;
 	    }
@@ -86,8 +85,7 @@ public class ArcadeScreen_Bayesian extends GameScreen_Bayes {
 	
 	@Override
 	void calculate_score(){
-		score=shields+20;
-		score=Math.max(score, 0);
+		score=shields+dead_ships;
 	}
 	
 	@Override

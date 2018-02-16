@@ -13,21 +13,18 @@ public class SelectScreen_Library extends SelectScreen {
 			
 			title_t=new Texture(Gdx.files.internal("TITLE_LIBRARY.png"));
 			
-			first_topic="Probability";
-			last_topic="Probability";
 			if (hardcoded_opt_packagename.equals("Inference")){
+				first_topic="Probability";
 				last_topic="Bayes";
 			}
 			if (hardcoded_opt_packagename.equals("Combination")){
+				first_topic="Probability";
 				last_topic="Pascal";
 			}
-			
-			
-			if (prefs.contains("probdef_library_topic")){
-				prefs.putString("probdef_library_topic", "Probability");
+			if (hardcoded_opt_packagename.equals("Bayesian")){
+				first_topic="Bayes";
+				last_topic="Bayes";
 			}
-			
-			TOPIC=prefs.getString("probdef_library_topic");
 			
 			System.out.println("topic is somehow "+TOPIC);
 			
@@ -35,6 +32,33 @@ public class SelectScreen_Library extends SelectScreen {
 			check_first_last();
 			set_up_level_button_positions(NUMBER_OF_LEVELS);
 	   }
+	   
+	   @Override
+	   
+	   void screen_specific_initial_adjustment(){
+		   if (hardcoded_opt_packagename.equals("Combination")){
+			   if (!prefs.contains("probdef_library_combination_top")){
+				   prefs.putString("probdef_library_combination_top", "Probability");
+					prefs.flush();
+			   }
+			   TOPIC=prefs.getString("probdef_library_combination_top");
+		   }
+		   else if (hardcoded_opt_packagename.equals("Bayesian")){
+			   if (!prefs.contains("probdef_library_bayesian_top")){
+				   prefs.putString("probdef_library_bayesian_top", "Bayes");
+					prefs.flush();
+			   }
+			   TOPIC=prefs.getString("probdef_library_bayesian_top");
+		   }
+		   else{
+			   if (!prefs.contains("probdef_library_top")){
+					prefs.putString("probdef_library_top", "Probability");
+					prefs.flush();
+				}
+			   TOPIC=prefs.getString("probdef_library_top");
+		   }
+			
+		}
 	   
 	   
 	   @Override

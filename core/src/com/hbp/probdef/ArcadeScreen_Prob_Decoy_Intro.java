@@ -117,7 +117,7 @@ public class ArcadeScreen_Prob_Decoy_Intro extends ArcadeScreen_Prob {
 				}
 				else{
 					purpletext=true;
-					the_text="(btw: from here on out all decoys are generated randomly, so memorising which mines are fake won't work)";
+					the_text="(btw: from here out all decoys are generated randomly, so memorising which mines are fake won't work)";
 				}
 			}		   
 	}

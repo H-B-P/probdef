@@ -18,6 +18,8 @@ public class ArcadeScreen_Bayes extends GameScreen_Bayes {
 		
 		shields=10;
 		
+		total_shipwaves=10;
+		
 		number_of_turret_types=3;
 		
 		CAMPAIGN=camp;
@@ -106,7 +108,7 @@ public class ArcadeScreen_Bayes extends GameScreen_Bayes {
 			batch.draw(shipshield_t, shield_r.x, shield_r.y-6);
 		}
 		   
-	   }
+	}
 	
 	@Override
 	

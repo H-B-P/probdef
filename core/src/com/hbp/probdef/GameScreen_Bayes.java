@@ -41,6 +41,8 @@ public class GameScreen_Bayes extends GameScreen {
 	int total_shipwaves;
 	int round;
 	
+	int dead_ships;
+	
 	int number_of_turret_types;
 	
 	String turret_type_one;
@@ -105,6 +107,8 @@ public class GameScreen_Bayes extends GameScreen {
 	
 	public GameScreen_Bayes(final ProbDef gam) {
 		
+		
+		
 		super(gam);
 		game=gam;
 		
@@ -117,9 +121,11 @@ public class GameScreen_Bayes extends GameScreen {
 		
 		attention_button_trim_t=green_button_trim_t;
 		
-		shields=30;
+		shields=10;
 		
-		total_shipwaves=10;
+		shipwave=0;
+		
+		total_shipwaves=9;
 		
 		minecount=40;
 		
@@ -378,10 +384,6 @@ void level_specific_waves(){
 		if (shipwave==9){
 			ship_two_spawn_random(-1, true);
 			ship_three_spawn_random(1, true);
-		}
-		if (shipwave==10){
-			ship_three_spawn_random(-1, true);
-			ship_one_spawn_random(1, true);
 		}
 	}
 	
@@ -970,6 +972,7 @@ void level_specific_waves(){
 					laser.play(option_sfx_volume*0.4f);
 					if (vane.current_energy.equals(vane.target_ship.turret.ident)){
 					   spawnBigExplosion(vane.target_ship.turret.rect.x, vane.target_ship.turret.rect.y);
+					   dead_ships+=1;
 					   minesplode.play(option_sfx_volume);
 					   enemyships.removeValue(vane.target_ship, true);
 					   turrets.removeValue(vane.target_ship.turret, true);

@@ -719,6 +719,13 @@ public class SelectScreen_Arcade extends SelectScreen {
 				   dispose();
 			   }
 		   }
+		   
+		   if (Gdx.input.justTouched()&& TOPIC.equals("DeductionII")){
+			   if (one_r.contains(tp_x,tp_y)){
+				   game.setScreen(new ArcadeScreen_Bayesian_Deduction_Trio(game, false));
+				   dispose();
+			   }
+		   }
 	   }
 	   
 		@Override
